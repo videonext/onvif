@@ -1,23 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 
 	"github.com/kr/pretty"
+	"github.com/videonext/onvif/discovery"
 	"github.com/videonext/onvif/profiles/device"
 	"github.com/videonext/onvif/soap"
 )
 
 func main() {
 
-	client := soap.NewClient(
-		//"http://10.168.0.109/onvif/services",
-		soap.WithTimeout(time.Second*5),
-		soap.WithBasicAuth("root", "rootpass"),
-		//		soap.WithTLS(&tls.Config{InsecureSkipVerify: true}),
-	)
+	// discovery devices
+	devices, err := discovery.StartDiscovery(5 * time.Second)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Printf("Discovered %d devices\n", len(devices))
+	pretty.Println(devices)
 
+	client := soap.NewClient(
+		soap.WithTimeout(time.Second * 5),
+	)
 	client.AddHeader(soap.NewWSSSecurityHeader("root", "rootpass"))
 
 	service := device.NewDevice(client, "http://10.168.0.89:8000/onvif/device_service")

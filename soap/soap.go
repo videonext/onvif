@@ -333,7 +333,6 @@ func (s *Client) call(ctx context.Context, xaddr string, soapAction string, requ
 	}
 
 	req, err := http.NewRequest("POST", xaddr, buffer)
-	fmt.Printf("POST: %s\n", xaddr)
 	if err != nil {
 		return err
 	}
@@ -345,7 +344,7 @@ func (s *Client) call(ctx context.Context, xaddr string, soapAction string, requ
 
 	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
 	req.Header.Add("SOAPAction", soapAction)
-	req.Header.Set("User-Agent", "gowsdl/0.1")
+	req.Header.Set("User-Agent", "videonext-onvif/0.1")
 	if s.opts.httpHeaders != nil {
 		for k, v := range s.opts.httpHeaders {
 			req.Header.Set(k, v)

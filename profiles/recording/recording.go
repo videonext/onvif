@@ -7221,17 +7221,19 @@ type RecordingPort interface {
 
 type recordingPort struct {
 	client *soap.Client
+	xaddr  string
 }
 
-func NewRecordingPort(client *soap.Client) RecordingPort {
+func NewRecordingPort(client *soap.Client, xaddr string) RecordingPort {
 	return &recordingPort{
 		client: client,
+		xaddr:  xaddr,
 	}
 }
 
 func (service *recordingPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7248,7 +7250,7 @@ func (service *recordingPort) GetServiceCapabilities(request *GetServiceCapabili
 
 func (service *recordingPort) CreateRecordingContext(ctx context.Context, request *CreateRecording) (*CreateRecordingResponse, error) {
 	response := new(CreateRecordingResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7265,7 +7267,7 @@ func (service *recordingPort) CreateRecording(request *CreateRecording) (*Create
 
 func (service *recordingPort) DeleteRecordingContext(ctx context.Context, request *DeleteRecording) (*DeleteRecordingResponse, error) {
 	response := new(DeleteRecordingResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7282,7 +7284,7 @@ func (service *recordingPort) DeleteRecording(request *DeleteRecording) (*Delete
 
 func (service *recordingPort) GetRecordingsContext(ctx context.Context, request *GetRecordings) (*GetRecordingsResponse, error) {
 	response := new(GetRecordingsResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7299,7 +7301,7 @@ func (service *recordingPort) GetRecordings(request *GetRecordings) (*GetRecordi
 
 func (service *recordingPort) SetRecordingConfigurationContext(ctx context.Context, request *SetRecordingConfiguration) (*SetRecordingConfigurationResponse, error) {
 	response := new(SetRecordingConfigurationResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7316,7 +7318,7 @@ func (service *recordingPort) SetRecordingConfiguration(request *SetRecordingCon
 
 func (service *recordingPort) GetRecordingConfigurationContext(ctx context.Context, request *GetRecordingConfiguration) (*GetRecordingConfigurationResponse, error) {
 	response := new(GetRecordingConfigurationResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7333,7 +7335,7 @@ func (service *recordingPort) GetRecordingConfiguration(request *GetRecordingCon
 
 func (service *recordingPort) GetRecordingOptionsContext(ctx context.Context, request *GetRecordingOptions) (*GetRecordingOptionsResponse, error) {
 	response := new(GetRecordingOptionsResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7350,7 +7352,7 @@ func (service *recordingPort) GetRecordingOptions(request *GetRecordingOptions) 
 
 func (service *recordingPort) CreateTrackContext(ctx context.Context, request *CreateTrack) (*CreateTrackResponse, error) {
 	response := new(CreateTrackResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7367,7 +7369,7 @@ func (service *recordingPort) CreateTrack(request *CreateTrack) (*CreateTrackRes
 
 func (service *recordingPort) DeleteTrackContext(ctx context.Context, request *DeleteTrack) (*DeleteTrackResponse, error) {
 	response := new(DeleteTrackResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7384,7 +7386,7 @@ func (service *recordingPort) DeleteTrack(request *DeleteTrack) (*DeleteTrackRes
 
 func (service *recordingPort) GetTrackConfigurationContext(ctx context.Context, request *GetTrackConfiguration) (*GetTrackConfigurationResponse, error) {
 	response := new(GetTrackConfigurationResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7401,7 +7403,7 @@ func (service *recordingPort) GetTrackConfiguration(request *GetTrackConfigurati
 
 func (service *recordingPort) SetTrackConfigurationContext(ctx context.Context, request *SetTrackConfiguration) (*SetTrackConfigurationResponse, error) {
 	response := new(SetTrackConfigurationResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7418,7 +7420,7 @@ func (service *recordingPort) SetTrackConfiguration(request *SetTrackConfigurati
 
 func (service *recordingPort) CreateRecordingJobContext(ctx context.Context, request *CreateRecordingJob) (*CreateRecordingJobResponse, error) {
 	response := new(CreateRecordingJobResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7435,7 +7437,7 @@ func (service *recordingPort) CreateRecordingJob(request *CreateRecordingJob) (*
 
 func (service *recordingPort) DeleteRecordingJobContext(ctx context.Context, request *DeleteRecordingJob) (*DeleteRecordingJobResponse, error) {
 	response := new(DeleteRecordingJobResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7452,7 +7454,7 @@ func (service *recordingPort) DeleteRecordingJob(request *DeleteRecordingJob) (*
 
 func (service *recordingPort) GetRecordingJobsContext(ctx context.Context, request *GetRecordingJobs) (*GetRecordingJobsResponse, error) {
 	response := new(GetRecordingJobsResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7469,7 +7471,7 @@ func (service *recordingPort) GetRecordingJobs(request *GetRecordingJobs) (*GetR
 
 func (service *recordingPort) SetRecordingJobConfigurationContext(ctx context.Context, request *SetRecordingJobConfiguration) (*SetRecordingJobConfigurationResponse, error) {
 	response := new(SetRecordingJobConfigurationResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7486,7 +7488,7 @@ func (service *recordingPort) SetRecordingJobConfiguration(request *SetRecording
 
 func (service *recordingPort) GetRecordingJobConfigurationContext(ctx context.Context, request *GetRecordingJobConfiguration) (*GetRecordingJobConfigurationResponse, error) {
 	response := new(GetRecordingJobConfigurationResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7503,7 +7505,7 @@ func (service *recordingPort) GetRecordingJobConfiguration(request *GetRecording
 
 func (service *recordingPort) SetRecordingJobModeContext(ctx context.Context, request *SetRecordingJobMode) (*SetRecordingJobModeResponse, error) {
 	response := new(SetRecordingJobModeResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7520,7 +7522,7 @@ func (service *recordingPort) SetRecordingJobMode(request *SetRecordingJobMode) 
 
 func (service *recordingPort) GetRecordingJobStateContext(ctx context.Context, request *GetRecordingJobState) (*GetRecordingJobStateResponse, error) {
 	response := new(GetRecordingJobStateResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7537,7 +7539,7 @@ func (service *recordingPort) GetRecordingJobState(request *GetRecordingJobState
 
 func (service *recordingPort) ExportRecordedDataContext(ctx context.Context, request *ExportRecordedData) (*ExportRecordedDataResponse, error) {
 	response := new(ExportRecordedDataResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7554,7 +7556,7 @@ func (service *recordingPort) ExportRecordedData(request *ExportRecordedData) (*
 
 func (service *recordingPort) StopExportRecordedDataContext(ctx context.Context, request *StopExportRecordedData) (*StopExportRecordedDataResponse, error) {
 	response := new(StopExportRecordedDataResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7571,7 +7573,7 @@ func (service *recordingPort) StopExportRecordedData(request *StopExportRecorded
 
 func (service *recordingPort) GetExportRecordedDataStateContext(ctx context.Context, request *GetExportRecordedDataState) (*GetExportRecordedDataStateResponse, error) {
 	response := new(GetExportRecordedDataStateResponse)
-	err := service.client.CallContext(ctx, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
 	if err != nil {
 		return nil, err
 	}

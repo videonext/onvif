@@ -4,16 +4,14 @@ import (
 	"log"
 	"time"
 
-	"wsdlgo_test/devicemgmt"
-
-	"github.com/hooklift/gowsdl/soap"
 	"github.com/kr/pretty"
+	"github.com/videonext/onvif/profiles/device"
+	"github.com/videonext/onvif/soap"
 )
 
 func main() {
 
 	client := soap.NewClient(
-		"http://10.168.0.89:8000/onvif/device_service",
 		//"http://10.168.0.109/onvif/services",
 		soap.WithTimeout(time.Second*5),
 		soap.WithBasicAuth("root", "rootpass"),
@@ -22,9 +20,9 @@ func main() {
 
 	client.AddHeader(soap.NewWSSSecurityHeader("root", "rootpass"))
 
-	service := devicemgmt.NewDevice(client)
+	service := device.NewDevice(client, "http://10.168.0.89:8000/onvif/device_service")
 	{
-		reply, err := service.GetDeviceInformation(&devicemgmt.GetDeviceInformation{})
+		reply, err := service.GetDeviceInformation(&device.GetDeviceInformation{})
 		if err != nil {
 			if serr, ok := err.(*soap.SOAPFault); ok {
 
@@ -37,7 +35,7 @@ func main() {
 		pretty.Println(reply)
 	}
 	{
-		reply, err := service.GetCapabilities(&devicemgmt.GetCapabilities{})
+		reply, err := service.GetCapabilities(&device.GetCapabilities{})
 		if err != nil {
 			if serr, ok := err.(*soap.SOAPFault); ok {
 
@@ -50,7 +48,7 @@ func main() {
 		pretty.Println(reply)
 	}
 	{
-		reply, err := service.GetServices(&devicemgmt.GetServices{})
+		reply, err := service.GetServices(&device.GetServices{})
 		if err != nil {
 			if serr, ok := err.(*soap.SOAPFault); ok {
 

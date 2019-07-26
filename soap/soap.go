@@ -209,7 +209,6 @@ type options struct {
 	tlshshaketimeout time.Duration
 	client           HTTPClient
 	httpHeaders      map[string]string
-	mtom             bool
 }
 
 var defaultOptions = options{
@@ -275,17 +274,8 @@ func WithHTTPHeaders(headers map[string]string) Option {
 	}
 }
 
-// WithMTOM is an Option to set Message Transmission Optimization Mechanism
-// MTOM encodes fields of type Binary using XOP.
-func WithMTOM() Option {
-	return func(o *options) {
-		o.mtom = true
-	}
-}
-
 // Client is soap client
 type Client struct {
-	url     string
 	opts    *options
 	headers []interface{}
 }
@@ -297,13 +287,12 @@ type HTTPClient interface {
 }
 
 // NewClient creates new SOAP client instance
-func NewClient(url string, opt ...Option) *Client {
+func NewClient(opt ...Option) *Client {
 	opts := defaultOptions
 	for _, o := range opt {
 		o(&opts)
 	}
 	return &Client{
-		url:  url,
 		opts: &opts,
 	}
 }
@@ -314,16 +303,16 @@ func (s *Client) AddHeader(header interface{}) {
 }
 
 // CallContext performs HTTP POST request with a context
-func (s *Client) CallContext(ctx context.Context, soapAction string, request, response interface{}) error {
-	return s.call(ctx, soapAction, request, response)
+func (s *Client) CallContext(ctx context.Context, xaddr string, soapAction string, request, response interface{}) error {
+	return s.call(ctx, xaddr, soapAction, request, response)
 }
 
 // Call performs HTTP POST request
-func (s *Client) Call(soapAction string, request, response interface{}) error {
-	return s.call(context.Background(), soapAction, request, response)
+func (s *Client) Call(xaddr string, soapAction string, request, response interface{}) error {
+	return s.call(context.Background(), xaddr, soapAction, request, response)
 }
 
-func (s *Client) call(ctx context.Context, soapAction string, request, response interface{}) error {
+func (s *Client) call(ctx context.Context, xaddr string, soapAction string, request, response interface{}) error {
 	envelope := SOAPEnvelope{}
 
 	if s.headers != nil && len(s.headers) > 0 {
@@ -333,11 +322,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 	envelope.Body.Content = request
 	buffer := new(bytes.Buffer)
 	var encoder SOAPEncoder
-	if s.opts.mtom {
-		encoder = newMtomEncoder(buffer)
-	} else {
-		encoder = xml.NewEncoder(buffer)
-	}
+	encoder = xml.NewEncoder(buffer)
 
 	if err := encoder.Encode(envelope); err != nil {
 		return err
@@ -347,8 +332,8 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 		return err
 	}
 
-	req, err := http.NewRequest("POST", s.url, buffer)
-	fmt.Printf("POST: %s\n", s.url)
+	req, err := http.NewRequest("POST", xaddr, buffer)
+	fmt.Printf("POST: %s\n", xaddr)
 	if err != nil {
 		return err
 	}
@@ -358,11 +343,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 
 	req.WithContext(ctx)
 
-	if s.opts.mtom {
-		req.Header.Add("Content-Type", fmt.Sprintf(mtomContentType, encoder.(*mtomEncoder).Boundary()))
-	} else {
-		req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
-	}
+	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
 	req.Header.Add("SOAPAction", soapAction)
 	req.Header.Set("User-Agent", "gowsdl/0.1")
 	if s.opts.httpHeaders != nil {
@@ -394,17 +375,8 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 	respEnvelope := new(SOAPEnvelope)
 	respEnvelope.Body = SOAPBody{Content: response}
 
-	mtomBoundary, err := getMtomHeader(res.Header.Get("Content-Type"))
-	if err != nil {
-		return err
-	}
-
 	var dec SOAPDecoder
-	if mtomBoundary != "" {
-		dec = newMtomDecoder(res.Body, mtomBoundary)
-	} else {
-		dec = xml.NewDecoder(res.Body)
-	}
+	dec = xml.NewDecoder(res.Body)
 
 	if err := dec.Decode(respEnvelope); err != nil {
 		return err

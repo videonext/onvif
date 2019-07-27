@@ -41,8 +41,8 @@ CERTAIN WRITTEN POLICIES OF THE CORPORATION.
 				   xmlns:tab="http://www.onvif.org/ver10/authenticationbehavior/wsdl"
 				   elementFormDefault="qualified"
 				   version="18.12">
-			<xs:import namespace="http://www.onvif.org/ver10/pacs" schemaLocation="https://www.onvif.org/ver10/pacs/types.xsd"/>
-			<xs:import namespace="http://www.onvif.org/ver10/schema" schemaLocation="https://www.onvif.org/ver10/schema/onvif.xsd"/>
+			<xs:import namespace="http://www.onvif.org/ver10/pacs" schemaLocation="http://www.onvif.org/ver10/pacs/types.xsd"/>
+			<xs:import namespace="http://www.onvif.org/ver10/schema" schemaLocation="http://www.onvif.org/ver10/schema/onvif.xsd"/>
 			<!--ServiceCapabilities definitions-->
 			<xs:complexType name="ServiceCapabilities">
 				<xs:annotation>

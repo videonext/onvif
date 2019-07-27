@@ -27,8 +27,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type CreateRecording struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/recording/wsdl CreateRecording"`
 
@@ -438,7 +436,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -451,14 +449,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -540,7 +530,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -548,7 +538,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -667,9 +657,6 @@ type BaseFaultType struct {
 	Originator *EndpointReferenceType `xml:"Originator,omitempty"`
 
 	ErrorCode struct {
-
-		//		interface{}
-
 		Dialect *AnyURI `xml:"dialect,attr,omitempty"`
 	} `xml:"ErrorCode,omitempty"`
 
@@ -951,12 +938,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -1118,8 +1099,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1149,8 +1128,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2190,36 +2167,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2236,8 +2183,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3717,29 +3662,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -7233,7 +7155,7 @@ func NewRecordingPort(client *soap.Client, xaddr string) RecordingPort {
 
 func (service *recordingPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7250,7 +7172,7 @@ func (service *recordingPort) GetServiceCapabilities(request *GetServiceCapabili
 
 func (service *recordingPort) CreateRecordingContext(ctx context.Context, request *CreateRecording) (*CreateRecordingResponse, error) {
 	response := new(CreateRecordingResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/CreateRecording", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7267,7 +7189,7 @@ func (service *recordingPort) CreateRecording(request *CreateRecording) (*Create
 
 func (service *recordingPort) DeleteRecordingContext(ctx context.Context, request *DeleteRecording) (*DeleteRecordingResponse, error) {
 	response := new(DeleteRecordingResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/DeleteRecording", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7284,7 +7206,7 @@ func (service *recordingPort) DeleteRecording(request *DeleteRecording) (*Delete
 
 func (service *recordingPort) GetRecordingsContext(ctx context.Context, request *GetRecordings) (*GetRecordingsResponse, error) {
 	response := new(GetRecordingsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetRecordings", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7301,7 +7223,7 @@ func (service *recordingPort) GetRecordings(request *GetRecordings) (*GetRecordi
 
 func (service *recordingPort) SetRecordingConfigurationContext(ctx context.Context, request *SetRecordingConfiguration) (*SetRecordingConfigurationResponse, error) {
 	response := new(SetRecordingConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/SetRecordingConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7318,7 +7240,7 @@ func (service *recordingPort) SetRecordingConfiguration(request *SetRecordingCon
 
 func (service *recordingPort) GetRecordingConfigurationContext(ctx context.Context, request *GetRecordingConfiguration) (*GetRecordingConfigurationResponse, error) {
 	response := new(GetRecordingConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetRecordingConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7335,7 +7257,7 @@ func (service *recordingPort) GetRecordingConfiguration(request *GetRecordingCon
 
 func (service *recordingPort) GetRecordingOptionsContext(ctx context.Context, request *GetRecordingOptions) (*GetRecordingOptionsResponse, error) {
 	response := new(GetRecordingOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetRecordingOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7352,7 +7274,7 @@ func (service *recordingPort) GetRecordingOptions(request *GetRecordingOptions) 
 
 func (service *recordingPort) CreateTrackContext(ctx context.Context, request *CreateTrack) (*CreateTrackResponse, error) {
 	response := new(CreateTrackResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/CreateTrack", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7369,7 +7291,7 @@ func (service *recordingPort) CreateTrack(request *CreateTrack) (*CreateTrackRes
 
 func (service *recordingPort) DeleteTrackContext(ctx context.Context, request *DeleteTrack) (*DeleteTrackResponse, error) {
 	response := new(DeleteTrackResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/DeleteTrack", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7386,7 +7308,7 @@ func (service *recordingPort) DeleteTrack(request *DeleteTrack) (*DeleteTrackRes
 
 func (service *recordingPort) GetTrackConfigurationContext(ctx context.Context, request *GetTrackConfiguration) (*GetTrackConfigurationResponse, error) {
 	response := new(GetTrackConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetTrackConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7403,7 +7325,7 @@ func (service *recordingPort) GetTrackConfiguration(request *GetTrackConfigurati
 
 func (service *recordingPort) SetTrackConfigurationContext(ctx context.Context, request *SetTrackConfiguration) (*SetTrackConfigurationResponse, error) {
 	response := new(SetTrackConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/SetTrackConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7420,7 +7342,7 @@ func (service *recordingPort) SetTrackConfiguration(request *SetTrackConfigurati
 
 func (service *recordingPort) CreateRecordingJobContext(ctx context.Context, request *CreateRecordingJob) (*CreateRecordingJobResponse, error) {
 	response := new(CreateRecordingJobResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/CreateRecordingJob", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7437,7 +7359,7 @@ func (service *recordingPort) CreateRecordingJob(request *CreateRecordingJob) (*
 
 func (service *recordingPort) DeleteRecordingJobContext(ctx context.Context, request *DeleteRecordingJob) (*DeleteRecordingJobResponse, error) {
 	response := new(DeleteRecordingJobResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/DeleteRecordingJob", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7454,7 +7376,7 @@ func (service *recordingPort) DeleteRecordingJob(request *DeleteRecordingJob) (*
 
 func (service *recordingPort) GetRecordingJobsContext(ctx context.Context, request *GetRecordingJobs) (*GetRecordingJobsResponse, error) {
 	response := new(GetRecordingJobsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetRecordingJobs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7471,7 +7393,7 @@ func (service *recordingPort) GetRecordingJobs(request *GetRecordingJobs) (*GetR
 
 func (service *recordingPort) SetRecordingJobConfigurationContext(ctx context.Context, request *SetRecordingJobConfiguration) (*SetRecordingJobConfigurationResponse, error) {
 	response := new(SetRecordingJobConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/SetRecordingJobConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7488,7 +7410,7 @@ func (service *recordingPort) SetRecordingJobConfiguration(request *SetRecording
 
 func (service *recordingPort) GetRecordingJobConfigurationContext(ctx context.Context, request *GetRecordingJobConfiguration) (*GetRecordingJobConfigurationResponse, error) {
 	response := new(GetRecordingJobConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetRecordingJobConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7505,7 +7427,7 @@ func (service *recordingPort) GetRecordingJobConfiguration(request *GetRecording
 
 func (service *recordingPort) SetRecordingJobModeContext(ctx context.Context, request *SetRecordingJobMode) (*SetRecordingJobModeResponse, error) {
 	response := new(SetRecordingJobModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/SetRecordingJobMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7522,7 +7444,7 @@ func (service *recordingPort) SetRecordingJobMode(request *SetRecordingJobMode) 
 
 func (service *recordingPort) GetRecordingJobStateContext(ctx context.Context, request *GetRecordingJobState) (*GetRecordingJobStateResponse, error) {
 	response := new(GetRecordingJobStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetRecordingJobState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7539,7 +7461,7 @@ func (service *recordingPort) GetRecordingJobState(request *GetRecordingJobState
 
 func (service *recordingPort) ExportRecordedDataContext(ctx context.Context, request *ExportRecordedData) (*ExportRecordedDataResponse, error) {
 	response := new(ExportRecordedDataResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/ExportRecordedData", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7556,7 +7478,7 @@ func (service *recordingPort) ExportRecordedData(request *ExportRecordedData) (*
 
 func (service *recordingPort) StopExportRecordedDataContext(ctx context.Context, request *StopExportRecordedData) (*StopExportRecordedDataResponse, error) {
 	response := new(StopExportRecordedDataResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/StopExportRecordedData", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7573,7 +7495,7 @@ func (service *recordingPort) StopExportRecordedData(request *StopExportRecorded
 
 func (service *recordingPort) GetExportRecordedDataStateContext(ctx context.Context, request *GetExportRecordedDataState) (*GetExportRecordedDataStateResponse, error) {
 	response := new(GetExportRecordedDataStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/recording/wsdl/GetExportRecordedDataState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7587,3 +7509,10 @@ func (service *recordingPort) GetExportRecordedDataState(request *GetExportRecor
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

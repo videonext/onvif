@@ -79,8 +79,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type GetImagingSettings struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver20/imaging/wsdl GetImagingSettings"`
 
@@ -293,7 +291,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -306,14 +304,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -395,7 +385,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -403,7 +393,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -522,9 +512,6 @@ type BaseFaultType struct {
 	Originator *EndpointReferenceType `xml:"Originator,omitempty"`
 
 	ErrorCode struct {
-
-		//		interface{}
-
 		Dialect *AnyURI `xml:"dialect,attr,omitempty"`
 	} `xml:"ErrorCode,omitempty"`
 
@@ -806,12 +793,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -973,8 +954,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1004,8 +983,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2045,36 +2022,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2091,8 +2038,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3572,29 +3517,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -7017,7 +6939,7 @@ func NewImagingPort(client *soap.Client, xaddr string) ImagingPort {
 
 func (service *imagingPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7034,7 +6956,7 @@ func (service *imagingPort) GetServiceCapabilities(request *GetServiceCapabiliti
 
 func (service *imagingPort) GetImagingSettingsContext(ctx context.Context, request *GetImagingSettings) (*GetImagingSettingsResponse, error) {
 	response := new(GetImagingSettingsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetImagingSettings", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7051,7 +6973,7 @@ func (service *imagingPort) GetImagingSettings(request *GetImagingSettings) (*Ge
 
 func (service *imagingPort) SetImagingSettingsContext(ctx context.Context, request *SetImagingSettings) (*SetImagingSettingsResponse, error) {
 	response := new(SetImagingSettingsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/SetImagingSettings", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7068,7 +6990,7 @@ func (service *imagingPort) SetImagingSettings(request *SetImagingSettings) (*Se
 
 func (service *imagingPort) GetOptionsContext(ctx context.Context, request *GetOptions) (*GetOptionsResponse, error) {
 	response := new(GetOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7085,7 +7007,7 @@ func (service *imagingPort) GetOptions(request *GetOptions) (*GetOptionsResponse
 
 func (service *imagingPort) MoveContext(ctx context.Context, request *Move) (*MoveResponse, error) {
 	response := new(MoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/Move", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7102,7 +7024,7 @@ func (service *imagingPort) Move(request *Move) (*MoveResponse, error) {
 
 func (service *imagingPort) GetMoveOptionsContext(ctx context.Context, request *GetMoveOptions) (*GetMoveOptionsResponse, error) {
 	response := new(GetMoveOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetMoveOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7119,7 +7041,7 @@ func (service *imagingPort) GetMoveOptions(request *GetMoveOptions) (*GetMoveOpt
 
 func (service *imagingPort) StopContext(ctx context.Context, request *Stop) (*StopResponse, error) {
 	response := new(StopResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/Stop", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7136,7 +7058,7 @@ func (service *imagingPort) Stop(request *Stop) (*StopResponse, error) {
 
 func (service *imagingPort) GetStatusContext(ctx context.Context, request *GetStatus) (*GetStatusResponse, error) {
 	response := new(GetStatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetStatus", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7153,7 +7075,7 @@ func (service *imagingPort) GetStatus(request *GetStatus) (*GetStatusResponse, e
 
 func (service *imagingPort) GetPresetsContext(ctx context.Context, request *GetPresets) (*GetPresetsResponse, error) {
 	response := new(GetPresetsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetPresets", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7170,7 +7092,7 @@ func (service *imagingPort) GetPresets(request *GetPresets) (*GetPresetsResponse
 
 func (service *imagingPort) GetCurrentPresetContext(ctx context.Context, request *GetCurrentPreset) (*GetCurrentPresetResponse, error) {
 	response := new(GetCurrentPresetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/GetCurrentPreset", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7187,7 +7109,7 @@ func (service *imagingPort) GetCurrentPreset(request *GetCurrentPreset) (*GetCur
 
 func (service *imagingPort) SetCurrentPresetContext(ctx context.Context, request *SetCurrentPreset) (*SetCurrentPresetResponse, error) {
 	response := new(SetCurrentPresetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/imaging/wsdl/SetCurrentPreset", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7201,3 +7123,10 @@ func (service *imagingPort) SetCurrentPreset(request *SetCurrentPreset) (*SetCur
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

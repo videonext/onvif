@@ -342,8 +342,7 @@ func (s *Client) call(ctx context.Context, xaddr string, soapAction string, requ
 
 	req.WithContext(ctx)
 
-	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
-	req.Header.Add("SOAPAction", soapAction)
+	req.Header.Add("Content-Type", "application/soap+xml; charset=utf-8; action=\""+soapAction+"\"")
 	req.Header.Set("User-Agent", "videonext-onvif/0.1")
 	if s.opts.httpHeaders != nil {
 		for k, v := range s.opts.httpHeaders {

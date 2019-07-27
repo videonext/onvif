@@ -5,9 +5,8 @@ package credential
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -829,7 +828,7 @@ func NewCredentialPort(client *soap.Client, xaddr string) CredentialPort {
 
 func (service *credentialPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -846,7 +845,7 @@ func (service *credentialPort) GetServiceCapabilities(request *GetServiceCapabil
 
 func (service *credentialPort) GetSupportedFormatTypesContext(ctx context.Context, request *GetSupportedFormatTypes) (*GetSupportedFormatTypesResponse, error) {
 	response := new(GetSupportedFormatTypesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetSupportedFormatTypes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -863,7 +862,7 @@ func (service *credentialPort) GetSupportedFormatTypes(request *GetSupportedForm
 
 func (service *credentialPort) GetCredentialInfoContext(ctx context.Context, request *GetCredentialInfo) (*GetCredentialInfoResponse, error) {
 	response := new(GetCredentialInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentialInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -880,7 +879,7 @@ func (service *credentialPort) GetCredentialInfo(request *GetCredentialInfo) (*G
 
 func (service *credentialPort) GetCredentialInfoListContext(ctx context.Context, request *GetCredentialInfoList) (*GetCredentialInfoListResponse, error) {
 	response := new(GetCredentialInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentialInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -897,7 +896,7 @@ func (service *credentialPort) GetCredentialInfoList(request *GetCredentialInfoL
 
 func (service *credentialPort) GetCredentialsContext(ctx context.Context, request *GetCredentials) (*GetCredentialsResponse, error) {
 	response := new(GetCredentialsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentials", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -914,7 +913,7 @@ func (service *credentialPort) GetCredentials(request *GetCredentials) (*GetCred
 
 func (service *credentialPort) GetCredentialListContext(ctx context.Context, request *GetCredentialList) (*GetCredentialListResponse, error) {
 	response := new(GetCredentialListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentialList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -931,7 +930,7 @@ func (service *credentialPort) GetCredentialList(request *GetCredentialList) (*G
 
 func (service *credentialPort) CreateCredentialContext(ctx context.Context, request *CreateCredential) (*CreateCredentialResponse, error) {
 	response := new(CreateCredentialResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/CreateCredential", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -948,7 +947,7 @@ func (service *credentialPort) CreateCredential(request *CreateCredential) (*Cre
 
 func (service *credentialPort) SetCredentialContext(ctx context.Context, request *SetCredential) (*SetCredentialResponse, error) {
 	response := new(SetCredentialResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/SetCredential", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -965,7 +964,7 @@ func (service *credentialPort) SetCredential(request *SetCredential) (*SetCreden
 
 func (service *credentialPort) ModifyCredentialContext(ctx context.Context, request *ModifyCredential) (*ModifyCredentialResponse, error) {
 	response := new(ModifyCredentialResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/ModifyCredential", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -982,7 +981,7 @@ func (service *credentialPort) ModifyCredential(request *ModifyCredential) (*Mod
 
 func (service *credentialPort) DeleteCredentialContext(ctx context.Context, request *DeleteCredential) (*DeleteCredentialResponse, error) {
 	response := new(DeleteCredentialResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/DeleteCredential", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -999,7 +998,7 @@ func (service *credentialPort) DeleteCredential(request *DeleteCredential) (*Del
 
 func (service *credentialPort) GetCredentialStateContext(ctx context.Context, request *GetCredentialState) (*GetCredentialStateResponse, error) {
 	response := new(GetCredentialStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentialState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1016,7 +1015,7 @@ func (service *credentialPort) GetCredentialState(request *GetCredentialState) (
 
 func (service *credentialPort) EnableCredentialContext(ctx context.Context, request *EnableCredential) (*EnableCredentialResponse, error) {
 	response := new(EnableCredentialResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/EnableCredential", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1033,7 +1032,7 @@ func (service *credentialPort) EnableCredential(request *EnableCredential) (*Ena
 
 func (service *credentialPort) DisableCredentialContext(ctx context.Context, request *DisableCredential) (*DisableCredentialResponse, error) {
 	response := new(DisableCredentialResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/DisableCredential", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1050,7 +1049,7 @@ func (service *credentialPort) DisableCredential(request *DisableCredential) (*D
 
 func (service *credentialPort) ResetAntipassbackViolationContext(ctx context.Context, request *ResetAntipassbackViolation) (*ResetAntipassbackViolationResponse, error) {
 	response := new(ResetAntipassbackViolationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/ResetAntipassbackViolation", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1067,7 +1066,7 @@ func (service *credentialPort) ResetAntipassbackViolation(request *ResetAntipass
 
 func (service *credentialPort) GetCredentialIdentifiersContext(ctx context.Context, request *GetCredentialIdentifiers) (*GetCredentialIdentifiersResponse, error) {
 	response := new(GetCredentialIdentifiersResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentialIdentifiers", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1084,7 +1083,7 @@ func (service *credentialPort) GetCredentialIdentifiers(request *GetCredentialId
 
 func (service *credentialPort) SetCredentialIdentifierContext(ctx context.Context, request *SetCredentialIdentifier) (*SetCredentialIdentifierResponse, error) {
 	response := new(SetCredentialIdentifierResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/SetCredentialIdentifier", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1101,7 +1100,7 @@ func (service *credentialPort) SetCredentialIdentifier(request *SetCredentialIde
 
 func (service *credentialPort) DeleteCredentialIdentifierContext(ctx context.Context, request *DeleteCredentialIdentifier) (*DeleteCredentialIdentifierResponse, error) {
 	response := new(DeleteCredentialIdentifierResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/DeleteCredentialIdentifier", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1118,7 +1117,7 @@ func (service *credentialPort) DeleteCredentialIdentifier(request *DeleteCredent
 
 func (service *credentialPort) GetCredentialAccessProfilesContext(ctx context.Context, request *GetCredentialAccessProfiles) (*GetCredentialAccessProfilesResponse, error) {
 	response := new(GetCredentialAccessProfilesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/GetCredentialAccessProfiles", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1135,7 +1134,7 @@ func (service *credentialPort) GetCredentialAccessProfiles(request *GetCredentia
 
 func (service *credentialPort) SetCredentialAccessProfilesContext(ctx context.Context, request *SetCredentialAccessProfiles) (*SetCredentialAccessProfilesResponse, error) {
 	response := new(SetCredentialAccessProfilesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/SetCredentialAccessProfiles", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1152,7 +1151,7 @@ func (service *credentialPort) SetCredentialAccessProfiles(request *SetCredentia
 
 func (service *credentialPort) DeleteCredentialAccessProfilesContext(ctx context.Context, request *DeleteCredentialAccessProfiles) (*DeleteCredentialAccessProfilesResponse, error) {
 	response := new(DeleteCredentialAccessProfilesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/credential/wsdl/DeleteCredentialAccessProfiles", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1166,3 +1165,10 @@ func (service *credentialPort) DeleteCredentialAccessProfiles(request *DeleteCre
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

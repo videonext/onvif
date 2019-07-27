@@ -25,8 +25,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type GetReplayUri struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/replay/wsdl GetReplayUri"`
 
@@ -101,7 +99,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -114,14 +112,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -203,7 +193,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -211,7 +201,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -611,12 +601,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -778,8 +762,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -809,8 +791,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -1850,36 +1830,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -1896,8 +1846,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3377,29 +3325,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -6779,7 +6704,7 @@ func NewReplayPort(client *soap.Client, xaddr string) ReplayPort {
 
 func (service *replayPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/replay/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6796,7 +6721,7 @@ func (service *replayPort) GetServiceCapabilities(request *GetServiceCapabilitie
 
 func (service *replayPort) GetReplayUriContext(ctx context.Context, request *GetReplayUri) (*GetReplayUriResponse, error) {
 	response := new(GetReplayUriResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/replay/wsdl/GetReplayUri", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6813,7 +6738,7 @@ func (service *replayPort) GetReplayUri(request *GetReplayUri) (*GetReplayUriRes
 
 func (service *replayPort) GetReplayConfigurationContext(ctx context.Context, request *GetReplayConfiguration) (*GetReplayConfigurationResponse, error) {
 	response := new(GetReplayConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/replay/wsdl/GetReplayConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6830,7 +6755,7 @@ func (service *replayPort) GetReplayConfiguration(request *GetReplayConfiguratio
 
 func (service *replayPort) SetReplayConfigurationContext(ctx context.Context, request *SetReplayConfiguration) (*SetReplayConfigurationResponse, error) {
 	response := new(SetReplayConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/replay/wsdl/SetReplayConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6844,3 +6769,10 @@ func (service *replayPort) SetReplayConfiguration(request *SetReplayConfiguratio
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

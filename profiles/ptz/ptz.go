@@ -25,8 +25,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type GetNodes struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver20/ptz/wsdl GetNodes"`
 }
@@ -505,7 +503,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -518,14 +516,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -607,7 +597,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -615,7 +605,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -1015,12 +1005,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -1182,8 +1166,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1213,8 +1195,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2254,36 +2234,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2300,8 +2250,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3781,29 +3729,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -7395,7 +7320,7 @@ func NewPTZ(client *soap.Client, xaddr string) PTZ {
 
 func (service *pTZ) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7412,7 +7337,7 @@ func (service *pTZ) GetServiceCapabilities(request *GetServiceCapabilities) (*Ge
 
 func (service *pTZ) GetNodesContext(ctx context.Context, request *GetNodes) (*GetNodesResponse, error) {
 	response := new(GetNodesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetNodes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7429,7 +7354,7 @@ func (service *pTZ) GetNodes(request *GetNodes) (*GetNodesResponse, error) {
 
 func (service *pTZ) GetNodeContext(ctx context.Context, request *GetNode) (*GetNodeResponse, error) {
 	response := new(GetNodeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetNode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7446,7 +7371,7 @@ func (service *pTZ) GetNode(request *GetNode) (*GetNodeResponse, error) {
 
 func (service *pTZ) GetConfigurationContext(ctx context.Context, request *GetConfiguration) (*GetConfigurationResponse, error) {
 	response := new(GetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7463,7 +7388,7 @@ func (service *pTZ) GetConfiguration(request *GetConfiguration) (*GetConfigurati
 
 func (service *pTZ) GetConfigurationsContext(ctx context.Context, request *GetConfigurations) (*GetConfigurationsResponse, error) {
 	response := new(GetConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7480,7 +7405,7 @@ func (service *pTZ) GetConfigurations(request *GetConfigurations) (*GetConfigura
 
 func (service *pTZ) SetConfigurationContext(ctx context.Context, request *SetConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/SetConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7497,7 +7422,7 @@ func (service *pTZ) SetConfiguration(request *SetConfiguration) (*SetConfigurati
 
 func (service *pTZ) GetConfigurationOptionsContext(ctx context.Context, request *GetConfigurationOptions) (*GetConfigurationOptionsResponse, error) {
 	response := new(GetConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7514,7 +7439,7 @@ func (service *pTZ) GetConfigurationOptions(request *GetConfigurationOptions) (*
 
 func (service *pTZ) SendAuxiliaryCommandContext(ctx context.Context, request *SendAuxiliaryCommand) (*SendAuxiliaryCommandResponse, error) {
 	response := new(SendAuxiliaryCommandResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/SendAuxiliaryCommand", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7531,7 +7456,7 @@ func (service *pTZ) SendAuxiliaryCommand(request *SendAuxiliaryCommand) (*SendAu
 
 func (service *pTZ) GetPresetsContext(ctx context.Context, request *GetPresets) (*GetPresetsResponse, error) {
 	response := new(GetPresetsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetPresets", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7548,7 +7473,7 @@ func (service *pTZ) GetPresets(request *GetPresets) (*GetPresetsResponse, error)
 
 func (service *pTZ) SetPresetContext(ctx context.Context, request *SetPreset) (*SetPresetResponse, error) {
 	response := new(SetPresetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/SetPreset", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7565,7 +7490,7 @@ func (service *pTZ) SetPreset(request *SetPreset) (*SetPresetResponse, error) {
 
 func (service *pTZ) RemovePresetContext(ctx context.Context, request *RemovePreset) (*RemovePresetResponse, error) {
 	response := new(RemovePresetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/RemovePreset", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7582,7 +7507,7 @@ func (service *pTZ) RemovePreset(request *RemovePreset) (*RemovePresetResponse, 
 
 func (service *pTZ) GotoPresetContext(ctx context.Context, request *GotoPreset) (*GotoPresetResponse, error) {
 	response := new(GotoPresetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GotoPreset", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7599,7 +7524,7 @@ func (service *pTZ) GotoPreset(request *GotoPreset) (*GotoPresetResponse, error)
 
 func (service *pTZ) GotoHomePositionContext(ctx context.Context, request *GotoHomePosition) (*GotoHomePositionResponse, error) {
 	response := new(GotoHomePositionResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GotoHomePosition", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7616,7 +7541,7 @@ func (service *pTZ) GotoHomePosition(request *GotoHomePosition) (*GotoHomePositi
 
 func (service *pTZ) SetHomePositionContext(ctx context.Context, request *SetHomePosition) (*SetHomePositionResponse, error) {
 	response := new(SetHomePositionResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/SetHomePosition", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7633,7 +7558,7 @@ func (service *pTZ) SetHomePosition(request *SetHomePosition) (*SetHomePositionR
 
 func (service *pTZ) ContinuousMoveContext(ctx context.Context, request *ContinuousMove) (*ContinuousMoveResponse, error) {
 	response := new(ContinuousMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/ContinuousMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7650,7 +7575,7 @@ func (service *pTZ) ContinuousMove(request *ContinuousMove) (*ContinuousMoveResp
 
 func (service *pTZ) RelativeMoveContext(ctx context.Context, request *RelativeMove) (*RelativeMoveResponse, error) {
 	response := new(RelativeMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/RelativeMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7667,7 +7592,7 @@ func (service *pTZ) RelativeMove(request *RelativeMove) (*RelativeMoveResponse, 
 
 func (service *pTZ) GetStatusContext(ctx context.Context, request *GetStatus) (*GetStatusResponse, error) {
 	response := new(GetStatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetStatus", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7684,7 +7609,7 @@ func (service *pTZ) GetStatus(request *GetStatus) (*GetStatusResponse, error) {
 
 func (service *pTZ) AbsoluteMoveContext(ctx context.Context, request *AbsoluteMove) (*AbsoluteMoveResponse, error) {
 	response := new(AbsoluteMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/AbsoluteMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7701,7 +7626,7 @@ func (service *pTZ) AbsoluteMove(request *AbsoluteMove) (*AbsoluteMoveResponse, 
 
 func (service *pTZ) GeoMoveContext(ctx context.Context, request *GeoMove) (*GeoMoveResponse, error) {
 	response := new(GeoMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GeoMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7718,7 +7643,7 @@ func (service *pTZ) GeoMove(request *GeoMove) (*GeoMoveResponse, error) {
 
 func (service *pTZ) StopContext(ctx context.Context, request *Stop) (*StopResponse, error) {
 	response := new(StopResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/Stop", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7735,7 +7660,7 @@ func (service *pTZ) Stop(request *Stop) (*StopResponse, error) {
 
 func (service *pTZ) GetPresetToursContext(ctx context.Context, request *GetPresetTours) (*GetPresetToursResponse, error) {
 	response := new(GetPresetToursResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetPresetTours", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7752,7 +7677,7 @@ func (service *pTZ) GetPresetTours(request *GetPresetTours) (*GetPresetToursResp
 
 func (service *pTZ) GetPresetTourContext(ctx context.Context, request *GetPresetTour) (*GetPresetTourResponse, error) {
 	response := new(GetPresetTourResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetPresetTour", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7769,7 +7694,7 @@ func (service *pTZ) GetPresetTour(request *GetPresetTour) (*GetPresetTourRespons
 
 func (service *pTZ) GetPresetTourOptionsContext(ctx context.Context, request *GetPresetTourOptions) (*GetPresetTourOptionsResponse, error) {
 	response := new(GetPresetTourOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetPresetTourOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7786,7 +7711,7 @@ func (service *pTZ) GetPresetTourOptions(request *GetPresetTourOptions) (*GetPre
 
 func (service *pTZ) CreatePresetTourContext(ctx context.Context, request *CreatePresetTour) (*CreatePresetTourResponse, error) {
 	response := new(CreatePresetTourResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/CreatePresetTour", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7803,7 +7728,7 @@ func (service *pTZ) CreatePresetTour(request *CreatePresetTour) (*CreatePresetTo
 
 func (service *pTZ) ModifyPresetTourContext(ctx context.Context, request *ModifyPresetTour) (*ModifyPresetTourResponse, error) {
 	response := new(ModifyPresetTourResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/ModifyPresetTour", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7820,7 +7745,7 @@ func (service *pTZ) ModifyPresetTour(request *ModifyPresetTour) (*ModifyPresetTo
 
 func (service *pTZ) OperatePresetTourContext(ctx context.Context, request *OperatePresetTour) (*OperatePresetTourResponse, error) {
 	response := new(OperatePresetTourResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/OperatePresetTour", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7837,7 +7762,7 @@ func (service *pTZ) OperatePresetTour(request *OperatePresetTour) (*OperatePrese
 
 func (service *pTZ) RemovePresetTourContext(ctx context.Context, request *RemovePresetTour) (*RemovePresetTourResponse, error) {
 	response := new(RemovePresetTourResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/RemovePresetTour", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7854,7 +7779,7 @@ func (service *pTZ) RemovePresetTour(request *RemovePresetTour) (*RemovePresetTo
 
 func (service *pTZ) GetCompatibleConfigurationsContext(ctx context.Context, request *GetCompatibleConfigurations) (*GetCompatibleConfigurationsResponse, error) {
 	response := new(GetCompatibleConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/ptz/wsdl/GetCompatibleConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7868,3 +7793,10 @@ func (service *pTZ) GetCompatibleConfigurations(request *GetCompatibleConfigurat
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

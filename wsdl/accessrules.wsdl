@@ -37,7 +37,7 @@ CERTAIN WRITTEN POLICIES OF THE CORPORATION.
 		<xs:schema targetNamespace="http://www.onvif.org/ver10/accessrules/wsdl"
 				   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:pt="http://www.onvif.org/ver10/pacs"
 				   xmlns:tar="http://www.onvif.org/ver10/accessrules/wsdl" elementFormDefault="qualified" version="18.12">
-			<xs:import namespace="http://www.onvif.org/ver10/pacs" schemaLocation="https://www.onvif.org/ver10/pacs/types.xsd"/>
+			<xs:import namespace="http://www.onvif.org/ver10/pacs" schemaLocation="http://www.onvif.org/ver10/pacs/types.xsd"/>
 			<!--ServiceCapabilities definitions-->
 			<xs:complexType name="ServiceCapabilities">
 				<xs:annotation>

@@ -92,8 +92,6 @@ type PasswordBasedEncryptionAlgorithms []string
 
 type PasswordBasedMACAlgorithms []string
 
-type Capabilities Capabilities
-
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetServiceCapabilities"`
 }
@@ -1239,7 +1237,7 @@ func NewAdvancedSecurityService(client *soap.Client, xaddr string) AdvancedSecur
 
 func (service *advancedSecurityService) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1594,17 +1592,19 @@ type Keystore interface {
 
 type keystore struct {
 	client *soap.Client
+	xaddr  string
 }
 
-func NewKeystore(client *soap.Client) Keystore {
+func NewKeystore(client *soap.Client, xaddr string) Keystore {
 	return &keystore{
 		client: client,
+		xaddr:  xaddr,
 	}
 }
 
 func (service *keystore) CreateRSAKeyPairContext(ctx context.Context, request *CreateRSAKeyPair) (*CreateRSAKeyPairResponse, error) {
 	response := new(CreateRSAKeyPairResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/CreateRSAKeyPair", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1621,7 +1621,7 @@ func (service *keystore) CreateRSAKeyPair(request *CreateRSAKeyPair) (*CreateRSA
 
 func (service *keystore) UploadKeyPairInPKCS8Context(ctx context.Context, request *UploadKeyPairInPKCS8) (*UploadKeyPairInPKCS8Response, error) {
 	response := new(UploadKeyPairInPKCS8Response)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/UploadKeyPairInPKCS8", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1638,7 +1638,7 @@ func (service *keystore) UploadKeyPairInPKCS8(request *UploadKeyPairInPKCS8) (*U
 
 func (service *keystore) UploadCertificateWithPrivateKeyInPKCS12Context(ctx context.Context, request *UploadCertificateWithPrivateKeyInPKCS12) (*UploadCertificateWithPrivateKeyInPKCS12Response, error) {
 	response := new(UploadCertificateWithPrivateKeyInPKCS12Response)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/UploadCertificateWithPrivateKeyInPKCS12", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1655,7 +1655,7 @@ func (service *keystore) UploadCertificateWithPrivateKeyInPKCS12(request *Upload
 
 func (service *keystore) GetKeyStatusContext(ctx context.Context, request *GetKeyStatus) (*GetKeyStatusResponse, error) {
 	response := new(GetKeyStatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetKeyStatus", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1672,7 +1672,7 @@ func (service *keystore) GetKeyStatus(request *GetKeyStatus) (*GetKeyStatusRespo
 
 func (service *keystore) GetPrivateKeyStatusContext(ctx context.Context, request *GetPrivateKeyStatus) (*GetPrivateKeyStatusResponse, error) {
 	response := new(GetPrivateKeyStatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetPrivateKeyStatus", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1689,7 +1689,7 @@ func (service *keystore) GetPrivateKeyStatus(request *GetPrivateKeyStatus) (*Get
 
 func (service *keystore) GetAllKeysContext(ctx context.Context, request *GetAllKeys) (*GetAllKeysResponse, error) {
 	response := new(GetAllKeysResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllKeys", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1706,7 +1706,7 @@ func (service *keystore) GetAllKeys(request *GetAllKeys) (*GetAllKeysResponse, e
 
 func (service *keystore) DeleteKeyContext(ctx context.Context, request *DeleteKey) (*DeleteKeyResponse, error) {
 	response := new(DeleteKeyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteKey", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1723,7 +1723,7 @@ func (service *keystore) DeleteKey(request *DeleteKey) (*DeleteKeyResponse, erro
 
 func (service *keystore) CreatePKCS10CSRContext(ctx context.Context, request *CreatePKCS10CSR) (*CreatePKCS10CSRResponse, error) {
 	response := new(CreatePKCS10CSRResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/CreatePKCS10CSR", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1740,7 +1740,7 @@ func (service *keystore) CreatePKCS10CSR(request *CreatePKCS10CSR) (*CreatePKCS1
 
 func (service *keystore) CreateSelfSignedCertificateContext(ctx context.Context, request *CreateSelfSignedCertificate) (*CreateSelfSignedCertificateResponse, error) {
 	response := new(CreateSelfSignedCertificateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/CreateSelfSignedCertificate", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1757,7 +1757,7 @@ func (service *keystore) CreateSelfSignedCertificate(request *CreateSelfSignedCe
 
 func (service *keystore) UploadCertificateContext(ctx context.Context, request *UploadCertificate) (*UploadCertificateResponse, error) {
 	response := new(UploadCertificateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/UploadCertificate", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1774,7 +1774,7 @@ func (service *keystore) UploadCertificate(request *UploadCertificate) (*UploadC
 
 func (service *keystore) GetCertificateContext(ctx context.Context, request *GetCertificate) (*GetCertificateResponse, error) {
 	response := new(GetCertificateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetCertificate", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1791,7 +1791,7 @@ func (service *keystore) GetCertificate(request *GetCertificate) (*GetCertificat
 
 func (service *keystore) GetAllCertificatesContext(ctx context.Context, request *GetAllCertificates) (*GetAllCertificatesResponse, error) {
 	response := new(GetAllCertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllCertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1808,7 +1808,7 @@ func (service *keystore) GetAllCertificates(request *GetAllCertificates) (*GetAl
 
 func (service *keystore) DeleteCertificateContext(ctx context.Context, request *DeleteCertificate) (*DeleteCertificateResponse, error) {
 	response := new(DeleteCertificateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteCertificate", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1825,7 +1825,7 @@ func (service *keystore) DeleteCertificate(request *DeleteCertificate) (*DeleteC
 
 func (service *keystore) CreateCertificationPathContext(ctx context.Context, request *CreateCertificationPath) (*CreateCertificationPathResponse, error) {
 	response := new(CreateCertificationPathResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/CreateCertificationPath", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1842,7 +1842,7 @@ func (service *keystore) CreateCertificationPath(request *CreateCertificationPat
 
 func (service *keystore) GetCertificationPathContext(ctx context.Context, request *GetCertificationPath) (*GetCertificationPathResponse, error) {
 	response := new(GetCertificationPathResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetCertificationPath", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1859,7 +1859,7 @@ func (service *keystore) GetCertificationPath(request *GetCertificationPath) (*G
 
 func (service *keystore) GetAllCertificationPathsContext(ctx context.Context, request *GetAllCertificationPaths) (*GetAllCertificationPathsResponse, error) {
 	response := new(GetAllCertificationPathsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllCertificationPaths", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1876,7 +1876,7 @@ func (service *keystore) GetAllCertificationPaths(request *GetAllCertificationPa
 
 func (service *keystore) DeleteCertificationPathContext(ctx context.Context, request *DeleteCertificationPath) (*DeleteCertificationPathResponse, error) {
 	response := new(DeleteCertificationPathResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteCertificationPath", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1893,7 +1893,7 @@ func (service *keystore) DeleteCertificationPath(request *DeleteCertificationPat
 
 func (service *keystore) UploadPassphraseContext(ctx context.Context, request *UploadPassphrase) (*UploadPassphraseResponse, error) {
 	response := new(UploadPassphraseResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/UploadPassphrase", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1910,7 +1910,7 @@ func (service *keystore) UploadPassphrase(request *UploadPassphrase) (*UploadPas
 
 func (service *keystore) GetAllPassphrasesContext(ctx context.Context, request *GetAllPassphrases) (*GetAllPassphrasesResponse, error) {
 	response := new(GetAllPassphrasesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllPassphrases", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1927,7 +1927,7 @@ func (service *keystore) GetAllPassphrases(request *GetAllPassphrases) (*GetAllP
 
 func (service *keystore) DeletePassphraseContext(ctx context.Context, request *DeletePassphrase) (*DeletePassphraseResponse, error) {
 	response := new(DeletePassphraseResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeletePassphrase", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1944,7 +1944,7 @@ func (service *keystore) DeletePassphrase(request *DeletePassphrase) (*DeletePas
 
 func (service *keystore) UploadCRLContext(ctx context.Context, request *UploadCRL) (*UploadCRLResponse, error) {
 	response := new(UploadCRLResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/UploadCRL", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1961,7 +1961,7 @@ func (service *keystore) UploadCRL(request *UploadCRL) (*UploadCRLResponse, erro
 
 func (service *keystore) GetCRLContext(ctx context.Context, request *GetCRL) (*GetCRLResponse, error) {
 	response := new(GetCRLResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetCRL", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1978,7 +1978,7 @@ func (service *keystore) GetCRL(request *GetCRL) (*GetCRLResponse, error) {
 
 func (service *keystore) GetAllCRLsContext(ctx context.Context, request *GetAllCRLs) (*GetAllCRLsResponse, error) {
 	response := new(GetAllCRLsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllCRLs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1995,7 +1995,7 @@ func (service *keystore) GetAllCRLs(request *GetAllCRLs) (*GetAllCRLsResponse, e
 
 func (service *keystore) DeleteCRLContext(ctx context.Context, request *DeleteCRL) (*DeleteCRLResponse, error) {
 	response := new(DeleteCRLResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteCRL", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2012,7 +2012,7 @@ func (service *keystore) DeleteCRL(request *DeleteCRL) (*DeleteCRLResponse, erro
 
 func (service *keystore) CreateCertPathValidationPolicyContext(ctx context.Context, request *CreateCertPathValidationPolicy) (*CreateCertPathValidationPolicyResponse, error) {
 	response := new(CreateCertPathValidationPolicyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/CreateCertPathValidationPolicy", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2029,7 +2029,7 @@ func (service *keystore) CreateCertPathValidationPolicy(request *CreateCertPathV
 
 func (service *keystore) GetCertPathValidationPolicyContext(ctx context.Context, request *GetCertPathValidationPolicy) (*GetCertPathValidationPolicyResponse, error) {
 	response := new(GetCertPathValidationPolicyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetCertPathValidationPolicy", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2046,7 +2046,7 @@ func (service *keystore) GetCertPathValidationPolicy(request *GetCertPathValidat
 
 func (service *keystore) GetAllCertPathValidationPoliciesContext(ctx context.Context, request *GetAllCertPathValidationPolicies) (*GetAllCertPathValidationPoliciesResponse, error) {
 	response := new(GetAllCertPathValidationPoliciesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllCertPathValidationPolicies", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2063,7 +2063,7 @@ func (service *keystore) GetAllCertPathValidationPolicies(request *GetAllCertPat
 
 func (service *keystore) DeleteCertPathValidationPolicyContext(ctx context.Context, request *DeleteCertPathValidationPolicy) (*DeleteCertPathValidationPolicyResponse, error) {
 	response := new(DeleteCertPathValidationPolicyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteCertPathValidationPolicy", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2211,17 +2211,19 @@ type TLSServer interface {
 
 type tLSServer struct {
 	client *soap.Client
+	xaddr  string
 }
 
-func NewTLSServer(client *soap.Client) TLSServer {
+func NewTLSServer(client *soap.Client, xaddr string) TLSServer {
 	return &tLSServer{
 		client: client,
+		xaddr:  xaddr,
 	}
 }
 
 func (service *tLSServer) AddServerCertificateAssignmentContext(ctx context.Context, request *AddServerCertificateAssignment) (*AddServerCertificateAssignmentResponse, error) {
 	response := new(AddServerCertificateAssignmentResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/AddServerCertificateAssignment", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2238,7 +2240,7 @@ func (service *tLSServer) AddServerCertificateAssignment(request *AddServerCerti
 
 func (service *tLSServer) RemoveServerCertificateAssignmentContext(ctx context.Context, request *RemoveServerCertificateAssignment) (*RemoveServerCertificateAssignmentResponse, error) {
 	response := new(RemoveServerCertificateAssignmentResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/RemoveServerCertificateAssignment", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2255,7 +2257,7 @@ func (service *tLSServer) RemoveServerCertificateAssignment(request *RemoveServe
 
 func (service *tLSServer) ReplaceServerCertificateAssignmentContext(ctx context.Context, request *ReplaceServerCertificateAssignment) (*ReplaceServerCertificateAssignmentResponse, error) {
 	response := new(ReplaceServerCertificateAssignmentResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/ReplaceServerCertificateAssignment", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2272,7 +2274,7 @@ func (service *tLSServer) ReplaceServerCertificateAssignment(request *ReplaceSer
 
 func (service *tLSServer) SetEnabledTLSVersionsContext(ctx context.Context, request *SetEnabledTLSVersions) (*SetEnabledTLSVersionsResponse, error) {
 	response := new(SetEnabledTLSVersionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/SetEnabledTLSVersions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2289,7 +2291,7 @@ func (service *tLSServer) SetEnabledTLSVersions(request *SetEnabledTLSVersions) 
 
 func (service *tLSServer) GetEnabledTLSVersionsContext(ctx context.Context, request *GetEnabledTLSVersions) (*GetEnabledTLSVersionsResponse, error) {
 	response := new(GetEnabledTLSVersionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetEnabledTLSVersions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2306,7 +2308,7 @@ func (service *tLSServer) GetEnabledTLSVersions(request *GetEnabledTLSVersions) 
 
 func (service *tLSServer) GetAssignedServerCertificatesContext(ctx context.Context, request *GetAssignedServerCertificates) (*GetAssignedServerCertificatesResponse, error) {
 	response := new(GetAssignedServerCertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAssignedServerCertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2323,7 +2325,7 @@ func (service *tLSServer) GetAssignedServerCertificates(request *GetAssignedServ
 
 func (service *tLSServer) SetClientAuthenticationRequiredContext(ctx context.Context, request *SetClientAuthenticationRequired) (*SetClientAuthenticationRequiredResponse, error) {
 	response := new(SetClientAuthenticationRequiredResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/SetClientAuthenticationRequired", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2340,7 +2342,7 @@ func (service *tLSServer) SetClientAuthenticationRequired(request *SetClientAuth
 
 func (service *tLSServer) GetClientAuthenticationRequiredContext(ctx context.Context, request *GetClientAuthenticationRequired) (*GetClientAuthenticationRequiredResponse, error) {
 	response := new(GetClientAuthenticationRequiredResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetClientAuthenticationRequired", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2357,7 +2359,7 @@ func (service *tLSServer) GetClientAuthenticationRequired(request *GetClientAuth
 
 func (service *tLSServer) AddCertPathValidationPolicyAssignmentContext(ctx context.Context, request *AddCertPathValidationPolicyAssignment) (*AddCertPathValidationPolicyAssignmentResponse, error) {
 	response := new(AddCertPathValidationPolicyAssignmentResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/AddCertPathValidationPolicyAssignment", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2374,7 +2376,7 @@ func (service *tLSServer) AddCertPathValidationPolicyAssignment(request *AddCert
 
 func (service *tLSServer) RemoveCertPathValidationPolicyAssignmentContext(ctx context.Context, request *RemoveCertPathValidationPolicyAssignment) (*RemoveCertPathValidationPolicyAssignmentResponse, error) {
 	response := new(RemoveCertPathValidationPolicyAssignmentResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/RemoveCertPathValidationPolicyAssignment", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2391,7 +2393,7 @@ func (service *tLSServer) RemoveCertPathValidationPolicyAssignment(request *Remo
 
 func (service *tLSServer) ReplaceCertPathValidationPolicyAssignmentContext(ctx context.Context, request *ReplaceCertPathValidationPolicyAssignment) (*ReplaceCertPathValidationPolicyAssignmentResponse, error) {
 	response := new(ReplaceCertPathValidationPolicyAssignmentResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/ReplaceCertPathValidationPolicyAssignment", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2408,7 +2410,7 @@ func (service *tLSServer) ReplaceCertPathValidationPolicyAssignment(request *Rep
 
 func (service *tLSServer) GetAssignedCertPathValidationPoliciesContext(ctx context.Context, request *GetAssignedCertPathValidationPolicies) (*GetAssignedCertPathValidationPoliciesResponse, error) {
 	response := new(GetAssignedCertPathValidationPoliciesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAssignedCertPathValidationPolicies", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2477,17 +2479,19 @@ type Dot1X interface {
 
 type dot1X struct {
 	client *soap.Client
+	xaddr  string
 }
 
-func NewDot1X(client *soap.Client) Dot1X {
+func NewDot1X(client *soap.Client, xaddr string) Dot1X {
 	return &dot1X{
 		client: client,
+		xaddr:  xaddr,
 	}
 }
 
 func (service *dot1X) AddDot1XConfigurationContext(ctx context.Context, request *AddDot1XConfiguration) (*AddDot1XConfigurationResponse, error) {
 	response := new(AddDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/AddDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2504,7 +2508,7 @@ func (service *dot1X) AddDot1XConfiguration(request *AddDot1XConfiguration) (*Ad
 
 func (service *dot1X) GetAllDot1XConfigurationsContext(ctx context.Context, request *GetAllDot1XConfigurations) (*GetAllDot1XConfigurationsResponse, error) {
 	response := new(GetAllDot1XConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetAllDot1XConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2521,7 +2525,7 @@ func (service *dot1X) GetAllDot1XConfigurations(request *GetAllDot1XConfiguratio
 
 func (service *dot1X) GetDot1XConfigurationContext(ctx context.Context, request *GetDot1XConfiguration) (*GetDot1XConfigurationResponse, error) {
 	response := new(GetDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2538,7 +2542,7 @@ func (service *dot1X) GetDot1XConfiguration(request *GetDot1XConfiguration) (*Ge
 
 func (service *dot1X) DeleteDot1XConfigurationContext(ctx context.Context, request *DeleteDot1XConfiguration) (*DeleteDot1XConfigurationResponse, error) {
 	response := new(DeleteDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2555,7 +2559,7 @@ func (service *dot1X) DeleteDot1XConfiguration(request *DeleteDot1XConfiguration
 
 func (service *dot1X) SetNetworkInterfaceDot1XConfigurationContext(ctx context.Context, request *SetNetworkInterfaceDot1XConfiguration) (*SetNetworkInterfaceDot1XConfigurationResponse, error) {
 	response := new(SetNetworkInterfaceDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/SetNetworkInterfaceDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2572,7 +2576,7 @@ func (service *dot1X) SetNetworkInterfaceDot1XConfiguration(request *SetNetworkI
 
 func (service *dot1X) GetNetworkInterfaceDot1XConfigurationContext(ctx context.Context, request *GetNetworkInterfaceDot1XConfiguration) (*GetNetworkInterfaceDot1XConfigurationResponse, error) {
 	response := new(GetNetworkInterfaceDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/GetNetworkInterfaceDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2589,7 +2593,7 @@ func (service *dot1X) GetNetworkInterfaceDot1XConfiguration(request *GetNetworkI
 
 func (service *dot1X) DeleteNetworkInterfaceDot1XConfigurationContext(ctx context.Context, request *DeleteNetworkInterfaceDot1XConfiguration) (*DeleteNetworkInterfaceDot1XConfigurationResponse, error) {
 	response := new(DeleteNetworkInterfaceDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/advancedsecurity/wsdl/DeleteNetworkInterfaceDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -2603,3 +2607,11 @@ func (service *dot1X) DeleteNetworkInterfaceDot1XConfiguration(request *DeleteNe
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type PositiveInteger int64
+type AnySimpleType string

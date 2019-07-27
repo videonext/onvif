@@ -5,9 +5,8 @@ package accessrules
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -398,7 +397,7 @@ func NewAccessRulesPort(client *soap.Client, xaddr string) AccessRulesPort {
 
 func (service *accessRulesPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -415,7 +414,7 @@ func (service *accessRulesPort) GetServiceCapabilities(request *GetServiceCapabi
 
 func (service *accessRulesPort) GetAccessProfileInfoContext(ctx context.Context, request *GetAccessProfileInfo) (*GetAccessProfileInfoResponse, error) {
 	response := new(GetAccessProfileInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/GetAccessProfileInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +431,7 @@ func (service *accessRulesPort) GetAccessProfileInfo(request *GetAccessProfileIn
 
 func (service *accessRulesPort) GetAccessProfileInfoListContext(ctx context.Context, request *GetAccessProfileInfoList) (*GetAccessProfileInfoListResponse, error) {
 	response := new(GetAccessProfileInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/GetAccessProfileInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -449,7 +448,7 @@ func (service *accessRulesPort) GetAccessProfileInfoList(request *GetAccessProfi
 
 func (service *accessRulesPort) GetAccessProfilesContext(ctx context.Context, request *GetAccessProfiles) (*GetAccessProfilesResponse, error) {
 	response := new(GetAccessProfilesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/GetAccessProfiles", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -466,7 +465,7 @@ func (service *accessRulesPort) GetAccessProfiles(request *GetAccessProfiles) (*
 
 func (service *accessRulesPort) GetAccessProfileListContext(ctx context.Context, request *GetAccessProfileList) (*GetAccessProfileListResponse, error) {
 	response := new(GetAccessProfileListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/GetAccessProfileList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -483,7 +482,7 @@ func (service *accessRulesPort) GetAccessProfileList(request *GetAccessProfileLi
 
 func (service *accessRulesPort) CreateAccessProfileContext(ctx context.Context, request *CreateAccessProfile) (*CreateAccessProfileResponse, error) {
 	response := new(CreateAccessProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/CreateAccessProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +499,7 @@ func (service *accessRulesPort) CreateAccessProfile(request *CreateAccessProfile
 
 func (service *accessRulesPort) ModifyAccessProfileContext(ctx context.Context, request *ModifyAccessProfile) (*ModifyAccessProfileResponse, error) {
 	response := new(ModifyAccessProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/ModifyAccessProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -517,7 +516,7 @@ func (service *accessRulesPort) ModifyAccessProfile(request *ModifyAccessProfile
 
 func (service *accessRulesPort) SetAccessProfileContext(ctx context.Context, request *SetAccessProfile) (*SetAccessProfileResponse, error) {
 	response := new(SetAccessProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/SetAccessProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -534,7 +533,7 @@ func (service *accessRulesPort) SetAccessProfile(request *SetAccessProfile) (*Se
 
 func (service *accessRulesPort) DeleteAccessProfileContext(ctx context.Context, request *DeleteAccessProfile) (*DeleteAccessProfileResponse, error) {
 	response := new(DeleteAccessProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accessrules/wsdl/DeleteAccessProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -548,3 +547,10 @@ func (service *accessRulesPort) DeleteAccessProfile(request *DeleteAccessProfile
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

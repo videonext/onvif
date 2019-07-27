@@ -85,8 +85,6 @@ const (
 	FocusDirectionAuto FocusDirection = "Auto"
 )
 
-type Capabilities Capabilities
-
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/provisioning/wsdl GetServiceCapabilities"`
 }
@@ -164,19 +162,6 @@ type RollMove struct {
 
 type RollMoveResponse struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/provisioning/wsdl RollMoveResponse"`
-}
-
-type FocusMove struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/provisioning/wsdl FocusMove"`
-
-	// The video source associated with the provisioning.
-	VideoSource *ReferenceToken `xml:"VideoSource,omitempty"`
-
-	// "near", "far", or "auto".
-	Direction *FocusDirection `xml:"Direction,omitempty"`
-
-	// "Operation timeout, if less than default timeout.
-	Timeout *Duration `xml:"Timeout,omitempty"`
 }
 
 type FocusMoveResponse struct {
@@ -286,7 +271,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -299,14 +284,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -388,7 +365,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -396,7 +373,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -796,12 +773,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -963,8 +934,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -994,8 +963,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2035,36 +2002,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2081,8 +2018,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3562,29 +3497,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -6973,7 +6885,7 @@ func NewProvisioningService(client *soap.Client, xaddr string) ProvisioningServi
 
 func (service *provisioningService) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6990,7 +6902,7 @@ func (service *provisioningService) GetServiceCapabilities(request *GetServiceCa
 
 func (service *provisioningService) PanMoveContext(ctx context.Context, request *PanMove) (*PanMoveResponse, error) {
 	response := new(PanMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/PanMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7007,7 +6919,7 @@ func (service *provisioningService) PanMove(request *PanMove) (*PanMoveResponse,
 
 func (service *provisioningService) TiltMoveContext(ctx context.Context, request *TiltMove) (*TiltMoveResponse, error) {
 	response := new(TiltMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/TiltMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7024,7 +6936,7 @@ func (service *provisioningService) TiltMove(request *TiltMove) (*TiltMoveRespon
 
 func (service *provisioningService) ZoomMoveContext(ctx context.Context, request *ZoomMove) (*ZoomMoveResponse, error) {
 	response := new(ZoomMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/ZoomMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7041,7 +6953,7 @@ func (service *provisioningService) ZoomMove(request *ZoomMove) (*ZoomMoveRespon
 
 func (service *provisioningService) RollMoveContext(ctx context.Context, request *RollMove) (*RollMoveResponse, error) {
 	response := new(RollMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/RollMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7058,7 +6970,7 @@ func (service *provisioningService) RollMove(request *RollMove) (*RollMoveRespon
 
 func (service *provisioningService) FocusMoveContext(ctx context.Context, request *FocusMove) (*FocusMoveResponse, error) {
 	response := new(FocusMoveResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/FocusMove", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7075,7 +6987,7 @@ func (service *provisioningService) FocusMove(request *FocusMove) (*FocusMoveRes
 
 func (service *provisioningService) StopContext(ctx context.Context, request *Stop) (*StopResponse, error) {
 	response := new(StopResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/Stop", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7092,7 +7004,7 @@ func (service *provisioningService) Stop(request *Stop) (*StopResponse, error) {
 
 func (service *provisioningService) GetUsageContext(ctx context.Context, request *GetUsage) (*GetUsageResponse, error) {
 	response := new(GetUsageResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/provisioning/wsdl/GetUsage", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7106,3 +7018,11 @@ func (service *provisioningService) GetUsage(request *GetUsage) (*GetUsageRespon
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type PositiveInteger int64
+type AnySimpleType string

@@ -25,8 +25,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type GetSupportedRules struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver20/analytics/wsdl GetSupportedRules"`
 
@@ -265,7 +263,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -278,14 +276,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -367,7 +357,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -375,7 +365,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -775,12 +765,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -942,8 +926,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -973,8 +955,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2014,36 +1994,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2060,8 +2010,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3541,29 +3489,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -6964,7 +6889,7 @@ func NewRuleEnginePort(client *soap.Client, xaddr string) RuleEnginePort {
 
 func (service *ruleEnginePort) GetSupportedRulesContext(ctx context.Context, request *GetSupportedRules) (*GetSupportedRulesResponse, error) {
 	response := new(GetSupportedRulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetSupportedRules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6981,7 +6906,7 @@ func (service *ruleEnginePort) GetSupportedRules(request *GetSupportedRules) (*G
 
 func (service *ruleEnginePort) CreateRulesContext(ctx context.Context, request *CreateRules) (*CreateRulesResponse, error) {
 	response := new(CreateRulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/CreateRules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -6998,7 +6923,7 @@ func (service *ruleEnginePort) CreateRules(request *CreateRules) (*CreateRulesRe
 
 func (service *ruleEnginePort) DeleteRulesContext(ctx context.Context, request *DeleteRules) (*DeleteRulesResponse, error) {
 	response := new(DeleteRulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/DeleteRules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7015,7 +6940,7 @@ func (service *ruleEnginePort) DeleteRules(request *DeleteRules) (*DeleteRulesRe
 
 func (service *ruleEnginePort) GetRulesContext(ctx context.Context, request *GetRules) (*GetRulesResponse, error) {
 	response := new(GetRulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetRules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7032,7 +6957,7 @@ func (service *ruleEnginePort) GetRules(request *GetRules) (*GetRulesResponse, e
 
 func (service *ruleEnginePort) GetRuleOptionsContext(ctx context.Context, request *GetRuleOptions) (*GetRuleOptionsResponse, error) {
 	response := new(GetRuleOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetRuleOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7049,7 +6974,7 @@ func (service *ruleEnginePort) GetRuleOptions(request *GetRuleOptions) (*GetRule
 
 func (service *ruleEnginePort) ModifyRulesContext(ctx context.Context, request *ModifyRules) (*ModifyRulesResponse, error) {
 	response := new(ModifyRulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/ModifyRules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7132,17 +7057,19 @@ type AnalyticsEnginePort interface {
 
 type analyticsEnginePort struct {
 	client *soap.Client
+	xaddr  string
 }
 
-func NewAnalyticsEnginePort(client *soap.Client) AnalyticsEnginePort {
+func NewAnalyticsEnginePort(client *soap.Client, xaddr string) AnalyticsEnginePort {
 	return &analyticsEnginePort{
 		client: client,
+		xaddr:  xaddr,
 	}
 }
 
 func (service *analyticsEnginePort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7159,7 +7086,7 @@ func (service *analyticsEnginePort) GetServiceCapabilities(request *GetServiceCa
 
 func (service *analyticsEnginePort) GetSupportedAnalyticsModulesContext(ctx context.Context, request *GetSupportedAnalyticsModules) (*GetSupportedAnalyticsModulesResponse, error) {
 	response := new(GetSupportedAnalyticsModulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetSupportedAnalyticsModules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7176,7 +7103,7 @@ func (service *analyticsEnginePort) GetSupportedAnalyticsModules(request *GetSup
 
 func (service *analyticsEnginePort) GetAnalyticsModuleOptionsContext(ctx context.Context, request *GetAnalyticsModuleOptions) (*GetAnalyticsModuleOptionsResponse, error) {
 	response := new(GetAnalyticsModuleOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetAnalyticsModuleOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7193,7 +7120,7 @@ func (service *analyticsEnginePort) GetAnalyticsModuleOptions(request *GetAnalyt
 
 func (service *analyticsEnginePort) CreateAnalyticsModulesContext(ctx context.Context, request *CreateAnalyticsModules) (*CreateAnalyticsModulesResponse, error) {
 	response := new(CreateAnalyticsModulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/CreateAnalyticsModules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7210,7 +7137,7 @@ func (service *analyticsEnginePort) CreateAnalyticsModules(request *CreateAnalyt
 
 func (service *analyticsEnginePort) DeleteAnalyticsModulesContext(ctx context.Context, request *DeleteAnalyticsModules) (*DeleteAnalyticsModulesResponse, error) {
 	response := new(DeleteAnalyticsModulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/DeleteAnalyticsModules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7227,7 +7154,7 @@ func (service *analyticsEnginePort) DeleteAnalyticsModules(request *DeleteAnalyt
 
 func (service *analyticsEnginePort) GetAnalyticsModulesContext(ctx context.Context, request *GetAnalyticsModules) (*GetAnalyticsModulesResponse, error) {
 	response := new(GetAnalyticsModulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/GetAnalyticsModules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7244,7 +7171,7 @@ func (service *analyticsEnginePort) GetAnalyticsModules(request *GetAnalyticsMod
 
 func (service *analyticsEnginePort) ModifyAnalyticsModulesContext(ctx context.Context, request *ModifyAnalyticsModules) (*ModifyAnalyticsModulesResponse, error) {
 	response := new(ModifyAnalyticsModulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/analytics/wsdl/ModifyAnalyticsModules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7258,3 +7185,10 @@ func (service *analyticsEnginePort) ModifyAnalyticsModules(request *ModifyAnalyt
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

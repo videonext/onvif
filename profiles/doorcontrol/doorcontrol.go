@@ -5,9 +5,8 @@ package doorcontrol
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -1027,7 +1026,7 @@ func NewDoorControlPort(client *soap.Client, xaddr string) DoorControlPort {
 
 func (service *doorControlPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1044,7 +1043,7 @@ func (service *doorControlPort) GetServiceCapabilities(request *GetServiceCapabi
 
 func (service *doorControlPort) GetDoorInfoListContext(ctx context.Context, request *GetDoorInfoList) (*GetDoorInfoListResponse, error) {
 	response := new(GetDoorInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/GetDoorInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1061,7 +1060,7 @@ func (service *doorControlPort) GetDoorInfoList(request *GetDoorInfoList) (*GetD
 
 func (service *doorControlPort) GetDoorInfoContext(ctx context.Context, request *GetDoorInfo) (*GetDoorInfoResponse, error) {
 	response := new(GetDoorInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/GetDoorInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1078,7 +1077,7 @@ func (service *doorControlPort) GetDoorInfo(request *GetDoorInfo) (*GetDoorInfoR
 
 func (service *doorControlPort) GetDoorListContext(ctx context.Context, request *GetDoorList) (*GetDoorListResponse, error) {
 	response := new(GetDoorListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/GetDoorList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1095,7 +1094,7 @@ func (service *doorControlPort) GetDoorList(request *GetDoorList) (*GetDoorListR
 
 func (service *doorControlPort) GetDoorsContext(ctx context.Context, request *GetDoors) (*GetDoorsResponse, error) {
 	response := new(GetDoorsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/GetDoors", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1112,7 +1111,7 @@ func (service *doorControlPort) GetDoors(request *GetDoors) (*GetDoorsResponse, 
 
 func (service *doorControlPort) CreateDoorContext(ctx context.Context, request *CreateDoor) (*CreateDoorResponse, error) {
 	response := new(CreateDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/CreateDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1129,7 +1128,7 @@ func (service *doorControlPort) CreateDoor(request *CreateDoor) (*CreateDoorResp
 
 func (service *doorControlPort) SetDoorContext(ctx context.Context, request *SetDoor) (*SetDoorResponse, error) {
 	response := new(SetDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/SetDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1146,7 +1145,7 @@ func (service *doorControlPort) SetDoor(request *SetDoor) (*SetDoorResponse, err
 
 func (service *doorControlPort) ModifyDoorContext(ctx context.Context, request *ModifyDoor) (*ModifyDoorResponse, error) {
 	response := new(ModifyDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/ModifyDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1163,7 +1162,7 @@ func (service *doorControlPort) ModifyDoor(request *ModifyDoor) (*ModifyDoorResp
 
 func (service *doorControlPort) DeleteDoorContext(ctx context.Context, request *DeleteDoor) (*DeleteDoorResponse, error) {
 	response := new(DeleteDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/DeleteDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1180,7 +1179,7 @@ func (service *doorControlPort) DeleteDoor(request *DeleteDoor) (*DeleteDoorResp
 
 func (service *doorControlPort) GetDoorStateContext(ctx context.Context, request *GetDoorState) (*GetDoorStateResponse, error) {
 	response := new(GetDoorStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/GetDoorState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1197,7 +1196,7 @@ func (service *doorControlPort) GetDoorState(request *GetDoorState) (*GetDoorSta
 
 func (service *doorControlPort) AccessDoorContext(ctx context.Context, request *AccessDoor) (*AccessDoorResponse, error) {
 	response := new(AccessDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/AccessDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1214,7 +1213,7 @@ func (service *doorControlPort) AccessDoor(request *AccessDoor) (*AccessDoorResp
 
 func (service *doorControlPort) LockDoorContext(ctx context.Context, request *LockDoor) (*LockDoorResponse, error) {
 	response := new(LockDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/LockDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1231,7 +1230,7 @@ func (service *doorControlPort) LockDoor(request *LockDoor) (*LockDoorResponse, 
 
 func (service *doorControlPort) UnlockDoorContext(ctx context.Context, request *UnlockDoor) (*UnlockDoorResponse, error) {
 	response := new(UnlockDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/UnlockDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1248,7 +1247,7 @@ func (service *doorControlPort) UnlockDoor(request *UnlockDoor) (*UnlockDoorResp
 
 func (service *doorControlPort) BlockDoorContext(ctx context.Context, request *BlockDoor) (*BlockDoorResponse, error) {
 	response := new(BlockDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/BlockDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1265,7 +1264,7 @@ func (service *doorControlPort) BlockDoor(request *BlockDoor) (*BlockDoorRespons
 
 func (service *doorControlPort) LockDownDoorContext(ctx context.Context, request *LockDownDoor) (*LockDownDoorResponse, error) {
 	response := new(LockDownDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/LockDownDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1282,7 +1281,7 @@ func (service *doorControlPort) LockDownDoor(request *LockDownDoor) (*LockDownDo
 
 func (service *doorControlPort) LockDownReleaseDoorContext(ctx context.Context, request *LockDownReleaseDoor) (*LockDownReleaseDoorResponse, error) {
 	response := new(LockDownReleaseDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/LockDownReleaseDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1299,7 +1298,7 @@ func (service *doorControlPort) LockDownReleaseDoor(request *LockDownReleaseDoor
 
 func (service *doorControlPort) LockOpenDoorContext(ctx context.Context, request *LockOpenDoor) (*LockOpenDoorResponse, error) {
 	response := new(LockOpenDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/LockOpenDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1316,7 +1315,7 @@ func (service *doorControlPort) LockOpenDoor(request *LockOpenDoor) (*LockOpenDo
 
 func (service *doorControlPort) LockOpenReleaseDoorContext(ctx context.Context, request *LockOpenReleaseDoor) (*LockOpenReleaseDoorResponse, error) {
 	response := new(LockOpenReleaseDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/LockOpenReleaseDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1333,7 +1332,7 @@ func (service *doorControlPort) LockOpenReleaseDoor(request *LockOpenReleaseDoor
 
 func (service *doorControlPort) DoubleLockDoorContext(ctx context.Context, request *DoubleLockDoor) (*DoubleLockDoorResponse, error) {
 	response := new(DoubleLockDoorResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/doorcontrol/wsdl/DoubleLockDoor", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1347,3 +1346,10 @@ func (service *doorControlPort) DoubleLockDoor(request *DoubleLockDoor) (*Double
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

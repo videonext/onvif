@@ -25,8 +25,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type GetRecordingSummary struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingSummary"`
 }
@@ -305,7 +303,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -318,14 +316,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -407,7 +397,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -415,7 +405,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -815,12 +805,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -982,8 +966,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1013,8 +995,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2054,36 +2034,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2100,8 +2050,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3581,29 +3529,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -7085,7 +7010,7 @@ func NewSearchPort(client *soap.Client, xaddr string) SearchPort {
 
 func (service *searchPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7102,7 +7027,7 @@ func (service *searchPort) GetServiceCapabilities(request *GetServiceCapabilitie
 
 func (service *searchPort) GetRecordingSummaryContext(ctx context.Context, request *GetRecordingSummary) (*GetRecordingSummaryResponse, error) {
 	response := new(GetRecordingSummaryResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetRecordingSummary", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7119,7 +7044,7 @@ func (service *searchPort) GetRecordingSummary(request *GetRecordingSummary) (*G
 
 func (service *searchPort) GetRecordingInformationContext(ctx context.Context, request *GetRecordingInformation) (*GetRecordingInformationResponse, error) {
 	response := new(GetRecordingInformationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetRecordingInformation", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7136,7 +7061,7 @@ func (service *searchPort) GetRecordingInformation(request *GetRecordingInformat
 
 func (service *searchPort) GetMediaAttributesContext(ctx context.Context, request *GetMediaAttributes) (*GetMediaAttributesResponse, error) {
 	response := new(GetMediaAttributesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetMediaAttributes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7153,7 +7078,7 @@ func (service *searchPort) GetMediaAttributes(request *GetMediaAttributes) (*Get
 
 func (service *searchPort) FindRecordingsContext(ctx context.Context, request *FindRecordings) (*FindRecordingsResponse, error) {
 	response := new(FindRecordingsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/FindRecordings", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7170,7 +7095,7 @@ func (service *searchPort) FindRecordings(request *FindRecordings) (*FindRecordi
 
 func (service *searchPort) GetRecordingSearchResultsContext(ctx context.Context, request *GetRecordingSearchResults) (*GetRecordingSearchResultsResponse, error) {
 	response := new(GetRecordingSearchResultsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetRecordingSearchResults", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7187,7 +7112,7 @@ func (service *searchPort) GetRecordingSearchResults(request *GetRecordingSearch
 
 func (service *searchPort) FindEventsContext(ctx context.Context, request *FindEvents) (*FindEventsResponse, error) {
 	response := new(FindEventsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/FindEvents", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7204,7 +7129,7 @@ func (service *searchPort) FindEvents(request *FindEvents) (*FindEventsResponse,
 
 func (service *searchPort) GetEventSearchResultsContext(ctx context.Context, request *GetEventSearchResults) (*GetEventSearchResultsResponse, error) {
 	response := new(GetEventSearchResultsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetEventSearchResults", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7221,7 +7146,7 @@ func (service *searchPort) GetEventSearchResults(request *GetEventSearchResults)
 
 func (service *searchPort) FindPTZPositionContext(ctx context.Context, request *FindPTZPosition) (*FindPTZPositionResponse, error) {
 	response := new(FindPTZPositionResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/FindPTZPosition", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7238,7 +7163,7 @@ func (service *searchPort) FindPTZPosition(request *FindPTZPosition) (*FindPTZPo
 
 func (service *searchPort) GetPTZPositionSearchResultsContext(ctx context.Context, request *GetPTZPositionSearchResults) (*GetPTZPositionSearchResultsResponse, error) {
 	response := new(GetPTZPositionSearchResultsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetPTZPositionSearchResults", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7255,7 +7180,7 @@ func (service *searchPort) GetPTZPositionSearchResults(request *GetPTZPositionSe
 
 func (service *searchPort) GetSearchStateContext(ctx context.Context, request *GetSearchState) (*GetSearchStateResponse, error) {
 	response := new(GetSearchStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetSearchState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7272,7 +7197,7 @@ func (service *searchPort) GetSearchState(request *GetSearchState) (*GetSearchSt
 
 func (service *searchPort) EndSearchContext(ctx context.Context, request *EndSearch) (*EndSearchResponse, error) {
 	response := new(EndSearchResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/EndSearch", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7289,7 +7214,7 @@ func (service *searchPort) EndSearch(request *EndSearch) (*EndSearchResponse, er
 
 func (service *searchPort) FindMetadataContext(ctx context.Context, request *FindMetadata) (*FindMetadataResponse, error) {
 	response := new(FindMetadataResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/FindMetadata", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7306,7 +7231,7 @@ func (service *searchPort) FindMetadata(request *FindMetadata) (*FindMetadataRes
 
 func (service *searchPort) GetMetadataSearchResultsContext(ctx context.Context, request *GetMetadataSearchResults) (*GetMetadataSearchResultsResponse, error) {
 	response := new(GetMetadataSearchResultsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/search/wsdl/GetMetadataSearchResults", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7320,3 +7245,10 @@ func (service *searchPort) GetMetadataSearchResults(request *GetMetadataSearchRe
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

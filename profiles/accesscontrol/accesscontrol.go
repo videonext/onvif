@@ -5,9 +5,8 @@ package accesscontrol
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -884,7 +883,7 @@ func NewPACSPort(client *soap.Client, xaddr string) PACSPort {
 
 func (service *pACSPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -901,7 +900,7 @@ func (service *pACSPort) GetServiceCapabilities(request *GetServiceCapabilities)
 
 func (service *pACSPort) GetAccessPointInfoContext(ctx context.Context, request *GetAccessPointInfo) (*GetAccessPointInfoResponse, error) {
 	response := new(GetAccessPointInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAccessPointInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -918,7 +917,7 @@ func (service *pACSPort) GetAccessPointInfo(request *GetAccessPointInfo) (*GetAc
 
 func (service *pACSPort) GetAccessPointInfoListContext(ctx context.Context, request *GetAccessPointInfoList) (*GetAccessPointInfoListResponse, error) {
 	response := new(GetAccessPointInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAccessPointInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -935,7 +934,7 @@ func (service *pACSPort) GetAccessPointInfoList(request *GetAccessPointInfoList)
 
 func (service *pACSPort) GetAccessPointsContext(ctx context.Context, request *GetAccessPoints) (*GetAccessPointsResponse, error) {
 	response := new(GetAccessPointsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAccessPoints", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -952,7 +951,7 @@ func (service *pACSPort) GetAccessPoints(request *GetAccessPoints) (*GetAccessPo
 
 func (service *pACSPort) GetAccessPointListContext(ctx context.Context, request *GetAccessPointList) (*GetAccessPointListResponse, error) {
 	response := new(GetAccessPointListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAccessPointList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -969,7 +968,7 @@ func (service *pACSPort) GetAccessPointList(request *GetAccessPointList) (*GetAc
 
 func (service *pACSPort) CreateAccessPointContext(ctx context.Context, request *CreateAccessPoint) (*CreateAccessPointResponse, error) {
 	response := new(CreateAccessPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/CreateAccessPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -986,7 +985,7 @@ func (service *pACSPort) CreateAccessPoint(request *CreateAccessPoint) (*CreateA
 
 func (service *pACSPort) SetAccessPointContext(ctx context.Context, request *SetAccessPoint) (*SetAccessPointResponse, error) {
 	response := new(SetAccessPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/SetAccessPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1003,7 +1002,7 @@ func (service *pACSPort) SetAccessPoint(request *SetAccessPoint) (*SetAccessPoin
 
 func (service *pACSPort) ModifyAccessPointContext(ctx context.Context, request *ModifyAccessPoint) (*ModifyAccessPointResponse, error) {
 	response := new(ModifyAccessPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/ModifyAccessPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1020,7 +1019,7 @@ func (service *pACSPort) ModifyAccessPoint(request *ModifyAccessPoint) (*ModifyA
 
 func (service *pACSPort) DeleteAccessPointContext(ctx context.Context, request *DeleteAccessPoint) (*DeleteAccessPointResponse, error) {
 	response := new(DeleteAccessPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/DeleteAccessPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1037,7 +1036,7 @@ func (service *pACSPort) DeleteAccessPoint(request *DeleteAccessPoint) (*DeleteA
 
 func (service *pACSPort) SetAccessPointAuthenticationProfileContext(ctx context.Context, request *SetAccessPointAuthenticationProfile) (*SetAccessPointAuthenticationProfileResponse, error) {
 	response := new(SetAccessPointAuthenticationProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/SetAccessPointAuthenticationProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1054,7 +1053,7 @@ func (service *pACSPort) SetAccessPointAuthenticationProfile(request *SetAccessP
 
 func (service *pACSPort) DeleteAccessPointAuthenticationProfileContext(ctx context.Context, request *DeleteAccessPointAuthenticationProfile) (*DeleteAccessPointAuthenticationProfileResponse, error) {
 	response := new(DeleteAccessPointAuthenticationProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/DeleteAccessPointAuthenticationProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1071,7 +1070,7 @@ func (service *pACSPort) DeleteAccessPointAuthenticationProfile(request *DeleteA
 
 func (service *pACSPort) GetAreaInfoContext(ctx context.Context, request *GetAreaInfo) (*GetAreaInfoResponse, error) {
 	response := new(GetAreaInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAreaInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1088,7 +1087,7 @@ func (service *pACSPort) GetAreaInfo(request *GetAreaInfo) (*GetAreaInfoResponse
 
 func (service *pACSPort) GetAreaInfoListContext(ctx context.Context, request *GetAreaInfoList) (*GetAreaInfoListResponse, error) {
 	response := new(GetAreaInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAreaInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1105,7 +1104,7 @@ func (service *pACSPort) GetAreaInfoList(request *GetAreaInfoList) (*GetAreaInfo
 
 func (service *pACSPort) GetAreasContext(ctx context.Context, request *GetAreas) (*GetAreasResponse, error) {
 	response := new(GetAreasResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAreas", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1122,7 +1121,7 @@ func (service *pACSPort) GetAreas(request *GetAreas) (*GetAreasResponse, error) 
 
 func (service *pACSPort) GetAreaListContext(ctx context.Context, request *GetAreaList) (*GetAreaListResponse, error) {
 	response := new(GetAreaListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAreaList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1139,7 +1138,7 @@ func (service *pACSPort) GetAreaList(request *GetAreaList) (*GetAreaListResponse
 
 func (service *pACSPort) CreateAreaContext(ctx context.Context, request *CreateArea) (*CreateAreaResponse, error) {
 	response := new(CreateAreaResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/CreateArea", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1156,7 +1155,7 @@ func (service *pACSPort) CreateArea(request *CreateArea) (*CreateAreaResponse, e
 
 func (service *pACSPort) SetAreaContext(ctx context.Context, request *SetArea) (*SetAreaResponse, error) {
 	response := new(SetAreaResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/SetArea", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1173,7 +1172,7 @@ func (service *pACSPort) SetArea(request *SetArea) (*SetAreaResponse, error) {
 
 func (service *pACSPort) ModifyAreaContext(ctx context.Context, request *ModifyArea) (*ModifyAreaResponse, error) {
 	response := new(ModifyAreaResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/ModifyArea", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1190,7 +1189,7 @@ func (service *pACSPort) ModifyArea(request *ModifyArea) (*ModifyAreaResponse, e
 
 func (service *pACSPort) DeleteAreaContext(ctx context.Context, request *DeleteArea) (*DeleteAreaResponse, error) {
 	response := new(DeleteAreaResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/DeleteArea", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1207,7 +1206,7 @@ func (service *pACSPort) DeleteArea(request *DeleteArea) (*DeleteAreaResponse, e
 
 func (service *pACSPort) GetAccessPointStateContext(ctx context.Context, request *GetAccessPointState) (*GetAccessPointStateResponse, error) {
 	response := new(GetAccessPointStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/GetAccessPointState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1224,7 +1223,7 @@ func (service *pACSPort) GetAccessPointState(request *GetAccessPointState) (*Get
 
 func (service *pACSPort) EnableAccessPointContext(ctx context.Context, request *EnableAccessPoint) (*EnableAccessPointResponse, error) {
 	response := new(EnableAccessPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/EnableAccessPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1241,7 +1240,7 @@ func (service *pACSPort) EnableAccessPoint(request *EnableAccessPoint) (*EnableA
 
 func (service *pACSPort) DisableAccessPointContext(ctx context.Context, request *DisableAccessPoint) (*DisableAccessPointResponse, error) {
 	response := new(DisableAccessPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/DisableAccessPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1258,7 +1257,7 @@ func (service *pACSPort) DisableAccessPoint(request *DisableAccessPoint) (*Disab
 
 func (service *pACSPort) ExternalAuthorizationContext(ctx context.Context, request *ExternalAuthorization) (*ExternalAuthorizationResponse, error) {
 	response := new(ExternalAuthorizationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/accesscontrol/wsdl/ExternalAuthorization", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1272,3 +1271,10 @@ func (service *pACSPort) ExternalAuthorization(request *ExternalAuthorization) (
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

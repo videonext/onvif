@@ -5,9 +5,8 @@ package schedule
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -778,7 +777,7 @@ func NewSchedulePort(client *soap.Client, xaddr string) SchedulePort {
 
 func (service *schedulePort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -795,7 +794,7 @@ func (service *schedulePort) GetServiceCapabilities(request *GetServiceCapabilit
 
 func (service *schedulePort) GetScheduleStateContext(ctx context.Context, request *GetScheduleState) (*GetScheduleStateResponse, error) {
 	response := new(GetScheduleStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetScheduleState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -812,7 +811,7 @@ func (service *schedulePort) GetScheduleState(request *GetScheduleState) (*GetSc
 
 func (service *schedulePort) GetScheduleInfoContext(ctx context.Context, request *GetScheduleInfo) (*GetScheduleInfoResponse, error) {
 	response := new(GetScheduleInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetScheduleInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -829,7 +828,7 @@ func (service *schedulePort) GetScheduleInfo(request *GetScheduleInfo) (*GetSche
 
 func (service *schedulePort) GetScheduleInfoListContext(ctx context.Context, request *GetScheduleInfoList) (*GetScheduleInfoListResponse, error) {
 	response := new(GetScheduleInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetScheduleInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -846,7 +845,7 @@ func (service *schedulePort) GetScheduleInfoList(request *GetScheduleInfoList) (
 
 func (service *schedulePort) GetSchedulesContext(ctx context.Context, request *GetSchedules) (*GetSchedulesResponse, error) {
 	response := new(GetSchedulesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetSchedules", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -863,7 +862,7 @@ func (service *schedulePort) GetSchedules(request *GetSchedules) (*GetSchedulesR
 
 func (service *schedulePort) GetScheduleListContext(ctx context.Context, request *GetScheduleList) (*GetScheduleListResponse, error) {
 	response := new(GetScheduleListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetScheduleList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -880,7 +879,7 @@ func (service *schedulePort) GetScheduleList(request *GetScheduleList) (*GetSche
 
 func (service *schedulePort) CreateScheduleContext(ctx context.Context, request *CreateSchedule) (*CreateScheduleResponse, error) {
 	response := new(CreateScheduleResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/CreateSchedule", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -897,7 +896,7 @@ func (service *schedulePort) CreateSchedule(request *CreateSchedule) (*CreateSch
 
 func (service *schedulePort) SetScheduleContext(ctx context.Context, request *SetSchedule) (*SetScheduleResponse, error) {
 	response := new(SetScheduleResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/SetSchedule", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -914,7 +913,7 @@ func (service *schedulePort) SetSchedule(request *SetSchedule) (*SetScheduleResp
 
 func (service *schedulePort) ModifyScheduleContext(ctx context.Context, request *ModifySchedule) (*ModifyScheduleResponse, error) {
 	response := new(ModifyScheduleResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/ModifySchedule", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -931,7 +930,7 @@ func (service *schedulePort) ModifySchedule(request *ModifySchedule) (*ModifySch
 
 func (service *schedulePort) DeleteScheduleContext(ctx context.Context, request *DeleteSchedule) (*DeleteScheduleResponse, error) {
 	response := new(DeleteScheduleResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/DeleteSchedule", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -948,7 +947,7 @@ func (service *schedulePort) DeleteSchedule(request *DeleteSchedule) (*DeleteSch
 
 func (service *schedulePort) GetSpecialDayGroupInfoContext(ctx context.Context, request *GetSpecialDayGroupInfo) (*GetSpecialDayGroupInfoResponse, error) {
 	response := new(GetSpecialDayGroupInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetSpecialDayGroupInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -965,7 +964,7 @@ func (service *schedulePort) GetSpecialDayGroupInfo(request *GetSpecialDayGroupI
 
 func (service *schedulePort) GetSpecialDayGroupInfoListContext(ctx context.Context, request *GetSpecialDayGroupInfoList) (*GetSpecialDayGroupInfoListResponse, error) {
 	response := new(GetSpecialDayGroupInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetSpecialDayGroupInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -982,7 +981,7 @@ func (service *schedulePort) GetSpecialDayGroupInfoList(request *GetSpecialDayGr
 
 func (service *schedulePort) GetSpecialDayGroupsContext(ctx context.Context, request *GetSpecialDayGroups) (*GetSpecialDayGroupsResponse, error) {
 	response := new(GetSpecialDayGroupsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetSpecialDayGroups", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -999,7 +998,7 @@ func (service *schedulePort) GetSpecialDayGroups(request *GetSpecialDayGroups) (
 
 func (service *schedulePort) GetSpecialDayGroupListContext(ctx context.Context, request *GetSpecialDayGroupList) (*GetSpecialDayGroupListResponse, error) {
 	response := new(GetSpecialDayGroupListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/GetSpecialDayGroupList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1016,7 +1015,7 @@ func (service *schedulePort) GetSpecialDayGroupList(request *GetSpecialDayGroupL
 
 func (service *schedulePort) CreateSpecialDayGroupContext(ctx context.Context, request *CreateSpecialDayGroup) (*CreateSpecialDayGroupResponse, error) {
 	response := new(CreateSpecialDayGroupResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/CreateSpecialDayGroup", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1033,7 +1032,7 @@ func (service *schedulePort) CreateSpecialDayGroup(request *CreateSpecialDayGrou
 
 func (service *schedulePort) SetSpecialDayGroupContext(ctx context.Context, request *SetSpecialDayGroup) (*SetSpecialDayGroupResponse, error) {
 	response := new(SetSpecialDayGroupResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/SetSpecialDayGroup", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1050,7 +1049,7 @@ func (service *schedulePort) SetSpecialDayGroup(request *SetSpecialDayGroup) (*S
 
 func (service *schedulePort) ModifySpecialDayGroupContext(ctx context.Context, request *ModifySpecialDayGroup) (*ModifySpecialDayGroupResponse, error) {
 	response := new(ModifySpecialDayGroupResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/ModifySpecialDayGroup", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1067,7 +1066,7 @@ func (service *schedulePort) ModifySpecialDayGroup(request *ModifySpecialDayGrou
 
 func (service *schedulePort) DeleteSpecialDayGroupContext(ctx context.Context, request *DeleteSpecialDayGroup) (*DeleteSpecialDayGroupResponse, error) {
 	response := new(DeleteSpecialDayGroupResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/schedule/wsdl/DeleteSpecialDayGroup", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -1081,3 +1080,10 @@ func (service *schedulePort) DeleteSpecialDayGroup(request *DeleteSpecialDayGrou
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

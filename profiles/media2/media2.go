@@ -77,8 +77,6 @@ type GetServiceCapabilitiesResponse struct {
 
 type Capabilities Capabilities2
 
-type ConfigurationEnumeration ConfigurationEnumeration
-
 type CreateProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver20/media/wsdl CreateProfile"`
 
@@ -839,7 +837,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -852,14 +850,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -941,7 +931,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -949,7 +939,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -1349,12 +1339,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -1516,8 +1500,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1547,8 +1529,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -1962,15 +1942,11 @@ const (
 	StreamTypeRTPMulticast StreamType = "RTP-Multicast"
 )
 
-type TransportProtocol string
-
 const (
 	TransportProtocolUDP TransportProtocol = "UDP"
 
 	// This value is deprecated.
 	TransportProtocolTCP TransportProtocol = "TCP"
-
-	TransportProtocolRTSP TransportProtocol = "RTSP"
 
 	TransportProtocolHTTP TransportProtocol = "HTTP"
 )
@@ -2588,36 +2564,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2634,8 +2580,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -4117,29 +4061,6 @@ type Dot11AvailableNetworks struct {
 type Dot11AvailableNetworksExtension struct {
 }
 
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
-}
-
 type CapabilitiesExtension struct {
 	DeviceIO *DeviceIOCapabilities `xml:"DeviceIO,omitempty"`
 
@@ -4263,12 +4184,6 @@ type RealTimeStreamingCapabilities struct {
 }
 
 type RealTimeStreamingCapabilitiesExtension struct {
-}
-
-type ProfileCapabilities struct {
-
-	// Maximum number of profiles.
-	MaximumNumberOfProfiles int32 `xml:"MaximumNumberOfProfiles,omitempty"`
 }
 
 type NetworkCapabilities struct {
@@ -7784,7 +7699,7 @@ func NewMedia2(client *soap.Client, xaddr string) Media2 {
 
 func (service *media2) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7801,7 +7716,7 @@ func (service *media2) GetServiceCapabilities(request *GetServiceCapabilities) (
 
 func (service *media2) CreateProfileContext(ctx context.Context, request *CreateProfile) (*CreateProfileResponse, error) {
 	response := new(CreateProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/CreateProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7818,7 +7733,7 @@ func (service *media2) CreateProfile(request *CreateProfile) (*CreateProfileResp
 
 func (service *media2) GetProfilesContext(ctx context.Context, request *GetProfiles) (*GetProfilesResponse, error) {
 	response := new(GetProfilesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetProfiles", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7835,7 +7750,7 @@ func (service *media2) GetProfiles(request *GetProfiles) (*GetProfilesResponse, 
 
 func (service *media2) AddConfigurationContext(ctx context.Context, request *AddConfiguration) (*AddConfigurationResponse, error) {
 	response := new(AddConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/AddConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7852,7 +7767,7 @@ func (service *media2) AddConfiguration(request *AddConfiguration) (*AddConfigur
 
 func (service *media2) RemoveConfigurationContext(ctx context.Context, request *RemoveConfiguration) (*RemoveConfigurationResponse, error) {
 	response := new(RemoveConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/RemoveConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7869,7 +7784,7 @@ func (service *media2) RemoveConfiguration(request *RemoveConfiguration) (*Remov
 
 func (service *media2) DeleteProfileContext(ctx context.Context, request *DeleteProfile) (*DeleteProfileResponse, error) {
 	response := new(DeleteProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/DeleteProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7886,7 +7801,7 @@ func (service *media2) DeleteProfile(request *DeleteProfile) (*DeleteProfileResp
 
 func (service *media2) GetVideoSourceConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetVideoSourceConfigurationsResponse, error) {
 	response := new(GetVideoSourceConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoSourceConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7903,7 +7818,7 @@ func (service *media2) GetVideoSourceConfigurations(request *GetConfiguration) (
 
 func (service *media2) GetVideoEncoderConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetVideoEncoderConfigurationsResponse, error) {
 	response := new(GetVideoEncoderConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoEncoderConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7920,7 +7835,7 @@ func (service *media2) GetVideoEncoderConfigurations(request *GetConfiguration) 
 
 func (service *media2) GetAudioSourceConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetAudioSourceConfigurationsResponse, error) {
 	response := new(GetAudioSourceConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioSourceConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7937,7 +7852,7 @@ func (service *media2) GetAudioSourceConfigurations(request *GetConfiguration) (
 
 func (service *media2) GetAudioEncoderConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetAudioEncoderConfigurationsResponse, error) {
 	response := new(GetAudioEncoderConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioEncoderConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7954,7 +7869,7 @@ func (service *media2) GetAudioEncoderConfigurations(request *GetConfiguration) 
 
 func (service *media2) GetAnalyticsConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetAnalyticsConfigurationsResponse, error) {
 	response := new(GetAnalyticsConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAnalyticsConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7971,7 +7886,7 @@ func (service *media2) GetAnalyticsConfigurations(request *GetConfiguration) (*G
 
 func (service *media2) GetMetadataConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetMetadataConfigurationsResponse, error) {
 	response := new(GetMetadataConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetMetadataConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7988,7 +7903,7 @@ func (service *media2) GetMetadataConfigurations(request *GetConfiguration) (*Ge
 
 func (service *media2) GetAudioOutputConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetAudioOutputConfigurationsResponse, error) {
 	response := new(GetAudioOutputConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioOutputConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8005,7 +7920,7 @@ func (service *media2) GetAudioOutputConfigurations(request *GetConfiguration) (
 
 func (service *media2) GetAudioDecoderConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetAudioDecoderConfigurationsResponse, error) {
 	response := new(GetAudioDecoderConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioDecoderConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8022,7 +7937,7 @@ func (service *media2) GetAudioDecoderConfigurations(request *GetConfiguration) 
 
 func (service *media2) SetVideoSourceConfigurationContext(ctx context.Context, request *SetVideoSourceConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetVideoSourceConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8039,7 +7954,7 @@ func (service *media2) SetVideoSourceConfiguration(request *SetVideoSourceConfig
 
 func (service *media2) SetVideoEncoderConfigurationContext(ctx context.Context, request *SetVideoEncoderConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetVideoEncoderConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8056,7 +7971,7 @@ func (service *media2) SetVideoEncoderConfiguration(request *SetVideoEncoderConf
 
 func (service *media2) SetAudioSourceConfigurationContext(ctx context.Context, request *SetAudioSourceConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetAudioSourceConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8073,7 +7988,7 @@ func (service *media2) SetAudioSourceConfiguration(request *SetAudioSourceConfig
 
 func (service *media2) SetAudioEncoderConfigurationContext(ctx context.Context, request *SetAudioEncoderConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetAudioEncoderConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8090,7 +8005,7 @@ func (service *media2) SetAudioEncoderConfiguration(request *SetAudioEncoderConf
 
 func (service *media2) SetMetadataConfigurationContext(ctx context.Context, request *SetMetadataConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetMetadataConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8107,7 +8022,7 @@ func (service *media2) SetMetadataConfiguration(request *SetMetadataConfiguratio
 
 func (service *media2) SetAudioOutputConfigurationContext(ctx context.Context, request *SetAudioOutputConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetAudioOutputConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8124,7 +8039,7 @@ func (service *media2) SetAudioOutputConfiguration(request *SetAudioOutputConfig
 
 func (service *media2) SetAudioDecoderConfigurationContext(ctx context.Context, request *SetAudioDecoderConfiguration) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetAudioDecoderConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8141,7 +8056,7 @@ func (service *media2) SetAudioDecoderConfiguration(request *SetAudioDecoderConf
 
 func (service *media2) GetVideoSourceConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetVideoSourceConfigurationOptionsResponse, error) {
 	response := new(GetVideoSourceConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoSourceConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8158,7 +8073,7 @@ func (service *media2) GetVideoSourceConfigurationOptions(request *GetConfigurat
 
 func (service *media2) GetVideoEncoderConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetVideoEncoderConfigurationOptionsResponse, error) {
 	response := new(GetVideoEncoderConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoEncoderConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8175,7 +8090,7 @@ func (service *media2) GetVideoEncoderConfigurationOptions(request *GetConfigura
 
 func (service *media2) GetAudioSourceConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetAudioSourceConfigurationOptionsResponse, error) {
 	response := new(GetAudioSourceConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioSourceConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8192,7 +8107,7 @@ func (service *media2) GetAudioSourceConfigurationOptions(request *GetConfigurat
 
 func (service *media2) GetAudioEncoderConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetAudioEncoderConfigurationOptionsResponse, error) {
 	response := new(GetAudioEncoderConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioEncoderConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8209,7 +8124,7 @@ func (service *media2) GetAudioEncoderConfigurationOptions(request *GetConfigura
 
 func (service *media2) GetMetadataConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetMetadataConfigurationOptionsResponse, error) {
 	response := new(GetMetadataConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetMetadataConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8226,7 +8141,7 @@ func (service *media2) GetMetadataConfigurationOptions(request *GetConfiguration
 
 func (service *media2) GetAudioOutputConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetAudioOutputConfigurationOptionsResponse, error) {
 	response := new(GetAudioOutputConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioOutputConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8243,7 +8158,7 @@ func (service *media2) GetAudioOutputConfigurationOptions(request *GetConfigurat
 
 func (service *media2) GetAudioDecoderConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetAudioDecoderConfigurationOptionsResponse, error) {
 	response := new(GetAudioDecoderConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetAudioDecoderConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8260,7 +8175,7 @@ func (service *media2) GetAudioDecoderConfigurationOptions(request *GetConfigura
 
 func (service *media2) GetVideoEncoderInstancesContext(ctx context.Context, request *GetVideoEncoderInstances) (*GetVideoEncoderInstancesResponse, error) {
 	response := new(GetVideoEncoderInstancesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoEncoderInstances", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8277,7 +8192,7 @@ func (service *media2) GetVideoEncoderInstances(request *GetVideoEncoderInstance
 
 func (service *media2) GetStreamUriContext(ctx context.Context, request *GetStreamUri) (*GetStreamUriResponse, error) {
 	response := new(GetStreamUriResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetStreamUri", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8294,7 +8209,7 @@ func (service *media2) GetStreamUri(request *GetStreamUri) (*GetStreamUriRespons
 
 func (service *media2) StartMulticastStreamingContext(ctx context.Context, request *StartStopMulticastStreaming) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/StartMulticastStreaming", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8311,7 +8226,7 @@ func (service *media2) StartMulticastStreaming(request *StartStopMulticastStream
 
 func (service *media2) StopMulticastStreamingContext(ctx context.Context, request *StartStopMulticastStreaming) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/StopMulticastStreaming", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8328,7 +8243,7 @@ func (service *media2) StopMulticastStreaming(request *StartStopMulticastStreami
 
 func (service *media2) SetSynchronizationPointContext(ctx context.Context, request *SetSynchronizationPoint) (*SetSynchronizationPointResponse, error) {
 	response := new(SetSynchronizationPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetSynchronizationPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8345,7 +8260,7 @@ func (service *media2) SetSynchronizationPoint(request *SetSynchronizationPoint)
 
 func (service *media2) GetSnapshotUriContext(ctx context.Context, request *GetSnapshotUri) (*GetSnapshotUriResponse, error) {
 	response := new(GetSnapshotUriResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetSnapshotUri", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8362,7 +8277,7 @@ func (service *media2) GetSnapshotUri(request *GetSnapshotUri) (*GetSnapshotUriR
 
 func (service *media2) GetVideoSourceModesContext(ctx context.Context, request *GetVideoSourceModes) (*GetVideoSourceModesResponse, error) {
 	response := new(GetVideoSourceModesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoSourceModes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8379,7 +8294,7 @@ func (service *media2) GetVideoSourceModes(request *GetVideoSourceModes) (*GetVi
 
 func (service *media2) SetVideoSourceModeContext(ctx context.Context, request *SetVideoSourceMode) (*SetVideoSourceModeResponse, error) {
 	response := new(SetVideoSourceModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetVideoSourceMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8396,7 +8311,7 @@ func (service *media2) SetVideoSourceMode(request *SetVideoSourceMode) (*SetVide
 
 func (service *media2) GetOSDsContext(ctx context.Context, request *GetOSDs) (*GetOSDsResponse, error) {
 	response := new(GetOSDsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetOSDs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8413,7 +8328,7 @@ func (service *media2) GetOSDs(request *GetOSDs) (*GetOSDsResponse, error) {
 
 func (service *media2) GetOSDOptionsContext(ctx context.Context, request *GetOSDOptions) (*GetOSDOptionsResponse, error) {
 	response := new(GetOSDOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetOSDOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8430,7 +8345,7 @@ func (service *media2) GetOSDOptions(request *GetOSDOptions) (*GetOSDOptionsResp
 
 func (service *media2) SetOSDContext(ctx context.Context, request *SetOSD) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetOSD", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8447,7 +8362,7 @@ func (service *media2) SetOSD(request *SetOSD) (*SetConfigurationResponse, error
 
 func (service *media2) CreateOSDContext(ctx context.Context, request *CreateOSD) (*CreateOSDResponse, error) {
 	response := new(CreateOSDResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/CreateOSD", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8464,7 +8379,7 @@ func (service *media2) CreateOSD(request *CreateOSD) (*CreateOSDResponse, error)
 
 func (service *media2) DeleteOSDContext(ctx context.Context, request *DeleteOSD) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/DeleteOSD", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8481,7 +8396,7 @@ func (service *media2) DeleteOSD(request *DeleteOSD) (*SetConfigurationResponse,
 
 func (service *media2) GetMasksContext(ctx context.Context, request *GetMasks) (*GetMasksResponse, error) {
 	response := new(GetMasksResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetMasks", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8498,7 +8413,7 @@ func (service *media2) GetMasks(request *GetMasks) (*GetMasksResponse, error) {
 
 func (service *media2) GetMaskOptionsContext(ctx context.Context, request *GetMaskOptions) (*GetMaskOptionsResponse, error) {
 	response := new(GetMaskOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetMaskOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8515,7 +8430,7 @@ func (service *media2) GetMaskOptions(request *GetMaskOptions) (*GetMaskOptionsR
 
 func (service *media2) SetMaskContext(ctx context.Context, request *SetMask) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/SetMask", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8532,7 +8447,7 @@ func (service *media2) SetMask(request *SetMask) (*SetConfigurationResponse, err
 
 func (service *media2) CreateMaskContext(ctx context.Context, request *CreateMask) (*CreateMaskResponse, error) {
 	response := new(CreateMaskResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/CreateMask", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8549,7 +8464,7 @@ func (service *media2) CreateMask(request *CreateMask) (*CreateMaskResponse, err
 
 func (service *media2) DeleteMaskContext(ctx context.Context, request *DeleteMask) (*SetConfigurationResponse, error) {
 	response := new(SetConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/DeleteMask", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8563,3 +8478,10 @@ func (service *media2) DeleteMask(request *DeleteMask) (*SetConfigurationRespons
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

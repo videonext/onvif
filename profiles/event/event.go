@@ -25,8 +25,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type CreatePullPointSubscription struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl CreatePullPointSubscription"`
 
@@ -171,7 +169,7 @@ type Capabilities struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -179,7 +177,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -579,12 +577,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -799,7 +791,7 @@ func NewEventPortType(client *soap.Client, xaddr string) EventPortType {
 
 func (service *eventPortType) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/events/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -816,7 +808,7 @@ func (service *eventPortType) GetServiceCapabilities(request *GetServiceCapabili
 
 func (service *eventPortType) CreatePullPointSubscriptionContext(ctx context.Context, request *CreatePullPointSubscription) (*CreatePullPointSubscriptionResponse, error) {
 	response := new(CreatePullPointSubscriptionResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/events/wsdl/CreatePullPointSubscription", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -833,7 +825,7 @@ func (service *eventPortType) CreatePullPointSubscription(request *CreatePullPoi
 
 func (service *eventPortType) GetEventPropertiesContext(ctx context.Context, request *GetEventProperties) (*GetEventPropertiesResponse, error) {
 	response := new(GetEventPropertiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/events/wsdl/GetEventProperties", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -904,17 +896,19 @@ type PullPointSubscription interface {
 
 type pullPointSubscription struct {
 	client *soap.Client
+	xaddr  string
 }
 
-func NewPullPointSubscription(client *soap.Client) PullPointSubscription {
+func NewPullPointSubscription(client *soap.Client, xaddr string) PullPointSubscription {
 	return &pullPointSubscription{
 		client: client,
+		xaddr:  xaddr,
 	}
 }
 
 func (service *pullPointSubscription) PullMessagesContext(ctx context.Context, request *PullMessages) (*PullMessagesResponse, error) {
 	response := new(PullMessagesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/events/wsdl/PullMessages", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -931,7 +925,7 @@ func (service *pullPointSubscription) PullMessages(request *PullMessages) (*Pull
 
 func (service *pullPointSubscription) SeekContext(ctx context.Context, request *Seek) (*SeekResponse, error) {
 	response := new(SeekResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/events/wsdl/Seek", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -948,7 +942,7 @@ func (service *pullPointSubscription) Seek(request *Seek) (*SeekResponse, error)
 
 func (service *pullPointSubscription) SetSynchronizationPointContext(ctx context.Context, request *SetSynchronizationPoint) (*SetSynchronizationPointResponse, error) {
 	response := new(SetSynchronizationPointResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/events/wsdl/SetSynchronizationPoint", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -978,3 +972,10 @@ func (service *pullPointSubscription) Unsubscribe() error {
 		context.Background(),
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

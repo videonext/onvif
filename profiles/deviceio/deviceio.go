@@ -63,8 +63,6 @@ type GetServiceCapabilitiesResponse struct {
 	Capabilities *Capabilities `xml:"Capabilities,omitempty"`
 }
 
-type Capabilities Capabilities
-
 type GetRelayOutputOptions struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/deviceIO/wsdl GetRelayOutputOptions"`
 
@@ -528,7 +526,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -541,14 +539,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -630,7 +620,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -638,7 +628,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -1038,12 +1028,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -1205,8 +1189,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1236,8 +1218,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -2277,36 +2257,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2323,8 +2273,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3804,29 +3752,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -7327,7 +7252,7 @@ func NewDeviceIOPort(client *soap.Client, xaddr string) DeviceIOPort {
 
 func (service *deviceIOPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7344,7 +7269,7 @@ func (service *deviceIOPort) GetServiceCapabilities(request *GetServiceCapabilit
 
 func (service *deviceIOPort) GetRelayOutputOptionsContext(ctx context.Context, request *GetRelayOutputOptions) (*GetRelayOutputOptionsResponse, error) {
 	response := new(GetRelayOutputOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetRelayOutputOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7361,7 +7286,7 @@ func (service *deviceIOPort) GetRelayOutputOptions(request *GetRelayOutputOption
 
 func (service *deviceIOPort) GetAudioSourcesContext(ctx context.Context, request *Get) (*GetResponse, error) {
 	response := new(GetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetAudioSources", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7378,7 +7303,7 @@ func (service *deviceIOPort) GetAudioSources(request *Get) (*GetResponse, error)
 
 func (service *deviceIOPort) GetAudioOutputsContext(ctx context.Context, request *Get) (*GetResponse, error) {
 	response := new(GetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetAudioOutputs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7395,7 +7320,7 @@ func (service *deviceIOPort) GetAudioOutputs(request *Get) (*GetResponse, error)
 
 func (service *deviceIOPort) GetVideoSourcesContext(ctx context.Context, request *Get) (*GetResponse, error) {
 	response := new(GetResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetVideoSources", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7412,7 +7337,7 @@ func (service *deviceIOPort) GetVideoSources(request *Get) (*GetResponse, error)
 
 func (service *deviceIOPort) GetVideoOutputsContext(ctx context.Context, request *GetVideoOutputs) (*GetVideoOutputsResponse, error) {
 	response := new(GetVideoOutputsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetVideoOutputs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7429,7 +7354,7 @@ func (service *deviceIOPort) GetVideoOutputs(request *GetVideoOutputs) (*GetVide
 
 func (service *deviceIOPort) GetVideoSourceConfigurationContext(ctx context.Context, request *GetVideoSourceConfiguration) (*GetVideoSourceConfigurationResponse, error) {
 	response := new(GetVideoSourceConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetVideoSourceConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7446,7 +7371,7 @@ func (service *deviceIOPort) GetVideoSourceConfiguration(request *GetVideoSource
 
 func (service *deviceIOPort) GetVideoOutputConfigurationContext(ctx context.Context, request *GetVideoOutputConfiguration) (*GetVideoOutputConfigurationResponse, error) {
 	response := new(GetVideoOutputConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetVideoOutputConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7463,7 +7388,7 @@ func (service *deviceIOPort) GetVideoOutputConfiguration(request *GetVideoOutput
 
 func (service *deviceIOPort) GetAudioSourceConfigurationContext(ctx context.Context, request *GetAudioSourceConfiguration) (*GetAudioSourceConfigurationResponse, error) {
 	response := new(GetAudioSourceConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetAudioSourceConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7480,7 +7405,7 @@ func (service *deviceIOPort) GetAudioSourceConfiguration(request *GetAudioSource
 
 func (service *deviceIOPort) GetAudioOutputConfigurationContext(ctx context.Context, request *GetAudioOutputConfiguration) (*GetAudioOutputConfigurationResponse, error) {
 	response := new(GetAudioOutputConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetAudioOutputConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7497,7 +7422,7 @@ func (service *deviceIOPort) GetAudioOutputConfiguration(request *GetAudioOutput
 
 func (service *deviceIOPort) SetVideoSourceConfigurationContext(ctx context.Context, request *SetVideoSourceConfiguration) (*SetVideoSourceConfigurationResponse, error) {
 	response := new(SetVideoSourceConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetVideoSourceConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7514,7 +7439,7 @@ func (service *deviceIOPort) SetVideoSourceConfiguration(request *SetVideoSource
 
 func (service *deviceIOPort) SetVideoOutputConfigurationContext(ctx context.Context, request *SetVideoOutputConfiguration) (*SetVideoOutputConfigurationResponse, error) {
 	response := new(SetVideoOutputConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetVideoOutputConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7531,7 +7456,7 @@ func (service *deviceIOPort) SetVideoOutputConfiguration(request *SetVideoOutput
 
 func (service *deviceIOPort) SetAudioSourceConfigurationContext(ctx context.Context, request *SetAudioSourceConfiguration) (*SetAudioSourceConfigurationResponse, error) {
 	response := new(SetAudioSourceConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetAudioSourceConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7548,7 +7473,7 @@ func (service *deviceIOPort) SetAudioSourceConfiguration(request *SetAudioSource
 
 func (service *deviceIOPort) SetAudioOutputConfigurationContext(ctx context.Context, request *SetAudioOutputConfiguration) (*SetAudioOutputConfigurationResponse, error) {
 	response := new(SetAudioOutputConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetAudioOutputConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7565,7 +7490,7 @@ func (service *deviceIOPort) SetAudioOutputConfiguration(request *SetAudioOutput
 
 func (service *deviceIOPort) GetVideoSourceConfigurationOptionsContext(ctx context.Context, request *GetVideoSourceConfigurationOptions) (*GetVideoSourceConfigurationOptionsResponse, error) {
 	response := new(GetVideoSourceConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetVideoSourceConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7582,7 +7507,7 @@ func (service *deviceIOPort) GetVideoSourceConfigurationOptions(request *GetVide
 
 func (service *deviceIOPort) GetVideoOutputConfigurationOptionsContext(ctx context.Context, request *GetVideoOutputConfigurationOptions) (*GetVideoOutputConfigurationOptionsResponse, error) {
 	response := new(GetVideoOutputConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetVideoOutputConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7599,7 +7524,7 @@ func (service *deviceIOPort) GetVideoOutputConfigurationOptions(request *GetVide
 
 func (service *deviceIOPort) GetAudioSourceConfigurationOptionsContext(ctx context.Context, request *GetAudioSourceConfigurationOptions) (*GetAudioSourceConfigurationOptionsResponse, error) {
 	response := new(GetAudioSourceConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetAudioSourceConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7616,7 +7541,7 @@ func (service *deviceIOPort) GetAudioSourceConfigurationOptions(request *GetAudi
 
 func (service *deviceIOPort) GetAudioOutputConfigurationOptionsContext(ctx context.Context, request *GetAudioOutputConfigurationOptions) (*GetAudioOutputConfigurationOptionsResponse, error) {
 	response := new(GetAudioOutputConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetAudioOutputConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7649,7 +7574,7 @@ func (service *deviceIOPort) GetRelayOutputs() error {
 
 func (service *deviceIOPort) SetRelayOutputSettingsContext(ctx context.Context, request *SetRelayOutputSettings) (*SetRelayOutputSettingsResponse, error) {
 	response := new(SetRelayOutputSettingsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetRelayOutputSettings", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7682,7 +7607,7 @@ func (service *deviceIOPort) SetRelayOutputState() error {
 
 func (service *deviceIOPort) GetDigitalInputsContext(ctx context.Context, request *GetDigitalInputs) (*GetDigitalInputsResponse, error) {
 	response := new(GetDigitalInputsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetDigitalInputs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7699,7 +7624,7 @@ func (service *deviceIOPort) GetDigitalInputs(request *GetDigitalInputs) (*GetDi
 
 func (service *deviceIOPort) GetDigitalInputConfigurationOptionsContext(ctx context.Context, request *GetDigitalInputConfigurationOptions) (*GetDigitalInputConfigurationOptionsResponse, error) {
 	response := new(GetDigitalInputConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetDigitalInputConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7716,7 +7641,7 @@ func (service *deviceIOPort) GetDigitalInputConfigurationOptions(request *GetDig
 
 func (service *deviceIOPort) SetDigitalInputConfigurationsContext(ctx context.Context, request *SetDigitalInputConfigurations) (*SetDigitalInputConfigurationsResponse, error) {
 	response := new(SetDigitalInputConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetDigitalInputConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7733,7 +7658,7 @@ func (service *deviceIOPort) SetDigitalInputConfigurations(request *SetDigitalIn
 
 func (service *deviceIOPort) GetSerialPortsContext(ctx context.Context, request *GetSerialPorts) (*GetSerialPortsResponse, error) {
 	response := new(GetSerialPortsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetSerialPorts", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7750,7 +7675,7 @@ func (service *deviceIOPort) GetSerialPorts(request *GetSerialPorts) (*GetSerial
 
 func (service *deviceIOPort) GetSerialPortConfigurationContext(ctx context.Context, request *GetSerialPortConfiguration) (*GetSerialPortConfigurationResponse, error) {
 	response := new(GetSerialPortConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetSerialPortConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7767,7 +7692,7 @@ func (service *deviceIOPort) GetSerialPortConfiguration(request *GetSerialPortCo
 
 func (service *deviceIOPort) SetSerialPortConfigurationContext(ctx context.Context, request *SetSerialPortConfiguration) (*SetSerialPortConfigurationResponse, error) {
 	response := new(SetSerialPortConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SetSerialPortConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7784,7 +7709,7 @@ func (service *deviceIOPort) SetSerialPortConfiguration(request *SetSerialPortCo
 
 func (service *deviceIOPort) GetSerialPortConfigurationOptionsContext(ctx context.Context, request *GetSerialPortConfigurationOptions) (*GetSerialPortConfigurationOptionsResponse, error) {
 	response := new(GetSerialPortConfigurationOptionsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/GetSerialPortConfigurationOptions", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7801,7 +7726,7 @@ func (service *deviceIOPort) GetSerialPortConfigurationOptions(request *GetSeria
 
 func (service *deviceIOPort) SendReceiveSerialCommandContext(ctx context.Context, request *SendReceiveSerialCommand) (*SendReceiveSerialCommandResponse, error) {
 	response := new(SendReceiveSerialCommandResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/deviceIO/wsdl/SendReceiveSerialCommand", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7815,3 +7740,10 @@ func (service *deviceIOPort) SendReceiveSerialCommand(request *SendReceiveSerial
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

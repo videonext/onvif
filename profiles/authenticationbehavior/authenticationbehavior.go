@@ -572,7 +572,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-type FaultcodeEnum *QName
+type FaultcodeEnum QName
 
 const (
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
@@ -585,14 +585,6 @@ const (
 
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
-
-type Envelope Envelope
-
-type Header Header
-
-type Body Body
-
-type Fault Fault
 
 type NotUnderstood NotUnderstoodType
 
@@ -674,7 +666,7 @@ type UpgradeType struct {
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType *AnyURI
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -682,7 +674,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType *QName
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -1082,12 +1074,6 @@ type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
 
-type QueryExpressionType struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-}
-
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
@@ -1249,8 +1235,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1258,8 +1242,6 @@ type Include struct {
 // Unique identifier for a physical or logical resource.
 // Tokens should be assigned such that they are unique within a device. Tokens must be at least unique within its class.
 // Length up to 64 characters.
-
-type ReferenceToken string
 
 type MoveStatus string
 
@@ -1280,8 +1262,6 @@ const (
 
 	EntityAudioSource Entity = "AudioSource"
 )
-
-type Polygon Polygon
 
 type IntRange struct {
 	Min int32 `xml:"Min,omitempty"`
@@ -1517,8 +1497,6 @@ type LocationEntity struct {
 }
 
 // User readable name. Length up to 64 characters.
-
-type Name string
 
 type IntAttrList []int32
 
@@ -2226,8 +2204,6 @@ type RecordingReference *ReferenceToken
 
 type TrackReference *ReferenceToken
 
-type Description string
-
 type XPathExpression string
 
 type SearchState string
@@ -2321,36 +2297,6 @@ type StringItems struct {
 
 type StringList StringAttrList
 
-type IntRange IntRange
-
-type IntList IntAttrList
-
-type FloatRange FloatRange
-
-type FloatList FloatAttrList
-
-type DurationRange DurationRange
-
-type IntRectangleRange IntRectangleRange
-
-type VideoSourceConfiguration VideoSourceConfiguration
-
-type AudioSourceConfiguration AudioSourceConfiguration
-
-type VideoEncoderConfiguration VideoEncoderConfiguration
-
-type AudioEncoderConfiguration AudioEncoderConfiguration
-
-type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-type PTZConfiguration PTZConfiguration
-
-type MetadataConfiguration MetadataConfiguration
-
-type AudioOutputConfiguration AudioOutputConfiguration
-
-type AudioDecoderConfiguration AudioDecoderConfiguration
-
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -2367,8 +2313,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-type Polyline Polyline
 
 type DeviceEntity struct {
 
@@ -3848,29 +3792,6 @@ type Dot11AvailableNetworks struct {
 }
 
 type Dot11AvailableNetworksExtension struct {
-}
-
-type Capabilities struct {
-
-	// Analytics capabilities
-	Analytics *AnalyticsCapabilities `xml:"Analytics,omitempty"`
-
-	// Device capabilities
-	Device *DeviceCapabilities `xml:"Device,omitempty"`
-
-	// Event capabilities
-	Events *EventCapabilities `xml:"Events,omitempty"`
-
-	// Imaging capabilities
-	Imaging *ImagingCapabilities `xml:"Imaging,omitempty"`
-
-	// Media capabilities
-	Media *MediaCapabilities `xml:"Media,omitempty"`
-
-	// PTZ capabilities
-	PTZ *PTZCapabilities `xml:"PTZ,omitempty"`
-
-	Extension *CapabilitiesExtension `xml:"Extension,omitempty"`
 }
 
 type CapabilitiesExtension struct {
@@ -7401,7 +7322,7 @@ func NewAuthenticationBehaviorPort(client *soap.Client, xaddr string) Authentica
 
 func (service *authenticationBehaviorPort) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7418,7 +7339,7 @@ func (service *authenticationBehaviorPort) GetServiceCapabilities(request *GetSe
 
 func (service *authenticationBehaviorPort) GetAuthenticationProfileInfoContext(ctx context.Context, request *GetAuthenticationProfileInfo) (*GetAuthenticationProfileInfoResponse, error) {
 	response := new(GetAuthenticationProfileInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetAuthenticationProfileInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7435,7 +7356,7 @@ func (service *authenticationBehaviorPort) GetAuthenticationProfileInfo(request 
 
 func (service *authenticationBehaviorPort) GetAuthenticationProfileInfoListContext(ctx context.Context, request *GetAuthenticationProfileInfoList) (*GetAuthenticationProfileInfoListResponse, error) {
 	response := new(GetAuthenticationProfileInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetAuthenticationProfileInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7452,7 +7373,7 @@ func (service *authenticationBehaviorPort) GetAuthenticationProfileInfoList(requ
 
 func (service *authenticationBehaviorPort) GetAuthenticationProfilesContext(ctx context.Context, request *GetAuthenticationProfiles) (*GetAuthenticationProfilesResponse, error) {
 	response := new(GetAuthenticationProfilesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetAuthenticationProfiles", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7469,7 +7390,7 @@ func (service *authenticationBehaviorPort) GetAuthenticationProfiles(request *Ge
 
 func (service *authenticationBehaviorPort) GetAuthenticationProfileListContext(ctx context.Context, request *GetAuthenticationProfileList) (*GetAuthenticationProfileListResponse, error) {
 	response := new(GetAuthenticationProfileListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetAuthenticationProfileList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7486,7 +7407,7 @@ func (service *authenticationBehaviorPort) GetAuthenticationProfileList(request 
 
 func (service *authenticationBehaviorPort) CreateAuthenticationProfileContext(ctx context.Context, request *CreateAuthenticationProfile) (*CreateAuthenticationProfileResponse, error) {
 	response := new(CreateAuthenticationProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/CreateAuthenticationProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7503,7 +7424,7 @@ func (service *authenticationBehaviorPort) CreateAuthenticationProfile(request *
 
 func (service *authenticationBehaviorPort) SetAuthenticationProfileContext(ctx context.Context, request *SetAuthenticationProfile) (*SetAuthenticationProfileResponse, error) {
 	response := new(SetAuthenticationProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/SetAuthenticationProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7520,7 +7441,7 @@ func (service *authenticationBehaviorPort) SetAuthenticationProfile(request *Set
 
 func (service *authenticationBehaviorPort) ModifyAuthenticationProfileContext(ctx context.Context, request *ModifyAuthenticationProfile) (*ModifyAuthenticationProfileResponse, error) {
 	response := new(ModifyAuthenticationProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/ModifyAuthenticationProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7537,7 +7458,7 @@ func (service *authenticationBehaviorPort) ModifyAuthenticationProfile(request *
 
 func (service *authenticationBehaviorPort) DeleteAuthenticationProfileContext(ctx context.Context, request *DeleteAuthenticationProfile) (*DeleteAuthenticationProfileResponse, error) {
 	response := new(DeleteAuthenticationProfileResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/DeleteAuthenticationProfile", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7554,7 +7475,7 @@ func (service *authenticationBehaviorPort) DeleteAuthenticationProfile(request *
 
 func (service *authenticationBehaviorPort) GetSecurityLevelInfoContext(ctx context.Context, request *GetSecurityLevelInfo) (*GetSecurityLevelInfoResponse, error) {
 	response := new(GetSecurityLevelInfoResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetSecurityLevelInfo", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7571,7 +7492,7 @@ func (service *authenticationBehaviorPort) GetSecurityLevelInfo(request *GetSecu
 
 func (service *authenticationBehaviorPort) GetSecurityLevelInfoListContext(ctx context.Context, request *GetSecurityLevelInfoList) (*GetSecurityLevelInfoListResponse, error) {
 	response := new(GetSecurityLevelInfoListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetSecurityLevelInfoList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7588,7 +7509,7 @@ func (service *authenticationBehaviorPort) GetSecurityLevelInfoList(request *Get
 
 func (service *authenticationBehaviorPort) GetSecurityLevelsContext(ctx context.Context, request *GetSecurityLevels) (*GetSecurityLevelsResponse, error) {
 	response := new(GetSecurityLevelsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetSecurityLevels", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7605,7 +7526,7 @@ func (service *authenticationBehaviorPort) GetSecurityLevels(request *GetSecurit
 
 func (service *authenticationBehaviorPort) GetSecurityLevelListContext(ctx context.Context, request *GetSecurityLevelList) (*GetSecurityLevelListResponse, error) {
 	response := new(GetSecurityLevelListResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/GetSecurityLevelList", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7622,7 +7543,7 @@ func (service *authenticationBehaviorPort) GetSecurityLevelList(request *GetSecu
 
 func (service *authenticationBehaviorPort) CreateSecurityLevelContext(ctx context.Context, request *CreateSecurityLevel) (*CreateSecurityLevelResponse, error) {
 	response := new(CreateSecurityLevelResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/CreateSecurityLevel", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7639,7 +7560,7 @@ func (service *authenticationBehaviorPort) CreateSecurityLevel(request *CreateSe
 
 func (service *authenticationBehaviorPort) SetSecurityLevelContext(ctx context.Context, request *SetSecurityLevel) (*SetSecurityLevelResponse, error) {
 	response := new(SetSecurityLevelResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/SetSecurityLevel", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7656,7 +7577,7 @@ func (service *authenticationBehaviorPort) SetSecurityLevel(request *SetSecurity
 
 func (service *authenticationBehaviorPort) ModifySecurityLevelContext(ctx context.Context, request *ModifySecurityLevel) (*ModifySecurityLevelResponse, error) {
 	response := new(ModifySecurityLevelResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/ModifySecurityLevel", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7673,7 +7594,7 @@ func (service *authenticationBehaviorPort) ModifySecurityLevel(request *ModifySe
 
 func (service *authenticationBehaviorPort) DeleteSecurityLevelContext(ctx context.Context, request *DeleteSecurityLevel) (*DeleteSecurityLevelResponse, error) {
 	response := new(DeleteSecurityLevelResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/authenticationbehavior/wsdl/DeleteSecurityLevel", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7687,3 +7608,10 @@ func (service *authenticationBehaviorPort) DeleteSecurityLevel(request *DeleteSe
 		request,
 	)
 }
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

@@ -16,6 +16,37 @@ var _ xml.Name
 
 type EAPMethodTypes []int32
 
+type AutoGeoModes string
+
+const (
+
+	// Automatic adjustment of the device location.
+	AutoGeoModesLocation AutoGeoModes = "Location"
+
+	// Automatic adjustment of the device orientation relative to the compass also called yaw.
+	AutoGeoModesHeading AutoGeoModes = "Heading"
+
+	// Automatic adjustment of the deviation from the horizon also called pitch and roll.
+	AutoGeoModesLeveling AutoGeoModes = "Leveling"
+)
+
+type StorageType string
+
+const (
+
+	// NFS protocol
+	StorageTypeNFS StorageType = "NFS"
+
+	// CIFS protocol
+	StorageTypeCIFS StorageType = "CIFS"
+
+	// CDMI protocol
+	StorageTypeCDMI StorageType = "CDMI"
+
+	// FTP protocol
+	StorageTypeFTP StorageType = "FTP"
+)
+
 type GetServices struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetServices"`
 
@@ -40,8 +71,6 @@ type GetServiceCapabilitiesResponse struct {
 	// The capabilities for the device service is returned in the Capabilities element.
 	Capabilities *DeviceServiceCapabilities `xml:"Capabilities,omitempty"`
 }
-
-//type Capabilities DeviceServiceCapabilities
 
 type GetDeviceInformation struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetDeviceInformation"`
@@ -517,8 +546,6 @@ type GetDynamicDNSResponse struct {
 	DynamicDNSInformation *DynamicDNSInformation `xml:"DynamicDNSInformation,omitempty"`
 }
 
-type Duration string
-type QName string
 type SetDynamicDNS struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl SetDynamicDNS"`
 
@@ -1078,9 +1105,89 @@ type StartSystemRestoreResponse struct {
 	ExpectedDownTime *Duration `xml:"ExpectedDownTime,omitempty"`
 }
 
-type AnyURI string
+type GetStorageConfigurations struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetStorageConfigurations"`
+}
 
-type EncodingStyle []*AnyURI
+type GetStorageConfigurationsResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetStorageConfigurationsResponse"`
+
+	StorageConfigurations []*StorageConfiguration `xml:"StorageConfigurations,omitempty"`
+}
+
+type CreateStorageConfiguration struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl CreateStorageConfiguration"`
+
+	StorageConfiguration *StorageConfigurationData `xml:"StorageConfiguration,omitempty"`
+}
+
+type CreateStorageConfigurationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl CreateStorageConfigurationResponse"`
+
+	Token *ReferenceToken `xml:"Token,omitempty"`
+}
+
+type GetStorageConfiguration struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetStorageConfiguration"`
+
+	Token *ReferenceToken `xml:"Token,omitempty"`
+}
+
+type GetStorageConfigurationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetStorageConfigurationResponse"`
+
+	StorageConfiguration *StorageConfiguration `xml:"StorageConfiguration,omitempty"`
+}
+
+type SetStorageConfiguration struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl SetStorageConfiguration"`
+
+	StorageConfiguration *StorageConfiguration `xml:"StorageConfiguration,omitempty"`
+}
+
+type SetStorageConfigurationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl SetStorageConfigurationResponse"`
+}
+
+type DeleteStorageConfiguration struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl DeleteStorageConfiguration"`
+
+	Token *ReferenceToken `xml:"Token,omitempty"`
+}
+
+type DeleteStorageConfigurationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl DeleteStorageConfigurationResponse"`
+}
+
+type GetGeoLocation struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetGeoLocation"`
+}
+
+type GetGeoLocationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetGeoLocationResponse"`
+
+	Location []*LocationEntity `xml:"Location,omitempty"`
+}
+
+type SetGeoLocation struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl SetGeoLocation"`
+
+	Location []*LocationEntity `xml:"Location,omitempty"`
+}
+
+type SetGeoLocationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl SetGeoLocationResponse"`
+}
+
+type DeleteGeoLocation struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl DeleteGeoLocation"`
+
+	Location []*LocationEntity `xml:"Location,omitempty"`
+}
+
+type DeleteGeoLocationResponse struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl DeleteGeoLocationResponse"`
+}
 
 type Service struct {
 
@@ -1217,6 +1324,77 @@ type SecurityCapabilities struct {
 	// The maximum number of users that the device supports.
 
 	MaxUsers int32 `xml:"MaxUsers,attr,omitempty"`
+
+	// Maximum number of characters supported for the username by CreateUsers.
+
+	MaxUserNameLength int32 `xml:"MaxUserNameLength,attr,omitempty"`
+
+	// Maximum number of characters supported for the password by CreateUsers and SetUser.
+
+	MaxPasswordLength int32 `xml:"MaxPasswordLength,attr,omitempty"`
+}
+
+type SystemCapabilities struct {
+
+	// Indicates support for WS Discovery resolve requests.
+
+	DiscoveryResolve bool `xml:"DiscoveryResolve,attr,omitempty"`
+
+	// Indicates support for WS-Discovery Bye.
+
+	DiscoveryBye bool `xml:"DiscoveryBye,attr,omitempty"`
+
+	// Indicates support for remote discovery.
+
+	RemoteDiscovery bool `xml:"RemoteDiscovery,attr,omitempty"`
+
+	// Indicates support for system backup through MTOM.
+
+	SystemBackup bool `xml:"SystemBackup,attr,omitempty"`
+
+	// Indicates support for retrieval of system logging through MTOM.
+
+	SystemLogging bool `xml:"SystemLogging,attr,omitempty"`
+
+	// Indicates support for firmware upgrade through MTOM.
+
+	FirmwareUpgrade bool `xml:"FirmwareUpgrade,attr,omitempty"`
+
+	// Indicates support for firmware upgrade through HTTP.
+
+	HttpFirmwareUpgrade bool `xml:"HttpFirmwareUpgrade,attr,omitempty"`
+
+	// Indicates support for system backup through HTTP.
+
+	HttpSystemBackup bool `xml:"HttpSystemBackup,attr,omitempty"`
+
+	// Indicates support for retrieval of system logging through HTTP.
+
+	HttpSystemLogging bool `xml:"HttpSystemLogging,attr,omitempty"`
+
+	// Indicates support for retrieving support information through HTTP.
+
+	HttpSupportInformation bool `xml:"HttpSupportInformation,attr,omitempty"`
+
+	// Indicates support for storage configuration interfaces.
+
+	StorageConfiguration bool `xml:"StorageConfiguration,attr,omitempty"`
+
+	// Indicates maximum number of storage configurations supported.
+
+	MaxStorageConfigurations int32 `xml:"MaxStorageConfigurations,attr,omitempty"`
+
+	// If present signals support for geo location. The value signals the supported number of entries.
+
+	GeoLocationEntries int32 `xml:"GeoLocationEntries,attr,omitempty"`
+
+	// List of supported automatic GeoLocation adjustment supported by the device. Valid items are defined by tds:AutoGeoMode.
+
+	AutoGeo *StringAttrList `xml:"AutoGeo,attr,omitempty"`
+
+	// Enumerates the supported StorageTypes, see tds:StorageType.
+
+	StorageTypesSupported *StringAttrList `xml:"StorageTypesSupported,attr,omitempty"`
 }
 
 type MiscCapabilities struct {
@@ -1224,6 +1402,43 @@ type MiscCapabilities struct {
 	// Lists of commands supported by SendAuxiliaryCommand.
 
 	AuxiliaryCommands *StringAttrList `xml:"AuxiliaryCommands,attr,omitempty"`
+}
+
+type UserCredential struct {
+
+	// User name
+	UserName string `xml:"UserName,omitempty"`
+
+	// optional password
+	Password string `xml:"Password,omitempty"`
+
+	Extension struct {
+	} `xml:"Extension,omitempty"`
+}
+
+type StorageConfigurationData struct {
+
+	// local path
+	LocalPath *AnyURI `xml:"LocalPath,omitempty"`
+
+	// Storage server address
+	StorageUri *AnyURI `xml:"StorageUri,omitempty"`
+
+	// User credential for the storage server
+	User *UserCredential `xml:"User,omitempty"`
+
+	Extension struct {
+	} `xml:"Extension,omitempty"`
+
+	// StorageType lists the acceptable values for type attribute
+
+	Type string `xml:"type,attr,omitempty"`
+}
+
+type StorageConfiguration struct {
+	*DeviceEntity
+
+	Data *StorageConfigurationData `xml:"Data,omitempty"`
 }
 
 type Base64Binary struct {
@@ -1242,19 +1457,23 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
-//
-// 'encodingStyle' indicates any canonicalization conventions followed in the contents of the containing element.  For example, the value 'http://schemas.xmlsoap.org/soap/encoding/' indicates the pattern described in SOAP specification
-//
+type FaultcodeEnum QName
 
-//type EncodingStyle []*AnyURI
+const (
+	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
 
-// type Envelope Envelope
+	FaultcodeEnumTnsMustUnderstand FaultcodeEnum = "tns:MustUnderstand"
 
-// type Header Header
+	FaultcodeEnumTnsReceiver FaultcodeEnum = "tns:Receiver"
 
-// type Body Body
+	FaultcodeEnumTnsSender FaultcodeEnum = "tns:Sender"
 
-// type Fault Fault
+	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
+)
+
+type NotUnderstood NotUnderstoodType
+
+type Upgrade UpgradeType
 
 type Envelope struct {
 	Header *Header `xml:"Header,omitempty"`
@@ -1269,22 +1488,70 @@ type Body struct {
 }
 
 type Fault struct {
-	Faultcode *QName `xml:"faultcode,omitempty"`
+	Code *Faultcode `xml:"Code,omitempty"`
 
-	Faultstring string `xml:"faultstring,omitempty"`
+	Reason *Faultreason `xml:"Reason,omitempty"`
 
-	Faultactor *AnyURI `xml:"faultactor,omitempty"`
+	Node *AnyURI `xml:"Node,omitempty"`
 
-	Detail *Detail `xml:"detail,omitempty"`
+	Role *AnyURI `xml:"Role,omitempty"`
+
+	Detail *Detail `xml:"Detail,omitempty"`
+}
+
+type Faultreason struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope faultreason"`
+
+	Text []*Reasontext `xml:"Text,omitempty"`
+}
+
+type Reasontext struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope reasontext"`
+
+	Value string
+
+	string `xml:",attr,omitempty"`
+}
+
+type Faultcode struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope faultcode"`
+
+	Value *FaultcodeEnum `xml:"Value,omitempty"`
+
+	Subcode *Subcode `xml:"Subcode,omitempty"`
+}
+
+type Subcode struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope subcode"`
+
+	Value *QName `xml:"Value,omitempty"`
+
+	Subcode *Subcode `xml:"Subcode,omitempty"`
 }
 
 type Detail struct {
-	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ detail"`
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope detail"`
+}
+
+type NotUnderstoodType struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope NotUnderstood"`
+
+	Qname *QName `xml:"qname,attr,omitempty"`
+}
+
+type SupportedEnvType struct {
+	Qname *QName `xml:"qname,attr,omitempty"`
+}
+
+type UpgradeType struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Upgrade"`
+
+	SupportedEnvelope []*SupportedEnvType `xml:"SupportedEnvelope,omitempty"`
 }
 
 type RelationshipTypeOpenEnum string
 
-type RelationshipType string
+type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
@@ -1292,7 +1559,7 @@ const (
 
 type FaultCodesOpenEnumType string
 
-type FaultCodesType string
+type FaultCodesType QName
 
 const (
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
@@ -1411,9 +1678,6 @@ type BaseFaultType struct {
 	Originator *EndpointReferenceType `xml:"Originator,omitempty"`
 
 	ErrorCode struct {
-
-		// fixme		interface{}
-
 		Dialect *AnyURI `xml:"dialect,attr,omitempty"`
 	} `xml:"ErrorCode,omitempty"`
 
@@ -1468,7 +1732,6 @@ type TopicNamespaceType struct {
 	Final bool `xml:"final,attr,omitempty"`
 }
 
-type NCName string
 type TopicType struct {
 	*ExtensibleDocumented
 
@@ -1614,8 +1877,6 @@ type UnacceptableInitialTerminationTimeFault UnacceptableInitialTerminationTimeF
 
 type NoCurrentMessageOnTopicFault NoCurrentMessageOnTopicFaultType
 
-type NonNegativeInteger int64
-
 type GetMessages struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessages"`
 
@@ -1697,12 +1958,6 @@ type ResumeSubscriptionResponse struct {
 type PauseFailedFault PauseFailedFaultType
 
 type ResumeFailedFault ResumeFailedFaultType
-
-// type QueryExpressionType struct {
-// 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ProducerProperties"`
-
-// 	Dialect *AnyURI `xml:"Dialect,attr,omitempty"`
-// }
 
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
@@ -1865,8 +2120,6 @@ type ResumeFailedFaultType struct {
 	*BaseFaultType
 }
 
-//type Include Include
-
 type Include struct {
 	Href *AnyURI `xml:"href,attr,omitempty"`
 }
@@ -1876,6 +2129,259 @@ type Include struct {
 // Length up to 64 characters.
 
 type ReferenceToken string
+
+type MoveStatus string
+
+const (
+	MoveStatusIDLE MoveStatus = "IDLE"
+
+	MoveStatusMOVING MoveStatus = "MOVING"
+
+	MoveStatusUNKNOWN MoveStatus = "UNKNOWN"
+)
+
+type Entity string
+
+const (
+	EntityDevice Entity = "Device"
+
+	EntityVideoSource Entity = "VideoSource"
+
+	EntityAudioSource Entity = "AudioSource"
+)
+
+type IntRange struct {
+	Min int32 `xml:"Min,omitempty"`
+
+	Max int32 `xml:"Max,omitempty"`
+}
+
+type Vector2D struct {
+	X float32 `xml:"x,attr,omitempty"`
+
+	Y float32 `xml:"y,attr,omitempty"`
+
+	//
+	// Pan/tilt coordinate space selector. The following options are defined:
+	//
+
+	Space *AnyURI `xml:"space,attr,omitempty"`
+}
+
+type Vector1D struct {
+	X float32 `xml:"x,attr,omitempty"`
+
+	//
+	// Zoom coordinate space selector. The following options are defined:
+	//
+
+	Space *AnyURI `xml:"space,attr,omitempty"`
+}
+
+type PTZVector struct {
+
+	// Pan and tilt position. The x component corresponds to pan and the y component to tilt.
+	PanTilt *Vector2D `xml:"PanTilt,omitempty"`
+
+	//
+	// A zoom position.
+	//
+	Zoom *Vector1D `xml:"Zoom,omitempty"`
+}
+
+type PTZStatus struct {
+
+	//
+	// Specifies the absolute position of the PTZ unit together with the Space references. The default absolute spaces of the corresponding PTZ configuration MUST be referenced within the Position element.
+	//
+	Position *PTZVector `xml:"Position,omitempty"`
+
+	//
+	// Indicates if the Pan/Tilt/Zoom device unit is currently moving, idle or in an unknown state.
+	//
+	MoveStatus *PTZMoveStatus `xml:"MoveStatus,omitempty"`
+
+	//
+	// States a current PTZ error.
+	//
+	Error string `xml:"Error,omitempty"`
+
+	//
+	// Specifies the UTC time when this status was generated.
+	//
+	UtcTime time.Time `xml:"UtcTime,omitempty"`
+}
+
+type PTZMoveStatus struct {
+	PanTilt *MoveStatus `xml:"PanTilt,omitempty"`
+
+	Zoom *MoveStatus `xml:"Zoom,omitempty"`
+}
+
+type Vector struct {
+	X float32 `xml:"x,attr,omitempty"`
+
+	Y float32 `xml:"y,attr,omitempty"`
+}
+
+type Rectangle struct {
+	Bottom float32 `xml:"bottom,attr,omitempty"`
+
+	Top float32 `xml:"top,attr,omitempty"`
+
+	Right float32 `xml:"right,attr,omitempty"`
+
+	Left float32 `xml:"left,attr,omitempty"`
+}
+
+type Polygon struct {
+	Point []*Vector `xml:"Point,omitempty"`
+}
+
+type Color struct {
+	X float32 `xml:"X,attr,omitempty"`
+
+	Y float32 `xml:"Y,attr,omitempty"`
+
+	Z float32 `xml:"Z,attr,omitempty"`
+
+	//
+	// Acceptable values:
+	//
+	// If the Colorspace attribute is absent, YCbCr is implied.
+	//
+	// Deprecated values:
+	//
+	//
+
+	Colorspace *AnyURI `xml:"Colorspace,attr,omitempty"`
+}
+
+type ColorCovariance struct {
+	XX float32 `xml:"XX,attr,omitempty"`
+
+	YY float32 `xml:"YY,attr,omitempty"`
+
+	ZZ float32 `xml:"ZZ,attr,omitempty"`
+
+	XY float32 `xml:"XY,attr,omitempty"`
+
+	XZ float32 `xml:"XZ,attr,omitempty"`
+
+	YZ float32 `xml:"YZ,attr,omitempty"`
+
+	//
+	// Acceptable values are the same as in tt:Color.
+	//
+
+	Colorspace *AnyURI `xml:"Colorspace,attr,omitempty"`
+}
+
+type Transformation struct {
+	Translate *Vector `xml:"Translate,omitempty"`
+
+	Scale *Vector `xml:"Scale,omitempty"`
+
+	Extension *TransformationExtension `xml:"Extension,omitempty"`
+}
+
+type TransformationExtension struct {
+}
+
+type GeoLocation struct {
+
+	// East west location as angle.
+
+	Lon float64 `xml:"lon,attr,omitempty"`
+
+	// North south location as angle.
+
+	Lat float64 `xml:"lat,attr,omitempty"`
+
+	// Hight in meters above sea level.
+
+	Elevation float32 `xml:"elevation,attr,omitempty"`
+}
+
+type GeoOrientation struct {
+
+	// Rotation around the x axis.
+
+	Roll float32 `xml:"roll,attr,omitempty"`
+
+	// Rotation around the y axis.
+
+	Pitch float32 `xml:"pitch,attr,omitempty"`
+
+	// Rotation around the z axis.
+
+	Yaw float32 `xml:"yaw,attr,omitempty"`
+}
+
+type LocalLocation struct {
+
+	// East west location as angle.
+
+	X float32 `xml:"x,attr,omitempty"`
+
+	// North south location as angle.
+
+	Y float32 `xml:"y,attr,omitempty"`
+
+	// Offset in meters from the sea level.
+
+	Z float32 `xml:"z,attr,omitempty"`
+}
+
+type LocalOrientation struct {
+
+	// Rotation around the y axis.
+
+	Pan float32 `xml:"pan,attr,omitempty"`
+
+	// Rotation around the z axis.
+
+	Tilt float32 `xml:"tilt,attr,omitempty"`
+
+	// Rotation around the x axis.
+
+	Roll float32 `xml:"roll,attr,omitempty"`
+}
+
+type LocationEntity struct {
+
+	// Location on earth.
+	GeoLocation *GeoLocation `xml:"GeoLocation,omitempty"`
+
+	// Orientation relative to earth.
+	GeoOrientation *GeoOrientation `xml:"GeoOrientation,omitempty"`
+
+	// Indoor location offset.
+	LocalLocation *LocalLocation `xml:"LocalLocation,omitempty"`
+
+	// Indoor orientation offset.
+	LocalOrientation *LocalOrientation `xml:"LocalOrientation,omitempty"`
+
+	// Entity type the entry refers to, use a value from the tt:Entity enumeration.
+
+	Entity string `xml:"Entity,attr,omitempty"`
+
+	// Optional entity token.
+
+	Token *ReferenceToken `xml:"Token,attr,omitempty"`
+
+	// If this value is true the entity cannot be deleted.
+
+	Fixed bool `xml:"Fixed,attr,omitempty"`
+
+	// Optional reference to the XAddr of another devices DeviceManagement service.
+
+	GeoSource *AnyURI `xml:"GeoSource,attr,omitempty"`
+
+	// If set the geo location is obtained internally.
+
+	AutoGeo bool `xml:"AutoGeo,attr,omitempty"`
+}
 
 // User readable name. Length up to 64 characters.
 
@@ -1887,14 +2393,69 @@ type FloatAttrList []float32
 
 type StringAttrList []string
 
+type ReferenceTokenList []*ReferenceToken
+
 type RotateMode string
 
 const (
+
+	// Enable the Rotate feature. Degree of rotation is specified Degree parameter.
 	RotateModeOFF RotateMode = "OFF"
 
+	// Disable the Rotate feature.
 	RotateModeON RotateMode = "ON"
 
+	// Rotate feature is automatically activated by the device.
 	RotateModeAUTO RotateMode = "AUTO"
+)
+
+type SceneOrientationMode string
+
+const (
+	SceneOrientationModeMANUAL SceneOrientationMode = "MANUAL"
+
+	SceneOrientationModeAUTO SceneOrientationMode = "AUTO"
+)
+
+type SceneOrientationOption string
+
+const (
+	SceneOrientationOptionBelow SceneOrientationOption = "Below"
+
+	SceneOrientationOptionHorizon SceneOrientationOption = "Horizon"
+
+	SceneOrientationOptionAbove SceneOrientationOption = "Above"
+)
+
+// Source view modes supported by device.
+
+type ViewModes string
+
+const (
+
+	// Undewarped viewmode from device supporting fisheye lens.
+	ViewModesTtFisheye ViewModes = "tt:Fisheye"
+
+	// 360 degree panoramic view.
+	ViewModesTt360Panorama ViewModes = "tt:360Panorama"
+
+	// 180 degree panoramic view.
+	ViewModesTt180Panorama ViewModes = "tt:180Panorama"
+
+	// View mode combining four streams in single Quad, eg., applicable for devices supporting four heads.
+	ViewModesTtQuad ViewModes = "tt:Quad"
+
+	// Unaltered view from the sensor.
+	ViewModesTtOriginal ViewModes = "tt:Original"
+
+	// Viewmode combining the left side sensors, applicable for devices supporting multiple sensors.
+	ViewModesTtLeftHalf ViewModes = "tt:LeftHalf"
+
+	// Viewmode combining the right side sensors, applicable for devices supporting multiple sensors.
+	ViewModesTtRightHalf ViewModes = "tt:RightHalf"
+
+	// Dewarped view mode for device supporting fisheye lens.
+	ViewModesTtDewarp ViewModes = "tt:Dewarp"
 )
 
 type VideoEncoding string
@@ -1927,6 +2488,38 @@ const (
 	H264ProfileHigh H264Profile = "High"
 )
 
+// Video Media Subtypes as referenced by IANA (without the leading "video/" Video Media Type).  See also .
+
+type VideoEncodingMimeNames string
+
+const (
+	VideoEncodingMimeNamesJPEG VideoEncodingMimeNames = "JPEG"
+
+	VideoEncodingMimeNamesMPV4ES VideoEncodingMimeNames = "MPV4-ES"
+
+	VideoEncodingMimeNamesH264 VideoEncodingMimeNames = "H264"
+
+	VideoEncodingMimeNamesH265 VideoEncodingMimeNames = "H265"
+)
+
+type VideoEncodingProfiles string
+
+const (
+	VideoEncodingProfilesSimple VideoEncodingProfiles = "Simple"
+
+	VideoEncodingProfilesAdvancedSimple VideoEncodingProfiles = "AdvancedSimple"
+
+	VideoEncodingProfilesBaseline VideoEncodingProfiles = "Baseline"
+
+	VideoEncodingProfilesMain VideoEncodingProfiles = "Main"
+
+	VideoEncodingProfilesMain10 VideoEncodingProfiles = "Main10"
+
+	VideoEncodingProfilesExtended VideoEncodingProfiles = "Extended"
+
+	VideoEncodingProfilesHigh VideoEncodingProfiles = "High"
+)
+
 type AudioEncoding string
 
 const (
@@ -1935,6 +2528,30 @@ const (
 	AudioEncodingG726 AudioEncoding = "G726"
 
 	AudioEncodingAAC AudioEncoding = "AAC"
+)
+
+// Audio Media Subtypes as referenced by IANA (without the leading "audio/" Audio Media Type).  See also .
+
+type AudioEncodingMimeNames string
+
+const (
+	AudioEncodingMimeNamesPCMU AudioEncodingMimeNames = "PCMU"
+
+	AudioEncodingMimeNamesG726 AudioEncodingMimeNames = "G726"
+
+	AudioEncodingMimeNamesMP4ALATM AudioEncodingMimeNames = "MP4A-LATM"
+
+	AudioEncodingMimeNamesMpeg4generic AudioEncodingMimeNames = "mpeg4-generic"
+)
+
+type MetadataCompressionType string
+
+const (
+	MetadataCompressionTypeNone MetadataCompressionType = "None"
+
+	MetadataCompressionTypeGZIP MetadataCompressionType = "GZIP"
+
+	MetadataCompressionTypeEXI MetadataCompressionType = "EXI"
 )
 
 type StreamType string
@@ -1950,6 +2567,7 @@ type TransportProtocol string
 const (
 	TransportProtocolUDP TransportProtocol = "UDP"
 
+	// This value is deprecated.
 	TransportProtocolTCP TransportProtocol = "TCP"
 
 	TransportProtocolRTSP TransportProtocol = "RTSP"
@@ -2216,6 +2834,14 @@ const (
 	RelayModeBistable RelayMode = "Bistable"
 )
 
+type DigitalIdleState string
+
+const (
+	DigitalIdleStateClosed DigitalIdleState = "closed"
+
+	DigitalIdleStateOpen DigitalIdleState = "open"
+)
+
 type EFlipMode string
 
 const (
@@ -2239,16 +2865,6 @@ const (
 )
 
 type AuxiliaryData string
-
-type MoveStatus string
-
-const (
-	MoveStatusIDLE MoveStatus = "IDLE"
-
-	MoveStatusMOVING MoveStatus = "MOVING"
-
-	MoveStatusUNKNOWN MoveStatus = "UNKNOWN"
-)
 
 type PTZPresetTourState string
 
@@ -2290,6 +2906,14 @@ const (
 	AutoFocusModeAUTO AutoFocusMode = "AUTO"
 
 	AutoFocusModeMANUAL AutoFocusMode = "MANUAL"
+)
+
+type AFModes string
+
+const (
+
+	// Focus of a moving camera is updated only once after stopping a pan, tilt or zoom movement.
+	AFModesOnceAfterMove AFModes = "OnceAfterMove"
 )
 
 type WideDynamicMode string
@@ -2379,6 +3003,26 @@ const (
 	IrCutFilterAutoBoundaryTypeExtended IrCutFilterAutoBoundaryType = "Extended"
 )
 
+type ToneCompensationMode string
+
+const (
+	ToneCompensationModeOFF ToneCompensationMode = "OFF"
+
+	ToneCompensationModeON ToneCompensationMode = "ON"
+
+	ToneCompensationModeAUTO ToneCompensationMode = "AUTO"
+)
+
+type DefoggingMode string
+
+const (
+	DefoggingModeOFF DefoggingMode = "OFF"
+
+	DefoggingModeON DefoggingMode = "ON"
+
+	DefoggingModeAUTO DefoggingMode = "AUTO"
+)
+
 type TopicNamespaceLocation *AnyURI
 
 type PropertyOperation string
@@ -2399,20 +3043,6 @@ const (
 	DirectionRight Direction = "Right"
 
 	DirectionAny Direction = "Any"
-)
-
-type ClassType string
-
-const (
-	ClassTypeAnimal ClassType = "Animal"
-
-	ClassTypeFace ClassType = "Face"
-
-	ClassTypeHuman ClassType = "Human"
-
-	ClassTypeVehical ClassType = "Vehical"
-
-	ClassTypeOther ClassType = "Other"
 )
 
 //
@@ -2550,23 +3180,13 @@ const (
 	OSDTypeExtended OSDType = "Extended"
 )
 
-//type VideoSourceConfiguration VideoSourceConfiguration
+type StringItems struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema StringItems"`
 
-//type AudioSourceConfiguration AudioSourceConfiguration
+	Item []string `xml:"Item,omitempty"`
+}
 
-//type VideoEncoderConfiguration VideoEncoderConfiguration
-
-//type AudioEncoderConfiguration AudioEncoderConfiguration
-
-//type VideoAnalyticsConfiguration VideoAnalyticsConfiguration
-
-//type PTZConfiguration PTZConfiguration
-
-//type MetadataConfiguration MetadataConfiguration
-
-//type AudioOutputConfiguration AudioOutputConfiguration
-
-//type AudioDecoderConfiguration AudioDecoderConfiguration
+type StringList StringAttrList
 
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
@@ -2584,12 +3204,6 @@ type Message struct {
 
 	PropertyOperation *PropertyOperation `xml:"PropertyOperation,attr,omitempty"`
 }
-
-//type Polygon Polygon
-
-//type Polyline Polyline
-
-//type MetadataStream MetadataStream
 
 type DeviceEntity struct {
 
@@ -2621,12 +3235,6 @@ type IntRectangleRange struct {
 
 	// Range of height.
 	HeightRange *IntRange `xml:"HeightRange,omitempty"`
-}
-
-type IntRange struct {
-	Min int32 `xml:"Min,omitempty"`
-
-	Max int32 `xml:"Max,omitempty"`
 }
 
 type FloatRange struct {
@@ -2742,10 +3350,10 @@ type ConfigurationEntity struct {
 	// User readable name. Length up to 64 characters.
 	Name *Name `xml:"Name,omitempty"`
 
-	// Number of internal references currently using this configuration. This parameter is read-only and cannot be changed by a set request. For example the value increases if the configuration is added to a media profile or attached to a PaneConfiguration.
+	// Number of internal references currently using this configuration.
 	UseCount int32 `xml:"UseCount,omitempty"`
 
-	// Token that uniquely refernces this configuration. Length up to 64 characters.
+	// Token that uniquely references this configuration. Length up to 64 characters.
 
 	Token *ReferenceToken `xml:"token,attr,omitempty"`
 }
@@ -2760,17 +3368,32 @@ type VideoSourceConfiguration struct {
 	Bounds *IntRectangle `xml:"Bounds,omitempty"`
 
 	Extension *VideoSourceConfigurationExtension `xml:"Extension,omitempty"`
+
+	// Readonly parameter signalling Source configuration's view mode, for devices supporting different view modes as defined in tt:viewModes.
+
+	ViewMode string `xml:"ViewMode,attr,omitempty"`
 }
 
 type VideoSourceConfigurationExtension struct {
 
 	// Optional element to configure rotation of captured image.
+	// What resolutions a device supports shall be unaffected by the Rotate parameters.
+	// If a device is configured with Rotate=AUTO, the device shall take control over the Degree parameter and automatically update it so that a client can query current rotation.
+	// The device shall automatically apply the same rotation to its pan/tilt control direction depending on the following condition:
+	// if Reverse=AUTO in PTControlDirection or if the device doesn’t support Reverse in PTControlDirection
+	//
 	Rotate *Rotate `xml:"Rotate,omitempty"`
 
 	Extension *VideoSourceConfigurationExtension2 `xml:"Extension,omitempty"`
 }
 
 type VideoSourceConfigurationExtension2 struct {
+
+	// Optional element describing the geometric lens distortion. Multiple instances for future variable lens support.
+	LensDescription []*LensDescription `xml:"LensDescription,omitempty"`
+
+	// Optional element describing the scene orientation in the camera’s field of view.
+	SceneOrientation *SceneOrientation `xml:"SceneOrientation,omitempty"`
 }
 
 type Rotate struct {
@@ -2787,15 +3410,64 @@ type Rotate struct {
 type RotateExtension struct {
 }
 
+type LensProjection struct {
+
+	// Angle of incidence.
+	Angle float32 `xml:"Angle,omitempty"`
+
+	// Mapping radius as a consequence of the emergent angle.
+	Radius float32 `xml:"Radius,omitempty"`
+
+	// Optional ray absorption at the given angle due to vignetting. A value of one means no absorption.
+	Transmittance float32 `xml:"Transmittance,omitempty"`
+}
+
+type LensOffset struct {
+
+	// Optional horizontal offset of the lens center in normalized coordinates.
+
+	X float32 `xml:"x,attr,omitempty"`
+
+	// Optional vertical offset of the lens center in normalized coordinates.
+
+	Y float32 `xml:"y,attr,omitempty"`
+}
+
+type LensDescription struct {
+
+	// Offset of the lens center to the imager center in normalized coordinates.
+	Offset *LensOffset `xml:"Offset,omitempty"`
+
+	// Radial description of the projection characteristics. The resulting curve is defined by the B-Spline interpolation
+	// over the given elements. The element for Radius zero shall not be provided. The projection points shall be ordered with ascending Radius.
+	// Items outside the last projection Radius shall be assumed to be invisible (black).
+	Projection []*LensProjection `xml:"Projection,omitempty"`
+
+	// Compensation of the x coordinate needed for the ONVIF normalized coordinate system.
+	XFactor float32 `xml:"XFactor,omitempty"`
+
+	// Optional focal length of the optical system.
+
+	FocalLength float32 `xml:"FocalLength,attr,omitempty"`
+}
+
 type VideoSourceConfigurationOptions struct {
 
+	//
 	// Supported range for the capturing area.
+	// Device that does not support cropped streaming shall express BoundsRange option as mentioned below
+	// BoundsRange->XRange and BoundsRange->YRange with same Min/Max values HeightRange and WidthRange Min/Max values same as VideoSource Height and Width Limits.
+	//
 	BoundsRange *IntRectangleRange `xml:"BoundsRange,omitempty"`
 
 	// List of physical inputs.
 	VideoSourceTokensAvailable []*ReferenceToken `xml:"VideoSourceTokensAvailable,omitempty"`
 
 	Extension *VideoSourceConfigurationOptionsExtension `xml:"Extension,omitempty"`
+
+	// Maximum number of profiles.
+
+	MaximumNumberOfProfiles int32 `xml:"MaximumNumberOfProfiles,attr,omitempty"`
 }
 
 type VideoSourceConfigurationOptionsExtension struct {
@@ -2807,6 +3479,9 @@ type VideoSourceConfigurationOptionsExtension struct {
 }
 
 type VideoSourceConfigurationOptionsExtension2 struct {
+
+	// Scene orientation modes supported by the device for this configuration.
+	SceneOrientationMode []*SceneOrientationMode `xml:"SceneOrientationMode,omitempty"`
 }
 
 type RotateOptions struct {
@@ -2818,9 +3493,29 @@ type RotateOptions struct {
 	DegreeList *IntList `xml:"DegreeList,omitempty"`
 
 	Extension *RotateOptionsExtension `xml:"Extension,omitempty"`
+
+	// After setting the rotation, if a device starts to reboot this value is true.
+	// If a device can handle rotation setting without rebooting this value is false.
+
+	Reboot bool `xml:"Reboot,attr,omitempty"`
 }
 
 type RotateOptionsExtension struct {
+}
+
+type SceneOrientation struct {
+
+	//
+	// Parameter to assign the way the camera determines the scene orientation.
+	//
+	Mode *SceneOrientationMode `xml:"Mode,omitempty"`
+
+	//
+	// Assigned or determined scene orientation based on the Mode. When assigning the Mode to AUTO, this field
+	// is optional and will be ignored by the device. When assigning the Mode to MANUAL, this field is required
+	// and the device will return an InvalidArgs fault if missing.
+	//
+	Orientation string `xml:"Orientation,omitempty"`
 }
 
 type VideoEncoderConfiguration struct {
@@ -2849,6 +3544,14 @@ type VideoEncoderConfiguration struct {
 
 	// The rtsp session timeout for the related video stream
 	SessionTimeout *Duration `xml:"SessionTimeout,omitempty"`
+
+	//
+	// A value of true indicates that frame rate is a fixed value rather than an upper limit,
+	// and that the video encoder shall prioritize frame rate over all other adaptable
+	// configuration values such as bitrate.  Default is false.
+	//
+
+	GuaranteedFrameRate bool `xml:"GuaranteedFrameRate,attr,omitempty"`
 }
 
 type VideoResolution struct {
@@ -2905,6 +3608,12 @@ type VideoEncoderConfigurationOptions struct {
 	H264 *H264Options `xml:"H264,omitempty"`
 
 	Extension *VideoEncoderOptionsExtension `xml:"Extension,omitempty"`
+
+	//
+	// Indicates the support for the GuaranteedFrameRate attribute on the VideoEncoderConfiguration element.
+	//
+
+	GuaranteedFrameRateSupported bool `xml:"GuaranteedFrameRateSupported,attr,omitempty"`
 }
 
 type VideoEncoderOptionsExtension struct {
@@ -2993,6 +3702,100 @@ type H264Options2 struct {
 	BitrateRange *IntRange `xml:"BitrateRange,omitempty"`
 }
 
+type VideoEncoder2Configuration struct {
+	*ConfigurationEntity
+
+	// Video Media Subtype for the video format. For definitions see tt:VideoEncodingMimeNames and .
+	Encoding string `xml:"Encoding,omitempty"`
+
+	// Configured video resolution
+	Resolution *VideoResolution2 `xml:"Resolution,omitempty"`
+
+	// Optional element to configure rate control related parameters.
+	RateControl *VideoRateControl2 `xml:"RateControl,omitempty"`
+
+	// Defines the multicast settings that could be used for video streaming.
+	Multicast *MulticastConfiguration `xml:"Multicast,omitempty"`
+
+	// Relative value for the video quantizers and the quality of the video. A high value within supported quality range means higher quality
+	Quality float32 `xml:"Quality,omitempty"`
+
+	// Group of Video frames length. Determines typically the interval in which the I-Frames will be coded. An entry of 1 indicates I-Frames are continuously generated. An entry of 2 indicates that every 2nd image is an I-Frame, and 3 only every 3rd frame, etc. The frames in between are coded as P or B Frames.
+
+	GovLength int32 `xml:"GovLength,attr,omitempty"`
+
+	// The encoder profile as defined in tt:VideoEncodingProfiles.
+
+	Profile string `xml:"Profile,attr,omitempty"`
+
+	//
+	// A value of true indicates that frame rate is a fixed value rather than an upper limit,
+	// and that the video encoder shall prioritize frame rate over all other adaptable
+	// configuration values such as bitrate.  Default is false.
+	//
+
+	GuaranteedFrameRate bool `xml:"GuaranteedFrameRate,attr,omitempty"`
+}
+
+type VideoResolution2 struct {
+
+	// Number of the columns of the Video image.
+	Width int32 `xml:"Width,omitempty"`
+
+	// Number of the lines of the Video image.
+	Height int32 `xml:"Height,omitempty"`
+}
+
+type VideoRateControl2 struct {
+
+	// Desired frame rate in fps. The actual rate may be lower due to e.g. performance limitations.
+	FrameRateLimit float32 `xml:"FrameRateLimit,omitempty"`
+
+	// the maximum output bitrate in kbps
+	BitrateLimit int32 `xml:"BitrateLimit,omitempty"`
+
+	// Enforce constant bitrate.
+
+	ConstantBitRate bool `xml:"ConstantBitRate,attr,omitempty"`
+}
+
+type VideoEncoder2ConfigurationOptions struct {
+
+	// Video Media Subtype for the video format. For definitions see tt:VideoEncodingMimeNames and .
+	Encoding string `xml:"Encoding,omitempty"`
+
+	// Range of the quality values. A high value means higher quality.
+	QualityRange *FloatRange `xml:"QualityRange,omitempty"`
+
+	// List of supported image sizes.
+	ResolutionsAvailable []*VideoResolution2 `xml:"ResolutionsAvailable,omitempty"`
+
+	// Supported range of encoded bitrate in kbps.
+	BitrateRange *IntRange `xml:"BitrateRange,omitempty"`
+
+	// Exactly two values, which define the Lower and Upper bounds for the supported group of Video frames length. These values typically correspond to the I-Frame distance.
+
+	GovLengthRange *IntAttrList `xml:"GovLengthRange,attr,omitempty"`
+
+	// List of supported target frame rates in fps (frames per second). The list shall be sorted with highest values first.
+
+	FrameRatesSupported *FloatAttrList `xml:"FrameRatesSupported,attr,omitempty"`
+
+	// List of supported encoder profiles as defined in tt::VideoEncodingProfiles.
+
+	ProfilesSupported *StringAttrList `xml:"ProfilesSupported,attr,omitempty"`
+
+	// Signal whether enforcing constant bitrate is supported.
+
+	ConstantBitRateSupported bool `xml:"ConstantBitRateSupported,attr,omitempty"`
+
+	//
+	// Indicates the support for the GuaranteedFrameRate attribute on the VideoEncoder2Configuration element.
+	//
+
+	GuaranteedFrameRateSupported bool `xml:"GuaranteedFrameRateSupported,attr,omitempty"`
+}
+
 type AudioSourceConfiguration struct {
 	*ConfigurationEntity
 
@@ -3048,6 +3851,34 @@ type AudioEncoderConfigurationOption struct {
 	SampleRateList *IntList `xml:"SampleRateList,omitempty"`
 }
 
+type AudioEncoder2Configuration struct {
+	*ConfigurationEntity
+
+	// Audio Media Subtype for the audio format. For definitions see tt:AudioEncodingMimeNames and .
+	Encoding string `xml:"Encoding,omitempty"`
+
+	// Optional multicast configuration of the audio stream.
+	Multicast *MulticastConfiguration `xml:"Multicast,omitempty"`
+
+	// The output bitrate in kbps.
+	Bitrate int32 `xml:"Bitrate,omitempty"`
+
+	// The output sample rate in kHz.
+	SampleRate int32 `xml:"SampleRate,omitempty"`
+}
+
+type AudioEncoder2ConfigurationOptions struct {
+
+	// Audio Media Subtype for the audio format. For definitions see tt:AudioEncodingMimeNames and .
+	Encoding string `xml:"Encoding,omitempty"`
+
+	// List of supported bitrates in kbps for the specified Encoding
+	BitrateList *IntList `xml:"BitrateList,omitempty"`
+
+	// List of supported Sample Rates in kHz for the specified Encoding
+	SampleRateList *IntList `xml:"SampleRateList,omitempty"`
+}
+
 type VideoAnalyticsConfiguration struct {
 	*ConfigurationEntity
 
@@ -3073,12 +3904,20 @@ type MetadataConfiguration struct {
 	// Defines the multicast settings that could be used for video streaming.
 	Multicast *MulticastConfiguration `xml:"Multicast,omitempty"`
 
-	// The rtsp session timeout for the related audio stream
+	// The rtsp session timeout for the related audio stream (when using Media2 Service, this value is deprecated and ignored)
 	SessionTimeout *Duration `xml:"SessionTimeout,omitempty"`
 
 	AnalyticsEngineConfiguration *AnalyticsEngineConfiguration `xml:"AnalyticsEngineConfiguration,omitempty"`
 
 	Extension *MetadataConfigurationExtension `xml:"Extension,omitempty"`
+
+	// Optional parameter to configure compression type of Metadata payload. Use values from enumeration MetadataCompressionType.
+
+	CompressionType string `xml:"CompressionType,attr,omitempty"`
+
+	// Optional parameter to configure if the metadata stream shall contain the Geo Location coordinates of each target.
+
+	GeoLocation bool `xml:"GeoLocation,attr,omitempty"`
 }
 
 type MetadataConfigurationExtension struct {
@@ -3102,6 +3941,23 @@ type EventSubscription struct {
 
 type MetadataConfigurationOptions struct {
 	PTZStatusFilterOptions *PTZStatusFilterOptions `xml:"PTZStatusFilterOptions,omitempty"`
+
+	Extension *MetadataConfigurationOptionsExtension `xml:"Extension,omitempty"`
+
+	// True if the device is able to stream the Geo Located positions of each target.
+
+	GeoLocation bool `xml:"GeoLocation,attr,omitempty"`
+}
+
+type MetadataConfigurationOptionsExtension struct {
+
+	// List of supported metadata compression type. Its options shall be chosen from tt:MetadataCompressionType.
+	CompressionType []string `xml:"CompressionType,omitempty"`
+
+	Extension *MetadataConfigurationOptionsExtension2 `xml:"Extension,omitempty"`
+}
+
+type MetadataConfigurationOptionsExtension2 struct {
 }
 
 type PTZStatusFilterOptions struct {
@@ -3983,23 +4839,6 @@ type ProfileCapabilities struct {
 	MaximumNumberOfProfiles int32 `xml:"MaximumNumberOfProfiles,omitempty"`
 }
 
-// type NetworkCapabilities struct {
-
-// 	// Indicates whether or not IP filtering is supported.
-// 	IPFilter bool `xml:"IPFilter,omitempty"`
-
-// 	// Indicates whether or not zeroconf is supported.
-// 	ZeroConfiguration bool `xml:"ZeroConfiguration,omitempty"`
-
-// 	// Indicates whether or not IPv6 is supported.
-// 	IPVersion6 bool `xml:"IPVersion6,omitempty"`
-
-// 	// Indicates whether or not  is supported.
-// 	DynDNS bool `xml:"DynDNS,omitempty"`
-
-// 	Extension *NetworkCapabilitiesExtension `xml:"Extension,omitempty"`
-// }
-
 type NetworkCapabilitiesExtension struct {
 	Dot11Configuration bool `xml:"Dot11Configuration,omitempty"`
 
@@ -4024,32 +4863,6 @@ type SecurityCapabilitiesExtension2 struct {
 	RemoteUserHandling bool `xml:"RemoteUserHandling,omitempty"`
 }
 
-type SystemCapabilities struct {
-
-	// Indicates whether or not WS Discovery resolve requests are supported.
-	DiscoveryResolve bool `xml:"DiscoveryResolve,omitempty"`
-
-	// Indicates whether or not WS-Discovery Bye is supported.
-	DiscoveryBye bool `xml:"DiscoveryBye,omitempty"`
-
-	// Indicates whether or not remote discovery is supported.
-	RemoteDiscovery bool `xml:"RemoteDiscovery,omitempty"`
-
-	// Indicates whether or not system backup is supported.
-	SystemBackup bool `xml:"SystemBackup,omitempty"`
-
-	// Indicates whether or not system logging is supported.
-	SystemLogging bool `xml:"SystemLogging,omitempty"`
-
-	// Indicates whether or not firmware upgrade is supported.
-	FirmwareUpgrade bool `xml:"FirmwareUpgrade,omitempty"`
-
-	// Indicates supported ONVIF version(s).
-	SupportedVersions []*OnvifVersion `xml:"SupportedVersions,omitempty"`
-
-	Extension *SystemCapabilitiesExtension `xml:"Extension,omitempty"`
-}
-
 type SystemCapabilitiesExtension struct {
 	HttpFirmwareUpgrade bool `xml:"HttpFirmwareUpgrade,omitempty"`
 
@@ -4070,7 +4883,11 @@ type OnvifVersion struct {
 	// Major version number.
 	Major int32 `xml:"Major,omitempty"`
 
-	// Two digit minor version number (e.g. X.0.1 maps to "01" and X.2.1 maps to "21" where X stands for Major version number).
+	//
+	// Two digit minor version number.
+	// If major version number is less than "16", X.0.1 maps to "01" and X.2.1 maps to "21" where X stands for Major version number.
+	// Otherwise, minor number is month of release, such as "06" for June.
+	//
 	Minor int32 `xml:"Minor,omitempty"`
 }
 
@@ -4440,6 +5257,12 @@ type RelayOutput struct {
 
 type DigitalInput struct {
 	*DeviceEntity
+
+	//
+	// Indicate the Digital IdleState status.
+	//
+
+	IdleState *DigitalIdleState `xml:"IdleState,attr,omitempty"`
 }
 
 type PTZNode struct {
@@ -4477,6 +5300,12 @@ type PTZNode struct {
 	//
 
 	FixedHomePosition bool `xml:"FixedHomePosition,attr,omitempty"`
+
+	//
+	// Indication whether the Node supports the geo-referenced move command.
+	//
+
+	GeoMove bool `xml:"GeoMove,attr,omitempty"`
 }
 
 type PTZNodeExtension struct {
@@ -4565,6 +5394,18 @@ type PTZConfiguration struct {
 	ZoomLimits *ZoomLimits `xml:"ZoomLimits,omitempty"`
 
 	Extension *PTZConfigurationExtension `xml:"Extension,omitempty"`
+
+	// The optional acceleration ramp used by the device when moving.
+
+	MoveRamp int32 `xml:"MoveRamp,attr,omitempty"`
+
+	// The optional acceleration ramp used by the device when recalling presets.
+
+	PresetRamp int32 `xml:"PresetRamp,attr,omitempty"`
+
+	// The optional acceleration ramp used by the device when executing PresetTours.
+
+	PresetTourRamp int32 `xml:"PresetTourRamp,attr,omitempty"`
 }
 
 type PTZConfigurationExtension struct {
@@ -4620,6 +5461,14 @@ type PTZConfigurationOptions struct {
 	PTControlDirection *PTControlDirectionOptions `xml:"PTControlDirection,omitempty"`
 
 	Extension *PTZConfigurationOptions2 `xml:"Extension,omitempty"`
+
+	//
+	// The list of acceleration ramps supported by the device. The
+	// smallest acceleration value corresponds to the minimal index, the
+	// highest acceleration corresponds to the maximum index.
+	//
+
+	PTZRamps *IntAttrList `xml:"PTZRamps,attr,omitempty"`
 }
 
 type PTZConfigurationOptions2 struct {
@@ -4770,39 +5619,6 @@ type Space1DDescription struct {
 	XRange *FloatRange `xml:"XRange,omitempty"`
 }
 
-type Vector2D struct {
-	X float32 `xml:"x,attr,omitempty"`
-
-	Y float32 `xml:"y,attr,omitempty"`
-
-	//
-	// Pan/tilt coordinate space selector. The following options are defined:
-	//
-
-	Space *AnyURI `xml:"space,attr,omitempty"`
-}
-
-type Vector1D struct {
-	X float32 `xml:"x,attr,omitempty"`
-
-	//
-	// Pan/tilt coordinate space selector. The following options are defined:
-	//
-
-	Space *AnyURI `xml:"space,attr,omitempty"`
-}
-
-type PTZVector struct {
-
-	// Pan and tilt position. The x component corresponds to pan and the y component to tilt.
-	PanTilt *Vector2D `xml:"PanTilt,omitempty"`
-
-	//
-	// A zoom position.
-	//
-	Zoom *Vector1D `xml:"Zoom,omitempty"`
-}
-
 type PTZSpeed struct {
 
 	// Pan and tilt speed. The x component corresponds to pan and the y component to tilt. If omitted in a request, the current (if any) PanTilt movement should not be affected.
@@ -4812,29 +5628,6 @@ type PTZSpeed struct {
 	// A zoom speed. If omitted in a request, the current (if any) Zoom movement should not be affected.
 	//
 	Zoom *Vector1D `xml:"Zoom,omitempty"`
-}
-
-type PTZStatus struct {
-
-	//
-	// Specifies the absolute position of the PTZ unit together with the Space references. The default absolute spaces of the corresponding PTZ configuration MUST be referenced within the Position element.
-	//
-	Position *PTZVector `xml:"Position,omitempty"`
-
-	//
-	// Indicates if the Pan/Tilt/Zoom device unit is currently moving, idle or in an unknown state.
-	//
-	MoveStatus *PTZMoveStatus `xml:"MoveStatus,omitempty"`
-
-	//
-	// States a current PTZ error.
-	//
-	Error string `xml:"Error,omitempty"`
-
-	//
-	// Specifies the UTC time when this status was generated.
-	//
-	UtcTime time.Time `xml:"UtcTime,omitempty"`
 }
 
 type PTZPreset struct {
@@ -4850,12 +5643,6 @@ type PTZPreset struct {
 	PTZPosition *PTZVector `xml:"PTZPosition,omitempty"`
 
 	Token *ReferenceToken `xml:"token,attr,omitempty"`
-}
-
-type PTZMoveStatus struct {
-	PanTilt *MoveStatus `xml:"PanTilt,omitempty"`
-
-	Zoom *MoveStatus `xml:"Zoom,omitempty"`
 }
 
 type PresetTour struct {
@@ -4945,6 +5732,10 @@ type PTZPresetTourStartingCondition struct {
 	Direction *PTZPresetTourDirection `xml:"Direction,omitempty"`
 
 	Extension *PTZPresetTourStartingConditionExtension `xml:"Extension,omitempty"`
+
+	// Execute presets in random order. If set to true and Direction is also present, Direction will be ignored and presets of the Tour will be recalled randomly.
+
+	RandomPresetOrder bool `xml:"RandomPresetOrder,attr,omitempty"`
 }
 
 type PTZPresetTourStartingConditionExtension struct {
@@ -5437,6 +6228,20 @@ type ImagingSettingsExtension202 struct {
 }
 
 type ImagingSettingsExtension203 struct {
+
+	// Optional element to configure Image Contrast Compensation.
+	ToneCompensation *ToneCompensation `xml:"ToneCompensation,omitempty"`
+
+	// Optional element to configure Image Defogging.
+	Defogging *Defogging `xml:"Defogging,omitempty"`
+
+	// Optional element to configure Image Noise Reduction.
+	NoiseReduction *NoiseReduction `xml:"NoiseReduction,omitempty"`
+
+	Extension *ImagingSettingsExtension204 `xml:"Extension,omitempty"`
+}
+
+type ImagingSettingsExtension204 struct {
 }
 
 type ImageStabilization struct {
@@ -5527,12 +6332,12 @@ type Exposure20 struct {
 	MaxGain float32 `xml:"MaxGain,omitempty"`
 
 	//
-	// Minimum value of the iris range allowed to be used by the algorithm.
+	// Minimum value of the iris range allowed to be used by the algorithm.  0dB maps to a fully opened iris and positive values map to higher attenuation.
 	//
 	MinIris float32 `xml:"MinIris,omitempty"`
 
 	//
-	// Maximum value of the iris range allowed to be used by the algorithm.
+	// Maximum value of the iris range allowed to be used by the algorithm. 0dB maps to a fully opened iris and positive values map to higher attenuation.
 	//
 	MaxIris float32 `xml:"MaxIris,omitempty"`
 
@@ -5547,9 +6352,43 @@ type Exposure20 struct {
 	Gain float32 `xml:"Gain,omitempty"`
 
 	//
-	// The fixed attenuation of input light affected by the iris (dB). 0dB maps to a fully opened iris.
+	// The fixed attenuation of input light affected by the iris (dB). 0dB maps to a fully opened iris and positive values map to higher attenuation.
 	//
 	Iris float32 `xml:"Iris,omitempty"`
+}
+
+type ToneCompensation struct {
+
+	// Parameter to enable/disable or automatic ToneCompensation feature. Its options shall be chosen from tt:ToneCompensationMode Type.
+	Mode string `xml:"Mode,omitempty"`
+
+	// Optional level parameter specified with unitless normalized value from 0.0 to +1.0.
+	Level float32 `xml:"Level,omitempty"`
+
+	Extension *ToneCompensationExtension `xml:"Extension,omitempty"`
+}
+
+type ToneCompensationExtension struct {
+}
+
+type Defogging struct {
+
+	// Parameter to enable/disable or automatic Defogging feature. Its options shall be chosen from tt:DefoggingMode Type.
+	Mode string `xml:"Mode,omitempty"`
+
+	// Optional level parameter specified with unitless normalized value from 0.0 to +1.0.
+	Level float32 `xml:"Level,omitempty"`
+
+	Extension *DefoggingExtension `xml:"Extension,omitempty"`
+}
+
+type DefoggingExtension struct {
+}
+
+type NoiseReduction struct {
+
+	// Level parameter specified with unitless normalized value from 0.0 to +1.0. Level=0 means no noise reduction or minimal noise reduction.
+	Level float32 `xml:"Level,omitempty"`
 }
 
 type ImagingOptions20 struct {
@@ -5624,6 +6463,20 @@ type ImagingOptions20Extension2 struct {
 }
 
 type ImagingOptions20Extension3 struct {
+
+	// Options of parameters for Tone Compensation feature.
+	ToneCompensationOptions *ToneCompensationOptions `xml:"ToneCompensationOptions,omitempty"`
+
+	// Options of parameters for Defogging feature.
+	DefoggingOptions *DefoggingOptions `xml:"DefoggingOptions,omitempty"`
+
+	// Options of parameter for Noise Reduction feature.
+	NoiseReductionOptions *NoiseReductionOptions `xml:"NoiseReductionOptions,omitempty"`
+
+	Extension *ImagingOptions20Extension4 `xml:"Extension,omitempty"`
+}
+
+type ImagingOptions20Extension4 struct {
 }
 
 type ImageStabilizationOptions struct {
@@ -5792,8 +6645,9 @@ type WhiteBalance20Extension struct {
 type FocusConfiguration20 struct {
 
 	//
-	// Mode of auto fucus.
+	// Mode of auto focus.
 	//
+	// Note: for devices supporting both manual and auto operation at the same time manual operation may be supported even if the Mode parameter is set to Auto.
 	//
 	AutoFocusMode *AutoFocusMode `xml:"AutoFocusMode,omitempty"`
 
@@ -5806,6 +6660,10 @@ type FocusConfiguration20 struct {
 	FarLimit float32 `xml:"FarLimit,omitempty"`
 
 	Extension *FocusConfiguration20Extension `xml:"Extension,omitempty"`
+
+	// Zero or more modes as defined in enumeration tt:AFModes.
+
+	AFMode *StringAttrList `xml:"AFMode,attr,omitempty"`
 }
 
 type FocusConfiguration20Extension struct {
@@ -5832,7 +6690,7 @@ type WhiteBalanceOptions20Extension struct {
 type FocusOptions20 struct {
 
 	//
-	// Mode of Auto Focus.
+	// Supported modes for auto focus.
 	//
 	//
 	AutoFocusModes []*AutoFocusMode `xml:"AutoFocusModes,omitempty"`
@@ -5856,12 +6714,38 @@ type FocusOptions20 struct {
 }
 
 type FocusOptions20Extension struct {
+
+	// Supported options for auto focus. Options shall be chosen from tt:AFModes.
+	AFModes *StringAttrList `xml:"AFModes,omitempty"`
+}
+
+type ToneCompensationOptions struct {
+
+	// Supported options for Tone Compensation mode. Its options shall be chosen from tt:ToneCompensationMode Type.
+	Mode []string `xml:"Mode,omitempty"`
+
+	// Indicates whether or not support Level parameter for Tone Compensation.
+	Level bool `xml:"Level,omitempty"`
+}
+
+type DefoggingOptions struct {
+
+	// Supported options for Defogging mode. Its options shall be chosen from tt:DefoggingMode Type.
+	Mode []string `xml:"Mode,omitempty"`
+
+	// Indicates whether or not support Level parameter for Defogging.
+	Level bool `xml:"Level,omitempty"`
+}
+
+type NoiseReductionOptions struct {
+
+	// Indicates whether or not support Level parameter for NoiseReduction.
+	Level bool `xml:"Level,omitempty"`
 }
 
 type MessageExtension struct {
 }
 
-type AnySimpleType string
 type ItemList struct {
 	SimpleItem []struct {
 
@@ -5939,237 +6823,8 @@ type ItemListDescription struct {
 type ItemListDescriptionExtension struct {
 }
 
-type Vector struct {
-	X float32 `xml:"x,attr,omitempty"`
-
-	Y float32 `xml:"y,attr,omitempty"`
-}
-
-type Rectangle struct {
-	Bottom float32 `xml:"bottom,attr,omitempty"`
-
-	Top float32 `xml:"top,attr,omitempty"`
-
-	Right float32 `xml:"right,attr,omitempty"`
-
-	Left float32 `xml:"left,attr,omitempty"`
-}
-
-type Polygon struct {
-	Point []*Vector `xml:"Point,omitempty"`
-}
-
 type Polyline struct {
 	Point []*Vector `xml:"Point,omitempty"`
-}
-
-type Color struct {
-	X float32 `xml:"X,attr,omitempty"`
-
-	Y float32 `xml:"Y,attr,omitempty"`
-
-	Z float32 `xml:"Z,attr,omitempty"`
-
-	Colorspace *AnyURI `xml:"Colorspace,attr,omitempty"`
-}
-
-type ColorCovariance struct {
-	XX float32 `xml:"XX,attr,omitempty"`
-
-	YY float32 `xml:"YY,attr,omitempty"`
-
-	ZZ float32 `xml:"ZZ,attr,omitempty"`
-
-	XY float32 `xml:"XY,attr,omitempty"`
-
-	XZ float32 `xml:"XZ,attr,omitempty"`
-
-	YZ float32 `xml:"YZ,attr,omitempty"`
-
-	Colorspace *AnyURI `xml:"Colorspace,attr,omitempty"`
-}
-
-type Appearance struct {
-	Transformation *Transformation `xml:"Transformation,omitempty"`
-
-	Shape *ShapeDescriptor `xml:"Shape,omitempty"`
-
-	Color *ColorDescriptor `xml:"Color,omitempty"`
-
-	Class *ClassDescriptor `xml:"Class,omitempty"`
-
-	Extension *AppearanceExtension `xml:"Extension,omitempty"`
-}
-
-type AppearanceExtension struct {
-}
-
-type ShapeDescriptor struct {
-	BoundingBox *Rectangle `xml:"BoundingBox,omitempty"`
-
-	CenterOfGravity *Vector `xml:"CenterOfGravity,omitempty"`
-
-	Polygon []*Polygon `xml:"Polygon,omitempty"`
-
-	Extension *ShapeDescriptorExtension `xml:"Extension,omitempty"`
-}
-
-type ShapeDescriptorExtension struct {
-}
-
-type ColorDescriptor struct {
-	ColorCluster []struct {
-		Color *Color `xml:"Color,omitempty"`
-
-		Weight float32 `xml:"Weight,omitempty"`
-
-		Covariance *ColorCovariance `xml:"Covariance,omitempty"`
-	} `xml:"ColorCluster,omitempty"`
-
-	Extension *ColorDescriptorExtension `xml:"Extension,omitempty"`
-}
-
-type ColorDescriptorExtension struct {
-}
-
-type ClassDescriptor struct {
-	ClassCandidate []struct {
-		Type *ClassType `xml:"Type,omitempty"`
-
-		Likelihood float32 `xml:"Likelihood,omitempty"`
-	} `xml:"ClassCandidate,omitempty"`
-
-	Extension *ClassDescriptorExtension `xml:"Extension,omitempty"`
-}
-
-type ClassDescriptorExtension struct {
-	OtherTypes []*OtherType `xml:"OtherTypes,omitempty"`
-
-	Extension *ClassDescriptorExtension2 `xml:"Extension,omitempty"`
-}
-
-type ClassDescriptorExtension2 struct {
-}
-
-type OtherType struct {
-
-	// Object Class Type
-	Type string `xml:"Type,omitempty"`
-
-	// A likelihood/probability that the corresponding object belongs to this class. The sum of the likelihoods shall NOT exceed 1
-	Likelihood float32 `xml:"Likelihood,omitempty"`
-}
-
-type Object struct {
-	*ObjectId
-
-	Appearance *Appearance `xml:"Appearance,omitempty"`
-
-	Behaviour *Behaviour `xml:"Behaviour,omitempty"`
-
-	Extension *ObjectExtension `xml:"Extension,omitempty"`
-}
-
-type ObjectExtension struct {
-}
-
-type Transformation struct {
-	Translate *Vector `xml:"Translate,omitempty"`
-
-	Scale *Vector `xml:"Scale,omitempty"`
-
-	Extension *TransformationExtension `xml:"Extension,omitempty"`
-}
-
-type TransformationExtension struct {
-}
-
-type Frame struct {
-	PTZStatus *PTZStatus `xml:"PTZStatus,omitempty"`
-
-	Transformation *Transformation `xml:"Transformation,omitempty"`
-
-	Object []*Object `xml:"Object,omitempty"`
-
-	ObjectTree *ObjectTree `xml:"ObjectTree,omitempty"`
-
-	Extension *FrameExtension `xml:"Extension,omitempty"`
-
-	UtcTime time.Time `xml:"UtcTime,attr,omitempty"`
-}
-
-type FrameExtension struct {
-	MotionInCells *MotionInCells `xml:"MotionInCells,omitempty"`
-
-	Extension *FrameExtension2 `xml:"Extension,omitempty"`
-}
-
-type FrameExtension2 struct {
-}
-
-type Merge struct {
-	From []*ObjectId `xml:"from,omitempty"`
-
-	To *ObjectId `xml:"to,omitempty"`
-}
-
-type Split struct {
-	From *ObjectId `xml:"from,omitempty"`
-
-	To []*ObjectId `xml:"to,omitempty"`
-}
-
-type Rename struct {
-	From *ObjectId `xml:"from,omitempty"`
-
-	To *ObjectId `xml:"to,omitempty"`
-}
-
-type ObjectId struct {
-	ObjectId int32 `xml:"ObjectId,attr,omitempty"`
-}
-
-type Behaviour struct {
-	Removed struct {
-	} `xml:"Removed,omitempty"`
-
-	Idle struct {
-	} `xml:"Idle,omitempty"`
-
-	Extension *BehaviourExtension `xml:"Extension,omitempty"`
-}
-
-type BehaviourExtension struct {
-}
-
-type ObjectTree struct {
-	Rename []*Rename `xml:"Rename,omitempty"`
-
-	Split []*Split `xml:"Split,omitempty"`
-
-	Merge []*Merge `xml:"Merge,omitempty"`
-
-	Delete []*ObjectId `xml:"Delete,omitempty"`
-
-	Extension *ObjectTreeExtension `xml:"Extension,omitempty"`
-}
-
-type ObjectTreeExtension struct {
-}
-
-type MotionInCells struct {
-
-	// Number of columns of the cell grid (x dimension)
-
-	Columns int32 `xml:"Columns,attr,omitempty"`
-
-	// Number of rows of the cell grid (y dimension)
-
-	Rows int32 `xml:"Rows,attr,omitempty"`
-
-	// A “1” denotes a cell where motion is detected and a “0” an empty cell. The first cell is in the upper left corner. Then the cell order goes first from left to right and then from up to down.  If the number of cells is not a multiple of 8 the last byte is filled with zeros. The information is run length encoded according to Packbit coding in ISO 12369 (TIFF, Revision 6.0).
-
-	Cells []byte `xml:"Cells,attr,omitempty"`
 }
 
 type AnalyticsEngineConfiguration struct {
@@ -6199,7 +6854,7 @@ type Config struct {
 
 	Name string `xml:"Name,attr,omitempty"`
 
-	// Type of the configuration represented by a unique QName. The Type characterizes a ConfigDescription defining the Parameters.
+	// The Type attribute specifies the type of rule and shall be equal to value of one of Name attributes of ConfigDescription elements returned by GetSupportedRules and GetSupportedAnalyticsModules command.
 
 	Type *QName `xml:"Type,attr,omitempty"`
 }
@@ -6228,9 +6883,17 @@ type ConfigDescription struct {
 
 	Extension *ConfigDescriptionExtension `xml:"Extension,omitempty"`
 
-	// XML Type of the Configuration (e.g. "tt::LineDetector").
+	// The Name attribute (e.g. "tt::LineDetector") uniquely identifies the type of rule, not a type definition in a schema.
 
 	Name *QName `xml:"Name,attr,omitempty"`
+
+	// The fixed attribute signals that it is not allowed to add or remove this type of configuration.
+
+	Fixed bool `xml:"fixed,attr,omitempty"`
+
+	// The maxInstances attribute signals the maximum number of instances per configuration.
+
+	MaxInstances int32 `xml:"maxInstances,attr,omitempty"`
 }
 
 type ConfigDescriptionExtension struct {
@@ -6254,8 +6917,8 @@ type SupportedAnalyticsModules struct {
 
 	// It optionally contains a list of URLs that provide the location of schema files.
 	// These schema files describe the types and elements used in the analytics module descriptions.
-	// If the analytics module descriptions reference types or elements of the ONVIF schema file,
-	// the ONVIF schema file MUST be explicitly listed.
+	// Analytics module descriptions that reference types or elements imported from any ONVIF defined schema files
+	// need not explicitly list those schema files.
 	AnalyticsModuleContentSchemaLocation []*AnyURI `xml:"AnalyticsModuleContentSchemaLocation,omitempty"`
 
 	AnalyticsModuleDescription []*ConfigDescription `xml:"AnalyticsModuleDescription,omitempty"`
@@ -6315,65 +6978,6 @@ type CellLayout struct {
 	// Number of rows of the cell grid (y dimension)
 
 	Rows int32 `xml:"Rows,attr,omitempty"`
-}
-
-type MetadataStream struct {
-	VideoAnalytics *VideoAnalyticsStream `xml:"VideoAnalytics,omitempty"`
-
-	PTZ *PTZStream `xml:"PTZ,omitempty"`
-
-	Event *EventStream `xml:"Event,omitempty"`
-
-	Extension *MetadataStreamExtension `xml:"Extension,omitempty"`
-}
-
-type MetadataStreamExtension struct {
-	AudioAnalyticsStream *AudioAnalyticsStream `xml:"AudioAnalyticsStream,omitempty"`
-
-	Extension *MetadataStreamExtension2 `xml:"Extension,omitempty"`
-}
-
-type MetadataStreamExtension2 struct {
-}
-
-type AudioAnalyticsStream struct {
-	AudioDescriptor []*AudioDescriptor `xml:"AudioDescriptor,omitempty"`
-
-	Extension *AudioAnalyticsStreamExtension `xml:"Extension,omitempty"`
-}
-
-type AudioDescriptor struct {
-	UtcTime time.Time `xml:"UtcTime,attr,omitempty"`
-}
-
-type AudioAnalyticsStreamExtension struct {
-}
-
-type VideoAnalyticsStream struct {
-	Frame *Frame `xml:"Frame,omitempty"`
-
-	Extension *VideoAnalyticsStreamExtension `xml:"Extension,omitempty"`
-}
-
-type VideoAnalyticsStreamExtension struct {
-}
-
-type PTZStream struct {
-	PTZStatus *PTZStatus `xml:"PTZStatus,omitempty"`
-
-	Extension *PTZStreamExtension `xml:"Extension,omitempty"`
-}
-
-type PTZStreamExtension struct {
-}
-
-type EventStream struct {
-	NotificationMessage *NotificationMessage `xml:"NotificationMessage,omitempty"`
-
-	Extension *EventStreamExtension `xml:"Extension,omitempty"`
-}
-
-type EventStreamExtension struct {
 }
 
 type PaneConfiguration struct {
@@ -6735,8 +7339,8 @@ type VideoAttributes struct {
 	// The height of the video in pixels.
 	Height int32 `xml:"Height,omitempty"`
 
-	// Used video codec, either Jpeg, H.264 or Mpeg4
-	Encoding *VideoEncoding `xml:"Encoding,omitempty"`
+	// Video encoding of the track.  Use value from tt:VideoEncoding for MPEG4. Otherwise use values from tt:VideoEncodingMimeNames and .
+	Encoding string `xml:"Encoding,omitempty"`
 
 	// Average framerate in frames per second.
 	Framerate float32 `xml:"Framerate,omitempty"`
@@ -6747,8 +7351,8 @@ type AudioAttributes struct {
 	// The bitrate in kbps.
 	Bitrate int32 `xml:"Bitrate,omitempty"`
 
-	// Audio codec used for encoding the audio (either G.711, G.726 or AAC)
-	Encoding *AudioEncoding `xml:"Encoding,omitempty"`
+	// Audio encoding of the track.  Use values from tt:AudioEncoding for G711 and AAC. Otherwise use values from tt:AudioEncodingMimeNames and .
+	Encoding string `xml:"Encoding,omitempty"`
 
 	// The sample rate in kHz.
 	Samplerate int32 `xml:"Samplerate,omitempty"`
@@ -6845,6 +7449,12 @@ type RecordingJobConfiguration struct {
 	Source []*RecordingJobSource `xml:"Source,omitempty"`
 
 	Extension *RecordingJobConfigurationExtension `xml:"Extension,omitempty"`
+
+	// This attribute adds an additional requirement for activating the recording job.
+	// If this optional field is provided the job shall only record if the schedule exists and is active.
+	//
+
+	ScheduleToken string `xml:"ScheduleToken,attr,omitempty"`
 }
 
 type RecordingJobConfigurationExtension struct {
@@ -7081,6 +7691,21 @@ type AudioClassDescriptor struct {
 type AudioClassDescriptorExtension struct {
 }
 
+type ActiveConnection struct {
+	CurrentBitrate float32 `xml:"CurrentBitrate,omitempty"`
+
+	CurrentFps float32 `xml:"CurrentFps,omitempty"`
+}
+
+type ProfileStatus struct {
+	ActiveConnections []*ActiveConnection `xml:"ActiveConnections,omitempty"`
+
+	Extension *ProfileStatusExtension `xml:"Extension,omitempty"`
+}
+
+type ProfileStatusExtension struct {
+}
+
 type OSDReference struct {
 	Value *ReferenceToken
 }
@@ -7135,6 +7760,10 @@ type OSDTextConfiguration struct {
 	PlainText string `xml:"PlainText,omitempty"`
 
 	Extension *OSDTextConfigurationExtension `xml:"Extension,omitempty"`
+
+	// This flag is applicable for Type Plain and defaults to true. When set to false the PlainText content will not be persistent across device reboots.
+
+	IsPersistentText bool `xml:"IsPersistentText,attr,omitempty"`
 }
 
 type OSDTextConfigurationExtension struct {
@@ -7158,6 +7787,9 @@ type ColorspaceRange struct {
 
 	Z *FloatRange `xml:"Z,omitempty"`
 
+	//
+	// Acceptable values are the same as in tt:Color.
+	//
 	Colorspace *AnyURI `xml:"Colorspace,omitempty"`
 }
 
@@ -7166,7 +7798,7 @@ type ColorOptions struct {
 	// List the supported color.
 	ColorList []*Color `xml:"ColorList,omitempty"`
 
-	// Define the rang of color supported.
+	// Define the range of color supported.
 	ColorspaceRange []*ColorspaceRange `xml:"ColorspaceRange,omitempty"`
 }
 
@@ -7212,10 +7844,26 @@ type OSDTextOptionsExtension struct {
 
 type OSDImgOptions struct {
 
-	// List of avaiable uris of image.
+	// List of available image URIs.
 	ImagePath []*AnyURI `xml:"ImagePath,omitempty"`
 
 	Extension *OSDImgOptionsExtension `xml:"Extension,omitempty"`
+
+	// List of supported image MIME types, such as "image/png".
+
+	FormatsSupported *StringAttrList `xml:"FormatsSupported,attr,omitempty"`
+
+	// The maximum size (in bytes) of the image that can be uploaded.
+
+	MaxSize int32 `xml:"MaxSize,attr,omitempty"`
+
+	// The maximum width (in pixels) of the image that can be uploaded.
+
+	MaxWidth int32 `xml:"MaxWidth,attr,omitempty"`
+
+	// The maximum height (in pixels) of the image that can be uploaded.
+
+	MaxHeight int32 `xml:"MaxHeight,attr,omitempty"`
 }
 
 type OSDImgOptionsExtension struct {
@@ -7261,7 +7909,7 @@ type MaximumNumberOfOSDs struct {
 
 type OSDConfigurationOptions struct {
 
-	// The maximum number of OSD configurations supported for the specificate video source configuration. If a device limits the number of instances by OSDType, it should indicate the supported number via the related attribute.
+	// The maximum number of OSD configurations supported for the specified video source configuration. If the configuration does not support OSDs, this value shall be zero and the Type and PositionOption elements are ignored. If a device limits the number of instances by OSDType, it shall indicate the supported number for each type via the related attribute.
 	MaximumNumberOfOSDs *MaximumNumberOfOSDs `xml:"MaximumNumberOfOSDs,omitempty"`
 
 	// List supported type of OSD configuration. When a device indicates the supported number for each types in MaximumNumberOfOSDs, related type shall be presented. A device shall return Option element relating to listed type.
@@ -7281,6 +7929,40 @@ type OSDConfigurationOptions struct {
 }
 
 type OSDConfigurationOptionsExtension struct {
+}
+
+type FileProgress struct {
+
+	// Exported file name
+	FileName string `xml:"FileName,omitempty"`
+
+	// Normalized percentage completion for uploading the exported file
+	Progress float32 `xml:"Progress,omitempty"`
+}
+
+type ArrayOfFileProgress struct {
+
+	// Exported file name and export progress information
+	FileProgress []*FileProgress `xml:"FileProgress,omitempty"`
+
+	Extension *ArrayOfFileProgressExtension `xml:"Extension,omitempty"`
+}
+
+type ArrayOfFileProgressExtension struct {
+}
+
+type StorageReferencePath struct {
+
+	// identifier of an existing Storage Configuration.
+	StorageToken *ReferenceToken `xml:"StorageToken,omitempty"`
+
+	// gives the relative directory path on the storage
+	RelativePath string `xml:"RelativePath,omitempty"`
+
+	Extension *StorageReferencePathExtension `xml:"Extension,omitempty"`
+}
+
+type StorageReferencePathExtension struct {
 }
 
 type Device interface {
@@ -7513,12 +8195,8 @@ type Device interface {
 
 	GetWsdlUrlContext(ctx context.Context, request *GetWsdlUrl) (*GetWsdlUrlResponse, error)
 
-	/* Any endpoint can ask for the capabilities of a device using the capability exchange request
-	response operation. The device shall indicate all its ONVIF compliant capabilities through the
-	GetCapabilities command.
-	The capability list includes references to the addresses (XAddr) of the service implementing
-	the interface operations in the category. Apart from the addresses, the
-	capabilities only reflect optional functions. */
+	/* This method has been replaced by the more generic GetServices method.
+	For capabilities of individual services refer to the GetServiceCapabilities methods. */
 	GetCapabilities(request *GetCapabilities) (*GetCapabilitiesResponse, error)
 
 	GetCapabilitiesContext(ctx context.Context, request *GetCapabilities) (*GetCapabilitiesResponse, error)
@@ -7961,6 +8639,63 @@ type Device interface {
 	StartSystemRestore(request *StartSystemRestore) (*StartSystemRestoreResponse, error)
 
 	StartSystemRestoreContext(ctx context.Context, request *StartSystemRestore) (*StartSystemRestoreResponse, error)
+
+	/*
+		This operation lists all existing storage configurations for the device.
+	*/
+	GetStorageConfigurations(request *GetStorageConfigurations) (*GetStorageConfigurationsResponse, error)
+
+	GetStorageConfigurationsContext(ctx context.Context, request *GetStorageConfigurations) (*GetStorageConfigurationsResponse, error)
+
+	/*
+		This operation creates a new storage configuration.
+		The configuration data shall be created in the device and shall be persistent (remain after reboot).
+	*/
+	CreateStorageConfiguration(request *CreateStorageConfiguration) (*CreateStorageConfigurationResponse, error)
+
+	CreateStorageConfigurationContext(ctx context.Context, request *CreateStorageConfiguration) (*CreateStorageConfigurationResponse, error)
+
+	/*
+		This operation retrieves the Storage configuration associated with the given storage configuration token.
+	*/
+	GetStorageConfiguration(request *GetStorageConfiguration) (*GetStorageConfigurationResponse, error)
+
+	GetStorageConfigurationContext(ctx context.Context, request *GetStorageConfiguration) (*GetStorageConfigurationResponse, error)
+
+	/*
+		This operation modifies an existing Storage configuration.
+	*/
+	SetStorageConfiguration(request *SetStorageConfiguration) (*SetStorageConfigurationResponse, error)
+
+	SetStorageConfigurationContext(ctx context.Context, request *SetStorageConfiguration) (*SetStorageConfigurationResponse, error)
+
+	/*
+		This operation deletes the given storage configuration and configuration change shall always be persistent.
+	*/
+	DeleteStorageConfiguration(request *DeleteStorageConfiguration) (*DeleteStorageConfigurationResponse, error)
+
+	DeleteStorageConfigurationContext(ctx context.Context, request *DeleteStorageConfiguration) (*DeleteStorageConfigurationResponse, error)
+
+	/*
+		This operation lists all existing geo location configurations for the device.
+	*/
+	GetGeoLocation(request *GetGeoLocation) (*GetGeoLocationResponse, error)
+
+	GetGeoLocationContext(ctx context.Context, request *GetGeoLocation) (*GetGeoLocationResponse, error)
+
+	/*
+		This operation allows to modify one or more geo configuration entries.
+	*/
+	SetGeoLocation(request *SetGeoLocation) (*SetGeoLocationResponse, error)
+
+	SetGeoLocationContext(ctx context.Context, request *SetGeoLocation) (*SetGeoLocationResponse, error)
+
+	/*
+		This operation deletes the given geo location entries.
+	*/
+	DeleteGeoLocation(request *DeleteGeoLocation) (*DeleteGeoLocationResponse, error)
+
+	DeleteGeoLocationContext(ctx context.Context, request *DeleteGeoLocation) (*DeleteGeoLocationResponse, error)
 }
 
 type device struct {
@@ -7977,7 +8712,7 @@ func NewDevice(client *soap.Client, xaddr string) Device {
 
 func (service *device) GetServicesContext(ctx context.Context, request *GetServices) (*GetServicesResponse, error) {
 	response := new(GetServicesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetServices", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -7994,7 +8729,7 @@ func (service *device) GetServices(request *GetServices) (*GetServicesResponse, 
 
 func (service *device) GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error) {
 	response := new(GetServiceCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetServiceCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8011,7 +8746,7 @@ func (service *device) GetServiceCapabilities(request *GetServiceCapabilities) (
 
 func (service *device) GetDeviceInformationContext(ctx context.Context, request *GetDeviceInformation) (*GetDeviceInformationResponse, error) {
 	response := new(GetDeviceInformationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDeviceInformation", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8028,7 +8763,7 @@ func (service *device) GetDeviceInformation(request *GetDeviceInformation) (*Get
 
 func (service *device) SetSystemDateAndTimeContext(ctx context.Context, request *SetSystemDateAndTime) (*SetSystemDateAndTimeResponse, error) {
 	response := new(SetSystemDateAndTimeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetSystemDateAndTime", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8045,7 +8780,7 @@ func (service *device) SetSystemDateAndTime(request *SetSystemDateAndTime) (*Set
 
 func (service *device) GetSystemDateAndTimeContext(ctx context.Context, request *GetSystemDateAndTime) (*GetSystemDateAndTimeResponse, error) {
 	response := new(GetSystemDateAndTimeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetSystemDateAndTime", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8062,7 +8797,7 @@ func (service *device) GetSystemDateAndTime(request *GetSystemDateAndTime) (*Get
 
 func (service *device) SetSystemFactoryDefaultContext(ctx context.Context, request *SetSystemFactoryDefault) (*SetSystemFactoryDefaultResponse, error) {
 	response := new(SetSystemFactoryDefaultResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetSystemFactoryDefault", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8079,7 +8814,7 @@ func (service *device) SetSystemFactoryDefault(request *SetSystemFactoryDefault)
 
 func (service *device) UpgradeSystemFirmwareContext(ctx context.Context, request *UpgradeSystemFirmware) (*UpgradeSystemFirmwareResponse, error) {
 	response := new(UpgradeSystemFirmwareResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/UpgradeSystemFirmware", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8096,7 +8831,7 @@ func (service *device) UpgradeSystemFirmware(request *UpgradeSystemFirmware) (*U
 
 func (service *device) SystemRebootContext(ctx context.Context, request *SystemReboot) (*SystemRebootResponse, error) {
 	response := new(SystemRebootResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SystemReboot", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8113,7 +8848,7 @@ func (service *device) SystemReboot(request *SystemReboot) (*SystemRebootRespons
 
 func (service *device) RestoreSystemContext(ctx context.Context, request *RestoreSystem) (*RestoreSystemResponse, error) {
 	response := new(RestoreSystemResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/RestoreSystem", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8130,7 +8865,7 @@ func (service *device) RestoreSystem(request *RestoreSystem) (*RestoreSystemResp
 
 func (service *device) GetSystemBackupContext(ctx context.Context, request *GetSystemBackup) (*GetSystemBackupResponse, error) {
 	response := new(GetSystemBackupResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetSystemBackup", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8147,7 +8882,7 @@ func (service *device) GetSystemBackup(request *GetSystemBackup) (*GetSystemBack
 
 func (service *device) GetSystemLogContext(ctx context.Context, request *GetSystemLog) (*GetSystemLogResponse, error) {
 	response := new(GetSystemLogResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetSystemLog", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8164,7 +8899,7 @@ func (service *device) GetSystemLog(request *GetSystemLog) (*GetSystemLogRespons
 
 func (service *device) GetSystemSupportInformationContext(ctx context.Context, request *GetSystemSupportInformation) (*GetSystemSupportInformationResponse, error) {
 	response := new(GetSystemSupportInformationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetSystemSupportInformation", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8181,7 +8916,7 @@ func (service *device) GetSystemSupportInformation(request *GetSystemSupportInfo
 
 func (service *device) GetScopesContext(ctx context.Context, request *GetScopes) (*GetScopesResponse, error) {
 	response := new(GetScopesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetScopes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8198,7 +8933,7 @@ func (service *device) GetScopes(request *GetScopes) (*GetScopesResponse, error)
 
 func (service *device) SetScopesContext(ctx context.Context, request *SetScopes) (*SetScopesResponse, error) {
 	response := new(SetScopesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetScopes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8215,7 +8950,7 @@ func (service *device) SetScopes(request *SetScopes) (*SetScopesResponse, error)
 
 func (service *device) AddScopesContext(ctx context.Context, request *AddScopes) (*AddScopesResponse, error) {
 	response := new(AddScopesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/AddScopes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8232,7 +8967,7 @@ func (service *device) AddScopes(request *AddScopes) (*AddScopesResponse, error)
 
 func (service *device) RemoveScopesContext(ctx context.Context, request *RemoveScopes) (*RemoveScopesResponse, error) {
 	response := new(RemoveScopesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/RemoveScopes", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8249,7 +8984,7 @@ func (service *device) RemoveScopes(request *RemoveScopes) (*RemoveScopesRespons
 
 func (service *device) GetDiscoveryModeContext(ctx context.Context, request *GetDiscoveryMode) (*GetDiscoveryModeResponse, error) {
 	response := new(GetDiscoveryModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDiscoveryMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8266,7 +9001,7 @@ func (service *device) GetDiscoveryMode(request *GetDiscoveryMode) (*GetDiscover
 
 func (service *device) SetDiscoveryModeContext(ctx context.Context, request *SetDiscoveryMode) (*SetDiscoveryModeResponse, error) {
 	response := new(SetDiscoveryModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetDiscoveryMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8283,7 +9018,7 @@ func (service *device) SetDiscoveryMode(request *SetDiscoveryMode) (*SetDiscover
 
 func (service *device) GetRemoteDiscoveryModeContext(ctx context.Context, request *GetRemoteDiscoveryMode) (*GetRemoteDiscoveryModeResponse, error) {
 	response := new(GetRemoteDiscoveryModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetRemoteDiscoveryMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8300,7 +9035,7 @@ func (service *device) GetRemoteDiscoveryMode(request *GetRemoteDiscoveryMode) (
 
 func (service *device) SetRemoteDiscoveryModeContext(ctx context.Context, request *SetRemoteDiscoveryMode) (*SetRemoteDiscoveryModeResponse, error) {
 	response := new(SetRemoteDiscoveryModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetRemoteDiscoveryMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8317,7 +9052,7 @@ func (service *device) SetRemoteDiscoveryMode(request *SetRemoteDiscoveryMode) (
 
 func (service *device) GetDPAddressesContext(ctx context.Context, request *GetDPAddresses) (*GetDPAddressesResponse, error) {
 	response := new(GetDPAddressesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDPAddresses", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8334,7 +9069,7 @@ func (service *device) GetDPAddresses(request *GetDPAddresses) (*GetDPAddressesR
 
 func (service *device) SetDPAddressesContext(ctx context.Context, request *SetDPAddresses) (*SetDPAddressesResponse, error) {
 	response := new(SetDPAddressesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetDPAddresses", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8351,7 +9086,7 @@ func (service *device) SetDPAddresses(request *SetDPAddresses) (*SetDPAddressesR
 
 func (service *device) GetEndpointReferenceContext(ctx context.Context, request *GetEndpointReference) (*GetEndpointReferenceResponse, error) {
 	response := new(GetEndpointReferenceResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetEndpointReference", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8368,7 +9103,7 @@ func (service *device) GetEndpointReference(request *GetEndpointReference) (*Get
 
 func (service *device) GetRemoteUserContext(ctx context.Context, request *GetRemoteUser) (*GetRemoteUserResponse, error) {
 	response := new(GetRemoteUserResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetRemoteUser", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8385,7 +9120,7 @@ func (service *device) GetRemoteUser(request *GetRemoteUser) (*GetRemoteUserResp
 
 func (service *device) SetRemoteUserContext(ctx context.Context, request *SetRemoteUser) (*SetRemoteUserResponse, error) {
 	response := new(SetRemoteUserResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetRemoteUser", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8402,7 +9137,7 @@ func (service *device) SetRemoteUser(request *SetRemoteUser) (*SetRemoteUserResp
 
 func (service *device) GetUsersContext(ctx context.Context, request *GetUsers) (*GetUsersResponse, error) {
 	response := new(GetUsersResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetUsers", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8419,7 +9154,7 @@ func (service *device) GetUsers(request *GetUsers) (*GetUsersResponse, error) {
 
 func (service *device) CreateUsersContext(ctx context.Context, request *CreateUsers) (*CreateUsersResponse, error) {
 	response := new(CreateUsersResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/CreateUsers", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8436,7 +9171,7 @@ func (service *device) CreateUsers(request *CreateUsers) (*CreateUsersResponse, 
 
 func (service *device) DeleteUsersContext(ctx context.Context, request *DeleteUsers) (*DeleteUsersResponse, error) {
 	response := new(DeleteUsersResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/DeleteUsers", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8453,7 +9188,7 @@ func (service *device) DeleteUsers(request *DeleteUsers) (*DeleteUsersResponse, 
 
 func (service *device) SetUserContext(ctx context.Context, request *SetUser) (*SetUserResponse, error) {
 	response := new(SetUserResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetUser", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8470,7 +9205,7 @@ func (service *device) SetUser(request *SetUser) (*SetUserResponse, error) {
 
 func (service *device) GetWsdlUrlContext(ctx context.Context, request *GetWsdlUrl) (*GetWsdlUrlResponse, error) {
 	response := new(GetWsdlUrlResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetWsdlUrl", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8487,7 +9222,7 @@ func (service *device) GetWsdlUrl(request *GetWsdlUrl) (*GetWsdlUrlResponse, err
 
 func (service *device) GetCapabilitiesContext(ctx context.Context, request *GetCapabilities) (*GetCapabilitiesResponse, error) {
 	response := new(GetCapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetCapabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8504,7 +9239,7 @@ func (service *device) GetCapabilities(request *GetCapabilities) (*GetCapabiliti
 
 func (service *device) GetHostnameContext(ctx context.Context, request *GetHostname) (*GetHostnameResponse, error) {
 	response := new(GetHostnameResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetHostname", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8521,7 +9256,7 @@ func (service *device) GetHostname(request *GetHostname) (*GetHostnameResponse, 
 
 func (service *device) SetHostnameContext(ctx context.Context, request *SetHostname) (*SetHostnameResponse, error) {
 	response := new(SetHostnameResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetHostname", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8538,7 +9273,7 @@ func (service *device) SetHostname(request *SetHostname) (*SetHostnameResponse, 
 
 func (service *device) SetHostnameFromDHCPContext(ctx context.Context, request *SetHostnameFromDHCP) (*SetHostnameFromDHCPResponse, error) {
 	response := new(SetHostnameFromDHCPResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetHostnameFromDHCP", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8555,7 +9290,7 @@ func (service *device) SetHostnameFromDHCP(request *SetHostnameFromDHCP) (*SetHo
 
 func (service *device) GetDNSContext(ctx context.Context, request *GetDNS) (*GetDNSResponse, error) {
 	response := new(GetDNSResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDNS", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8572,7 +9307,7 @@ func (service *device) GetDNS(request *GetDNS) (*GetDNSResponse, error) {
 
 func (service *device) SetDNSContext(ctx context.Context, request *SetDNS) (*SetDNSResponse, error) {
 	response := new(SetDNSResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetDNS", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8589,7 +9324,7 @@ func (service *device) SetDNS(request *SetDNS) (*SetDNSResponse, error) {
 
 func (service *device) GetNTPContext(ctx context.Context, request *GetNTP) (*GetNTPResponse, error) {
 	response := new(GetNTPResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetNTP", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8606,7 +9341,7 @@ func (service *device) GetNTP(request *GetNTP) (*GetNTPResponse, error) {
 
 func (service *device) SetNTPContext(ctx context.Context, request *SetNTP) (*SetNTPResponse, error) {
 	response := new(SetNTPResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetNTP", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8623,7 +9358,7 @@ func (service *device) SetNTP(request *SetNTP) (*SetNTPResponse, error) {
 
 func (service *device) GetDynamicDNSContext(ctx context.Context, request *GetDynamicDNS) (*GetDynamicDNSResponse, error) {
 	response := new(GetDynamicDNSResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDynamicDNS", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8640,7 +9375,7 @@ func (service *device) GetDynamicDNS(request *GetDynamicDNS) (*GetDynamicDNSResp
 
 func (service *device) SetDynamicDNSContext(ctx context.Context, request *SetDynamicDNS) (*SetDynamicDNSResponse, error) {
 	response := new(SetDynamicDNSResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetDynamicDNS", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8657,7 +9392,7 @@ func (service *device) SetDynamicDNS(request *SetDynamicDNS) (*SetDynamicDNSResp
 
 func (service *device) GetNetworkInterfacesContext(ctx context.Context, request *GetNetworkInterfaces) (*GetNetworkInterfacesResponse, error) {
 	response := new(GetNetworkInterfacesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetNetworkInterfaces", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8674,7 +9409,7 @@ func (service *device) GetNetworkInterfaces(request *GetNetworkInterfaces) (*Get
 
 func (service *device) SetNetworkInterfacesContext(ctx context.Context, request *SetNetworkInterfaces) (*SetNetworkInterfacesResponse, error) {
 	response := new(SetNetworkInterfacesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetNetworkInterfaces", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8691,7 +9426,7 @@ func (service *device) SetNetworkInterfaces(request *SetNetworkInterfaces) (*Set
 
 func (service *device) GetNetworkProtocolsContext(ctx context.Context, request *GetNetworkProtocols) (*GetNetworkProtocolsResponse, error) {
 	response := new(GetNetworkProtocolsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetNetworkProtocols", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8708,7 +9443,7 @@ func (service *device) GetNetworkProtocols(request *GetNetworkProtocols) (*GetNe
 
 func (service *device) SetNetworkProtocolsContext(ctx context.Context, request *SetNetworkProtocols) (*SetNetworkProtocolsResponse, error) {
 	response := new(SetNetworkProtocolsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetNetworkProtocols", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8725,7 +9460,7 @@ func (service *device) SetNetworkProtocols(request *SetNetworkProtocols) (*SetNe
 
 func (service *device) GetNetworkDefaultGatewayContext(ctx context.Context, request *GetNetworkDefaultGateway) (*GetNetworkDefaultGatewayResponse, error) {
 	response := new(GetNetworkDefaultGatewayResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetNetworkDefaultGateway", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8742,7 +9477,7 @@ func (service *device) GetNetworkDefaultGateway(request *GetNetworkDefaultGatewa
 
 func (service *device) SetNetworkDefaultGatewayContext(ctx context.Context, request *SetNetworkDefaultGateway) (*SetNetworkDefaultGatewayResponse, error) {
 	response := new(SetNetworkDefaultGatewayResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetNetworkDefaultGateway", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8759,7 +9494,7 @@ func (service *device) SetNetworkDefaultGateway(request *SetNetworkDefaultGatewa
 
 func (service *device) GetZeroConfigurationContext(ctx context.Context, request *GetZeroConfiguration) (*GetZeroConfigurationResponse, error) {
 	response := new(GetZeroConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetZeroConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8776,7 +9511,7 @@ func (service *device) GetZeroConfiguration(request *GetZeroConfiguration) (*Get
 
 func (service *device) SetZeroConfigurationContext(ctx context.Context, request *SetZeroConfiguration) (*SetZeroConfigurationResponse, error) {
 	response := new(SetZeroConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetZeroConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8793,7 +9528,7 @@ func (service *device) SetZeroConfiguration(request *SetZeroConfiguration) (*Set
 
 func (service *device) GetIPAddressFilterContext(ctx context.Context, request *GetIPAddressFilter) (*GetIPAddressFilterResponse, error) {
 	response := new(GetIPAddressFilterResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetIPAddressFilter", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8810,7 +9545,7 @@ func (service *device) GetIPAddressFilter(request *GetIPAddressFilter) (*GetIPAd
 
 func (service *device) SetIPAddressFilterContext(ctx context.Context, request *SetIPAddressFilter) (*SetIPAddressFilterResponse, error) {
 	response := new(SetIPAddressFilterResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetIPAddressFilter", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8827,7 +9562,7 @@ func (service *device) SetIPAddressFilter(request *SetIPAddressFilter) (*SetIPAd
 
 func (service *device) AddIPAddressFilterContext(ctx context.Context, request *AddIPAddressFilter) (*AddIPAddressFilterResponse, error) {
 	response := new(AddIPAddressFilterResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/AddIPAddressFilter", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8844,7 +9579,7 @@ func (service *device) AddIPAddressFilter(request *AddIPAddressFilter) (*AddIPAd
 
 func (service *device) RemoveIPAddressFilterContext(ctx context.Context, request *RemoveIPAddressFilter) (*RemoveIPAddressFilterResponse, error) {
 	response := new(RemoveIPAddressFilterResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/RemoveIPAddressFilter", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8861,7 +9596,7 @@ func (service *device) RemoveIPAddressFilter(request *RemoveIPAddressFilter) (*R
 
 func (service *device) GetAccessPolicyContext(ctx context.Context, request *GetAccessPolicy) (*GetAccessPolicyResponse, error) {
 	response := new(GetAccessPolicyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetAccessPolicy", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8878,7 +9613,7 @@ func (service *device) GetAccessPolicy(request *GetAccessPolicy) (*GetAccessPoli
 
 func (service *device) SetAccessPolicyContext(ctx context.Context, request *SetAccessPolicy) (*SetAccessPolicyResponse, error) {
 	response := new(SetAccessPolicyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetAccessPolicy", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8895,7 +9630,7 @@ func (service *device) SetAccessPolicy(request *SetAccessPolicy) (*SetAccessPoli
 
 func (service *device) CreateCertificateContext(ctx context.Context, request *CreateCertificate) (*CreateCertificateResponse, error) {
 	response := new(CreateCertificateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/CreateCertificate", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8912,7 +9647,7 @@ func (service *device) CreateCertificate(request *CreateCertificate) (*CreateCer
 
 func (service *device) GetCertificatesContext(ctx context.Context, request *GetCertificates) (*GetCertificatesResponse, error) {
 	response := new(GetCertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetCertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8929,7 +9664,7 @@ func (service *device) GetCertificates(request *GetCertificates) (*GetCertificat
 
 func (service *device) GetCertificatesStatusContext(ctx context.Context, request *GetCertificatesStatus) (*GetCertificatesStatusResponse, error) {
 	response := new(GetCertificatesStatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetCertificatesStatus", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8946,7 +9681,7 @@ func (service *device) GetCertificatesStatus(request *GetCertificatesStatus) (*G
 
 func (service *device) SetCertificatesStatusContext(ctx context.Context, request *SetCertificatesStatus) (*SetCertificatesStatusResponse, error) {
 	response := new(SetCertificatesStatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetCertificatesStatus", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8963,7 +9698,7 @@ func (service *device) SetCertificatesStatus(request *SetCertificatesStatus) (*S
 
 func (service *device) DeleteCertificatesContext(ctx context.Context, request *DeleteCertificates) (*DeleteCertificatesResponse, error) {
 	response := new(DeleteCertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/DeleteCertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8980,7 +9715,7 @@ func (service *device) DeleteCertificates(request *DeleteCertificates) (*DeleteC
 
 func (service *device) GetPkcs10RequestContext(ctx context.Context, request *GetPkcs10Request) (*GetPkcs10RequestResponse, error) {
 	response := new(GetPkcs10RequestResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetPkcs10Request", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -8997,7 +9732,7 @@ func (service *device) GetPkcs10Request(request *GetPkcs10Request) (*GetPkcs10Re
 
 func (service *device) LoadCertificatesContext(ctx context.Context, request *LoadCertificates) (*LoadCertificatesResponse, error) {
 	response := new(LoadCertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/LoadCertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9014,7 +9749,7 @@ func (service *device) LoadCertificates(request *LoadCertificates) (*LoadCertifi
 
 func (service *device) GetClientCertificateModeContext(ctx context.Context, request *GetClientCertificateMode) (*GetClientCertificateModeResponse, error) {
 	response := new(GetClientCertificateModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetClientCertificateMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9031,7 +9766,7 @@ func (service *device) GetClientCertificateMode(request *GetClientCertificateMod
 
 func (service *device) SetClientCertificateModeContext(ctx context.Context, request *SetClientCertificateMode) (*SetClientCertificateModeResponse, error) {
 	response := new(SetClientCertificateModeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetClientCertificateMode", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9048,7 +9783,7 @@ func (service *device) SetClientCertificateMode(request *SetClientCertificateMod
 
 func (service *device) GetRelayOutputsContext(ctx context.Context, request *GetRelayOutputs) (*GetRelayOutputsResponse, error) {
 	response := new(GetRelayOutputsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetRelayOutputs", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9065,7 +9800,7 @@ func (service *device) GetRelayOutputs(request *GetRelayOutputs) (*GetRelayOutpu
 
 func (service *device) SetRelayOutputSettingsContext(ctx context.Context, request *SetRelayOutputSettings) (*SetRelayOutputSettingsResponse, error) {
 	response := new(SetRelayOutputSettingsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetRelayOutputSettings", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9082,7 +9817,7 @@ func (service *device) SetRelayOutputSettings(request *SetRelayOutputSettings) (
 
 func (service *device) SetRelayOutputStateContext(ctx context.Context, request *SetRelayOutputState) (*SetRelayOutputStateResponse, error) {
 	response := new(SetRelayOutputStateResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetRelayOutputState", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9099,7 +9834,7 @@ func (service *device) SetRelayOutputState(request *SetRelayOutputState) (*SetRe
 
 func (service *device) SendAuxiliaryCommandContext(ctx context.Context, request *SendAuxiliaryCommand) (*SendAuxiliaryCommandResponse, error) {
 	response := new(SendAuxiliaryCommandResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SendAuxiliaryCommand", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9116,7 +9851,7 @@ func (service *device) SendAuxiliaryCommand(request *SendAuxiliaryCommand) (*Sen
 
 func (service *device) GetCACertificatesContext(ctx context.Context, request *GetCACertificates) (*GetCACertificatesResponse, error) {
 	response := new(GetCACertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetCACertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9133,7 +9868,7 @@ func (service *device) GetCACertificates(request *GetCACertificates) (*GetCACert
 
 func (service *device) LoadCertificateWithPrivateKeyContext(ctx context.Context, request *LoadCertificateWithPrivateKey) (*LoadCertificateWithPrivateKeyResponse, error) {
 	response := new(LoadCertificateWithPrivateKeyResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/LoadCertificateWithPrivateKey", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9150,7 +9885,7 @@ func (service *device) LoadCertificateWithPrivateKey(request *LoadCertificateWit
 
 func (service *device) GetCertificateInformationContext(ctx context.Context, request *GetCertificateInformation) (*GetCertificateInformationResponse, error) {
 	response := new(GetCertificateInformationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetCertificateInformation", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9167,7 +9902,7 @@ func (service *device) GetCertificateInformation(request *GetCertificateInformat
 
 func (service *device) LoadCACertificatesContext(ctx context.Context, request *LoadCACertificates) (*LoadCACertificatesResponse, error) {
 	response := new(LoadCACertificatesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/LoadCACertificates", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9184,7 +9919,7 @@ func (service *device) LoadCACertificates(request *LoadCACertificates) (*LoadCAC
 
 func (service *device) CreateDot1XConfigurationContext(ctx context.Context, request *CreateDot1XConfiguration) (*CreateDot1XConfigurationResponse, error) {
 	response := new(CreateDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/CreateDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9201,7 +9936,7 @@ func (service *device) CreateDot1XConfiguration(request *CreateDot1XConfiguratio
 
 func (service *device) SetDot1XConfigurationContext(ctx context.Context, request *SetDot1XConfiguration) (*SetDot1XConfigurationResponse, error) {
 	response := new(SetDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9218,7 +9953,7 @@ func (service *device) SetDot1XConfiguration(request *SetDot1XConfiguration) (*S
 
 func (service *device) GetDot1XConfigurationContext(ctx context.Context, request *GetDot1XConfiguration) (*GetDot1XConfigurationResponse, error) {
 	response := new(GetDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9235,7 +9970,7 @@ func (service *device) GetDot1XConfiguration(request *GetDot1XConfiguration) (*G
 
 func (service *device) GetDot1XConfigurationsContext(ctx context.Context, request *GetDot1XConfigurations) (*GetDot1XConfigurationsResponse, error) {
 	response := new(GetDot1XConfigurationsResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDot1XConfigurations", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9252,7 +9987,7 @@ func (service *device) GetDot1XConfigurations(request *GetDot1XConfigurations) (
 
 func (service *device) DeleteDot1XConfigurationContext(ctx context.Context, request *DeleteDot1XConfiguration) (*DeleteDot1XConfigurationResponse, error) {
 	response := new(DeleteDot1XConfigurationResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/DeleteDot1XConfiguration", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9269,7 +10004,7 @@ func (service *device) DeleteDot1XConfiguration(request *DeleteDot1XConfiguratio
 
 func (service *device) GetDot11CapabilitiesContext(ctx context.Context, request *GetDot11Capabilities) (*GetDot11CapabilitiesResponse, error) {
 	response := new(GetDot11CapabilitiesResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDot11Capabilities", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9286,7 +10021,7 @@ func (service *device) GetDot11Capabilities(request *GetDot11Capabilities) (*Get
 
 func (service *device) GetDot11StatusContext(ctx context.Context, request *GetDot11Status) (*GetDot11StatusResponse, error) {
 	response := new(GetDot11StatusResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetDot11Status", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9303,7 +10038,7 @@ func (service *device) GetDot11Status(request *GetDot11Status) (*GetDot11StatusR
 
 func (service *device) ScanAvailableDot11NetworksContext(ctx context.Context, request *ScanAvailableDot11Networks) (*ScanAvailableDot11NetworksResponse, error) {
 	response := new(ScanAvailableDot11NetworksResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/ScanAvailableDot11Networks", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9320,7 +10055,7 @@ func (service *device) ScanAvailableDot11Networks(request *ScanAvailableDot11Net
 
 func (service *device) GetSystemUrisContext(ctx context.Context, request *GetSystemUris) (*GetSystemUrisResponse, error) {
 	response := new(GetSystemUrisResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetSystemUris", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9337,7 +10072,7 @@ func (service *device) GetSystemUris(request *GetSystemUris) (*GetSystemUrisResp
 
 func (service *device) StartFirmwareUpgradeContext(ctx context.Context, request *StartFirmwareUpgrade) (*StartFirmwareUpgradeResponse, error) {
 	response := new(StartFirmwareUpgradeResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/StartFirmwareUpgrade", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9354,7 +10089,7 @@ func (service *device) StartFirmwareUpgrade(request *StartFirmwareUpgrade) (*Sta
 
 func (service *device) StartSystemRestoreContext(ctx context.Context, request *StartSystemRestore) (*StartSystemRestoreResponse, error) {
 	response := new(StartSystemRestoreResponse)
-	err := service.client.CallContext(ctx, service.xaddr, "''", request, response)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/StartSystemRestore", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -9368,3 +10103,146 @@ func (service *device) StartSystemRestore(request *StartSystemRestore) (*StartSy
 		request,
 	)
 }
+
+func (service *device) GetStorageConfigurationsContext(ctx context.Context, request *GetStorageConfigurations) (*GetStorageConfigurationsResponse, error) {
+	response := new(GetStorageConfigurationsResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetStorageConfigurations", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) GetStorageConfigurations(request *GetStorageConfigurations) (*GetStorageConfigurationsResponse, error) {
+	return service.GetStorageConfigurationsContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) CreateStorageConfigurationContext(ctx context.Context, request *CreateStorageConfiguration) (*CreateStorageConfigurationResponse, error) {
+	response := new(CreateStorageConfigurationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/CreateStorageConfiguration", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) CreateStorageConfiguration(request *CreateStorageConfiguration) (*CreateStorageConfigurationResponse, error) {
+	return service.CreateStorageConfigurationContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) GetStorageConfigurationContext(ctx context.Context, request *GetStorageConfiguration) (*GetStorageConfigurationResponse, error) {
+	response := new(GetStorageConfigurationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetStorageConfiguration", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) GetStorageConfiguration(request *GetStorageConfiguration) (*GetStorageConfigurationResponse, error) {
+	return service.GetStorageConfigurationContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) SetStorageConfigurationContext(ctx context.Context, request *SetStorageConfiguration) (*SetStorageConfigurationResponse, error) {
+	response := new(SetStorageConfigurationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetStorageConfiguration", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) SetStorageConfiguration(request *SetStorageConfiguration) (*SetStorageConfigurationResponse, error) {
+	return service.SetStorageConfigurationContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) DeleteStorageConfigurationContext(ctx context.Context, request *DeleteStorageConfiguration) (*DeleteStorageConfigurationResponse, error) {
+	response := new(DeleteStorageConfigurationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/DeleteStorageConfiguration", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) DeleteStorageConfiguration(request *DeleteStorageConfiguration) (*DeleteStorageConfigurationResponse, error) {
+	return service.DeleteStorageConfigurationContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) GetGeoLocationContext(ctx context.Context, request *GetGeoLocation) (*GetGeoLocationResponse, error) {
+	response := new(GetGeoLocationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/GetGeoLocation", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) GetGeoLocation(request *GetGeoLocation) (*GetGeoLocationResponse, error) {
+	return service.GetGeoLocationContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) SetGeoLocationContext(ctx context.Context, request *SetGeoLocation) (*SetGeoLocationResponse, error) {
+	response := new(SetGeoLocationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/SetGeoLocation", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) SetGeoLocation(request *SetGeoLocation) (*SetGeoLocationResponse, error) {
+	return service.SetGeoLocationContext(
+		context.Background(),
+		request,
+	)
+}
+
+func (service *device) DeleteGeoLocationContext(ctx context.Context, request *DeleteGeoLocation) (*DeleteGeoLocationResponse, error) {
+	response := new(DeleteGeoLocationResponse)
+	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver10/device/wsdl/DeleteGeoLocation", request, response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *device) DeleteGeoLocation(request *DeleteGeoLocation) (*DeleteGeoLocationResponse, error) {
+	return service.DeleteGeoLocationContext(
+		context.Background(),
+		request,
+	)
+}
+
+type AnyURI string
+type Duration string
+type QName string
+type NCName string
+type NonNegativeInteger int64
+type AnySimpleType string

@@ -81,6 +81,20 @@ for t in r:
     if t in type_map:
         continue
     type_map[t] = 'http://www.onvif.org/ver10/schema'
+# reading used types from common.xsd
+xsd_data = urlopen('http://www.onvif.org/ver10/schema/common.xsd').read().decode('utf-8')
+r = re.findall(r'type="xs:(.+?)"', xsd_data)
+for t in r:
+    t = t.title()
+    if t in type_map:
+        continue
+    type_map[t] = 'http://www.onvif.org/ver10/schema'
+# reading types from wsdl
+r = re.findall(r'\<xs:\w+Type name="(\w+)">', wsdl)
+for t in r:
+    if t in type_map:
+        continue
+    type_map[t] = targetNamespace
 # some other types
 type_map['AnyURI'] = 'http://www.onvif.org/ver10/schema'
 type_map['String'] = 'http://www.onvif.org/ver10/schema'
@@ -93,15 +107,6 @@ type_map['bool'] = 'http://www.onvif.org/ver10/schema'
 type_map['[]string'] = 'http://www.onvif.org/ver10/schema'
 type_map['QName'] = 'http://www.onvif.org/ver10/schema'
 type_map['EncodingTypes'] = 'http://www.onvif.org/ver10/schema'
-# reading used types from common.xsd
-xsd_data = urlopen('http://www.onvif.org/ver10/schema/common.xsd').read().decode('utf-8')
-r = re.findall(r'type="xs:(.+?)"', xsd_data)
-for t in r:
-    t = t.title()
-    if t in type_map:
-        continue
-    type_map[t] = 'http://www.onvif.org/ver10/schema'
-
 for k, v in type_map.items():
     # check if type used in the wsdl we are processing
     ns = v
@@ -122,6 +127,25 @@ for k, v in type_map.items():
                   r"\1 *" + k + r' `xml:"' + ns + r' \1\2"`',
                   data)
 
+with open(go_package + '/' + go_src, 'w') as file:
+    file.write(data)
+
+os.system("gofmt -w " + go_package + '/' + go_src)
+
+with open(go_package + '/' + go_src, 'r') as file:
+    data = file.read()
+
+# Remove unused structs
+print(' - Removing unused types')
+for k, v in type_map.items():
+    #    print("Checking ", k)
+    r1 = re.findall(r"(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"", data)
+    r2 = re.findall(r"\*" + re.escape(k), data)
+#    r3 = re.findall(r"^((?!type).).*" + re.escape(k), data)
+    if len(r1) == 0 and len(r2) == 0:  # and len(r3) == 0:
+        #        print("   Unused type '"+k+"'")
+        regex = re.compile(r"(?s)type\s+" + re.escape(k) + r"\s+struct\s+\{(.+?)^\}", re.MULTILINE)
+        data = re.sub(regex, "// Removed " + k + " by fixgen.py\n", data)
 
 print(' - Adding missing simple types')
 data += "\ntype AnyURI string\n"
@@ -143,6 +167,15 @@ data = data.replace('*PositiveInteger', 'PositiveInteger')
 data = data.replace('*NonPositiveInteger', 'NonPositiveInteger')
 data = data.replace('*AnySimpleType', 'AnySimpleType')
 data = data.replace('*Description', 'Description')
+data = data.replace('*Name `xml', 'Name `xml')
+data = data.replace('*string `xml', 'string `xml')
+data = data.replace('*String `xml', 'String `xml')
+data = data.replace('*int32 `xml', 'int32 `xml')
+data = data.replace('*float32 `xml', 'float32 `xml')
+data = data.replace('*bool `xml', 'bool `xml')
+data = data.replace('*time.Time `xml', 'string `xml')
+data = data.replace('[]*', '[]')
+data = data.replace('*NCName', 'NCName')
 
 print(' - Removing duplicated types')
 data = re.sub(r'type \b(\w+)\s+\1\b', '', data)
@@ -153,29 +186,18 @@ data = data.replace('type FaultcodeEnum *QName', 'type FaultcodeEnum QName')
 data = data.replace('type FaultCodesType *QName', 'type FaultCodesType QName')
 data = data.replace('type RelationshipType *AnyURI', 'type RelationshipType AnyURI')
 
-with open(go_package + '/' + go_src, 'w') as file:
-    file.write(data)
+print(' - Removing pointers to xml data types')
+data = re.sub(r"(\w+)\s+\*(\w+)\s+`xml:\"(.*?)\"`",
+              r'\1 \2 `xml:"\3"`',
+              data)
+data = re.sub(r"(\w+)\s+\[\]\*(\w+)\s+`xml:\"(.*?)\"`",
+              r'\1 []\2 `xml:"\3"`',
+              data)
 
-os.system("gofmt -w " + go_package + '/' + go_src)
-
-with open(go_package + '/' + go_src, 'r') as file:
-    data = file.read()
-
-# Remove unused structs
-print(' - Removing unused types')
-for k, v in type_map.items():
-    #    print("Checking ", k)
-    r = re.findall(r"(?s)(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"", data)
-    if len(r) == 0:
-        r = re.findall(r"(?s)\*" + re.escape(k), data)
-        if len(r) == 0:
-            #            print("   Unused type", k)
-            # remove struct
-            regex = re.compile(r"(?s)type\s+" + re.escape(k) + r"\s+struct\s+\{(.+?)^\}", re.MULTILINE)
-            data = re.sub(regex, "// Removed " + k + "\n", data)
 
 with open(go_package + '/' + go_src, 'w') as file:
     file.write(data)
+
 
 os.system("gofmt -w " + go_package + '/' + go_src)
 

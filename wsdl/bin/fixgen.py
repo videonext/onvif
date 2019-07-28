@@ -9,7 +9,7 @@ from urllib.request import urlopen
 # ./fixgen.py [onvif profile file name without .wsdl]
 
 if len(sys.argv) != 2:
-    print("Usage:\n./fixgen.py [profile name without .wsdl]")
+    print("Usage:\n./fixgen.py [path to profile file without .wsdl]")
     exit(1)
 
 go_package = os.path.basename(sys.argv[1])
@@ -112,7 +112,6 @@ for k, v in type_map.items():
     ns = v
     r = re.findall(r'type="\w+:' + re.escape(k), wsdl)
     if len(r):
-        #        print("Type ", k, " used in wsdl. Use ", targetNamespace)
         ns = targetNamespace
     data = re.sub(r"(?s)(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"\1(.*?)\"`",
                   r"\1 *" + k + r' `xml:"' + ns + r' \1\2"`',
@@ -138,12 +137,9 @@ with open(go_package + '/' + go_src, 'r') as file:
 # Remove unused structs
 print(' - Removing unused types')
 for k, v in type_map.items():
-    #    print("Checking ", k)
     r1 = re.findall(r"(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"", data)
     r2 = re.findall(r"\*" + re.escape(k), data)
-#    r3 = re.findall(r"^((?!type).).*" + re.escape(k), data)
-    if len(r1) == 0 and len(r2) == 0:  # and len(r3) == 0:
-        #        print("   Unused type '"+k+"'")
+    if len(r1) == 0 and len(r2) == 0:
         regex = re.compile(r"(?s)type\s+" + re.escape(k) + r"\s+struct\s+\{(.+?)^\}", re.MULTILINE)
         data = re.sub(regex, "// Removed " + k + " by fixgen.py\n", data)
 

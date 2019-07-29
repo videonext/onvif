@@ -111,19 +111,26 @@ type SOAPFaultReason struct {
 	Text string
 }
 
+type SOAPFaultDetail struct {
+	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Detail"`
+
+	Text string
+}
+
 type SOAPFault struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Fault"`
 
-	//	Code   string `xml:"faultcode,omitempty"`
 	Code   SOAPFaultCode
-	Reason SOAPFaultReason
-	//	String string `xml:"faultstring,omitempty"`
-	//	Actor  string `xml:"faultactor,omitempty"`
-	//	Detail string `xml:"detail,omitempty"`
+	Reason SOAPFaultReason `xml:",omitempty"`
+	Detail SOAPFaultDetail `xml:",omitempty"`
 }
 
 func (f *SOAPFault) Error() string {
-	return f.Reason.Text
+	s := f.Reason.Text
+	if f.Detail.Text != "" {
+		s += ". Details: " + f.Detail.Text
+	}
+	return s
 }
 
 const (
@@ -150,8 +157,6 @@ type WSSCreated struct {
 }
 
 type WSSUsernameToken struct {
-	//	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope UsernameToken"`
-
 	Username string
 
 	Password WSSPassword
@@ -343,7 +348,8 @@ func (s *Client) call(ctx context.Context, xaddr string, soapAction string, requ
 	req.WithContext(ctx)
 
 	req.Header.Add("Content-Type", "application/soap+xml; charset=utf-8; action=\""+soapAction+"\"")
-	req.Header.Set("User-Agent", "videonext-onvif/0.1")
+	req.Header.Add("Soapaction", "\""+soapAction+"\"")
+	req.Header.Set("User-Agent", "videonext-onvif-go/0.1")
 	if s.opts.httpHeaders != nil {
 		for k, v := range s.opts.httpHeaders {
 			req.Header.Set(k, v)

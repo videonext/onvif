@@ -12,22 +12,26 @@ import (
 var _ time.Time
 var _ xml.Name
 
+// Capabilities type
 type Capabilities ServiceCapabilities
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	//
 	// The capability response message contains the requested schedule service
 	// capabilities using a hierarchical XML capability structure.
 	//
-	Capabilities ServiceCapabilities `xml:"http://www.onvif.org/ver10/schedule/wsdl Capabilities,omitempty"`
+	Capabilities ServiceCapabilities `xml:"Capabilities,omitempty"`
 }
 
+// GetScheduleState type
 type GetScheduleState struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleState"`
 
@@ -37,33 +41,37 @@ type GetScheduleState struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// GetScheduleStateResponse type
 type GetScheduleStateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleStateResponse"`
+	XMLName xml.Name `xml:"GetScheduleStateResponse"`
 
 	//
 	// ScheduleState item.
 	//
-	ScheduleState ScheduleState `xml:"http://www.onvif.org/ver10/schedule/wsdl ScheduleState,omitempty"`
+	ScheduleState ScheduleState `xml:"ScheduleState,omitempty"`
 }
 
+// GetScheduleInfo type
 type GetScheduleInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleInfo"`
 
 	//
 	// Tokens of ScheduleInfo items to get.
 	//
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// GetScheduleInfoResponse type
 type GetScheduleInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleInfoResponse"`
+	XMLName xml.Name `xml:"GetScheduleInfoResponse"`
 
 	//
 	// List of ScheduleInfo items.
 	//
-	ScheduleInfo ScheduleInfo `xml:"http://www.onvif.org/ver10/schedule/wsdl ScheduleInfo,omitempty"`
+	ScheduleInfo []ScheduleInfo `xml:"ScheduleInfo,omitempty"`
 }
 
+// GetScheduleInfoList type
 type GetScheduleInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleInfoList"`
 
@@ -81,35 +89,39 @@ type GetScheduleInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl StartReference,omitempty"`
 }
 
+// GetScheduleInfoListResponse type
 type GetScheduleInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleInfoListResponse"`
+	XMLName xml.Name `xml:"GetScheduleInfoListResponse"`
 
 	//
 	// StartReference to use in next call to get the following items.
 	// If absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	//
 	// List of ScheduleInfo items.
 	//
-	ScheduleInfo ScheduleInfo `xml:"http://www.onvif.org/ver10/schedule/wsdl ScheduleInfo,omitempty"`
+	ScheduleInfo []ScheduleInfo `xml:"ScheduleInfo,omitempty"`
 }
 
+// GetSchedules type
 type GetSchedules struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSchedules"`
 
 	// Tokens of Schedule items to get
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// GetSchedulesResponse type
 type GetSchedulesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSchedulesResponse"`
+	XMLName xml.Name `xml:"GetSchedulesResponse"`
 
 	// List of schedule items.
-	Schedule Schedule `xml:"http://www.onvif.org/ver10/schedule/wsdl Schedule,omitempty"`
+	Schedule []Schedule `xml:"Schedule,omitempty"`
 }
 
+// GetScheduleList type
 type GetScheduleList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleList"`
 
@@ -127,19 +139,21 @@ type GetScheduleList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl StartReference,omitempty"`
 }
 
+// GetScheduleListResponse type
 type GetScheduleListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetScheduleListResponse"`
+	XMLName xml.Name `xml:"GetScheduleListResponse"`
 
 	//
 	// StartReference to use in next call to get the following items.
 	// If absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of Schedule items.
-	Schedule Schedule `xml:"http://www.onvif.org/ver10/schedule/wsdl Schedule,omitempty"`
+	Schedule []Schedule `xml:"Schedule,omitempty"`
 }
 
+// CreateSchedule type
 type CreateSchedule struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl CreateSchedule"`
 
@@ -147,13 +161,15 @@ type CreateSchedule struct {
 	Schedule Schedule `xml:"http://www.onvif.org/ver10/schedule/wsdl Schedule,omitempty"`
 }
 
+// CreateScheduleResponse type
 type CreateScheduleResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl CreateScheduleResponse"`
+	XMLName xml.Name `xml:"CreateScheduleResponse"`
 
 	// The token of created Schedule
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// SetSchedule type
 type SetSchedule struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl SetSchedule"`
 
@@ -161,10 +177,12 @@ type SetSchedule struct {
 	Schedule Schedule `xml:"http://www.onvif.org/ver10/schedule/wsdl Schedule,omitempty"`
 }
 
+// SetScheduleResponse type
 type SetScheduleResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl SetScheduleResponse"`
+	XMLName xml.Name `xml:"SetScheduleResponse"`
 }
 
+// ModifySchedule type
 type ModifySchedule struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl ModifySchedule"`
 
@@ -172,10 +190,12 @@ type ModifySchedule struct {
 	Schedule Schedule `xml:"http://www.onvif.org/ver10/schedule/wsdl Schedule,omitempty"`
 }
 
+// ModifyScheduleResponse type
 type ModifyScheduleResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl ModifyScheduleResponse"`
+	XMLName xml.Name `xml:"ModifyScheduleResponse"`
 }
 
+// DeleteSchedule type
 type DeleteSchedule struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl DeleteSchedule"`
 
@@ -183,24 +203,28 @@ type DeleteSchedule struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// DeleteScheduleResponse type
 type DeleteScheduleResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl DeleteScheduleResponse"`
+	XMLName xml.Name `xml:"DeleteScheduleResponse"`
 }
 
+// GetSpecialDayGroupInfo type
 type GetSpecialDayGroupInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupInfo"`
 
 	// Tokens of SpecialDayGroupInfo items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// GetSpecialDayGroupInfoResponse type
 type GetSpecialDayGroupInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupInfoResponse"`
+	XMLName xml.Name `xml:"GetSpecialDayGroupInfoResponse"`
 
 	// List of SpecialDayGroupInfo items.
-	SpecialDayGroupInfo SpecialDayGroupInfo `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroupInfo,omitempty"`
+	SpecialDayGroupInfo []SpecialDayGroupInfo `xml:"SpecialDayGroupInfo,omitempty"`
 }
 
+// GetSpecialDayGroupInfoList type
 type GetSpecialDayGroupInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupInfoList"`
 
@@ -218,33 +242,37 @@ type GetSpecialDayGroupInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl StartReference,omitempty"`
 }
 
+// GetSpecialDayGroupInfoListResponse type
 type GetSpecialDayGroupInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupInfoListResponse"`
+	XMLName xml.Name `xml:"GetSpecialDayGroupInfoListResponse"`
 
 	//
 	// StartReference to use in next call to get the following items.
 	// If absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of SpecialDayGroupInfo items.
-	SpecialDayGroupInfo SpecialDayGroupInfo `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroupInfo,omitempty"`
+	SpecialDayGroupInfo []SpecialDayGroupInfo `xml:"SpecialDayGroupInfo,omitempty"`
 }
 
+// GetSpecialDayGroups type
 type GetSpecialDayGroups struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroups"`
 
 	// Tokens of the SpecialDayGroup items to get
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// GetSpecialDayGroupsResponse type
 type GetSpecialDayGroupsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupsResponse"`
+	XMLName xml.Name `xml:"GetSpecialDayGroupsResponse"`
 
 	// List of SpecialDayGroup items.
-	SpecialDayGroup SpecialDayGroup `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroup,omitempty"`
+	SpecialDayGroup []SpecialDayGroup `xml:"SpecialDayGroup,omitempty"`
 }
 
+// GetSpecialDayGroupList type
 type GetSpecialDayGroupList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupList"`
 
@@ -262,18 +290,20 @@ type GetSpecialDayGroupList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl StartReference,omitempty"`
 }
 
+// GetSpecialDayGroupListResponse type
 type GetSpecialDayGroupListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetSpecialDayGroupListResponse"`
+	XMLName xml.Name `xml:"GetSpecialDayGroupListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/schedule/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of SpecialDayGroup items.
-	SpecialDayGroup SpecialDayGroup `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroup,omitempty"`
+	SpecialDayGroup []SpecialDayGroup `xml:"SpecialDayGroup,omitempty"`
 }
 
+// CreateSpecialDayGroup type
 type CreateSpecialDayGroup struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl CreateSpecialDayGroup"`
 
@@ -283,13 +313,15 @@ type CreateSpecialDayGroup struct {
 	SpecialDayGroup SpecialDayGroup `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroup,omitempty"`
 }
 
+// CreateSpecialDayGroupResponse type
 type CreateSpecialDayGroupResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl CreateSpecialDayGroupResponse"`
+	XMLName xml.Name `xml:"CreateSpecialDayGroupResponse"`
 
 	// The token of created special day group.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// SetSpecialDayGroup type
 type SetSpecialDayGroup struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl SetSpecialDayGroup"`
 
@@ -297,10 +329,12 @@ type SetSpecialDayGroup struct {
 	SpecialDayGroup SpecialDayGroup `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroup,omitempty"`
 }
 
+// SetSpecialDayGroupResponse type
 type SetSpecialDayGroupResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl SetSpecialDayGroupResponse"`
+	XMLName xml.Name `xml:"SetSpecialDayGroupResponse"`
 }
 
+// ModifySpecialDayGroup type
 type ModifySpecialDayGroup struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl ModifySpecialDayGroup"`
 
@@ -310,10 +344,12 @@ type ModifySpecialDayGroup struct {
 	SpecialDayGroup SpecialDayGroup `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDayGroup,omitempty"`
 }
 
+// ModifySpecialDayGroupResponse type
 type ModifySpecialDayGroupResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl ModifySpecialDayGroupResponse"`
+	XMLName xml.Name `xml:"ModifySpecialDayGroupResponse"`
 }
 
+// DeleteSpecialDayGroup type
 type DeleteSpecialDayGroup struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl DeleteSpecialDayGroup"`
 
@@ -323,10 +359,12 @@ type DeleteSpecialDayGroup struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schedule/wsdl Token,omitempty"`
 }
 
+// DeleteSpecialDayGroupResponse type
 type DeleteSpecialDayGroupResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl DeleteSpecialDayGroupResponse"`
+	XMLName xml.Name `xml:"DeleteSpecialDayGroupResponse"`
 }
 
+// ServiceCapabilities type
 type ServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl Capabilities"`
 
@@ -415,6 +453,7 @@ type ServiceCapabilities struct {
 	ClientSuppliedTokenSupported bool `xml:"http://www.onvif.org/ver10/schedule/wsdl ClientSuppliedTokenSupported,attr,omitempty"`
 }
 
+// ScheduleInfo type
 type ScheduleInfo struct {
 	*DataEntity
 
@@ -429,6 +468,7 @@ type ScheduleInfo struct {
 	Description Description `xml:"http://www.onvif.org/ver10/schedule/wsdl Description,omitempty"`
 }
 
+// Schedule type
 type Schedule struct {
 	*ScheduleInfo
 
@@ -450,14 +490,16 @@ type Schedule struct {
 	// the regular schedule for a specified list of special days.
 	// Is of type SpecialDaysSchedule.
 	//
-	SpecialDays SpecialDaysSchedule `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDays,omitempty"`
+	SpecialDays []SpecialDaysSchedule `xml:"http://www.onvif.org/ver10/schedule/wsdl SpecialDays,omitempty"`
 
 	Extension ScheduleExtension `xml:"http://www.onvif.org/ver10/schedule/wsdl Extension,omitempty"`
 }
 
+// ScheduleExtension type
 type ScheduleExtension struct {
 }
 
+// SpecialDaysSchedule type
 type SpecialDaysSchedule struct {
 
 	//
@@ -474,14 +516,16 @@ type SpecialDaysSchedule struct {
 	// If no time periods are defined, then no access is allowed.
 	// Is of type TimePeriod.
 	//
-	TimeRange TimePeriod `xml:"http://www.onvif.org/ver10/schedule/wsdl TimeRange,omitempty"`
+	TimeRange []TimePeriod `xml:"http://www.onvif.org/ver10/schedule/wsdl TimeRange,omitempty"`
 
 	Extension SpecialDaysScheduleExtension `xml:"http://www.onvif.org/ver10/schedule/wsdl Extension,omitempty"`
 }
 
+// SpecialDaysScheduleExtension type
 type SpecialDaysScheduleExtension struct {
 }
 
+// ScheduleState type
 type ScheduleState struct {
 
 	//
@@ -504,9 +548,11 @@ type ScheduleState struct {
 	Extension ScheduleStateExtension `xml:"http://www.onvif.org/ver10/schedule/wsdl Extension,omitempty"`
 }
 
+// ScheduleStateExtension type
 type ScheduleStateExtension struct {
 }
 
+// TimePeriod type
 type TimePeriod struct {
 
 	//
@@ -525,9 +571,11 @@ type TimePeriod struct {
 	Extension TimePeriodExtension `xml:"http://www.onvif.org/ver10/schedule/wsdl Extension,omitempty"`
 }
 
+// TimePeriodExtension type
 type TimePeriodExtension struct {
 }
 
+// SpecialDayGroupInfo type
 type SpecialDayGroupInfo struct {
 	*DataEntity
 
@@ -543,6 +591,7 @@ type SpecialDayGroupInfo struct {
 	Description Description `xml:"http://www.onvif.org/ver10/schedule/wsdl Description,omitempty"`
 }
 
+// SpecialDayGroup type
 type SpecialDayGroup struct {
 	*SpecialDayGroupInfo
 
@@ -555,15 +604,18 @@ type SpecialDayGroup struct {
 	Extension SpecialDayGroupExtension `xml:"http://www.onvif.org/ver10/schedule/wsdl Extension,omitempty"`
 }
 
+// SpecialDayGroupExtension type
 type SpecialDayGroupExtension struct {
 }
 
 // Type used to reference logical and physical entities.
 
+// ReferenceToken type
 type ReferenceToken string
 
 // Type used for names of logical and physical entities.
 
+// Name type
 type Name string
 
 // Description is optional and the maximum length is device specific.
@@ -571,12 +623,15 @@ type Name string
 // supported by the device/service (which may be 0).
 //
 
+// Description type
 type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
+// PositiveInteger type
 type PositiveInteger uint32
 
+// DataEntity type
 type DataEntity struct {
 
 	// A service-unique identifier of the item.
@@ -586,6 +641,7 @@ type DataEntity struct {
 
 // Removed Attribute by fixgen.py
 
+// SchedulePort type
 type SchedulePort interface {
 
 	/*
@@ -751,6 +807,7 @@ type SchedulePort interface {
 	DeleteSpecialDayGroupContext(ctx context.Context, request *DeleteSpecialDayGroup) (*DeleteSpecialDayGroupResponse, error)
 }
 
+// schedulePort type
 type schedulePort struct {
 	client *soap.Client
 	xaddr  string
@@ -1069,11 +1126,26 @@ func (service *schedulePort) DeleteSpecialDayGroup(request *DeleteSpecialDayGrou
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

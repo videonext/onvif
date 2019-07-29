@@ -79,8 +79,8 @@ for xsd in xsds:
             continue
         type_map[t] = ns
 # reading used types from onvif.xsd
-xsd_data = urlopen('http://www.onvif.org/ver10/schema/onvif.xsd').read().decode('utf-8')
-r = re.findall(r'type="xs:(.+?)"', xsd_data)
+onvif_xsd_data = urlopen('http://www.onvif.org/ver10/schema/onvif.xsd').read().decode('utf-8')
+r = re.findall(r'type="xs:(.+?)"', onvif_xsd_data)
 for t in r:
     if not t[0].isupper():
         t = t.title()
@@ -88,8 +88,8 @@ for t in r:
         continue
     type_map[t] = 'http://www.onvif.org/ver10/schema'
 # reading used types from common.xsd
-xsd_data = urlopen('http://www.onvif.org/ver10/schema/common.xsd').read().decode('utf-8')
-r = re.findall(r'type="xs:(.+?)"', xsd_data)
+common_xsd_data = urlopen('http://www.onvif.org/ver10/schema/common.xsd').read().decode('utf-8')
+r = re.findall(r'type="xs:(.+?)"', common_xsd_data)
 for t in r:
     if not t[0].isupper():
         t = t.title()
@@ -126,27 +126,28 @@ type_map['[]string'] = 'http://www.onvif.org/ver10/schema'
 type_map['ReferenceToken'] = 'http://www.onvif.org/ver10/schema'
 type_map['time.Time'] = 'http://www.onvif.org/ver10/schema'
 type_map['NonNegativeInteger'] = 'http://www.onvif.org/ver10/schema'
-
 if type_map['Anyuri'] != None:
     type_map['AnyURI'] = type_map['Anyuri']
 # print(type_map)
 for k, v in type_map.items():
-    # check if type used in the wsdl we are processing
     ns = v
+    # # check if type used in the wsdl we are processing
     r = re.findall(r'type="\w+:' + re.escape(k), wsdl)
+    # if len(r) and (re.search(r'complexType name="' + k + '"', common_xsd_data) or re.search(r'complexType name="' + k + '"', onvif_xsd_data)):
+    #     ns = targetNamespace
     if len(r):
         ns = targetNamespace
     data = re.sub(r"(?s)(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"\1(.*?)\"`",
                   r"\1 *" + k + r' `xml:"' + ns + r' \1\2"`',
                   data)
     data = re.sub(r"(?s)(\w+)\s+\[\]\*" + re.escape(k) + r"\s+`xml:\"\1(.*?)\"`",
-                  r"\1 *" + k + r' `xml:"' + ns + r' \1\2"`',
+                  r"\1 []*" + k + r' `xml:"' + ns + r' \1\2"`',
                   data)
     data = re.sub(r"(?s)(\w+)\s+\[\]" + re.escape(k) + r"\s+`xml:\"\1(.*?)\"`",
-                  r"\1 *" + k + r' `xml:"' + ns + r' \1\2"`',
+                  r"\1 []" + k + r' `xml:"' + ns + r' \1\2"`',
                   data)
     data = re.sub(r"(?s)(\w+)\s+" + re.escape(k) + r"\s+`xml:\"\1(.*?)\"`",
-                  r"\1 *" + k + r' `xml:"' + ns + r' \1\2"`',
+                  r"\1 " + k + r' `xml:"' + ns + r' \1\2"`',
                   data)
 ########################################################################
 
@@ -226,7 +227,21 @@ data = re.sub(r"(\w+)\s+\[\]\*(\w+)\s+`xml:\"(.*?)\"`",
 data = data.replace('Extension NetworkZeroConfigurationExtension `xml:"', 'Extension *NetworkZeroConfigurationExtension `xml:"')
 data = data.replace('Tunnel Transport `xml:"', 'Tunnel *Transport `xml:"')
 data = data.replace('Subcode Subcode `xml:"', 'Subcode *Subcode `xml:"')
+data = data.replace('*Ref', 'Ref')
 ########################################################################
+
+# add comments to exported types
+regex = re.compile(r'^type\s+(.+?)\s+', re.MULTILINE)
+data = re.sub(regex, r'// \1 type\ntype \1 ', data)
+
+# remove ns from *Response* types
+regex = re.compile(r'(?s)^(type \w+Response\w+ struct \{.+?\})', re.MULTILINE)
+r = re.findall(regex, data)
+regex = re.compile(r'(?s)^(type \w+Response struct \{.+?\})', re.MULTILINE)
+r += re.findall(regex, data)
+for block in r:
+    block2 = re.sub(r'xml:"http.+? ', 'xml:"', block)
+    data = data.replace(block, block2)
 
 
 with open(go_package + '/' + go_src, 'w') as file:

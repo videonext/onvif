@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -17,13 +18,14 @@ func main() {
 	)
 	client.AddHeader(soap.NewWSSSecurityHeader("root", "pass"))
 
+	var token recording.RecordingReference
 	// Create service instance and specify xaddr (which could be received in the devicemgmt.GetServices())
 	r := recording.NewRecordingPort(client, "http://192.168.27.66/onvif/services")
 	{
-		rc := recording.CreateRecording{RecordingConfiguration: recording.RecordingConfiguration{}}
-		rc.RecordingConfiguration.Content = "mycontent"
-		rc.RecordingConfiguration.MaximumRetentionTime = "0" //"P7D" //"PT0M30S"
-		rc.RecordingConfiguration.Source =
+		cr := recording.CreateRecording{RecordingConfiguration: recording.RecordingConfiguration{}}
+		cr.RecordingConfiguration.Content = "mycontent"
+		cr.RecordingConfiguration.MaximumRetentionTime = "P7D" //"PT0M30S"
+		cr.RecordingConfiguration.Source =
 			recording.RecordingSourceInformation{
 				SourceId:    "http://192.168.27.66/onvif/services",
 				Name:        "mysourcename",
@@ -31,7 +33,7 @@ func main() {
 				Description: "mysourcedescription",
 				Address:     "http://192.168.27.66/onvif/services"}
 
-		reply, err := r.CreateRecording(&rc)
+		reply, err := r.CreateRecording(&cr)
 
 		if err != nil {
 			if serr, ok := err.(*soap.SOAPFault); ok {
@@ -40,8 +42,29 @@ func main() {
 			log.Fatalf("Request failed: %s", err.Error())
 		}
 		pretty.Println(reply)
+		token = reply.RecordingToken
+		fmt.Printf("Token: %s\n", token)
 
-		//		spew.Dump(reply)
+		dr := recording.DeleteRecording{RecordingToken: token}
+		reply2, err := r.DeleteRecording(&dr)
+		if err != nil {
+			if serr, ok := err.(*soap.SOAPFault); ok {
+				pretty.Println(serr)
+			}
+			log.Fatalf("Request failed: %s", err.Error())
+		}
+		pretty.Println(reply2)
+
+		fmt.Println("Getting all records")
+		reply3, err := r.GetRecordings(&recording.GetRecordings{})
+		if err != nil {
+			if serr, ok := err.(*soap.SOAPFault); ok {
+				pretty.Println(serr)
+			}
+			log.Fatalf("Request failed: %s", err.Error())
+		}
+		pretty.Println(reply3)
+
 	}
 
 	// .............

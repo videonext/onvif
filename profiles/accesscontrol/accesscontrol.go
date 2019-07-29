@@ -16,6 +16,7 @@ var _ xml.Name
 // The Decision enumeration represents a choice of two available options for an access request:
 //
 
+// Decision type
 type Decision string
 
 const (
@@ -32,6 +33,7 @@ const (
 // The following strings shall be used for the reason field:
 //
 
+// DenyReason type
 type DenyReason string
 
 const (
@@ -75,21 +77,25 @@ const (
 	DenyReasonOther DenyReason = "Other"
 )
 
+// Capabilities type
 type Capabilities ServiceCapabilities
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capability response message contains the requested Access Control
 	// service capabilities using a hierarchical XML capability structure.
 	//
-	Capabilities ServiceCapabilities `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Capabilities,omitempty"`
+	Capabilities ServiceCapabilities `xml:"Capabilities,omitempty"`
 }
 
+// GetAccessPointInfoList type
 type GetAccessPointInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointInfoList"`
 
@@ -105,32 +111,36 @@ type GetAccessPointInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl StartReference,omitempty"`
 }
 
+// GetAccessPointInfoListResponse type
 type GetAccessPointInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointInfoListResponse"`
+	XMLName xml.Name `xml:"GetAccessPointInfoListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of AccessPointInfo items.
-	AccessPointInfo AccessPointInfo `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPointInfo,omitempty"`
+	AccessPointInfo []AccessPointInfo `xml:"AccessPointInfo,omitempty"`
 }
 
+// GetAccessPointInfo type
 type GetAccessPointInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointInfo"`
 
 	// Tokens of AccessPointInfo items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// GetAccessPointInfoResponse type
 type GetAccessPointInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointInfoResponse"`
+	XMLName xml.Name `xml:"GetAccessPointInfoResponse"`
 
 	// List of AccessPointInfo items.
-	AccessPointInfo AccessPointInfo `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPointInfo,omitempty"`
+	AccessPointInfo []AccessPointInfo `xml:"AccessPointInfo,omitempty"`
 }
 
+// GetAccessPointList type
 type GetAccessPointList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointList"`
 
@@ -146,32 +156,36 @@ type GetAccessPointList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl StartReference,omitempty"`
 }
 
+// GetAccessPointListResponse type
 type GetAccessPointListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointListResponse"`
+	XMLName xml.Name `xml:"GetAccessPointListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of AccessPoint items.
-	AccessPoint AccessPoint `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPoint,omitempty"`
+	AccessPoint []AccessPoint `xml:"AccessPoint,omitempty"`
 }
 
+// GetAccessPoints type
 type GetAccessPoints struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPoints"`
 
 	// Tokens of AccessPoint items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// GetAccessPointsResponse type
 type GetAccessPointsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointsResponse"`
+	XMLName xml.Name `xml:"GetAccessPointsResponse"`
 
 	// List of AccessPoint items.
-	AccessPoint AccessPoint `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPoint,omitempty"`
+	AccessPoint []AccessPoint `xml:"AccessPoint,omitempty"`
 }
 
+// CreateAccessPoint type
 type CreateAccessPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl CreateAccessPoint"`
 
@@ -179,13 +193,15 @@ type CreateAccessPoint struct {
 	AccessPoint AccessPoint `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPoint,omitempty"`
 }
 
+// CreateAccessPointResponse type
 type CreateAccessPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl CreateAccessPointResponse"`
+	XMLName xml.Name `xml:"CreateAccessPointResponse"`
 
 	// Token of created AccessPoint item
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// SetAccessPoint type
 type SetAccessPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SetAccessPoint"`
 
@@ -193,10 +209,12 @@ type SetAccessPoint struct {
 	AccessPoint AccessPoint `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPoint,omitempty"`
 }
 
+// SetAccessPointResponse type
 type SetAccessPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SetAccessPointResponse"`
+	XMLName xml.Name `xml:"SetAccessPointResponse"`
 }
 
+// ModifyAccessPoint type
 type ModifyAccessPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ModifyAccessPoint"`
 
@@ -204,10 +222,12 @@ type ModifyAccessPoint struct {
 	AccessPoint AccessPoint `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPoint,omitempty"`
 }
 
+// ModifyAccessPointResponse type
 type ModifyAccessPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ModifyAccessPointResponse"`
+	XMLName xml.Name `xml:"ModifyAccessPointResponse"`
 }
 
+// DeleteAccessPoint type
 type DeleteAccessPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DeleteAccessPoint"`
 
@@ -215,10 +235,12 @@ type DeleteAccessPoint struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// DeleteAccessPointResponse type
 type DeleteAccessPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DeleteAccessPointResponse"`
+	XMLName xml.Name `xml:"DeleteAccessPointResponse"`
 }
 
+// SetAccessPointAuthenticationProfile type
 type SetAccessPointAuthenticationProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SetAccessPointAuthenticationProfile"`
 
@@ -229,10 +251,12 @@ type SetAccessPointAuthenticationProfile struct {
 	AuthenticationProfileToken ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AuthenticationProfileToken,omitempty"`
 }
 
+// SetAccessPointAuthenticationProfileResponse type
 type SetAccessPointAuthenticationProfileResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SetAccessPointAuthenticationProfileResponse"`
+	XMLName xml.Name `xml:"SetAccessPointAuthenticationProfileResponse"`
 }
 
+// DeleteAccessPointAuthenticationProfile type
 type DeleteAccessPointAuthenticationProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DeleteAccessPointAuthenticationProfile"`
 
@@ -240,10 +264,12 @@ type DeleteAccessPointAuthenticationProfile struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// DeleteAccessPointAuthenticationProfileResponse type
 type DeleteAccessPointAuthenticationProfileResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DeleteAccessPointAuthenticationProfileResponse"`
+	XMLName xml.Name `xml:"DeleteAccessPointAuthenticationProfileResponse"`
 }
 
+// GetAreaInfoList type
 type GetAreaInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreaInfoList"`
 
@@ -259,32 +285,36 @@ type GetAreaInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl StartReference,omitempty"`
 }
 
+// GetAreaInfoListResponse type
 type GetAreaInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreaInfoListResponse"`
+	XMLName xml.Name `xml:"GetAreaInfoListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of AreaInfo items.
-	AreaInfo AreaInfo `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AreaInfo,omitempty"`
+	AreaInfo []AreaInfo `xml:"AreaInfo,omitempty"`
 }
 
+// GetAreaInfo type
 type GetAreaInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreaInfo"`
 
 	// Tokens of AreaInfo items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// GetAreaInfoResponse type
 type GetAreaInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreaInfoResponse"`
+	XMLName xml.Name `xml:"GetAreaInfoResponse"`
 
 	// List of AreaInfo items.
-	AreaInfo AreaInfo `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AreaInfo,omitempty"`
+	AreaInfo []AreaInfo `xml:"AreaInfo,omitempty"`
 }
 
+// GetAreaList type
 type GetAreaList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreaList"`
 
@@ -300,32 +330,36 @@ type GetAreaList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl StartReference,omitempty"`
 }
 
+// GetAreaListResponse type
 type GetAreaListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreaListResponse"`
+	XMLName xml.Name `xml:"GetAreaListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of Area items.
-	Area Area `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Area,omitempty"`
+	Area []Area `xml:"Area,omitempty"`
 }
 
+// GetAreas type
 type GetAreas struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreas"`
 
 	// Tokens of Area items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// GetAreasResponse type
 type GetAreasResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAreasResponse"`
+	XMLName xml.Name `xml:"GetAreasResponse"`
 
 	// List of Area items.
-	Area Area `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Area,omitempty"`
+	Area []Area `xml:"Area,omitempty"`
 }
 
+// CreateArea type
 type CreateArea struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl CreateArea"`
 
@@ -333,13 +367,15 @@ type CreateArea struct {
 	Area Area `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Area,omitempty"`
 }
 
+// CreateAreaResponse type
 type CreateAreaResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl CreateAreaResponse"`
+	XMLName xml.Name `xml:"CreateAreaResponse"`
 
 	// Token of created Area item
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// SetArea type
 type SetArea struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SetArea"`
 
@@ -347,10 +383,12 @@ type SetArea struct {
 	Area Area `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Area,omitempty"`
 }
 
+// SetAreaResponse type
 type SetAreaResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SetAreaResponse"`
+	XMLName xml.Name `xml:"SetAreaResponse"`
 }
 
+// ModifyArea type
 type ModifyArea struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ModifyArea"`
 
@@ -358,10 +396,12 @@ type ModifyArea struct {
 	Area Area `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Area,omitempty"`
 }
 
+// ModifyAreaResponse type
 type ModifyAreaResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ModifyAreaResponse"`
+	XMLName xml.Name `xml:"ModifyAreaResponse"`
 }
 
+// DeleteArea type
 type DeleteArea struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DeleteArea"`
 
@@ -369,10 +409,12 @@ type DeleteArea struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// DeleteAreaResponse type
 type DeleteAreaResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DeleteAreaResponse"`
+	XMLName xml.Name `xml:"DeleteAreaResponse"`
 }
 
+// GetAccessPointState type
 type GetAccessPointState struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointState"`
 
@@ -381,13 +423,15 @@ type GetAccessPointState struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// GetAccessPointStateResponse type
 type GetAccessPointStateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl GetAccessPointStateResponse"`
+	XMLName xml.Name `xml:"GetAccessPointStateResponse"`
 
 	// AccessPointState item.
-	AccessPointState AccessPointState `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl AccessPointState,omitempty"`
+	AccessPointState AccessPointState `xml:"AccessPointState,omitempty"`
 }
 
+// EnableAccessPoint type
 type EnableAccessPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl EnableAccessPoint"`
 
@@ -395,10 +439,12 @@ type EnableAccessPoint struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// EnableAccessPointResponse type
 type EnableAccessPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl EnableAccessPointResponse"`
+	XMLName xml.Name `xml:"EnableAccessPointResponse"`
 }
 
+// DisableAccessPoint type
 type DisableAccessPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DisableAccessPoint"`
 
@@ -406,10 +452,12 @@ type DisableAccessPoint struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Token,omitempty"`
 }
 
+// DisableAccessPointResponse type
 type DisableAccessPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl DisableAccessPointResponse"`
+	XMLName xml.Name `xml:"DisableAccessPointResponse"`
 }
 
+// ExternalAuthorization type
 type ExternalAuthorization struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ExternalAuthorization"`
 
@@ -426,10 +474,12 @@ type ExternalAuthorization struct {
 	Decision Decision `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Decision,omitempty"`
 }
 
+// ExternalAuthorizationResponse type
 type ExternalAuthorizationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ExternalAuthorizationResponse"`
+	XMLName xml.Name `xml:"ExternalAuthorizationResponse"`
 }
 
+// ServiceCapabilities type
 type ServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Capabilities"`
 
@@ -461,6 +511,7 @@ type ServiceCapabilities struct {
 	ClientSuppliedTokenSupported bool `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ClientSuppliedTokenSupported,attr,omitempty"`
 }
 
+// AccessPointInfoBase type
 type AccessPointInfoBase struct {
 	*DataEntity
 
@@ -498,6 +549,7 @@ type AccessPointInfoBase struct {
 	Entity ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Entity,omitempty"`
 }
 
+// AccessPointInfo type
 type AccessPointInfo struct {
 	*AccessPointInfoBase
 
@@ -505,6 +557,7 @@ type AccessPointInfo struct {
 	Capabilities AccessPointCapabilities `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Capabilities,omitempty"`
 }
 
+// AccessPoint type
 type AccessPoint struct {
 	*AccessPointInfo
 
@@ -517,15 +570,17 @@ type AccessPoint struct {
 	Extension AccessPointExtension `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Extension,omitempty"`
 }
 
+// AccessPointExtension type
 type AccessPointExtension struct {
 }
 
+// AccessPointCapabilities type
 type AccessPointCapabilities struct {
 
 	// A list of security level tokens that this access point supports.
 	// See [Authentication Behavior Service Specification].
 	//
-	SupportedSecurityLevels ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SupportedSecurityLevels,omitempty"`
+	SupportedSecurityLevels []ReferenceToken `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl SupportedSecurityLevels,omitempty"`
 
 	Extension SupportedSecurityLevelsExtension `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Extension,omitempty"`
 
@@ -567,9 +622,11 @@ type AccessPointCapabilities struct {
 	ExternalAuthorization bool `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl ExternalAuthorization,attr,omitempty"`
 }
 
+// SupportedSecurityLevelsExtension type
 type SupportedSecurityLevelsExtension struct {
 }
 
+// AreaInfoBase type
 type AreaInfoBase struct {
 	*DataEntity
 
@@ -583,19 +640,23 @@ type AreaInfoBase struct {
 	Description Description `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Description,omitempty"`
 }
 
+// AreaInfo type
 type AreaInfo struct {
 	*AreaInfoBase
 }
 
+// Area type
 type Area struct {
 	*AreaInfo
 
 	Extension AreaExtension `xml:"http://www.onvif.org/ver10/accesscontrol/wsdl Extension,omitempty"`
 }
 
+// AreaExtension type
 type AreaExtension struct {
 }
 
+// AccessPointState type
 type AccessPointState struct {
 
 	// Indicates that the AccessPoint is enabled. By default this field value
@@ -606,10 +667,12 @@ type AccessPointState struct {
 
 // Type used to reference logical and physical entities.
 
+// ReferenceToken type
 type ReferenceToken string
 
 // Type used for names of logical and physical entities.
 
+// Name type
 type Name string
 
 // Description is optional and the maximum length is device specific.
@@ -617,12 +680,15 @@ type Name string
 // supported by the device/service (which may be 0).
 //
 
+// Description type
 type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
+// PositiveInteger type
 type PositiveInteger uint32
 
+// DataEntity type
 type DataEntity struct {
 
 	// A service-unique identifier of the item.
@@ -632,6 +698,7 @@ type DataEntity struct {
 
 // Removed Attribute by fixgen.py
 
+// PACSPort type
 type PACSPort interface {
 
 	/*
@@ -857,6 +924,7 @@ type PACSPort interface {
 	ExternalAuthorizationContext(ctx context.Context, request *ExternalAuthorization) (*ExternalAuthorizationResponse, error)
 }
 
+// pACSPort type
 type pACSPort struct {
 	client *soap.Client
 	xaddr  string
@@ -1260,11 +1328,26 @@ func (service *pACSPort) ExternalAuthorization(request *ExternalAuthorization) (
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

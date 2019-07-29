@@ -14,26 +14,32 @@ var _ xml.Name
 
 // Unique identifier for keys in the keystore.
 
+// KeyID type
 type KeyID NCName
 
 // Unique identifier for certificates in the keystore.
 
+// CertificateID type
 type CertificateID NCName
 
 // Unique identifier for certification paths in the keystore.
 
+// CertificationPathID type
 type CertificationPathID NCName
 
 // Unique identifier for passphrases in the keystore.
 
+// PassphraseID type
 type PassphraseID NCName
 
 // Unique identifier for 802.1X configurations in the keystore.
 
+// Dot1XID type
 type Dot1XID NCName
 
 // The status of a key in the keystore.
 
+// KeyStatus type
 type KeyStatus string
 
 const (
@@ -50,57 +56,72 @@ const (
 
 // An object identifier (OID) in dot-decimal form as specified in RFC4512.
 
+// DotDecimalOID type
 type DotDecimalOID string
 
 // The distinguished name attribute type encoded as specified in RFC 4514.
 
+// DNAttributeType type
 type DNAttributeType string
 
+// DNAttributeValue type
 type DNAttributeValue string
 
 // A base64-encoded ASN.1 value.
 
+// Base64DERencodedASN1Value type
 type Base64DERencodedASN1Value []byte
 
 // A list of supported 802.1X authentication methods, such as "EAP-PEAP/MSCHAPv2" and "EAP-MD5".  The '/' character is used as a separator between the outer and inner methods.
 
+// Dot1XMethods type
 type Dot1XMethods []string
 
+// CRLID type
 type CRLID NCName
 
+// CertPathValidationPolicyID type
 type CertPathValidationPolicyID NCName
 
 // A list of RSA key lenghts in bits.
 
+// RSAKeyLengths type
 type RSAKeyLengths []NonNegativeInteger
 
 // A list of X.509 versions.
 
+// X509Versions type
 type X509Versions []int32
 
 // A list of TLS versions.
 
+// TLSVersions type
 type TLSVersions []string
 
 // A list of password based encryption algorithms.
 
+// PasswordBasedEncryptionAlgorithms type
 type PasswordBasedEncryptionAlgorithms []string
 
 // A list of password based MAC algorithms.
 
+// PasswordBasedMACAlgorithms type
 type PasswordBasedMACAlgorithms []string
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capabilities for the security configuration service is returned in the Capabilities element.
-	Capabilities Capabilities `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Capabilities,omitempty"`
+	Capabilities Capabilities `xml:"Capabilities,omitempty"`
 }
 
+// CreateRSAKeyPair type
 type CreateRSAKeyPair struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateRSAKeyPair"`
 
@@ -111,16 +132,18 @@ type CreateRSAKeyPair struct {
 	Alias string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Alias,omitempty"`
 }
 
+// CreateRSAKeyPairResponse type
 type CreateRSAKeyPairResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateRSAKeyPairResponse"`
+	XMLName xml.Name `xml:"CreateRSAKeyPairResponse"`
 
 	// The key ID of the key pair being generated.
-	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
+	KeyID KeyID `xml:"KeyID,omitempty"`
 
 	// Best-effort estimate of how long the key generation will take.
-	EstimatedCreationTime Duration `xml:"http://www.onvif.org/ver10/schema EstimatedCreationTime,omitempty"`
+	EstimatedCreationTime Duration `xml:"EstimatedCreationTime,omitempty"`
 }
 
+// UploadKeyPairInPKCS8 type
 type UploadKeyPairInPKCS8 struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadKeyPairInPKCS8"`
 
@@ -137,13 +160,15 @@ type UploadKeyPairInPKCS8 struct {
 	EncryptionPassphrase string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl EncryptionPassphrase,omitempty"`
 }
 
+// UploadKeyPairInPKCS8Response type
 type UploadKeyPairInPKCS8Response struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadKeyPairInPKCS8Response"`
+	XMLName xml.Name `xml:"UploadKeyPairInPKCS8Response"`
 
 	// The key ID of the uploaded key pair.
-	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
+	KeyID KeyID `xml:"KeyID,omitempty"`
 }
 
+// UploadCertificateWithPrivateKeyInPKCS12 type
 type UploadCertificateWithPrivateKeyInPKCS12 struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadCertificateWithPrivateKeyInPKCS12"`
 
@@ -169,16 +194,18 @@ type UploadCertificateWithPrivateKeyInPKCS12 struct {
 	Passphrase string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Passphrase,omitempty"`
 }
 
+// UploadCertificateWithPrivateKeyInPKCS12Response type
 type UploadCertificateWithPrivateKeyInPKCS12Response struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadCertificateWithPrivateKeyInPKCS12Response"`
+	XMLName xml.Name `xml:"UploadCertificateWithPrivateKeyInPKCS12Response"`
 
 	// The certification path ID of the uploaded certification path.
-	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
+	CertificationPathID CertificationPathID `xml:"CertificationPathID,omitempty"`
 
 	// The key ID of the uploaded key pair.
-	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
+	KeyID KeyID `xml:"KeyID,omitempty"`
 }
 
+// GetKeyStatus type
 type GetKeyStatus struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetKeyStatus"`
 
@@ -186,13 +213,15 @@ type GetKeyStatus struct {
 	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
 }
 
+// GetKeyStatusResponse type
 type GetKeyStatusResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetKeyStatusResponse"`
+	XMLName xml.Name `xml:"GetKeyStatusResponse"`
 
 	// Status of the requested key. The value should be one of the values in the tas:KeyStatus enumeration.
-	KeyStatus string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyStatus,omitempty"`
+	KeyStatus string `xml:"KeyStatus,omitempty"`
 }
 
+// GetPrivateKeyStatus type
 type GetPrivateKeyStatus struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetPrivateKeyStatus"`
 
@@ -200,24 +229,28 @@ type GetPrivateKeyStatus struct {
 	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
 }
 
+// GetPrivateKeyStatusResponse type
 type GetPrivateKeyStatusResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetPrivateKeyStatusResponse"`
+	XMLName xml.Name `xml:"GetPrivateKeyStatusResponse"`
 
 	// True if and only if the key pair contains a private key.
 	HasPrivateKey bool `xml:"hasPrivateKey,omitempty"`
 }
 
+// GetAllKeys type
 type GetAllKeys struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllKeys"`
 }
 
+// GetAllKeysResponse type
 type GetAllKeysResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllKeysResponse"`
+	XMLName xml.Name `xml:"GetAllKeysResponse"`
 
 	// Information about a key in the keystore.
-	KeyAttribute KeyAttribute `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyAttribute,omitempty"`
+	KeyAttribute []KeyAttribute `xml:"KeyAttribute,omitempty"`
 }
 
+// DeleteKey type
 type DeleteKey struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteKey"`
 
@@ -225,10 +258,12 @@ type DeleteKey struct {
 	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
 }
 
+// DeleteKeyResponse type
 type DeleteKeyResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteKeyResponse"`
+	XMLName xml.Name `xml:"DeleteKeyResponse"`
 }
 
+// CreatePKCS10CSR type
 type CreatePKCS10CSR struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreatePKCS10CSR"`
 
@@ -239,19 +274,21 @@ type CreatePKCS10CSR struct {
 	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
 
 	// An attribute to be included in the CSR.
-	CSRAttribute CSRAttribute `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CSRAttribute,omitempty"`
+	CSRAttribute []CSRAttribute `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CSRAttribute,omitempty"`
 
 	// The signature algorithm to be used to sign the CSR.
 	SignatureAlgorithm AlgorithmIdentifier `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SignatureAlgorithm,omitempty"`
 }
 
+// CreatePKCS10CSRResponse type
 type CreatePKCS10CSRResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreatePKCS10CSRResponse"`
+	XMLName xml.Name `xml:"CreatePKCS10CSRResponse"`
 
 	// The DER encoded PKCS#10 certification request.
-	PKCS10CSR Base64DERencodedASN1Value `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl PKCS10CSR,omitempty"`
+	PKCS10CSR Base64DERencodedASN1Value `xml:"PKCS10CSR,omitempty"`
 }
 
+// CreateSelfSignedCertificate type
 type CreateSelfSignedCertificate struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateSelfSignedCertificate"`
 
@@ -277,16 +314,18 @@ type CreateSelfSignedCertificate struct {
 	SignatureAlgorithm AlgorithmIdentifier `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SignatureAlgorithm,omitempty"`
 
 	// An X.509v3 extension to be included in the certificate.
-	Extension X509v3Extension `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Extension,omitempty"`
+	Extension []X509v3Extension `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Extension,omitempty"`
 }
 
+// CreateSelfSignedCertificateResponse type
 type CreateSelfSignedCertificateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateSelfSignedCertificateResponse"`
+	XMLName xml.Name `xml:"CreateSelfSignedCertificateResponse"`
 
 	// The ID of the generated certificate.
-	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
+	CertificateID CertificateID `xml:"CertificateID,omitempty"`
 }
 
+// UploadCertificate type
 type UploadCertificate struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadCertificate"`
 
@@ -303,16 +342,18 @@ type UploadCertificate struct {
 	PrivateKeyRequired bool `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl PrivateKeyRequired,omitempty"`
 }
 
+// UploadCertificateResponse type
 type UploadCertificateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadCertificateResponse"`
+	XMLName xml.Name `xml:"UploadCertificateResponse"`
 
 	// The ID of the uploaded certificate.
-	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
+	CertificateID CertificateID `xml:"CertificateID,omitempty"`
 
 	// The ID of the key that the uploaded certificate certifies.
-	KeyID KeyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl KeyID,omitempty"`
+	KeyID KeyID `xml:"KeyID,omitempty"`
 }
 
+// GetCertificate type
 type GetCertificate struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCertificate"`
 
@@ -320,24 +361,28 @@ type GetCertificate struct {
 	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
 }
 
+// GetCertificateResponse type
 type GetCertificateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCertificateResponse"`
+	XMLName xml.Name `xml:"GetCertificateResponse"`
 
 	// The DER representation of the certificate.
-	Certificate X509Certificate `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Certificate,omitempty"`
+	Certificate X509Certificate `xml:"Certificate,omitempty"`
 }
 
+// GetAllCertificates type
 type GetAllCertificates struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCertificates"`
 }
 
+// GetAllCertificatesResponse type
 type GetAllCertificatesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCertificatesResponse"`
+	XMLName xml.Name `xml:"GetAllCertificatesResponse"`
 
 	// A certificate stored in the keystore.
-	Certificate X509Certificate `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Certificate,omitempty"`
+	Certificate []X509Certificate `xml:"Certificate,omitempty"`
 }
 
+// DeleteCertificate type
 type DeleteCertificate struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCertificate"`
 
@@ -345,10 +390,12 @@ type DeleteCertificate struct {
 	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
 }
 
+// DeleteCertificateResponse type
 type DeleteCertificateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCertificateResponse"`
+	XMLName xml.Name `xml:"DeleteCertificateResponse"`
 }
 
+// CreateCertificationPath type
 type CreateCertificationPath struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateCertificationPath"`
 
@@ -359,13 +406,15 @@ type CreateCertificationPath struct {
 	Alias string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Alias,omitempty"`
 }
 
+// CreateCertificationPathResponse type
 type CreateCertificationPathResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateCertificationPathResponse"`
+	XMLName xml.Name `xml:"CreateCertificationPathResponse"`
 
 	// The ID of the generated certification path.
-	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
+	CertificationPathID CertificationPathID `xml:"CertificationPathID,omitempty"`
 }
 
+// GetCertificationPath type
 type GetCertificationPath struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCertificationPath"`
 
@@ -373,24 +422,28 @@ type GetCertificationPath struct {
 	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
 }
 
+// GetCertificationPathResponse type
 type GetCertificationPathResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCertificationPathResponse"`
+	XMLName xml.Name `xml:"GetCertificationPathResponse"`
 
 	// The certification path that is stored under the given ID in the keystore.
-	CertificationPath CertificationPath `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPath,omitempty"`
+	CertificationPath CertificationPath `xml:"CertificationPath,omitempty"`
 }
 
+// GetAllCertificationPaths type
 type GetAllCertificationPaths struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCertificationPaths"`
 }
 
+// GetAllCertificationPathsResponse type
 type GetAllCertificationPathsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCertificationPathsResponse"`
+	XMLName xml.Name `xml:"GetAllCertificationPathsResponse"`
 
 	// An ID of a certification path in the keystore.
-	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
+	CertificationPathID []CertificationPathID `xml:"CertificationPathID,omitempty"`
 }
 
+// DeleteCertificationPath type
 type DeleteCertificationPath struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCertificationPath"`
 
@@ -398,10 +451,12 @@ type DeleteCertificationPath struct {
 	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
 }
 
+// DeleteCertificationPathResponse type
 type DeleteCertificationPathResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCertificationPathResponse"`
+	XMLName xml.Name `xml:"DeleteCertificationPathResponse"`
 }
 
+// UploadPassphrase type
 type UploadPassphrase struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadPassphrase"`
 
@@ -412,24 +467,28 @@ type UploadPassphrase struct {
 	PassphraseAlias string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl PassphraseAlias,omitempty"`
 }
 
+// UploadPassphraseResponse type
 type UploadPassphraseResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadPassphraseResponse"`
+	XMLName xml.Name `xml:"UploadPassphraseResponse"`
 
 	// The PassphraseID of the uploaded passphrase.
-	PassphraseID PassphraseID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl PassphraseID,omitempty"`
+	PassphraseID PassphraseID `xml:"PassphraseID,omitempty"`
 }
 
+// GetAllPassphrases type
 type GetAllPassphrases struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllPassphrases"`
 }
 
+// GetAllPassphrasesResponse type
 type GetAllPassphrasesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllPassphrasesResponse"`
+	XMLName xml.Name `xml:"GetAllPassphrasesResponse"`
 
 	// Information about a passphrase in the keystore.
-	PassphraseAttribute PassphraseAttribute `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl PassphraseAttribute,omitempty"`
+	PassphraseAttribute []PassphraseAttribute `xml:"PassphraseAttribute,omitempty"`
 }
 
+// DeletePassphrase type
 type DeletePassphrase struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeletePassphrase"`
 
@@ -437,30 +496,36 @@ type DeletePassphrase struct {
 	PassphraseID PassphraseID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl PassphraseID,omitempty"`
 }
 
+// DeletePassphraseResponse type
 type DeletePassphraseResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeletePassphraseResponse"`
+	XMLName xml.Name `xml:"DeletePassphraseResponse"`
 }
 
+// AddServerCertificateAssignment type
 type AddServerCertificateAssignment struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl AddServerCertificateAssignment"`
 
 	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
 }
 
+// AddServerCertificateAssignmentResponse type
 type AddServerCertificateAssignmentResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl AddServerCertificateAssignmentResponse"`
+	XMLName xml.Name `xml:"AddServerCertificateAssignmentResponse"`
 }
 
+// RemoveServerCertificateAssignment type
 type RemoveServerCertificateAssignment struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl RemoveServerCertificateAssignment"`
 
 	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
 }
 
+// RemoveServerCertificateAssignmentResponse type
 type RemoveServerCertificateAssignmentResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl RemoveServerCertificateAssignmentResponse"`
+	XMLName xml.Name `xml:"RemoveServerCertificateAssignmentResponse"`
 }
 
+// ReplaceServerCertificateAssignment type
 type ReplaceServerCertificateAssignment struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl ReplaceServerCertificateAssignment"`
 
@@ -469,21 +534,25 @@ type ReplaceServerCertificateAssignment struct {
 	NewCertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl NewCertificationPathID,omitempty"`
 }
 
+// ReplaceServerCertificateAssignmentResponse type
 type ReplaceServerCertificateAssignmentResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl ReplaceServerCertificateAssignmentResponse"`
+	XMLName xml.Name `xml:"ReplaceServerCertificateAssignmentResponse"`
 }
 
+// GetAssignedServerCertificates type
 type GetAssignedServerCertificates struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAssignedServerCertificates"`
 }
 
+// GetAssignedServerCertificatesResponse type
 type GetAssignedServerCertificatesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAssignedServerCertificatesResponse"`
+	XMLName xml.Name `xml:"GetAssignedServerCertificatesResponse"`
 
 	// The IDs of all certification paths that are assigned to the TLS server on the device.
-	CertificationPathID CertificationPathID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificationPathID,omitempty"`
+	CertificationPathID []CertificationPathID `xml:"CertificationPathID,omitempty"`
 }
 
+// SetEnabledTLSVersions type
 type SetEnabledTLSVersions struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SetEnabledTLSVersions"`
 
@@ -491,21 +560,25 @@ type SetEnabledTLSVersions struct {
 	Versions TLSVersions `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Versions,omitempty"`
 }
 
+// SetEnabledTLSVersionsResponse type
 type SetEnabledTLSVersionsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SetEnabledTLSVersionsResponse"`
+	XMLName xml.Name `xml:"SetEnabledTLSVersionsResponse"`
 }
 
+// GetEnabledTLSVersions type
 type GetEnabledTLSVersions struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetEnabledTLSVersions"`
 }
 
+// GetEnabledTLSVersionsResponse type
 type GetEnabledTLSVersionsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetEnabledTLSVersionsResponse"`
+	XMLName xml.Name `xml:"GetEnabledTLSVersionsResponse"`
 
 	// List of allowed TLS versions.
-	Versions TLSVersions `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Versions,omitempty"`
+	Versions TLSVersions `xml:"Versions,omitempty"`
 }
 
+// UploadCRL type
 type UploadCRL struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadCRL"`
 
@@ -523,15 +596,17 @@ type UploadCRL struct {
 	} `xml:"anyParameters,omitempty"`
 }
 
+// UploadCRLResponse type
 type UploadCRLResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl UploadCRLResponse"`
+	XMLName xml.Name `xml:"UploadCRLResponse"`
 
 	//
 	// The ID of the uploaded CRL.
 	//
-	CrlID CRLID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CrlID,omitempty"`
+	CrlID CRLID `xml:"CrlID,omitempty"`
 }
 
+// GetCRL type
 type GetCRL struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCRL"`
 
@@ -541,28 +616,32 @@ type GetCRL struct {
 	CrlID CRLID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CrlID,omitempty"`
 }
 
+// GetCRLResponse type
 type GetCRLResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCRLResponse"`
+	XMLName xml.Name `xml:"GetCRLResponse"`
 
 	//
 	// The CRL with the requested ID.
 	//
-	Crl CRL `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Crl,omitempty"`
+	Crl CRL `xml:"Crl,omitempty"`
 }
 
+// GetAllCRLs type
 type GetAllCRLs struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCRLs"`
 }
 
+// GetAllCRLsResponse type
 type GetAllCRLsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCRLsResponse"`
+	XMLName xml.Name `xml:"GetAllCRLsResponse"`
 
 	//
 	// A list of all CRLs that are stored in the keystore on the device.
 	//
-	Crl CRL `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Crl,omitempty"`
+	Crl []CRL `xml:"Crl,omitempty"`
 }
 
+// DeleteCRL type
 type DeleteCRL struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCRL"`
 
@@ -572,10 +651,12 @@ type DeleteCRL struct {
 	CrlID CRLID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CrlID,omitempty"`
 }
 
+// DeleteCRLResponse type
 type DeleteCRLResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCRLResponse"`
+	XMLName xml.Name `xml:"DeleteCRLResponse"`
 }
 
+// CreateCertPathValidationPolicy type
 type CreateCertPathValidationPolicy struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateCertPathValidationPolicy"`
 
@@ -592,21 +673,23 @@ type CreateCertPathValidationPolicy struct {
 	//
 	// The trust anchors of the certification path validation policy to be created.
 	//
-	TrustAnchor TrustAnchor `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl TrustAnchor,omitempty"`
+	TrustAnchor []TrustAnchor `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl TrustAnchor,omitempty"`
 
 	AnyParameters struct {
 	} `xml:"anyParameters,omitempty"`
 }
 
+// CreateCertPathValidationPolicyResponse type
 type CreateCertPathValidationPolicyResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CreateCertPathValidationPolicyResponse"`
+	XMLName xml.Name `xml:"CreateCertPathValidationPolicyResponse"`
 
 	//
 	// The ID of the created certification path validation policy.
 	//
-	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
+	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"CertPathValidationPolicyID,omitempty"`
 }
 
+// GetCertPathValidationPolicy type
 type GetCertPathValidationPolicy struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCertPathValidationPolicy"`
 
@@ -616,28 +699,32 @@ type GetCertPathValidationPolicy struct {
 	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
 }
 
+// GetCertPathValidationPolicyResponse type
 type GetCertPathValidationPolicyResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetCertPathValidationPolicyResponse"`
+	XMLName xml.Name `xml:"GetCertPathValidationPolicyResponse"`
 
 	//
 	// The certification path validation policy that is stored under the requested ID.
 	//
-	CertPathValidationPolicy CertPathValidationPolicy `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicy,omitempty"`
+	CertPathValidationPolicy CertPathValidationPolicy `xml:"CertPathValidationPolicy,omitempty"`
 }
 
+// GetAllCertPathValidationPolicies type
 type GetAllCertPathValidationPolicies struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCertPathValidationPolicies"`
 }
 
+// GetAllCertPathValidationPoliciesResponse type
 type GetAllCertPathValidationPoliciesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllCertPathValidationPoliciesResponse"`
+	XMLName xml.Name `xml:"GetAllCertPathValidationPoliciesResponse"`
 
 	//
 	// A list of all certification path validation policies that are stored in the keystore on the device.
 	//
-	CertPathValidationPolicy CertPathValidationPolicy `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicy,omitempty"`
+	CertPathValidationPolicy []CertPathValidationPolicy `xml:"CertPathValidationPolicy,omitempty"`
 }
 
+// DeleteCertPathValidationPolicy type
 type DeleteCertPathValidationPolicy struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCertPathValidationPolicy"`
 
@@ -647,30 +734,36 @@ type DeleteCertPathValidationPolicy struct {
 	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
 }
 
+// DeleteCertPathValidationPolicyResponse type
 type DeleteCertPathValidationPolicyResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteCertPathValidationPolicyResponse"`
+	XMLName xml.Name `xml:"DeleteCertPathValidationPolicyResponse"`
 }
 
+// SetClientAuthenticationRequired type
 type SetClientAuthenticationRequired struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SetClientAuthenticationRequired"`
 
 	ClientAuthenticationRequired bool `xml:"clientAuthenticationRequired,omitempty"`
 }
 
+// SetClientAuthenticationRequiredResponse type
 type SetClientAuthenticationRequiredResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SetClientAuthenticationRequiredResponse"`
+	XMLName xml.Name `xml:"SetClientAuthenticationRequiredResponse"`
 }
 
+// GetClientAuthenticationRequired type
 type GetClientAuthenticationRequired struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetClientAuthenticationRequired"`
 }
 
+// GetClientAuthenticationRequiredResponse type
 type GetClientAuthenticationRequiredResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetClientAuthenticationRequiredResponse"`
+	XMLName xml.Name `xml:"GetClientAuthenticationRequiredResponse"`
 
 	ClientAuthenticationRequired bool `xml:"clientAuthenticationRequired,omitempty"`
 }
 
+// AddCertPathValidationPolicyAssignment type
 type AddCertPathValidationPolicyAssignment struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl AddCertPathValidationPolicyAssignment"`
 
@@ -680,10 +773,12 @@ type AddCertPathValidationPolicyAssignment struct {
 	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
 }
 
+// AddCertPathValidationPolicyAssignmentResponse type
 type AddCertPathValidationPolicyAssignmentResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl AddCertPathValidationPolicyAssignmentResponse"`
+	XMLName xml.Name `xml:"AddCertPathValidationPolicyAssignmentResponse"`
 }
 
+// RemoveCertPathValidationPolicyAssignment type
 type RemoveCertPathValidationPolicyAssignment struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl RemoveCertPathValidationPolicyAssignment"`
 
@@ -693,10 +788,12 @@ type RemoveCertPathValidationPolicyAssignment struct {
 	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
 }
 
+// RemoveCertPathValidationPolicyAssignmentResponse type
 type RemoveCertPathValidationPolicyAssignmentResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl RemoveCertPathValidationPolicyAssignmentResponse"`
+	XMLName xml.Name `xml:"RemoveCertPathValidationPolicyAssignmentResponse"`
 }
 
+// ReplaceCertPathValidationPolicyAssignment type
 type ReplaceCertPathValidationPolicyAssignment struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl ReplaceCertPathValidationPolicyAssignment"`
 
@@ -711,23 +808,27 @@ type ReplaceCertPathValidationPolicyAssignment struct {
 	NewCertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl NewCertPathValidationPolicyID,omitempty"`
 }
 
+// ReplaceCertPathValidationPolicyAssignmentResponse type
 type ReplaceCertPathValidationPolicyAssignmentResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl ReplaceCertPathValidationPolicyAssignmentResponse"`
+	XMLName xml.Name `xml:"ReplaceCertPathValidationPolicyAssignmentResponse"`
 }
 
+// GetAssignedCertPathValidationPolicies type
 type GetAssignedCertPathValidationPolicies struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAssignedCertPathValidationPolicies"`
 }
 
+// GetAssignedCertPathValidationPoliciesResponse type
 type GetAssignedCertPathValidationPoliciesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAssignedCertPathValidationPoliciesResponse"`
+	XMLName xml.Name `xml:"GetAssignedCertPathValidationPoliciesResponse"`
 
 	//
 	// A list of IDs of the certification path validation policies that are assigned to the TLS server.
 	//
-	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
+	CertPathValidationPolicyID []CertPathValidationPolicyID `xml:"CertPathValidationPolicyID,omitempty"`
 }
 
+// AddDot1XConfiguration type
 type AddDot1XConfiguration struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl AddDot1XConfiguration"`
 
@@ -735,24 +836,28 @@ type AddDot1XConfiguration struct {
 	Dot1XConfiguration Dot1XConfiguration `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XConfiguration,omitempty"`
 }
 
+// AddDot1XConfigurationResponse type
 type AddDot1XConfigurationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl AddDot1XConfigurationResponse"`
+	XMLName xml.Name `xml:"AddDot1XConfigurationResponse"`
 
 	// The unique identifier of the created 802.1X configuration.
-	Dot1XID Dot1XID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XID,omitempty"`
+	Dot1XID Dot1XID `xml:"Dot1XID,omitempty"`
 }
 
+// GetAllDot1XConfigurations type
 type GetAllDot1XConfigurations struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllDot1XConfigurations"`
 }
 
+// GetAllDot1XConfigurationsResponse type
 type GetAllDot1XConfigurationsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetAllDot1XConfigurationsResponse"`
+	XMLName xml.Name `xml:"GetAllDot1XConfigurationsResponse"`
 
 	// The list of unique identifiers of 802.1X configurations on the device.
-	Configuration Dot1XConfiguration `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Configuration,omitempty"`
+	Configuration []Dot1XConfiguration `xml:"Configuration,omitempty"`
 }
 
+// GetDot1XConfiguration type
 type GetDot1XConfiguration struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetDot1XConfiguration"`
 
@@ -760,13 +865,15 @@ type GetDot1XConfiguration struct {
 	Dot1XID Dot1XID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XID,omitempty"`
 }
 
+// GetDot1XConfigurationResponse type
 type GetDot1XConfigurationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetDot1XConfigurationResponse"`
+	XMLName xml.Name `xml:"GetDot1XConfigurationResponse"`
 
 	// The 802.1X configuration, without password information.
-	Dot1XConfiguration Dot1XConfiguration `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XConfiguration,omitempty"`
+	Dot1XConfiguration Dot1XConfiguration `xml:"Dot1XConfiguration,omitempty"`
 }
 
+// DeleteDot1XConfiguration type
 type DeleteDot1XConfiguration struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteDot1XConfiguration"`
 
@@ -774,10 +881,12 @@ type DeleteDot1XConfiguration struct {
 	Dot1XID Dot1XID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XID,omitempty"`
 }
 
+// DeleteDot1XConfigurationResponse type
 type DeleteDot1XConfigurationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteDot1XConfigurationResponse"`
+	XMLName xml.Name `xml:"DeleteDot1XConfigurationResponse"`
 }
 
+// SetNetworkInterfaceDot1XConfiguration type
 type SetNetworkInterfaceDot1XConfiguration struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SetNetworkInterfaceDot1XConfiguration"`
 
@@ -788,13 +897,15 @@ type SetNetworkInterfaceDot1XConfiguration struct {
 	Dot1XID Dot1XID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XID,omitempty"`
 }
 
+// SetNetworkInterfaceDot1XConfigurationResponse type
 type SetNetworkInterfaceDot1XConfigurationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SetNetworkInterfaceDot1XConfigurationResponse"`
+	XMLName xml.Name `xml:"SetNetworkInterfaceDot1XConfigurationResponse"`
 
 	// Indicates whether or not a reboot is required after configuration updates.
-	RebootNeeded bool `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl RebootNeeded,omitempty"`
+	RebootNeeded bool `xml:"RebootNeeded,omitempty"`
 }
 
+// GetNetworkInterfaceDot1XConfiguration type
 type GetNetworkInterfaceDot1XConfiguration struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetNetworkInterfaceDot1XConfiguration"`
 
@@ -802,13 +913,15 @@ type GetNetworkInterfaceDot1XConfiguration struct {
 	Token string `xml:"token,omitempty"`
 }
 
+// GetNetworkInterfaceDot1XConfigurationResponse type
 type GetNetworkInterfaceDot1XConfigurationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GetNetworkInterfaceDot1XConfigurationResponse"`
+	XMLName xml.Name `xml:"GetNetworkInterfaceDot1XConfigurationResponse"`
 
 	// The unique identifier of 802.1X configuration assigned to the Network Interface.
-	Dot1XID Dot1XID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XID,omitempty"`
+	Dot1XID Dot1XID `xml:"Dot1XID,omitempty"`
 }
 
+// DeleteNetworkInterfaceDot1XConfiguration type
 type DeleteNetworkInterfaceDot1XConfiguration struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteNetworkInterfaceDot1XConfiguration"`
 
@@ -816,13 +929,15 @@ type DeleteNetworkInterfaceDot1XConfiguration struct {
 	Token string `xml:"token,omitempty"`
 }
 
+// DeleteNetworkInterfaceDot1XConfigurationResponse type
 type DeleteNetworkInterfaceDot1XConfigurationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DeleteNetworkInterfaceDot1XConfigurationResponse"`
+	XMLName xml.Name `xml:"DeleteNetworkInterfaceDot1XConfigurationResponse"`
 
 	// Indicates whether or not a reboot is required after configuration updates.
-	RebootNeeded bool `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl RebootNeeded,omitempty"`
+	RebootNeeded bool `xml:"RebootNeeded,omitempty"`
 }
 
+// KeyAttribute type
 type KeyAttribute struct {
 
 	// The ID of the key.
@@ -847,6 +962,7 @@ type KeyAttribute struct {
 	} `xml:"Extension,omitempty"`
 }
 
+// DNAttributeTypeAndValue type
 type DNAttributeTypeAndValue struct {
 
 	// The attribute type.
@@ -856,78 +972,81 @@ type DNAttributeTypeAndValue struct {
 	Value DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Value,omitempty"`
 }
 
+// MultiValuedRDN type
 type MultiValuedRDN struct {
 
 	// A list of types and values defining a multi-valued RDN
-	Attribute DNAttributeTypeAndValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Attribute,omitempty"`
+	Attribute []DNAttributeTypeAndValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Attribute,omitempty"`
 }
 
+// DistinguishedName type
 type DistinguishedName struct {
 
 	// A country name as specified in
 	// X.500.
-	Country DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Country,omitempty"`
+	Country []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Country,omitempty"`
 
 	// An organization name as specified in
 	// X.500.
-	Organization DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Organization,omitempty"`
+	Organization []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Organization,omitempty"`
 
 	// An organizational unit name as specified in
 	// X.500.
-	OrganizationalUnit DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl OrganizationalUnit,omitempty"`
+	OrganizationalUnit []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl OrganizationalUnit,omitempty"`
 
 	// A distinguished name qualifier as specified in
 	// X.500.
-	DistinguishedNameQualifier DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DistinguishedNameQualifier,omitempty"`
+	DistinguishedNameQualifier []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DistinguishedNameQualifier,omitempty"`
 
 	// A state or province name as specified in
 	// X.500.
-	StateOrProvinceName DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl StateOrProvinceName,omitempty"`
+	StateOrProvinceName []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl StateOrProvinceName,omitempty"`
 
 	// A common name as specified in
 	// X.500.
-	CommonName DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CommonName,omitempty"`
+	CommonName []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CommonName,omitempty"`
 
 	// A serial number as specified in
 	// X.500.
-	SerialNumber DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SerialNumber,omitempty"`
+	SerialNumber []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SerialNumber,omitempty"`
 
 	// A locality as specified in X.500.
-	Locality DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Locality,omitempty"`
+	Locality []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Locality,omitempty"`
 
 	// A title as specified in X.500.
-	Title DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Title,omitempty"`
+	Title []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Title,omitempty"`
 
 	// A surname as specified in X.500.
-	Surname DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Surname,omitempty"`
+	Surname []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Surname,omitempty"`
 
 	// A given name as specified in X.500.
-	GivenName DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GivenName,omitempty"`
+	GivenName []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GivenName,omitempty"`
 
 	// Initials as specified in X.500.
-	Initials DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Initials,omitempty"`
+	Initials []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Initials,omitempty"`
 
 	// A pseudonym as specified in X.500.
-	Pseudonym DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Pseudonym,omitempty"`
+	Pseudonym []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Pseudonym,omitempty"`
 
 	// A generation qualifier as specified in
 	// X.500.
-	GenerationQualifier DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GenerationQualifier,omitempty"`
+	GenerationQualifier []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GenerationQualifier,omitempty"`
 
 	// A generic type-value pair
 	// attribute.
-	GenericAttribute DNAttributeTypeAndValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GenericAttribute,omitempty"`
+	GenericAttribute []DNAttributeTypeAndValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl GenericAttribute,omitempty"`
 
 	// A multi-valued RDN
-	MultiValuedRDN MultiValuedRDN `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl MultiValuedRDN,omitempty"`
+	MultiValuedRDN []MultiValuedRDN `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl MultiValuedRDN,omitempty"`
 
 	AnyAttribute struct {
 
 		// Domain Component as specified in RFC3739
-		DomainComponent DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DomainComponent,omitempty"`
+		DomainComponent []DNAttributeValue `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl DomainComponent,omitempty"`
 	} `xml:"anyAttribute,omitempty"`
 }
 
+// AlgorithmIdentifier type
 type AlgorithmIdentifier struct {
 
 	// The OID of the algorithm in dot-decimal form.
@@ -940,6 +1059,7 @@ type AlgorithmIdentifier struct {
 	} `xml:"anyParameters,omitempty"`
 }
 
+// BasicRequestAttribute type
 type BasicRequestAttribute struct {
 
 	// The OID of the attribute.
@@ -949,6 +1069,7 @@ type BasicRequestAttribute struct {
 	Value Base64DERencodedASN1Value `xml:"value,omitempty"`
 }
 
+// CSRAttribute type
 type CSRAttribute struct {
 
 	// An X.509v3 extension field.
@@ -961,6 +1082,7 @@ type CSRAttribute struct {
 	} `xml:"anyAttribute,omitempty"`
 }
 
+// X509v3Extension type
 type X509v3Extension struct {
 
 	// The OID of the extension field.
@@ -973,6 +1095,7 @@ type X509v3Extension struct {
 	ExtnValue Base64DERencodedASN1Value `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl extnValue,omitempty"`
 }
 
+// X509Certificate type
 type X509Certificate struct {
 
 	// The ID of the certificate.
@@ -988,16 +1111,18 @@ type X509Certificate struct {
 	CertificateContent Base64DERencodedASN1Value `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateContent,omitempty"`
 }
 
+// CertificateIDs type
 type CertificateIDs struct {
 
 	// A certificate ID.
-	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
+	CertificateID []CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
 }
 
+// CertificationPath type
 type CertificationPath struct {
 
 	// A certificate in the certification path.
-	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
+	CertificateID []CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
 
 	// The client-defined alias of the certification path.
 	Alias string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Alias,omitempty"`
@@ -1006,6 +1131,7 @@ type CertificationPath struct {
 	} `xml:"anyElement,omitempty"`
 }
 
+// PassphraseAttribute type
 type PassphraseAttribute struct {
 
 	// The ID of the passphrase.
@@ -1015,6 +1141,7 @@ type PassphraseAttribute struct {
 	Alias string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Alias,omitempty"`
 }
 
+// Dot1XCapabilities type
 type Dot1XCapabilities struct {
 
 	// The maximum number of 802.1X configurations that may be defined simultaneously.
@@ -1026,6 +1153,7 @@ type Dot1XCapabilities struct {
 	Dot1XMethods Dot1XMethods `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XMethods,attr,omitempty"`
 }
 
+// Dot1XStage type
 type Dot1XStage struct {
 
 	// The identity used in this authentication method, if required.
@@ -1047,9 +1175,11 @@ type Dot1XStage struct {
 	Method string `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Method,attr,omitempty"`
 }
 
+// Dot1XStageExtension type
 type Dot1XStageExtension struct {
 }
 
+// Dot1XConfiguration type
 type Dot1XConfiguration struct {
 
 	// The unique identifier of the IEEE 802.1X configuration.
@@ -1062,6 +1192,7 @@ type Dot1XConfiguration struct {
 	Outer Dot1XStage `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Outer,omitempty"`
 }
 
+// CRL type
 type CRL struct {
 	CRLID CRLID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CRLID,omitempty"`
 
@@ -1070,6 +1201,7 @@ type CRL struct {
 	CRLContent Base64DERencodedASN1Value `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CRLContent,omitempty"`
 }
 
+// CertPathValidationParameters type
 type CertPathValidationParameters struct {
 
 	// True if and only if the TLS server shall not authenticate client certificates that do not contain the TLS WWW client authentication key usage extension as specified in RFC 5280, Sect. 4.2.1.12.
@@ -1082,12 +1214,14 @@ type CertPathValidationParameters struct {
 	} `xml:"anyParameters,omitempty"`
 }
 
+// TrustAnchor type
 type TrustAnchor struct {
 
 	// The certificate ID of the certificate to be used as trust anchor.
 	CertificateID CertificateID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertificateID,omitempty"`
 }
 
+// CertPathValidationPolicy type
 type CertPathValidationPolicy struct {
 	CertPathValidationPolicyID CertPathValidationPolicyID `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl CertPathValidationPolicyID,omitempty"`
 
@@ -1095,16 +1229,17 @@ type CertPathValidationPolicy struct {
 
 	Parameters CertPathValidationParameters `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Parameters,omitempty"`
 
-	TrustAnchor TrustAnchor `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl TrustAnchor,omitempty"`
+	TrustAnchor []TrustAnchor `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl TrustAnchor,omitempty"`
 
 	AnyParameters struct {
 	} `xml:"anyParameters,omitempty"`
 }
 
+// KeystoreCapabilities type
 type KeystoreCapabilities struct {
 
 	// The signature algorithms supported by the keystore implementation.
-	SignatureAlgorithms AlgorithmIdentifier `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SignatureAlgorithms,omitempty"`
+	SignatureAlgorithms []AlgorithmIdentifier `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl SignatureAlgorithms,omitempty"`
 
 	AnyElement struct {
 	} `xml:"anyElement,omitempty"`
@@ -1178,6 +1313,7 @@ type KeystoreCapabilities struct {
 	NoPrivateKeySharing bool `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl NoPrivateKeySharing,attr,omitempty"`
 }
 
+// TLSServerCapabilities type
 type TLSServerCapabilities struct {
 
 	// Indicates which TLS versions are supported by the device.
@@ -1201,6 +1337,7 @@ type TLSServerCapabilities struct {
 	MaximumNumberOfTLSCertificationPathValidationPolicies NonNegativeInteger `xml:"http://www.onvif.org/ver10/schema MaximumNumberOfTLSCertificationPathValidationPolicies,attr,omitempty"`
 }
 
+// Capabilities type
 type Capabilities struct {
 
 	// The capabilities of the keystore implementation.
@@ -1213,6 +1350,7 @@ type Capabilities struct {
 	Dot1XCapabilities Dot1XCapabilities `xml:"http://www.onvif.org/ver10/advancedsecurity/wsdl Dot1XCapabilities,omitempty"`
 }
 
+// AdvancedSecurityService type
 type AdvancedSecurityService interface {
 
 	/* Returns the capabilities of the security configuraiton service. The result is returned in a typed answer. */
@@ -1221,6 +1359,7 @@ type AdvancedSecurityService interface {
 	GetServiceCapabilitiesContext(ctx context.Context, request *GetServiceCapabilities) (*GetServiceCapabilitiesResponse, error)
 }
 
+// advancedSecurityService type
 type advancedSecurityService struct {
 	client *soap.Client
 	xaddr  string
@@ -1250,6 +1389,7 @@ func (service *advancedSecurityService) GetServiceCapabilities(request *GetServi
 	)
 }
 
+// Keystore type
 type Keystore interface {
 
 	/*
@@ -1588,6 +1728,7 @@ type Keystore interface {
 	DeleteCertPathValidationPolicyContext(ctx context.Context, request *DeleteCertPathValidationPolicy) (*DeleteCertPathValidationPolicyResponse, error)
 }
 
+// keystore type
 type keystore struct {
 	client *soap.Client
 	xaddr  string
@@ -2076,6 +2217,7 @@ func (service *keystore) DeleteCertPathValidationPolicy(request *DeleteCertPathV
 	)
 }
 
+// TLSServer type
 type TLSServer interface {
 
 	/*
@@ -2207,6 +2349,7 @@ type TLSServer interface {
 	GetAssignedCertPathValidationPoliciesContext(ctx context.Context, request *GetAssignedCertPathValidationPolicies) (*GetAssignedCertPathValidationPoliciesResponse, error)
 }
 
+// tLSServer type
 type tLSServer struct {
 	client *soap.Client
 	xaddr  string
@@ -2423,6 +2566,7 @@ func (service *tLSServer) GetAssignedCertPathValidationPolicies(request *GetAssi
 	)
 }
 
+// Dot1X type
 type Dot1X interface {
 
 	/*
@@ -2475,6 +2619,7 @@ type Dot1X interface {
 	DeleteNetworkInterfaceDot1XConfigurationContext(ctx context.Context, request *DeleteNetworkInterfaceDot1XConfiguration) (*DeleteNetworkInterfaceDot1XConfigurationResponse, error)
 }
 
+// dot1X type
 type dot1X struct {
 	client *soap.Client
 	xaddr  string
@@ -2606,12 +2751,29 @@ func (service *dot1X) DeleteNetworkInterfaceDot1XConfiguration(request *DeleteNe
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// PositiveInteger type
 type PositiveInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

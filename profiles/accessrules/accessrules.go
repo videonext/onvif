@@ -12,35 +12,41 @@ import (
 var _ time.Time
 var _ xml.Name
 
+// Capabilities type
 type Capabilities ServiceCapabilities
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capability response message contains the requested access rules
 	// service capabilities using a hierarchical XML capability structure.
 	//
-	Capabilities ServiceCapabilities `xml:"http://www.onvif.org/ver10/accessrules/wsdl Capabilities,omitempty"`
+	Capabilities ServiceCapabilities `xml:"Capabilities,omitempty"`
 }
 
+// GetAccessProfileInfo type
 type GetAccessProfileInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfileInfo"`
 
 	// Tokens of AccessProfileInfo items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accessrules/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/accessrules/wsdl Token,omitempty"`
 }
 
+// GetAccessProfileInfoResponse type
 type GetAccessProfileInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfileInfoResponse"`
+	XMLName xml.Name `xml:"GetAccessProfileInfoResponse"`
 
 	// List of AccessProfileInfo items.
-	AccessProfileInfo AccessProfileInfo `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfileInfo,omitempty"`
+	AccessProfileInfo []AccessProfileInfo `xml:"AccessProfileInfo,omitempty"`
 }
 
+// GetAccessProfileInfoList type
 type GetAccessProfileInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfileInfoList"`
 
@@ -56,32 +62,36 @@ type GetAccessProfileInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/accessrules/wsdl StartReference,omitempty"`
 }
 
+// GetAccessProfileInfoListResponse type
 type GetAccessProfileInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfileInfoListResponse"`
+	XMLName xml.Name `xml:"GetAccessProfileInfoListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/accessrules/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of AccessProfileInfo items.
-	AccessProfileInfo AccessProfileInfo `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfileInfo,omitempty"`
+	AccessProfileInfo []AccessProfileInfo `xml:"AccessProfileInfo,omitempty"`
 }
 
+// GetAccessProfiles type
 type GetAccessProfiles struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfiles"`
 
 	// Tokens of AccessProfile items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accessrules/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/accessrules/wsdl Token,omitempty"`
 }
 
+// GetAccessProfilesResponse type
 type GetAccessProfilesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfilesResponse"`
+	XMLName xml.Name `xml:"GetAccessProfilesResponse"`
 
 	// List of Access Profile items.
-	AccessProfile AccessProfile `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfile,omitempty"`
+	AccessProfile []AccessProfile `xml:"AccessProfile,omitempty"`
 }
 
+// GetAccessProfileList type
 type GetAccessProfileList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfileList"`
 
@@ -97,18 +107,20 @@ type GetAccessProfileList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/accessrules/wsdl StartReference,omitempty"`
 }
 
+// GetAccessProfileListResponse type
 type GetAccessProfileListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl GetAccessProfileListResponse"`
+	XMLName xml.Name `xml:"GetAccessProfileListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/accessrules/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of Access Profile items.
-	AccessProfile AccessProfile `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfile,omitempty"`
+	AccessProfile []AccessProfile `xml:"AccessProfile,omitempty"`
 }
 
+// CreateAccessProfile type
 type CreateAccessProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl CreateAccessProfile"`
 
@@ -116,13 +128,15 @@ type CreateAccessProfile struct {
 	AccessProfile AccessProfile `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfile,omitempty"`
 }
 
+// CreateAccessProfileResponse type
 type CreateAccessProfileResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl CreateAccessProfileResponse"`
+	XMLName xml.Name `xml:"CreateAccessProfileResponse"`
 
 	// The Token of created AccessProfile.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accessrules/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// ModifyAccessProfile type
 type ModifyAccessProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl ModifyAccessProfile"`
 
@@ -130,10 +144,12 @@ type ModifyAccessProfile struct {
 	AccessProfile AccessProfile `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfile,omitempty"`
 }
 
+// ModifyAccessProfileResponse type
 type ModifyAccessProfileResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl ModifyAccessProfileResponse"`
+	XMLName xml.Name `xml:"ModifyAccessProfileResponse"`
 }
 
+// SetAccessProfile type
 type SetAccessProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl SetAccessProfile"`
 
@@ -141,10 +157,12 @@ type SetAccessProfile struct {
 	AccessProfile AccessProfile `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessProfile,omitempty"`
 }
 
+// SetAccessProfileResponse type
 type SetAccessProfileResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl SetAccessProfileResponse"`
+	XMLName xml.Name `xml:"SetAccessProfileResponse"`
 }
 
+// DeleteAccessProfile type
 type DeleteAccessProfile struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl DeleteAccessProfile"`
 
@@ -152,10 +170,12 @@ type DeleteAccessProfile struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/accessrules/wsdl Token,omitempty"`
 }
 
+// DeleteAccessProfileResponse type
 type DeleteAccessProfileResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl DeleteAccessProfileResponse"`
+	XMLName xml.Name `xml:"DeleteAccessProfileResponse"`
 }
 
+// ServiceCapabilities type
 type ServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/accessrules/wsdl Capabilities"`
 
@@ -194,6 +214,7 @@ type ServiceCapabilities struct {
 	ClientSuppliedTokenSupported bool `xml:"http://www.onvif.org/ver10/accessrules/wsdl ClientSuppliedTokenSupported,attr,omitempty"`
 }
 
+// AccessPolicy type
 type AccessPolicy struct {
 
 	// Reference to the schedule used by the access policy.
@@ -217,9 +238,11 @@ type AccessPolicy struct {
 	Extension AccessPolicyExtension `xml:"http://www.onvif.org/ver10/accessrules/wsdl Extension,omitempty"`
 }
 
+// AccessPolicyExtension type
 type AccessPolicyExtension struct {
 }
 
+// AccessProfileInfo type
 type AccessProfileInfo struct {
 	*DataEntity
 
@@ -233,26 +256,30 @@ type AccessProfileInfo struct {
 	Description Description `xml:"http://www.onvif.org/ver10/accessrules/wsdl Description,omitempty"`
 }
 
+// AccessProfile type
 type AccessProfile struct {
 	*AccessProfileInfo
 
 	// A list of access policy structures, where each access policy
 	// defines during which schedule an access point can be accessed.
 	//
-	AccessPolicy AccessPolicy `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessPolicy,omitempty"`
+	AccessPolicy []AccessPolicy `xml:"http://www.onvif.org/ver10/accessrules/wsdl AccessPolicy,omitempty"`
 
 	Extension AccessProfileExtension `xml:"http://www.onvif.org/ver10/accessrules/wsdl Extension,omitempty"`
 }
 
+// AccessProfileExtension type
 type AccessProfileExtension struct {
 }
 
 // Type used to reference logical and physical entities.
 
+// ReferenceToken type
 type ReferenceToken string
 
 // Type used for names of logical and physical entities.
 
+// Name type
 type Name string
 
 // Description is optional and the maximum length is device specific.
@@ -260,12 +287,15 @@ type Name string
 // supported by the device/service (which may be 0).
 //
 
+// Description type
 type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
+// PositiveInteger type
 type PositiveInteger uint32
 
+// DataEntity type
 type DataEntity struct {
 
 	// A service-unique identifier of the item.
@@ -275,6 +305,7 @@ type DataEntity struct {
 
 // Removed Attribute by fixgen.py
 
+// AccessRulesPort type
 type AccessRulesPort interface {
 
 	/* This operation returns the capabilities of the access rules service.
@@ -371,6 +402,7 @@ type AccessRulesPort interface {
 	DeleteAccessProfileContext(ctx context.Context, request *DeleteAccessProfile) (*DeleteAccessProfileResponse, error)
 }
 
+// accessRulesPort type
 type accessRulesPort struct {
 	client *soap.Client
 	xaddr  string
@@ -536,11 +568,26 @@ func (service *accessRulesPort) DeleteAccessProfile(request *DeleteAccessProfile
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

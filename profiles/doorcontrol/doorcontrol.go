@@ -16,6 +16,7 @@ var _ xml.Name
 // The physical state of a Door.
 //
 
+// DoorPhysicalState type
 type DoorPhysicalState string
 
 const (
@@ -39,6 +40,7 @@ const (
 // The physical state of a Lock (including Double Lock).
 //
 
+// LockPhysicalState type
 type LockPhysicalState string
 
 const (
@@ -60,6 +62,7 @@ const (
 // Describes the state of a Door with regard to alarms.
 //
 
+// DoorAlarmState type
 type DoorAlarmState string
 
 const (
@@ -78,6 +81,7 @@ const (
 // Describes the state of a Tamper detector.
 //
 
+// DoorTamperState type
 type DoorTamperState string
 
 const (
@@ -96,6 +100,7 @@ const (
 // Describes the state of a Door fault.
 //
 
+// DoorFaultState type
 type DoorFaultState string
 
 const (
@@ -115,6 +120,7 @@ const (
 // Setting a door mode reflects the intent to set a door in a physical state.
 //
 
+// DoorMode type
 type DoorMode string
 
 const (
@@ -175,21 +181,25 @@ const (
 	DoorModeDoubleLocked DoorMode = "DoubleLocked"
 )
 
+// Capabilities type
 type Capabilities ServiceCapabilities
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capability response message contains the requested DoorControl
 	// service capabilities using a hierarchical XML capability structure.
 	//
-	Capabilities ServiceCapabilities `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Capabilities,omitempty"`
+	Capabilities ServiceCapabilities `xml:"Capabilities,omitempty"`
 }
 
+// GetDoorInfoList type
 type GetDoorInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorInfoList"`
 
@@ -205,32 +215,36 @@ type GetDoorInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl StartReference,omitempty"`
 }
 
+// GetDoorInfoListResponse type
 type GetDoorInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorInfoListResponse"`
+	XMLName xml.Name `xml:"GetDoorInfoListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of DoorInfo items.
-	DoorInfo DoorInfo `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DoorInfo,omitempty"`
+	DoorInfo []DoorInfo `xml:"DoorInfo,omitempty"`
 }
 
+// GetDoorInfo type
 type GetDoorInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorInfo"`
 
 	// Tokens of DoorInfo items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// GetDoorInfoResponse type
 type GetDoorInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorInfoResponse"`
+	XMLName xml.Name `xml:"GetDoorInfoResponse"`
 
 	// List of DoorInfo items.
-	DoorInfo DoorInfo `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DoorInfo,omitempty"`
+	DoorInfo []DoorInfo `xml:"DoorInfo,omitempty"`
 }
 
+// GetDoorList type
 type GetDoorList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorList"`
 
@@ -246,32 +260,36 @@ type GetDoorList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl StartReference,omitempty"`
 }
 
+// GetDoorListResponse type
 type GetDoorListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorListResponse"`
+	XMLName xml.Name `xml:"GetDoorListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of Door items.
-	Door Door `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Door,omitempty"`
+	Door []Door `xml:"Door,omitempty"`
 }
 
+// GetDoors type
 type GetDoors struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoors"`
 
 	// Tokens of Door items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// GetDoorsResponse type
 type GetDoorsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorsResponse"`
+	XMLName xml.Name `xml:"GetDoorsResponse"`
 
 	// List of Door items.
-	Door Door `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Door,omitempty"`
+	Door []Door `xml:"Door,omitempty"`
 }
 
+// CreateDoor type
 type CreateDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl CreateDoor"`
 
@@ -279,13 +297,15 @@ type CreateDoor struct {
 	Door Door `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Door,omitempty"`
 }
 
+// CreateDoorResponse type
 type CreateDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl CreateDoorResponse"`
+	XMLName xml.Name `xml:"CreateDoorResponse"`
 
 	// Token of created Door item
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// SetDoor type
 type SetDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl SetDoor"`
 
@@ -293,10 +313,12 @@ type SetDoor struct {
 	Door Door `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Door,omitempty"`
 }
 
+// SetDoorResponse type
 type SetDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl SetDoorResponse"`
+	XMLName xml.Name `xml:"SetDoorResponse"`
 }
 
+// ModifyDoor type
 type ModifyDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl ModifyDoor"`
 
@@ -304,10 +326,12 @@ type ModifyDoor struct {
 	Door Door `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Door,omitempty"`
 }
 
+// ModifyDoorResponse type
 type ModifyDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl ModifyDoorResponse"`
+	XMLName xml.Name `xml:"ModifyDoorResponse"`
 }
 
+// DeleteDoor type
 type DeleteDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DeleteDoor"`
 
@@ -315,10 +339,12 @@ type DeleteDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// DeleteDoorResponse type
 type DeleteDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DeleteDoorResponse"`
+	XMLName xml.Name `xml:"DeleteDoorResponse"`
 }
 
+// GetDoorState type
 type GetDoorState struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorState"`
 
@@ -326,13 +352,15 @@ type GetDoorState struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// GetDoorStateResponse type
 type GetDoorStateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl GetDoorStateResponse"`
+	XMLName xml.Name `xml:"GetDoorStateResponse"`
 
 	// The state of the door.
-	DoorState DoorState `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DoorState,omitempty"`
+	DoorState DoorState `xml:"DoorState,omitempty"`
 }
 
+// AccessDoor type
 type AccessDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl AccessDoor"`
 
@@ -358,10 +386,12 @@ type AccessDoor struct {
 	Extension AccessDoorExtension `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Extension,omitempty"`
 }
 
+// AccessDoorResponse type
 type AccessDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl AccessDoorResponse"`
+	XMLName xml.Name `xml:"AccessDoorResponse"`
 }
 
+// LockDoor type
 type LockDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockDoor"`
 
@@ -369,10 +399,12 @@ type LockDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// LockDoorResponse type
 type LockDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockDoorResponse"`
+	XMLName xml.Name `xml:"LockDoorResponse"`
 }
 
+// UnlockDoor type
 type UnlockDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl UnlockDoor"`
 
@@ -380,10 +412,12 @@ type UnlockDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// UnlockDoorResponse type
 type UnlockDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl UnlockDoorResponse"`
+	XMLName xml.Name `xml:"UnlockDoorResponse"`
 }
 
+// BlockDoor type
 type BlockDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl BlockDoor"`
 
@@ -391,10 +425,12 @@ type BlockDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// BlockDoorResponse type
 type BlockDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl BlockDoorResponse"`
+	XMLName xml.Name `xml:"BlockDoorResponse"`
 }
 
+// LockDownDoor type
 type LockDownDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockDownDoor"`
 
@@ -402,10 +438,12 @@ type LockDownDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// LockDownDoorResponse type
 type LockDownDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockDownDoorResponse"`
+	XMLName xml.Name `xml:"LockDownDoorResponse"`
 }
 
+// LockDownReleaseDoor type
 type LockDownReleaseDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockDownReleaseDoor"`
 
@@ -413,10 +451,12 @@ type LockDownReleaseDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// LockDownReleaseDoorResponse type
 type LockDownReleaseDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockDownReleaseDoorResponse"`
+	XMLName xml.Name `xml:"LockDownReleaseDoorResponse"`
 }
 
+// LockOpenDoor type
 type LockOpenDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockOpenDoor"`
 
@@ -424,10 +464,12 @@ type LockOpenDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// LockOpenDoorResponse type
 type LockOpenDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockOpenDoorResponse"`
+	XMLName xml.Name `xml:"LockOpenDoorResponse"`
 }
 
+// LockOpenReleaseDoor type
 type LockOpenReleaseDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockOpenReleaseDoor"`
 
@@ -435,10 +477,12 @@ type LockOpenReleaseDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// LockOpenReleaseDoorResponse type
 type LockOpenReleaseDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl LockOpenReleaseDoorResponse"`
+	XMLName xml.Name `xml:"LockOpenReleaseDoorResponse"`
 }
 
+// DoubleLockDoor type
 type DoubleLockDoor struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DoubleLockDoor"`
 
@@ -446,10 +490,12 @@ type DoubleLockDoor struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Token,omitempty"`
 }
 
+// DoubleLockDoorResponse type
 type DoubleLockDoorResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DoubleLockDoorResponse"`
+	XMLName xml.Name `xml:"DoubleLockDoorResponse"`
 }
 
+// ServiceCapabilities type
 type ServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Capabilities"`
 
@@ -475,6 +521,7 @@ type ServiceCapabilities struct {
 	ClientSuppliedTokenSupported bool `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl ClientSuppliedTokenSupported,attr,omitempty"`
 }
 
+// DoorInfoBase type
 type DoorInfoBase struct {
 	*DataEntity
 
@@ -487,6 +534,7 @@ type DoorInfoBase struct {
 	Description Description `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Description,omitempty"`
 }
 
+// DoorInfo type
 type DoorInfo struct {
 	*DoorInfoBase
 
@@ -494,6 +542,7 @@ type DoorInfo struct {
 	Capabilities DoorCapabilities `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Capabilities,omitempty"`
 }
 
+// Door type
 type Door struct {
 	*DoorInfo
 
@@ -513,9 +562,11 @@ type Door struct {
 	Extension DoorExtension `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Extension,omitempty"`
 }
 
+// DoorExtension type
 type DoorExtension struct {
 }
 
+// Timings type
 type Timings struct {
 
 	//
@@ -562,9 +613,11 @@ type Timings struct {
 	Extension TimingsExtension `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Extension,omitempty"`
 }
 
+// TimingsExtension type
 type TimingsExtension struct {
 }
 
+// DoorCapabilities type
 type DoorCapabilities struct {
 
 	// Indicates whether or not this Door instance supports AccessDoor command to
@@ -652,6 +705,7 @@ type DoorCapabilities struct {
 	Fault bool `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl Fault,attr,omitempty"`
 }
 
+// DoorState type
 type DoorState struct {
 
 	//
@@ -702,6 +756,7 @@ type DoorState struct {
 	DoorMode DoorMode `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl DoorMode,omitempty"`
 }
 
+// DoorTamper type
 type DoorTamper struct {
 
 	// Optional field; Details describing tampering state change (e.g., reason,
@@ -716,6 +771,7 @@ type DoorTamper struct {
 	State DoorTamperState `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl State,omitempty"`
 }
 
+// DoorFault type
 type DoorFault struct {
 
 	// Optional reason for fault.
@@ -729,15 +785,18 @@ type DoorFault struct {
 	State DoorFaultState `xml:"http://www.onvif.org/ver10/doorcontrol/wsdl State,omitempty"`
 }
 
+// AccessDoorExtension type
 type AccessDoorExtension struct {
 }
 
 // Type used to reference logical and physical entities.
 
+// ReferenceToken type
 type ReferenceToken string
 
 // Type used for names of logical and physical entities.
 
+// Name type
 type Name string
 
 // Description is optional and the maximum length is device specific.
@@ -745,12 +804,15 @@ type Name string
 // supported by the device/service (which may be 0).
 //
 
+// Description type
 type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
+// PositiveInteger type
 type PositiveInteger uint32
 
+// DataEntity type
 type DataEntity struct {
 
 	// A service-unique identifier of the item.
@@ -760,6 +822,7 @@ type DataEntity struct {
 
 // Removed Attribute by fixgen.py
 
+// DoorControlPort type
 type DoorControlPort interface {
 
 	/*
@@ -1000,6 +1063,7 @@ type DoorControlPort interface {
 	DoubleLockDoorContext(ctx context.Context, request *DoubleLockDoor) (*DoubleLockDoorResponse, error)
 }
 
+// doorControlPort type
 type doorControlPort struct {
 	client *soap.Client
 	xaddr  string
@@ -1335,11 +1399,26 @@ func (service *doorControlPort) DoubleLockDoor(request *DoubleLockDoor) (*Double
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

@@ -11,17 +11,20 @@ import (
 var _ time.Time
 var _ xml.Name
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capabilities for the event service is returned in the Capabilities element.
-	Capabilities Capabilities `xml:"http://www.onvif.org/ver10/events/wsdl Capabilities,omitempty"`
+	Capabilities Capabilities `xml:"Capabilities,omitempty"`
 }
 
+// CreatePullPointSubscription type
 type CreatePullPointSubscription struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl CreatePullPointSubscription"`
 
@@ -35,8 +38,9 @@ type CreatePullPointSubscription struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
 }
 
+// CreatePullPointSubscriptionResponse type
 type CreatePullPointSubscriptionResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl CreatePullPointSubscriptionResponse"`
+	XMLName xml.Name `xml:"CreatePullPointSubscriptionResponse"`
 
 	// Endpoint reference of the subscription to be used for pulling the messages.
 	SubscriptionReference EndpointReferenceType `xml:"SubscriptionReference,omitempty"`
@@ -46,6 +50,7 @@ type CreatePullPointSubscriptionResponse struct {
 	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
 }
 
+// PullMessages type
 type PullMessages struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl PullMessages"`
 
@@ -56,28 +61,31 @@ type PullMessages struct {
 	MessageLimit int32 `xml:"http://www.onvif.org/ver10/schema MessageLimit,omitempty"`
 }
 
+// PullMessagesResponse type
 type PullMessagesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl PullMessagesResponse"`
+	XMLName xml.Name `xml:"PullMessagesResponse"`
 
 	// The date and time when the messages have been delivered by the web server to the client.
-	CurrentTime string `xml:"http://www.onvif.org/ver10/schema CurrentTime,omitempty"`
+	CurrentTime string `xml:"CurrentTime,omitempty"`
 
 	// Date time when the PullPoint will be shut down without further pull requests.
-	TerminationTime string `xml:"http://www.onvif.org/ver10/schema TerminationTime,omitempty"`
+	TerminationTime string `xml:"TerminationTime,omitempty"`
 
 	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
 }
 
+// PullMessagesFaultResponse type
 type PullMessagesFaultResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl PullMessagesFaultResponse"`
+	XMLName xml.Name `xml:"PullMessagesFaultResponse"`
 
 	// Maximum timeout supported by the device.
-	MaxTimeout Duration `xml:"http://www.onvif.org/ver10/schema MaxTimeout,omitempty"`
+	MaxTimeout Duration `xml:"MaxTimeout,omitempty"`
 
 	// Maximum message limit supported by the device.
-	MaxMessageLimit int32 `xml:"http://www.onvif.org/ver10/schema MaxMessageLimit,omitempty"`
+	MaxMessageLimit int32 `xml:"MaxMessageLimit,omitempty"`
 }
 
+// Seek type
 type Seek struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl Seek"`
 
@@ -88,27 +96,32 @@ type Seek struct {
 	Reverse bool `xml:"http://www.onvif.org/ver10/events/wsdl Reverse,omitempty"`
 }
 
+// SeekResponse type
 type SeekResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl SeekResponse"`
+	XMLName xml.Name `xml:"SeekResponse"`
 }
 
+// SetSynchronizationPoint type
 type SetSynchronizationPoint struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl SetSynchronizationPoint"`
 }
 
+// SetSynchronizationPointResponse type
 type SetSynchronizationPointResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl SetSynchronizationPointResponse"`
+	XMLName xml.Name `xml:"SetSynchronizationPointResponse"`
 }
 
+// GetEventProperties type
 type GetEventProperties struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl GetEventProperties"`
 }
 
+// GetEventPropertiesResponse type
 type GetEventPropertiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl GetEventPropertiesResponse"`
+	XMLName xml.Name `xml:"GetEventPropertiesResponse"`
 
 	// List of topic namespaces supported.
-	TopicNamespaceLocation AnyURI `xml:"http://www.onvif.org/ver10/schema TopicNamespaceLocation,omitempty"`
+	TopicNamespaceLocation []AnyURI `xml:"TopicNamespaceLocation,omitempty"`
 
 	FixedTopicSet FixedTopicSet `xml:"FixedTopicSet,omitempty"`
 
@@ -122,11 +135,11 @@ type GetEventPropertiesResponse struct {
 	//
 	// A device that does not support any MessageContentFilterDialect returns a single empty url.
 	//
-	MessageContentFilterDialect AnyURI `xml:"http://www.onvif.org/ver10/schema MessageContentFilterDialect,omitempty"`
+	MessageContentFilterDialect []AnyURI `xml:"MessageContentFilterDialect,omitempty"`
 
 	//
 	// Optional ProducerPropertiesDialects. Refer to  for advanced filtering.
-	ProducerPropertiesFilterDialect AnyURI `xml:"http://www.onvif.org/ver10/schema ProducerPropertiesFilterDialect,omitempty"`
+	ProducerPropertiesFilterDialect []AnyURI `xml:"ProducerPropertiesFilterDialect,omitempty"`
 
 	//
 	// The Message Content Description Language allows referencing
@@ -134,9 +147,10 @@ type GetEventPropertiesResponse struct {
 	// the GetEventPropertiesResponse shall list all URI locations to schema files whose types are
 	// used in the description of notifications, with MessageContentSchemaLocation elements.
 	// This list shall at least contain the URI of the ONVIF schema file.
-	MessageContentSchemaLocation AnyURI `xml:"http://www.onvif.org/ver10/schema MessageContentSchemaLocation,omitempty"`
+	MessageContentSchemaLocation []AnyURI `xml:"MessageContentSchemaLocation,omitempty"`
 }
 
+// Capabilities type
 type Capabilities struct {
 
 	// Indicates that the WS Subscription policy is supported.
@@ -164,16 +178,20 @@ type Capabilities struct {
 	PersistentNotificationStorage bool `xml:"http://www.onvif.org/ver10/events/wsdl PersistentNotificationStorage,attr,omitempty"`
 }
 
+// RelationshipTypeOpenEnum type
 type RelationshipTypeOpenEnum string
 
+// RelationshipType type
 type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
 )
 
+// FaultCodesOpenEnumType type
 type FaultCodesOpenEnumType string
 
+// FaultCodesType type
 type FaultCodesType QName
 
 const (
@@ -200,34 +218,49 @@ const (
 	FaultCodesTypeTnsEndpointUnavailable FaultCodesType = "tns:EndpointUnavailable"
 )
 
+// EndpointReference type
 type EndpointReference EndpointReferenceType
 
+// Metadata type
 type Metadata MetadataType
 
+// MessageID type
 type MessageID AttributedURIType
 
+// RelatesTo type
 type RelatesTo RelatesToType
 
+// ReplyTo type
 type ReplyTo EndpointReferenceType
 
+// From type
 type From EndpointReferenceType
 
+// FaultTo type
 type FaultTo EndpointReferenceType
 
+// To type
 type To AttributedURIType
 
+// Action type
 type Action AttributedURIType
 
+// RetryAfter type
 type RetryAfter AttributedUnsignedLongType
 
+// ProblemHeaderQName type
 type ProblemHeaderQName AttributedQNameType
 
+// ProblemHeader type
 type ProblemHeader AttributedAnyType
 
+// ProblemIRI type
 type ProblemIRI AttributedURIType
 
+// ProblemAction type
 type ProblemAction ProblemActionType
 
+// EndpointReferenceType type
 type EndpointReferenceType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing EndpointReference"`
 
@@ -238,13 +271,16 @@ type EndpointReferenceType struct {
 	Metadata Metadata `xml:"Metadata,omitempty"`
 }
 
+// ReferenceParametersType type
 type ReferenceParametersType struct {
 }
 
+// MetadataType type
 type MetadataType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing Metadata"`
 }
 
+// RelatesToType type
 type RelatesToType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing RelatesTo"`
 
@@ -253,28 +289,33 @@ type RelatesToType struct {
 	RelationshipType RelationshipTypeOpenEnum `xml:"RelationshipType,attr,omitempty"`
 }
 
+// AttributedURIType type
 type AttributedURIType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing MessageID"`
 
 	Value AnyURI
 }
 
+// AttributedUnsignedLongType type
 type AttributedUnsignedLongType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing RetryAfter"`
 
 	Value uint64
 }
 
+// AttributedQNameType type
 type AttributedQNameType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeaderQName"`
 
 	Value QName
 }
 
+// AttributedAnyType type
 type AttributedAnyType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeader"`
 }
 
+// ProblemActionType type
 type ProblemActionType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemAction"`
 
@@ -283,29 +324,38 @@ type ProblemActionType struct {
 	SoapAction AnyURI `xml:"http://www.onvif.org/ver10/schema SoapAction,omitempty"`
 }
 
+// FullTopicExpression type
 type FullTopicExpression string
 
+// ConcreteTopicExpression type
 type ConcreteTopicExpression string
 
+// SimpleTopicExpression type
 type SimpleTopicExpression QName
 
+// TopicNamespace type
 type TopicNamespace TopicNamespaceType
 
+// TopicSet type
 type TopicSet TopicSetType
 
+// Documentation type
 type Documentation struct {
 }
 
+// ExtensibleDocumented type
 type ExtensibleDocumented struct {
 	Documentation Documentation `xml:"documentation,omitempty"`
 }
 
+// QueryExpressionType type
 type QueryExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/t-1 ProducerProperties"`
 
 	Dialect AnyURI `xml:"http://www.onvif.org/ver10/schema Dialect,attr,omitempty"`
 }
 
+// TopicNamespaceType type
 type TopicNamespaceType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/t-1 TopicNamespace"`
 
@@ -324,6 +374,7 @@ type TopicNamespaceType struct {
 	Final bool `xml:"final,attr,omitempty"`
 }
 
+// TopicType type
 type TopicType struct {
 	*ExtensibleDocumented
 
@@ -338,14 +389,17 @@ type TopicType struct {
 	Final bool `xml:"final,attr,omitempty"`
 }
 
+// TopicSetType type
 type TopicSetType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/t-1 TopicSet"`
 
 	*ExtensibleDocumented
 }
 
+// BaseFault type
 type BaseFault BaseFaultType
 
+// BaseFaultType type
 type BaseFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsrf/bf-2 BaseFault"`
 
@@ -367,14 +421,19 @@ type BaseFaultType struct {
 	} `xml:"FaultCause,omitempty"`
 }
 
+// AbsoluteOrRelativeTimeType type
 type AbsoluteOrRelativeTimeType string
 
+// TopicExpression type
 type TopicExpression TopicExpressionType
 
+// FixedTopicSet type
 type FixedTopicSet bool
 
+// TopicExpressionDialect type
 type TopicExpressionDialect AnyURI
 
+// NotificationProducerRP type
 type NotificationProducerRP struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotificationProducerRP"`
 
@@ -387,14 +446,19 @@ type NotificationProducerRP struct {
 	TopicSet TopicSet `xml:"TopicSet,omitempty"`
 }
 
+// ConsumerReference type
 type ConsumerReference EndpointReferenceType
 
+// Filter type
 type Filter FilterType
 
+// SubscriptionPolicy type
 type SubscriptionPolicy SubscriptionPolicyType
 
+// CreationTime type
 type CreationTime time.Time
 
+// SubscriptionManagerRP type
 type SubscriptionManagerRP struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscriptionManagerRP"`
 
@@ -407,32 +471,43 @@ type SubscriptionManagerRP struct {
 	CreationTime CreationTime `xml:"CreationTime,omitempty"`
 }
 
+// SubscriptionReference type
 type SubscriptionReference EndpointReferenceType
 
+// Topic type
 type Topic TopicExpressionType
 
+// ProducerReference type
 type ProducerReference EndpointReferenceType
 
+// NotificationMessage type
 type NotificationMessage NotificationMessageHolderType
 
+// Notify type
 type Notify struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Notify"`
 
 	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
 }
 
+// CurrentTime type
 type CurrentTime time.Time
 
+// TerminationTime type
 type TerminationTime time.Time
 
+// ProducerProperties type
 type ProducerProperties QueryExpressionType
 
+// MessageContent type
 type MessageContent QueryExpressionType
 
+// UseRaw type
 type UseRaw struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UseRaw"`
 }
 
+// Subscribe type
 type Subscribe struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Subscribe"`
 
@@ -446,8 +521,9 @@ type Subscribe struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
 }
 
+// SubscribeResponse type
 type SubscribeResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscribeResponse"`
+	XMLName xml.Name `xml:"SubscribeResponse"`
 
 	SubscriptionReference EndpointReferenceType `xml:"SubscriptionReference,omitempty"`
 
@@ -456,140 +532,180 @@ type SubscribeResponse struct {
 	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
 }
 
+// GetCurrentMessage type
 type GetCurrentMessage struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetCurrentMessage"`
 
 	Topic TopicExpressionType `xml:"Topic,omitempty"`
 }
 
+// GetCurrentMessageResponse type
 type GetCurrentMessageResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetCurrentMessageResponse"`
+	XMLName xml.Name `xml:"GetCurrentMessageResponse"`
 }
 
+// SubscribeCreationFailedFault type
 type SubscribeCreationFailedFault SubscribeCreationFailedFaultType
 
+// InvalidFilterFault type
 type InvalidFilterFault InvalidFilterFaultType
 
+// TopicExpressionDialectUnknownFault type
 type TopicExpressionDialectUnknownFault TopicExpressionDialectUnknownFaultType
 
+// InvalidTopicExpressionFault type
 type InvalidTopicExpressionFault InvalidTopicExpressionFaultType
 
+// TopicNotSupportedFault type
 type TopicNotSupportedFault TopicNotSupportedFaultType
 
+// MultipleTopicsSpecifiedFault type
 type MultipleTopicsSpecifiedFault MultipleTopicsSpecifiedFaultType
 
+// InvalidProducerPropertiesExpressionFault type
 type InvalidProducerPropertiesExpressionFault InvalidProducerPropertiesExpressionFaultType
 
+// InvalidMessageContentExpressionFault type
 type InvalidMessageContentExpressionFault InvalidMessageContentExpressionFaultType
 
+// UnrecognizedPolicyRequestFault type
 type UnrecognizedPolicyRequestFault UnrecognizedPolicyRequestFaultType
 
+// UnsupportedPolicyRequestFault type
 type UnsupportedPolicyRequestFault UnsupportedPolicyRequestFaultType
 
+// NotifyMessageNotSupportedFault type
 type NotifyMessageNotSupportedFault NotifyMessageNotSupportedFaultType
 
+// UnacceptableInitialTerminationTimeFault type
 type UnacceptableInitialTerminationTimeFault UnacceptableInitialTerminationTimeFaultType
 
+// NoCurrentMessageOnTopicFault type
 type NoCurrentMessageOnTopicFault NoCurrentMessageOnTopicFaultType
 
+// GetMessages type
 type GetMessages struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessages"`
 
 	MaximumNumber NonNegativeInteger `xml:"http://www.onvif.org/ver10/schema MaximumNumber,omitempty"`
 }
 
+// GetMessagesResponse type
 type GetMessagesResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessagesResponse"`
+	XMLName xml.Name `xml:"GetMessagesResponse"`
 
 	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
 }
 
+// DestroyPullPoint type
 type DestroyPullPoint struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 DestroyPullPoint"`
 }
 
+// DestroyPullPointResponse type
 type DestroyPullPointResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 DestroyPullPointResponse"`
+	XMLName xml.Name `xml:"DestroyPullPointResponse"`
 }
 
+// UnableToGetMessagesFault type
 type UnableToGetMessagesFault UnableToGetMessagesFaultType
 
+// UnableToDestroyPullPointFault type
 type UnableToDestroyPullPointFault UnableToDestroyPullPointFaultType
 
+// CreatePullPoint type
 type CreatePullPoint struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 CreatePullPoint"`
 }
 
+// CreatePullPointResponse type
 type CreatePullPointResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 CreatePullPointResponse"`
+	XMLName xml.Name `xml:"CreatePullPointResponse"`
 
 	PullPoint EndpointReferenceType `xml:"PullPoint,omitempty"`
 }
 
+// UnableToCreatePullPointFault type
 type UnableToCreatePullPointFault UnableToCreatePullPointFaultType
 
+// Renew type
 type Renew struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Renew"`
 
 	TerminationTime AbsoluteOrRelativeTimeType `xml:"TerminationTime,omitempty"`
 }
 
+// RenewResponse type
 type RenewResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 RenewResponse"`
+	XMLName xml.Name `xml:"RenewResponse"`
 
 	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
 
 	CurrentTime CurrentTime `xml:"CurrentTime,omitempty"`
 }
 
+// UnacceptableTerminationTimeFault type
 type UnacceptableTerminationTimeFault UnacceptableTerminationTimeFaultType
 
+// Unsubscribe type
 type Unsubscribe struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Unsubscribe"`
 }
 
+// UnsubscribeResponse type
 type UnsubscribeResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnsubscribeResponse"`
+	XMLName xml.Name `xml:"UnsubscribeResponse"`
 }
 
+// UnableToDestroySubscriptionFault type
 type UnableToDestroySubscriptionFault UnableToDestroySubscriptionFaultType
 
+// PauseSubscription type
 type PauseSubscription struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseSubscription"`
 }
 
+// PauseSubscriptionResponse type
 type PauseSubscriptionResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseSubscriptionResponse"`
+	XMLName xml.Name `xml:"PauseSubscriptionResponse"`
 }
 
+// ResumeSubscription type
 type ResumeSubscription struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeSubscription"`
 }
 
+// ResumeSubscriptionResponse type
 type ResumeSubscriptionResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeSubscriptionResponse"`
+	XMLName xml.Name `xml:"ResumeSubscriptionResponse"`
 }
 
+// PauseFailedFault type
 type PauseFailedFault PauseFailedFaultType
 
+// ResumeFailedFault type
 type ResumeFailedFault ResumeFailedFaultType
 
 // Removed QueryExpressionType
 
+// TopicExpressionType type
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
 	Dialect AnyURI `xml:"http://www.onvif.org/ver10/schema Dialect,attr,omitempty"`
 }
 
+// FilterType type
 type FilterType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Filter"`
 }
 
+// SubscriptionPolicyType type
 type SubscriptionPolicyType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscriptionPolicy"`
 }
 
+// NotificationMessageHolderType type
 type NotificationMessageHolderType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotificationMessage"`
 
@@ -603,78 +719,90 @@ type NotificationMessageHolderType struct {
 	} `xml:"Message,omitempty"`
 }
 
+// SubscribeCreationFailedFaultType type
 type SubscribeCreationFailedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscribeCreationFailedFault"`
 
 	*BaseFaultType
 }
 
+// InvalidFilterFaultType type
 type InvalidFilterFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidFilterFault"`
 
 	*BaseFaultType
 
-	UnknownFilter QName `xml:"http://www.onvif.org/ver10/schema UnknownFilter,omitempty"`
+	UnknownFilter []QName `xml:"http://www.onvif.org/ver10/schema UnknownFilter,omitempty"`
 }
 
+// TopicExpressionDialectUnknownFaultType type
 type TopicExpressionDialectUnknownFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpressionDialectUnknownFault"`
 
 	*BaseFaultType
 }
 
+// InvalidTopicExpressionFaultType type
 type InvalidTopicExpressionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidTopicExpressionFault"`
 
 	*BaseFaultType
 }
 
+// TopicNotSupportedFaultType type
 type TopicNotSupportedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicNotSupportedFault"`
 
 	*BaseFaultType
 }
 
+// MultipleTopicsSpecifiedFaultType type
 type MultipleTopicsSpecifiedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 MultipleTopicsSpecifiedFault"`
 
 	*BaseFaultType
 }
 
+// InvalidProducerPropertiesExpressionFaultType type
 type InvalidProducerPropertiesExpressionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidProducerPropertiesExpressionFault"`
 
 	*BaseFaultType
 }
 
+// InvalidMessageContentExpressionFaultType type
 type InvalidMessageContentExpressionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidMessageContentExpressionFault"`
 
 	*BaseFaultType
 }
 
+// UnrecognizedPolicyRequestFaultType type
 type UnrecognizedPolicyRequestFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnrecognizedPolicyRequestFault"`
 
 	*BaseFaultType
 
-	UnrecognizedPolicy QName `xml:"http://www.onvif.org/ver10/schema UnrecognizedPolicy,omitempty"`
+	UnrecognizedPolicy []QName `xml:"http://www.onvif.org/ver10/schema UnrecognizedPolicy,omitempty"`
 }
 
+// UnsupportedPolicyRequestFaultType type
 type UnsupportedPolicyRequestFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnsupportedPolicyRequestFault"`
 
 	*BaseFaultType
 
-	UnsupportedPolicy QName `xml:"http://www.onvif.org/ver10/schema UnsupportedPolicy,omitempty"`
+	UnsupportedPolicy []QName `xml:"http://www.onvif.org/ver10/schema UnsupportedPolicy,omitempty"`
 }
 
+// NotifyMessageNotSupportedFaultType type
 type NotifyMessageNotSupportedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotifyMessageNotSupportedFault"`
 
 	*BaseFaultType
 }
 
+// UnacceptableInitialTerminationTimeFaultType type
 type UnacceptableInitialTerminationTimeFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnacceptableInitialTerminationTimeFault"`
 
@@ -685,30 +813,35 @@ type UnacceptableInitialTerminationTimeFaultType struct {
 	MaximumTime string `xml:"http://www.onvif.org/ver10/schema MaximumTime,omitempty"`
 }
 
+// NoCurrentMessageOnTopicFaultType type
 type NoCurrentMessageOnTopicFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NoCurrentMessageOnTopicFault"`
 
 	*BaseFaultType
 }
 
+// UnableToGetMessagesFaultType type
 type UnableToGetMessagesFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToGetMessagesFault"`
 
 	*BaseFaultType
 }
 
+// UnableToDestroyPullPointFaultType type
 type UnableToDestroyPullPointFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToDestroyPullPointFault"`
 
 	*BaseFaultType
 }
 
+// UnableToCreatePullPointFaultType type
 type UnableToCreatePullPointFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToCreatePullPointFault"`
 
 	*BaseFaultType
 }
 
+// UnacceptableTerminationTimeFaultType type
 type UnacceptableTerminationTimeFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnacceptableTerminationTimeFault"`
 
@@ -719,24 +852,28 @@ type UnacceptableTerminationTimeFaultType struct {
 	MaximumTime string `xml:"http://www.onvif.org/ver10/schema MaximumTime,omitempty"`
 }
 
+// UnableToDestroySubscriptionFaultType type
 type UnableToDestroySubscriptionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToDestroySubscriptionFault"`
 
 	*BaseFaultType
 }
 
+// PauseFailedFaultType type
 type PauseFailedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseFailedFault"`
 
 	*BaseFaultType
 }
 
+// ResumeFailedFaultType type
 type ResumeFailedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeFailedFault"`
 
 	*BaseFaultType
 }
 
+// EventPortType type
 type EventPortType interface {
 
 	/* Returns the capabilities of the event service. The result is returned in a typed answer. */
@@ -776,6 +913,7 @@ type EventPortType interface {
 	GetEventPropertiesContext(ctx context.Context, request *GetEventProperties) (*GetEventPropertiesResponse, error)
 }
 
+// eventPortType type
 type eventPortType struct {
 	client *soap.Client
 	xaddr  string
@@ -839,6 +977,7 @@ func (service *eventPortType) GetEventProperties(request *GetEventProperties) (*
 	)
 }
 
+// PullPointSubscription type
 type PullPointSubscription interface {
 
 	// Error can be either of the following types:
@@ -893,6 +1032,7 @@ type PullPointSubscription interface {
 	UnsubscribeContext(ctx context.Context) error
 }
 
+// pullPointSubscription type
 type pullPointSubscription struct {
 	client *soap.Client
 	xaddr  string
@@ -972,12 +1112,29 @@ func (service *pullPointSubscription) Unsubscribe() error {
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// PositiveInteger type
 type PositiveInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

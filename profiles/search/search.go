@@ -11,53 +11,62 @@ import (
 var _ time.Time
 var _ xml.Name
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capabilities for the search service is returned in the Capabilities element.
-	Capabilities Capabilities `xml:"http://www.onvif.org/ver10/search/wsdl Capabilities,omitempty"`
+	Capabilities Capabilities `xml:"Capabilities,omitempty"`
 }
 
+// GetRecordingSummary type
 type GetRecordingSummary struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingSummary"`
 }
 
+// GetRecordingSummaryResponse type
 type GetRecordingSummaryResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingSummaryResponse"`
+	XMLName xml.Name `xml:"GetRecordingSummaryResponse"`
 
-	Summary RecordingSummary `xml:"http://www.onvif.org/ver10/search/wsdl Summary,omitempty"`
+	Summary RecordingSummary `xml:"Summary,omitempty"`
 }
 
+// GetRecordingInformation type
 type GetRecordingInformation struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingInformation"`
 
 	RecordingToken RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl RecordingToken,omitempty"`
 }
 
+// GetRecordingInformationResponse type
 type GetRecordingInformationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingInformationResponse"`
+	XMLName xml.Name `xml:"GetRecordingInformationResponse"`
 
-	RecordingInformation RecordingInformation `xml:"http://www.onvif.org/ver10/search/wsdl RecordingInformation,omitempty"`
+	RecordingInformation RecordingInformation `xml:"RecordingInformation,omitempty"`
 }
 
+// GetMediaAttributes type
 type GetMediaAttributes struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetMediaAttributes"`
 
-	RecordingTokens RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl RecordingTokens,omitempty"`
+	RecordingTokens []RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl RecordingTokens,omitempty"`
 
 	Time string `xml:"http://www.onvif.org/ver10/schema Time,omitempty"`
 }
 
+// GetMediaAttributesResponse type
 type GetMediaAttributesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetMediaAttributesResponse"`
+	XMLName xml.Name `xml:"GetMediaAttributesResponse"`
 
-	MediaAttributes MediaAttributes `xml:"http://www.onvif.org/ver10/search/wsdl MediaAttributes,omitempty"`
+	MediaAttributes []MediaAttributes `xml:"MediaAttributes,omitempty"`
 }
 
+// FindRecordings type
 type FindRecordings struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindRecordings"`
 
@@ -71,12 +80,14 @@ type FindRecordings struct {
 	KeepAliveTime Duration `xml:"http://www.onvif.org/ver10/schema KeepAliveTime,omitempty"`
 }
 
+// FindRecordingsResponse type
 type FindRecordingsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindRecordingsResponse"`
+	XMLName xml.Name `xml:"FindRecordingsResponse"`
 
-	SearchToken JobToken `xml:"http://www.onvif.org/ver10/search/wsdl SearchToken,omitempty"`
+	SearchToken JobToken `xml:"SearchToken,omitempty"`
 }
 
+// GetRecordingSearchResults type
 type GetRecordingSearchResults struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingSearchResults"`
 
@@ -93,12 +104,14 @@ type GetRecordingSearchResults struct {
 	WaitTime Duration `xml:"http://www.onvif.org/ver10/schema WaitTime,omitempty"`
 }
 
+// GetRecordingSearchResultsResponse type
 type GetRecordingSearchResultsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetRecordingSearchResultsResponse"`
+	XMLName xml.Name `xml:"GetRecordingSearchResultsResponse"`
 
-	ResultList FindRecordingResultList `xml:"http://www.onvif.org/ver10/search/wsdl ResultList,omitempty"`
+	ResultList FindRecordingResultList `xml:"ResultList,omitempty"`
 }
 
+// FindEvents type
 type FindEvents struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindEvents"`
 
@@ -122,13 +135,15 @@ type FindEvents struct {
 	KeepAliveTime Duration `xml:"http://www.onvif.org/ver10/schema KeepAliveTime,omitempty"`
 }
 
+// FindEventsResponse type
 type FindEventsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindEventsResponse"`
+	XMLName xml.Name `xml:"FindEventsResponse"`
 
 	// A unique reference to the search session created by this request.
-	SearchToken JobToken `xml:"http://www.onvif.org/ver10/search/wsdl SearchToken,omitempty"`
+	SearchToken JobToken `xml:"SearchToken,omitempty"`
 }
 
+// GetEventSearchResults type
 type GetEventSearchResults struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetEventSearchResults"`
 
@@ -145,12 +160,14 @@ type GetEventSearchResults struct {
 	WaitTime Duration `xml:"http://www.onvif.org/ver10/schema WaitTime,omitempty"`
 }
 
+// GetEventSearchResultsResponse type
 type GetEventSearchResultsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetEventSearchResultsResponse"`
+	XMLName xml.Name `xml:"GetEventSearchResultsResponse"`
 
-	ResultList FindEventResultList `xml:"http://www.onvif.org/ver10/search/wsdl ResultList,omitempty"`
+	ResultList FindEventResultList `xml:"ResultList,omitempty"`
 }
 
+// FindPTZPosition type
 type FindPTZPosition struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindPTZPosition"`
 
@@ -171,13 +188,15 @@ type FindPTZPosition struct {
 	KeepAliveTime Duration `xml:"http://www.onvif.org/ver10/schema KeepAliveTime,omitempty"`
 }
 
+// FindPTZPositionResponse type
 type FindPTZPositionResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindPTZPositionResponse"`
+	XMLName xml.Name `xml:"FindPTZPositionResponse"`
 
 	// A unique reference to the search session created by this request.
-	SearchToken JobToken `xml:"http://www.onvif.org/ver10/search/wsdl SearchToken,omitempty"`
+	SearchToken JobToken `xml:"SearchToken,omitempty"`
 }
 
+// GetPTZPositionSearchResults type
 type GetPTZPositionSearchResults struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetPTZPositionSearchResults"`
 
@@ -194,12 +213,14 @@ type GetPTZPositionSearchResults struct {
 	WaitTime Duration `xml:"http://www.onvif.org/ver10/schema WaitTime,omitempty"`
 }
 
+// GetPTZPositionSearchResultsResponse type
 type GetPTZPositionSearchResultsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetPTZPositionSearchResultsResponse"`
+	XMLName xml.Name `xml:"GetPTZPositionSearchResultsResponse"`
 
-	ResultList FindPTZPositionResultList `xml:"http://www.onvif.org/ver10/search/wsdl ResultList,omitempty"`
+	ResultList FindPTZPositionResultList `xml:"ResultList,omitempty"`
 }
 
+// FindMetadata type
 type FindMetadata struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindMetadata"`
 
@@ -220,13 +241,15 @@ type FindMetadata struct {
 	KeepAliveTime Duration `xml:"http://www.onvif.org/ver10/schema KeepAliveTime,omitempty"`
 }
 
+// FindMetadataResponse type
 type FindMetadataResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl FindMetadataResponse"`
+	XMLName xml.Name `xml:"FindMetadataResponse"`
 
 	// A unique reference to the search session created by this request.
-	SearchToken JobToken `xml:"http://www.onvif.org/ver10/search/wsdl SearchToken,omitempty"`
+	SearchToken JobToken `xml:"SearchToken,omitempty"`
 }
 
+// GetMetadataSearchResults type
 type GetMetadataSearchResults struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetMetadataSearchResults"`
 
@@ -243,12 +266,14 @@ type GetMetadataSearchResults struct {
 	WaitTime Duration `xml:"http://www.onvif.org/ver10/schema WaitTime,omitempty"`
 }
 
+// GetMetadataSearchResultsResponse type
 type GetMetadataSearchResultsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetMetadataSearchResultsResponse"`
+	XMLName xml.Name `xml:"GetMetadataSearchResultsResponse"`
 
-	ResultList FindMetadataResultList `xml:"http://www.onvif.org/ver10/search/wsdl ResultList,omitempty"`
+	ResultList FindMetadataResultList `xml:"ResultList,omitempty"`
 }
 
+// GetSearchState type
 type GetSearchState struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetSearchState"`
 
@@ -256,12 +281,14 @@ type GetSearchState struct {
 	SearchToken JobToken `xml:"http://www.onvif.org/ver10/search/wsdl SearchToken,omitempty"`
 }
 
+// GetSearchStateResponse type
 type GetSearchStateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl GetSearchStateResponse"`
+	XMLName xml.Name `xml:"GetSearchStateResponse"`
 
-	State SearchState `xml:"http://www.onvif.org/ver10/search/wsdl State,omitempty"`
+	State SearchState `xml:"State,omitempty"`
 }
 
+// EndSearch type
 type EndSearch struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl EndSearch"`
 
@@ -269,13 +296,15 @@ type EndSearch struct {
 	SearchToken JobToken `xml:"http://www.onvif.org/ver10/search/wsdl SearchToken,omitempty"`
 }
 
+// EndSearchResponse type
 type EndSearchResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/search/wsdl EndSearchResponse"`
+	XMLName xml.Name `xml:"EndSearchResponse"`
 
 	// The point of time the search had reached when it was ended. It is equal to the EndPoint specified in Find-operation if the search was completed.
-	Endpoint string `xml:"http://www.onvif.org/ver10/schema Endpoint,omitempty"`
+	Endpoint string `xml:"Endpoint,omitempty"`
 }
 
+// Capabilities type
 type Capabilities struct {
 	MetadataSearch bool `xml:"http://www.onvif.org/ver10/search/wsdl MetadataSearch,attr,omitempty"`
 
@@ -286,6 +315,7 @@ type Capabilities struct {
 
 // Removed Base64Binary by fixgen.py
 
+// HexBinary type
 type HexBinary struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/05/xmlmime hexBinary"`
 
@@ -294,6 +324,7 @@ type HexBinary struct {
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
+// FaultcodeEnum type
 type FaultcodeEnum QName
 
 const (
@@ -308,22 +339,28 @@ const (
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
 
+// NotUnderstood type
 type NotUnderstood NotUnderstoodType
 
+// Upgrade type
 type Upgrade UpgradeType
 
+// Envelope type
 type Envelope struct {
 	Header Header `xml:"Header,omitempty"`
 
 	Body Body `xml:"Body,omitempty"`
 }
 
+// Header type
 type Header struct {
 }
 
+// Body type
 type Body struct {
 }
 
+// Fault type
 type Fault struct {
 	Code Faultcode `xml:"Code,omitempty"`
 
@@ -336,12 +373,14 @@ type Fault struct {
 	Detail Detail `xml:"Detail,omitempty"`
 }
 
+// Faultreason type
 type Faultreason struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope faultreason"`
 
 	Text []Reasontext `xml:"Text,omitempty"`
 }
 
+// Reasontext type
 type Reasontext struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope reasontext"`
 
@@ -350,6 +389,7 @@ type Reasontext struct {
 	string `xml:",attr,omitempty"`
 }
 
+// Faultcode type
 type Faultcode struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope faultcode"`
 
@@ -358,6 +398,7 @@ type Faultcode struct {
 	Subcode *Subcode `xml:"Subcode,omitempty"`
 }
 
+// Subcode type
 type Subcode struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope subcode"`
 
@@ -366,36 +407,44 @@ type Subcode struct {
 	Subcode *Subcode `xml:"Subcode,omitempty"`
 }
 
+// Detail type
 type Detail struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope detail"`
 }
 
+// NotUnderstoodType type
 type NotUnderstoodType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope NotUnderstood"`
 
 	Qname QName `xml:"qname,attr,omitempty"`
 }
 
+// SupportedEnvType type
 type SupportedEnvType struct {
 	Qname QName `xml:"qname,attr,omitempty"`
 }
 
+// UpgradeType type
 type UpgradeType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Upgrade"`
 
 	SupportedEnvelope []SupportedEnvType `xml:"SupportedEnvelope,omitempty"`
 }
 
+// RelationshipTypeOpenEnum type
 type RelationshipTypeOpenEnum string
 
+// RelationshipType type
 type RelationshipType AnyURI
 
 const (
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
 )
 
+// FaultCodesOpenEnumType type
 type FaultCodesOpenEnumType string
 
+// FaultCodesType type
 type FaultCodesType QName
 
 const (
@@ -422,34 +471,49 @@ const (
 	FaultCodesTypeTnsEndpointUnavailable FaultCodesType = "tns:EndpointUnavailable"
 )
 
+// EndpointReference type
 type EndpointReference EndpointReferenceType
 
+// Metadata type
 type Metadata MetadataType
 
+// MessageID type
 type MessageID AttributedURIType
 
+// RelatesTo type
 type RelatesTo RelatesToType
 
+// ReplyTo type
 type ReplyTo EndpointReferenceType
 
+// From type
 type From EndpointReferenceType
 
+// FaultTo type
 type FaultTo EndpointReferenceType
 
+// To type
 type To AttributedURIType
 
+// Action type
 type Action AttributedURIType
 
+// RetryAfter type
 type RetryAfter AttributedUnsignedLongType
 
+// ProblemHeaderQName type
 type ProblemHeaderQName AttributedQNameType
 
+// ProblemHeader type
 type ProblemHeader AttributedAnyType
 
+// ProblemIRI type
 type ProblemIRI AttributedURIType
 
+// ProblemAction type
 type ProblemAction ProblemActionType
 
+// EndpointReferenceType type
 type EndpointReferenceType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing EndpointReference"`
 
@@ -460,13 +524,16 @@ type EndpointReferenceType struct {
 	Metadata Metadata `xml:"Metadata,omitempty"`
 }
 
+// ReferenceParametersType type
 type ReferenceParametersType struct {
 }
 
+// MetadataType type
 type MetadataType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing Metadata"`
 }
 
+// RelatesToType type
 type RelatesToType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing RelatesTo"`
 
@@ -475,28 +542,33 @@ type RelatesToType struct {
 	RelationshipType RelationshipTypeOpenEnum `xml:"RelationshipType,attr,omitempty"`
 }
 
+// AttributedURIType type
 type AttributedURIType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing MessageID"`
 
 	Value AnyURI
 }
 
+// AttributedUnsignedLongType type
 type AttributedUnsignedLongType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing RetryAfter"`
 
 	Value uint64
 }
 
+// AttributedQNameType type
 type AttributedQNameType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeaderQName"`
 
 	Value QName
 }
 
+// AttributedAnyType type
 type AttributedAnyType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeader"`
 }
 
+// ProblemActionType type
 type ProblemActionType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemAction"`
 
@@ -505,8 +577,10 @@ type ProblemActionType struct {
 	SoapAction AnyURI `xml:"http://www.onvif.org/ver10/schema SoapAction,omitempty"`
 }
 
+// BaseFault type
 type BaseFault BaseFaultType
 
+// BaseFaultType type
 type BaseFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsrf/bf-2 BaseFault"`
 
@@ -528,29 +602,38 @@ type BaseFaultType struct {
 	} `xml:"FaultCause,omitempty"`
 }
 
+// FullTopicExpression type
 type FullTopicExpression string
 
+// ConcreteTopicExpression type
 type ConcreteTopicExpression string
 
+// SimpleTopicExpression type
 type SimpleTopicExpression QName
 
+// TopicNamespace type
 type TopicNamespace TopicNamespaceType
 
+// TopicSet type
 type TopicSet TopicSetType
 
+// Documentation type
 type Documentation struct {
 }
 
+// ExtensibleDocumented type
 type ExtensibleDocumented struct {
 	Documentation Documentation `xml:"documentation,omitempty"`
 }
 
+// QueryExpressionType type
 type QueryExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/t-1 ProducerProperties"`
 
 	Dialect AnyURI `xml:"http://www.onvif.org/ver10/schema Dialect,attr,omitempty"`
 }
 
+// TopicNamespaceType type
 type TopicNamespaceType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/t-1 TopicNamespace"`
 
@@ -569,6 +652,7 @@ type TopicNamespaceType struct {
 	Final bool `xml:"final,attr,omitempty"`
 }
 
+// TopicType type
 type TopicType struct {
 	*ExtensibleDocumented
 
@@ -583,20 +667,26 @@ type TopicType struct {
 	Final bool `xml:"final,attr,omitempty"`
 }
 
+// TopicSetType type
 type TopicSetType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/t-1 TopicSet"`
 
 	*ExtensibleDocumented
 }
 
+// AbsoluteOrRelativeTimeType type
 type AbsoluteOrRelativeTimeType string
 
+// TopicExpression type
 type TopicExpression TopicExpressionType
 
+// FixedTopicSet type
 type FixedTopicSet bool
 
+// TopicExpressionDialect type
 type TopicExpressionDialect AnyURI
 
+// NotificationProducerRP type
 type NotificationProducerRP struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotificationProducerRP"`
 
@@ -609,14 +699,19 @@ type NotificationProducerRP struct {
 	TopicSet TopicSet `xml:"TopicSet,omitempty"`
 }
 
+// ConsumerReference type
 type ConsumerReference EndpointReferenceType
 
+// Filter type
 type Filter FilterType
 
+// SubscriptionPolicy type
 type SubscriptionPolicy SubscriptionPolicyType
 
+// CreationTime type
 type CreationTime time.Time
 
+// SubscriptionManagerRP type
 type SubscriptionManagerRP struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscriptionManagerRP"`
 
@@ -629,32 +724,43 @@ type SubscriptionManagerRP struct {
 	CreationTime CreationTime `xml:"CreationTime,omitempty"`
 }
 
+// SubscriptionReference type
 type SubscriptionReference EndpointReferenceType
 
+// Topic type
 type Topic TopicExpressionType
 
+// ProducerReference type
 type ProducerReference EndpointReferenceType
 
+// NotificationMessage type
 type NotificationMessage NotificationMessageHolderType
 
+// Notify type
 type Notify struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Notify"`
 
 	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
 }
 
+// CurrentTime type
 type CurrentTime time.Time
 
+// TerminationTime type
 type TerminationTime time.Time
 
+// ProducerProperties type
 type ProducerProperties QueryExpressionType
 
+// MessageContent type
 type MessageContent QueryExpressionType
 
+// UseRaw type
 type UseRaw struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UseRaw"`
 }
 
+// Subscribe type
 type Subscribe struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Subscribe"`
 
@@ -668,8 +774,9 @@ type Subscribe struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
 }
 
+// SubscribeResponse type
 type SubscribeResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscribeResponse"`
+	XMLName xml.Name `xml:"SubscribeResponse"`
 
 	SubscriptionReference EndpointReferenceType `xml:"SubscriptionReference,omitempty"`
 
@@ -678,140 +785,180 @@ type SubscribeResponse struct {
 	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
 }
 
+// GetCurrentMessage type
 type GetCurrentMessage struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetCurrentMessage"`
 
 	Topic TopicExpressionType `xml:"Topic,omitempty"`
 }
 
+// GetCurrentMessageResponse type
 type GetCurrentMessageResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetCurrentMessageResponse"`
+	XMLName xml.Name `xml:"GetCurrentMessageResponse"`
 }
 
+// SubscribeCreationFailedFault type
 type SubscribeCreationFailedFault SubscribeCreationFailedFaultType
 
+// InvalidFilterFault type
 type InvalidFilterFault InvalidFilterFaultType
 
+// TopicExpressionDialectUnknownFault type
 type TopicExpressionDialectUnknownFault TopicExpressionDialectUnknownFaultType
 
+// InvalidTopicExpressionFault type
 type InvalidTopicExpressionFault InvalidTopicExpressionFaultType
 
+// TopicNotSupportedFault type
 type TopicNotSupportedFault TopicNotSupportedFaultType
 
+// MultipleTopicsSpecifiedFault type
 type MultipleTopicsSpecifiedFault MultipleTopicsSpecifiedFaultType
 
+// InvalidProducerPropertiesExpressionFault type
 type InvalidProducerPropertiesExpressionFault InvalidProducerPropertiesExpressionFaultType
 
+// InvalidMessageContentExpressionFault type
 type InvalidMessageContentExpressionFault InvalidMessageContentExpressionFaultType
 
+// UnrecognizedPolicyRequestFault type
 type UnrecognizedPolicyRequestFault UnrecognizedPolicyRequestFaultType
 
+// UnsupportedPolicyRequestFault type
 type UnsupportedPolicyRequestFault UnsupportedPolicyRequestFaultType
 
+// NotifyMessageNotSupportedFault type
 type NotifyMessageNotSupportedFault NotifyMessageNotSupportedFaultType
 
+// UnacceptableInitialTerminationTimeFault type
 type UnacceptableInitialTerminationTimeFault UnacceptableInitialTerminationTimeFaultType
 
+// NoCurrentMessageOnTopicFault type
 type NoCurrentMessageOnTopicFault NoCurrentMessageOnTopicFaultType
 
+// GetMessages type
 type GetMessages struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessages"`
 
 	MaximumNumber NonNegativeInteger `xml:"http://www.onvif.org/ver10/schema MaximumNumber,omitempty"`
 }
 
+// GetMessagesResponse type
 type GetMessagesResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessagesResponse"`
+	XMLName xml.Name `xml:"GetMessagesResponse"`
 
 	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
 }
 
+// DestroyPullPoint type
 type DestroyPullPoint struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 DestroyPullPoint"`
 }
 
+// DestroyPullPointResponse type
 type DestroyPullPointResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 DestroyPullPointResponse"`
+	XMLName xml.Name `xml:"DestroyPullPointResponse"`
 }
 
+// UnableToGetMessagesFault type
 type UnableToGetMessagesFault UnableToGetMessagesFaultType
 
+// UnableToDestroyPullPointFault type
 type UnableToDestroyPullPointFault UnableToDestroyPullPointFaultType
 
+// CreatePullPoint type
 type CreatePullPoint struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 CreatePullPoint"`
 }
 
+// CreatePullPointResponse type
 type CreatePullPointResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 CreatePullPointResponse"`
+	XMLName xml.Name `xml:"CreatePullPointResponse"`
 
 	PullPoint EndpointReferenceType `xml:"PullPoint,omitempty"`
 }
 
+// UnableToCreatePullPointFault type
 type UnableToCreatePullPointFault UnableToCreatePullPointFaultType
 
+// Renew type
 type Renew struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Renew"`
 
 	TerminationTime AbsoluteOrRelativeTimeType `xml:"TerminationTime,omitempty"`
 }
 
+// RenewResponse type
 type RenewResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 RenewResponse"`
+	XMLName xml.Name `xml:"RenewResponse"`
 
 	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
 
 	CurrentTime CurrentTime `xml:"CurrentTime,omitempty"`
 }
 
+// UnacceptableTerminationTimeFault type
 type UnacceptableTerminationTimeFault UnacceptableTerminationTimeFaultType
 
+// Unsubscribe type
 type Unsubscribe struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Unsubscribe"`
 }
 
+// UnsubscribeResponse type
 type UnsubscribeResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnsubscribeResponse"`
+	XMLName xml.Name `xml:"UnsubscribeResponse"`
 }
 
+// UnableToDestroySubscriptionFault type
 type UnableToDestroySubscriptionFault UnableToDestroySubscriptionFaultType
 
+// PauseSubscription type
 type PauseSubscription struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseSubscription"`
 }
 
+// PauseSubscriptionResponse type
 type PauseSubscriptionResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseSubscriptionResponse"`
+	XMLName xml.Name `xml:"PauseSubscriptionResponse"`
 }
 
+// ResumeSubscription type
 type ResumeSubscription struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeSubscription"`
 }
 
+// ResumeSubscriptionResponse type
 type ResumeSubscriptionResponse struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeSubscriptionResponse"`
+	XMLName xml.Name `xml:"ResumeSubscriptionResponse"`
 }
 
+// PauseFailedFault type
 type PauseFailedFault PauseFailedFaultType
 
+// ResumeFailedFault type
 type ResumeFailedFault ResumeFailedFaultType
 
 // Removed QueryExpressionType
 
+// TopicExpressionType type
 type TopicExpressionType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpression"`
 
 	Dialect AnyURI `xml:"http://www.onvif.org/ver10/schema Dialect,attr,omitempty"`
 }
 
+// FilterType type
 type FilterType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Filter"`
 }
 
+// SubscriptionPolicyType type
 type SubscriptionPolicyType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscriptionPolicy"`
 }
 
+// NotificationMessageHolderType type
 type NotificationMessageHolderType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotificationMessage"`
 
@@ -825,78 +972,90 @@ type NotificationMessageHolderType struct {
 	} `xml:"Message,omitempty"`
 }
 
+// SubscribeCreationFailedFaultType type
 type SubscribeCreationFailedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscribeCreationFailedFault"`
 
 	*BaseFaultType
 }
 
+// InvalidFilterFaultType type
 type InvalidFilterFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidFilterFault"`
 
 	*BaseFaultType
 
-	UnknownFilter QName `xml:"http://www.onvif.org/ver10/schema UnknownFilter,omitempty"`
+	UnknownFilter []QName `xml:"http://www.onvif.org/ver10/schema UnknownFilter,omitempty"`
 }
 
+// TopicExpressionDialectUnknownFaultType type
 type TopicExpressionDialectUnknownFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicExpressionDialectUnknownFault"`
 
 	*BaseFaultType
 }
 
+// InvalidTopicExpressionFaultType type
 type InvalidTopicExpressionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidTopicExpressionFault"`
 
 	*BaseFaultType
 }
 
+// TopicNotSupportedFaultType type
 type TopicNotSupportedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 TopicNotSupportedFault"`
 
 	*BaseFaultType
 }
 
+// MultipleTopicsSpecifiedFaultType type
 type MultipleTopicsSpecifiedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 MultipleTopicsSpecifiedFault"`
 
 	*BaseFaultType
 }
 
+// InvalidProducerPropertiesExpressionFaultType type
 type InvalidProducerPropertiesExpressionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidProducerPropertiesExpressionFault"`
 
 	*BaseFaultType
 }
 
+// InvalidMessageContentExpressionFaultType type
 type InvalidMessageContentExpressionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 InvalidMessageContentExpressionFault"`
 
 	*BaseFaultType
 }
 
+// UnrecognizedPolicyRequestFaultType type
 type UnrecognizedPolicyRequestFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnrecognizedPolicyRequestFault"`
 
 	*BaseFaultType
 
-	UnrecognizedPolicy QName `xml:"http://www.onvif.org/ver10/schema UnrecognizedPolicy,omitempty"`
+	UnrecognizedPolicy []QName `xml:"http://www.onvif.org/ver10/schema UnrecognizedPolicy,omitempty"`
 }
 
+// UnsupportedPolicyRequestFaultType type
 type UnsupportedPolicyRequestFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnsupportedPolicyRequestFault"`
 
 	*BaseFaultType
 
-	UnsupportedPolicy QName `xml:"http://www.onvif.org/ver10/schema UnsupportedPolicy,omitempty"`
+	UnsupportedPolicy []QName `xml:"http://www.onvif.org/ver10/schema UnsupportedPolicy,omitempty"`
 }
 
+// NotifyMessageNotSupportedFaultType type
 type NotifyMessageNotSupportedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotifyMessageNotSupportedFault"`
 
 	*BaseFaultType
 }
 
+// UnacceptableInitialTerminationTimeFaultType type
 type UnacceptableInitialTerminationTimeFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnacceptableInitialTerminationTimeFault"`
 
@@ -907,30 +1066,35 @@ type UnacceptableInitialTerminationTimeFaultType struct {
 	MaximumTime string `xml:"http://www.onvif.org/ver10/schema MaximumTime,omitempty"`
 }
 
+// NoCurrentMessageOnTopicFaultType type
 type NoCurrentMessageOnTopicFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NoCurrentMessageOnTopicFault"`
 
 	*BaseFaultType
 }
 
+// UnableToGetMessagesFaultType type
 type UnableToGetMessagesFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToGetMessagesFault"`
 
 	*BaseFaultType
 }
 
+// UnableToDestroyPullPointFaultType type
 type UnableToDestroyPullPointFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToDestroyPullPointFault"`
 
 	*BaseFaultType
 }
 
+// UnableToCreatePullPointFaultType type
 type UnableToCreatePullPointFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToCreatePullPointFault"`
 
 	*BaseFaultType
 }
 
+// UnacceptableTerminationTimeFaultType type
 type UnacceptableTerminationTimeFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnacceptableTerminationTimeFault"`
 
@@ -941,24 +1105,28 @@ type UnacceptableTerminationTimeFaultType struct {
 	MaximumTime string `xml:"http://www.onvif.org/ver10/schema MaximumTime,omitempty"`
 }
 
+// UnableToDestroySubscriptionFaultType type
 type UnableToDestroySubscriptionFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UnableToDestroySubscriptionFault"`
 
 	*BaseFaultType
 }
 
+// PauseFailedFaultType type
 type PauseFailedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseFailedFault"`
 
 	*BaseFaultType
 }
 
+// ResumeFailedFaultType type
 type ResumeFailedFaultType struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeFailedFault"`
 
 	*BaseFaultType
 }
 
+// Include type
 type Include struct {
 	Href AnyURI `xml:"href,attr,omitempty"`
 }
@@ -967,8 +1135,10 @@ type Include struct {
 // Tokens should be assigned such that they are unique within a device. Tokens must be at least unique within its class.
 // Length up to 64 characters.
 
+// ReferenceToken type
 type ReferenceToken string
 
+// MoveStatus type
 type MoveStatus string
 
 const (
@@ -979,6 +1149,7 @@ const (
 	MoveStatusUNKNOWN MoveStatus = "UNKNOWN"
 )
 
+// Entity type
 type Entity string
 
 const (
@@ -989,12 +1160,14 @@ const (
 	EntityAudioSource Entity = "AudioSource"
 )
 
+// IntRange type
 type IntRange struct {
 	Min int32 `xml:"http://www.onvif.org/ver10/schema Min,omitempty"`
 
 	Max int32 `xml:"http://www.onvif.org/ver10/schema Max,omitempty"`
 }
 
+// Vector2D type
 type Vector2D struct {
 	X float32 `xml:"x,attr,omitempty"`
 
@@ -1007,6 +1180,7 @@ type Vector2D struct {
 	Space AnyURI `xml:"space,attr,omitempty"`
 }
 
+// Vector1D type
 type Vector1D struct {
 	X float32 `xml:"x,attr,omitempty"`
 
@@ -1017,6 +1191,7 @@ type Vector1D struct {
 	Space AnyURI `xml:"space,attr,omitempty"`
 }
 
+// PTZVector type
 type PTZVector struct {
 
 	// Pan and tilt position. The x component corresponds to pan and the y component to tilt.
@@ -1028,6 +1203,7 @@ type PTZVector struct {
 	Zoom Vector1D `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
 }
 
+// PTZStatus type
 type PTZStatus struct {
 
 	//
@@ -1051,18 +1227,21 @@ type PTZStatus struct {
 	UtcTime string `xml:"http://www.onvif.org/ver10/schema UtcTime,omitempty"`
 }
 
+// PTZMoveStatus type
 type PTZMoveStatus struct {
 	PanTilt MoveStatus `xml:"http://www.onvif.org/ver10/schema PanTilt,omitempty"`
 
 	Zoom MoveStatus `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
 }
 
+// Vector type
 type Vector struct {
 	X float32 `xml:"x,attr,omitempty"`
 
 	Y float32 `xml:"y,attr,omitempty"`
 }
 
+// Rectangle type
 type Rectangle struct {
 	Bottom float32 `xml:"bottom,attr,omitempty"`
 
@@ -1073,10 +1252,12 @@ type Rectangle struct {
 	Left float32 `xml:"left,attr,omitempty"`
 }
 
+// Polygon type
 type Polygon struct {
-	Point Vector `xml:"http://www.onvif.org/ver10/schema Point,omitempty"`
+	Point []Vector `xml:"http://www.onvif.org/ver10/schema Point,omitempty"`
 }
 
+// Color type
 type Color struct {
 	X float32 `xml:"http://www.onvif.org/ver10/schema X,attr,omitempty"`
 
@@ -1098,6 +1279,7 @@ type Color struct {
 
 // Removed ColorCovariance by fixgen.py
 
+// Transformation type
 type Transformation struct {
 	Translate Vector `xml:"http://www.onvif.org/ver10/schema Translate,omitempty"`
 
@@ -1106,9 +1288,11 @@ type Transformation struct {
 	Extension TransformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// TransformationExtension type
 type TransformationExtension struct {
 }
 
+// GeoLocation type
 type GeoLocation struct {
 
 	// East west location as angle.
@@ -1124,6 +1308,7 @@ type GeoLocation struct {
 	Elevation float32 `xml:"elevation,attr,omitempty"`
 }
 
+// GeoOrientation type
 type GeoOrientation struct {
 
 	// Rotation around the x axis.
@@ -1139,6 +1324,7 @@ type GeoOrientation struct {
 	Yaw float32 `xml:"yaw,attr,omitempty"`
 }
 
+// LocalLocation type
 type LocalLocation struct {
 
 	// East west location as angle.
@@ -1154,6 +1340,7 @@ type LocalLocation struct {
 	Z float32 `xml:"z,attr,omitempty"`
 }
 
+// LocalOrientation type
 type LocalOrientation struct {
 
 	// Rotation around the y axis.
@@ -1173,16 +1360,22 @@ type LocalOrientation struct {
 
 // User readable name. Length up to 64 characters.
 
+// Name type
 type Name string
 
+// IntAttrList type
 type IntAttrList []int32
 
+// FloatAttrList type
 type FloatAttrList []float32
 
+// StringAttrList type
 type StringAttrList []string
 
+// ReferenceTokenList type
 type ReferenceTokenList []ReferenceToken
 
+// RotateMode type
 type RotateMode string
 
 const (
@@ -1197,6 +1390,7 @@ const (
 	RotateModeAUTO RotateMode = "AUTO"
 )
 
+// SceneOrientationMode type
 type SceneOrientationMode string
 
 const (
@@ -1205,6 +1399,7 @@ const (
 	SceneOrientationModeAUTO SceneOrientationMode = "AUTO"
 )
 
+// SceneOrientationOption type
 type SceneOrientationOption string
 
 const (
@@ -1217,6 +1412,7 @@ const (
 
 // Source view modes supported by device.
 
+// ViewModes type
 type ViewModes string
 
 const (
@@ -1246,6 +1442,7 @@ const (
 	ViewModesTtDewarp ViewModes = "tt:Dewarp"
 )
 
+// VideoEncoding type
 type VideoEncoding string
 
 const (
@@ -1256,6 +1453,7 @@ const (
 	VideoEncodingH264 VideoEncoding = "H264"
 )
 
+// Mpeg4Profile type
 type Mpeg4Profile string
 
 const (
@@ -1264,6 +1462,7 @@ const (
 	Mpeg4ProfileASP Mpeg4Profile = "ASP"
 )
 
+// H264Profile type
 type H264Profile string
 
 const (
@@ -1278,6 +1477,7 @@ const (
 
 // Video Media Subtypes as referenced by IANA (without the leading "video/" Video Media Type).  See also .
 
+// VideoEncodingMimeNames type
 type VideoEncodingMimeNames string
 
 const (
@@ -1290,6 +1490,7 @@ const (
 	VideoEncodingMimeNamesH265 VideoEncodingMimeNames = "H265"
 )
 
+// VideoEncodingProfiles type
 type VideoEncodingProfiles string
 
 const (
@@ -1308,6 +1509,7 @@ const (
 	VideoEncodingProfilesHigh VideoEncodingProfiles = "High"
 )
 
+// AudioEncoding type
 type AudioEncoding string
 
 const (
@@ -1320,6 +1522,7 @@ const (
 
 // Audio Media Subtypes as referenced by IANA (without the leading "audio/" Audio Media Type).  See also .
 
+// AudioEncodingMimeNames type
 type AudioEncodingMimeNames string
 
 const (
@@ -1332,6 +1535,7 @@ const (
 	AudioEncodingMimeNamesMpeg4generic AudioEncodingMimeNames = "mpeg4-generic"
 )
 
+// MetadataCompressionType type
 type MetadataCompressionType string
 
 const (
@@ -1342,6 +1546,7 @@ const (
 	MetadataCompressionTypeEXI MetadataCompressionType = "EXI"
 )
 
+// StreamType type
 type StreamType string
 
 const (
@@ -1350,6 +1555,7 @@ const (
 	StreamTypeRTPMulticast StreamType = "RTP-Multicast"
 )
 
+// TransportProtocol type
 type TransportProtocol string
 
 const (
@@ -1363,6 +1569,7 @@ const (
 	TransportProtocolHTTP TransportProtocol = "HTTP"
 )
 
+// ScopeDefinition type
 type ScopeDefinition string
 
 const (
@@ -1371,6 +1578,7 @@ const (
 	ScopeDefinitionConfigurable ScopeDefinition = "Configurable"
 )
 
+// DiscoveryMode type
 type DiscoveryMode string
 
 const (
@@ -1379,8 +1587,10 @@ const (
 	DiscoveryModeNonDiscoverable DiscoveryMode = "NonDiscoverable"
 )
 
+// NetworkInterfaceConfigPriority type
 type NetworkInterfaceConfigPriority int32
 
+// Duplex type
 type Duplex string
 
 const (
@@ -1389,8 +1599,10 @@ const (
 	DuplexHalf Duplex = "Half"
 )
 
+// IANAIfTypes type
 type IANAIfTypes int32
 
+// IPv6DHCPConfiguration type
 type IPv6DHCPConfiguration string
 
 const (
@@ -1403,6 +1615,7 @@ const (
 	IPv6DHCPConfigurationOff IPv6DHCPConfiguration = "Off"
 )
 
+// NetworkProtocolType type
 type NetworkProtocolType string
 
 const (
@@ -1413,6 +1626,7 @@ const (
 	NetworkProtocolTypeRTSP NetworkProtocolType = "RTSP"
 )
 
+// NetworkHostType type
 type NetworkHostType string
 
 const (
@@ -1423,12 +1637,16 @@ const (
 	NetworkHostTypeDNS NetworkHostType = "DNS"
 )
 
+// IPv4Address type
 type IPv4Address string
 
+// IPv6Address type
 type IPv6Address string
 
+// HwAddress type
 type HwAddress string
 
+// IPType type
 type IPType string
 
 const (
@@ -1437,10 +1655,13 @@ const (
 	IPTypeIPv6 IPType = "IPv6"
 )
 
+// DNSName type
 type DNSName string
 
+// Domain type
 type Domain string
 
+// IPAddressFilterType type
 type IPAddressFilterType string
 
 const (
@@ -1449,6 +1670,7 @@ const (
 	IPAddressFilterTypeDeny IPAddressFilterType = "Deny"
 )
 
+// DynamicDNSType type
 type DynamicDNSType string
 
 const (
@@ -1459,8 +1681,10 @@ const (
 	DynamicDNSTypeServerUpdates DynamicDNSType = "ServerUpdates"
 )
 
+// Dot11SSIDType type
 type Dot11SSIDType []byte
 
+// Dot11StationMode type
 type Dot11StationMode string
 
 const (
@@ -1471,6 +1695,7 @@ const (
 	Dot11StationModeExtended Dot11StationMode = "Extended"
 )
 
+// Dot11SecurityMode type
 type Dot11SecurityMode string
 
 const (
@@ -1485,6 +1710,7 @@ const (
 	Dot11SecurityModeExtended Dot11SecurityMode = "Extended"
 )
 
+// Dot11Cipher type
 type Dot11Cipher string
 
 const (
@@ -1497,10 +1723,13 @@ const (
 	Dot11CipherExtended Dot11Cipher = "Extended"
 )
 
+// Dot11PSK type
 type Dot11PSK []byte
 
+// Dot11PSKPassphrase type
 type Dot11PSKPassphrase string
 
+// Dot11SignalStrength type
 type Dot11SignalStrength string
 
 const (
@@ -1517,6 +1746,7 @@ const (
 	Dot11SignalStrengthExtended Dot11SignalStrength = "Extended"
 )
 
+// Dot11AuthAndMangementSuite type
 type Dot11AuthAndMangementSuite string
 
 const (
@@ -1529,6 +1759,7 @@ const (
 	Dot11AuthAndMangementSuiteExtended Dot11AuthAndMangementSuite = "Extended"
 )
 
+// CapabilityCategory type
 type CapabilityCategory string
 
 const (
@@ -1549,6 +1780,7 @@ const (
 
 // Enumeration describing the available system log modes.
 
+// SystemLogType type
 type SystemLogType string
 
 const (
@@ -1562,6 +1794,7 @@ const (
 
 // Enumeration describing the available factory default modes.
 
+// FactoryDefaultType type
 type FactoryDefaultType string
 
 const (
@@ -1573,6 +1806,7 @@ const (
 	FactoryDefaultTypeSoft FactoryDefaultType = "Soft"
 )
 
+// SetDateTimeType type
 type SetDateTimeType string
 
 const (
@@ -1584,6 +1818,7 @@ const (
 	SetDateTimeTypeNTP SetDateTimeType = "NTP"
 )
 
+// UserLevel type
 type UserLevel string
 
 const (
@@ -1598,6 +1833,7 @@ const (
 	UserLevelExtended UserLevel = "Extended"
 )
 
+// RelayLogicalState type
 type RelayLogicalState string
 
 const (
@@ -1606,6 +1842,7 @@ const (
 	RelayLogicalStateInactive RelayLogicalState = "inactive"
 )
 
+// RelayIdleState type
 type RelayIdleState string
 
 const (
@@ -1614,6 +1851,7 @@ const (
 	RelayIdleStateOpen RelayIdleState = "open"
 )
 
+// RelayMode type
 type RelayMode string
 
 const (
@@ -1622,6 +1860,7 @@ const (
 	RelayModeBistable RelayMode = "Bistable"
 )
 
+// DigitalIdleState type
 type DigitalIdleState string
 
 const (
@@ -1630,6 +1869,7 @@ const (
 	DigitalIdleStateOpen DigitalIdleState = "open"
 )
 
+// EFlipMode type
 type EFlipMode string
 
 const (
@@ -1640,6 +1880,7 @@ const (
 	EFlipModeExtended EFlipMode = "Extended"
 )
 
+// ReverseMode type
 type ReverseMode string
 
 const (
@@ -1652,8 +1893,10 @@ const (
 	ReverseModeExtended ReverseMode = "Extended"
 )
 
+// AuxiliaryData type
 type AuxiliaryData string
 
+// PTZPresetTourState type
 type PTZPresetTourState string
 
 const (
@@ -1666,6 +1909,7 @@ const (
 	PTZPresetTourStateExtended PTZPresetTourState = "Extended"
 )
 
+// PTZPresetTourDirection type
 type PTZPresetTourDirection string
 
 const (
@@ -1676,6 +1920,7 @@ const (
 	PTZPresetTourDirectionExtended PTZPresetTourDirection = "Extended"
 )
 
+// PTZPresetTourOperation type
 type PTZPresetTourOperation string
 
 const (
@@ -1688,6 +1933,7 @@ const (
 	PTZPresetTourOperationExtended PTZPresetTourOperation = "Extended"
 )
 
+// AutoFocusMode type
 type AutoFocusMode string
 
 const (
@@ -1696,6 +1942,7 @@ const (
 	AutoFocusModeMANUAL AutoFocusMode = "MANUAL"
 )
 
+// AFModes type
 type AFModes string
 
 const (
@@ -1704,6 +1951,7 @@ const (
 	AFModesOnceAfterMove AFModes = "OnceAfterMove"
 )
 
+// WideDynamicMode type
 type WideDynamicMode string
 
 const (
@@ -1714,6 +1962,7 @@ const (
 
 // Enumeration describing the available backlight compenstation modes.
 
+// BacklightCompensationMode type
 type BacklightCompensationMode string
 
 const (
@@ -1725,6 +1974,7 @@ const (
 	BacklightCompensationModeON BacklightCompensationMode = "ON"
 )
 
+// ExposurePriority type
 type ExposurePriority string
 
 const (
@@ -1733,6 +1983,7 @@ const (
 	ExposurePriorityFrameRate ExposurePriority = "FrameRate"
 )
 
+// ExposureMode type
 type ExposureMode string
 
 const (
@@ -1741,6 +1992,7 @@ const (
 	ExposureModeMANUAL ExposureMode = "MANUAL"
 )
 
+// Enabled type
 type Enabled string
 
 const (
@@ -1749,6 +2001,7 @@ const (
 	EnabledDISABLED Enabled = "DISABLED"
 )
 
+// WhiteBalanceMode type
 type WhiteBalanceMode string
 
 const (
@@ -1757,6 +2010,7 @@ const (
 	WhiteBalanceModeMANUAL WhiteBalanceMode = "MANUAL"
 )
 
+// IrCutFilterMode type
 type IrCutFilterMode string
 
 const (
@@ -1767,6 +2021,7 @@ const (
 	IrCutFilterModeAUTO IrCutFilterMode = "AUTO"
 )
 
+// ImageStabilizationMode type
 type ImageStabilizationMode string
 
 const (
@@ -1779,6 +2034,7 @@ const (
 	ImageStabilizationModeExtended ImageStabilizationMode = "Extended"
 )
 
+// IrCutFilterAutoBoundaryType type
 type IrCutFilterAutoBoundaryType string
 
 const (
@@ -1791,6 +2047,7 @@ const (
 	IrCutFilterAutoBoundaryTypeExtended IrCutFilterAutoBoundaryType = "Extended"
 )
 
+// ToneCompensationMode type
 type ToneCompensationMode string
 
 const (
@@ -1801,6 +2058,7 @@ const (
 	ToneCompensationModeAUTO ToneCompensationMode = "AUTO"
 )
 
+// DefoggingMode type
 type DefoggingMode string
 
 const (
@@ -1811,8 +2069,10 @@ const (
 	DefoggingModeAUTO DefoggingMode = "AUTO"
 )
 
+// TopicNamespaceLocation type
 type TopicNamespaceLocation AnyURI
 
+// PropertyOperation type
 type PropertyOperation string
 
 const (
@@ -1823,6 +2083,7 @@ const (
 	PropertyOperationChanged PropertyOperation = "Changed"
 )
 
+// Direction type
 type Direction string
 
 const (
@@ -1837,6 +2098,7 @@ const (
 // Specifies a receiver connection mode.
 //
 
+// ReceiverMode type
 type ReceiverMode string
 
 const (
@@ -1858,6 +2120,7 @@ const (
 // Specifies the current connection state of the receiver.
 //
 
+// ReceiverState type
 type ReceiverState string
 
 const (
@@ -1875,16 +2138,22 @@ const (
 	ReceiverStateUnknown ReceiverState = "Unknown"
 )
 
-type ReceiverReference *ReferenceToken
+// ReceiverReference type
+type ReceiverReference ReferenceToken
 
-type RecordingReference *ReferenceToken
+// RecordingReference type
+type RecordingReference ReferenceToken
 
-type TrackReference *ReferenceToken
+// TrackReference type
+type TrackReference ReferenceToken
 
+// Description type
 type Description string
 
+// XPathExpression type
 type XPathExpression string
 
+// SearchState type
 type SearchState string
 
 const (
@@ -1902,8 +2171,10 @@ const (
 	SearchStateUnknown SearchState = "Unknown"
 )
 
-type JobToken *ReferenceToken
+// JobToken type
+type JobToken ReferenceToken
 
+// RecordingStatus type
 type RecordingStatus string
 
 const (
@@ -1921,6 +2192,7 @@ const (
 	RecordingStatusUnknown RecordingStatus = "Unknown"
 )
 
+// TrackType type
 type TrackType string
 
 const (
@@ -1934,12 +2206,16 @@ const (
 	TrackTypeExtended TrackType = "Extended"
 )
 
-type RecordingJobReference *ReferenceToken
+// RecordingJobReference type
+type RecordingJobReference ReferenceToken
 
+// RecordingJobMode type
 type RecordingJobMode string
 
+// RecordingJobState type
 type RecordingJobState string
 
+// ModeOfOperation type
 type ModeOfOperation string
 
 const (
@@ -1956,8 +2232,10 @@ const (
 // gun_shot, scream, glass_breaking, tire_screech
 //
 
+// AudioClassType type
 type AudioClassType string
 
+// OSDType type
 type OSDType string
 
 const (
@@ -1968,14 +2246,17 @@ const (
 	OSDTypeExtended OSDType = "Extended"
 )
 
+// StringItems type
 type StringItems struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema StringItems"`
 
-	Item string `xml:"http://www.onvif.org/ver10/schema Item,omitempty"`
+	Item []string `xml:"http://www.onvif.org/ver10/schema Item,omitempty"`
 }
 
+// StringList type
 type StringList StringAttrList
 
+// Message type
 type Message struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema Message"`
 
@@ -1993,6 +2274,7 @@ type Message struct {
 	PropertyOperation PropertyOperation `xml:"http://www.onvif.org/ver10/schema PropertyOperation,attr,omitempty"`
 }
 
+// DeviceEntity type
 type DeviceEntity struct {
 
 	// Unique identifier referencing the physical entity.
@@ -2000,6 +2282,7 @@ type DeviceEntity struct {
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
 
+// IntRectangle type
 type IntRectangle struct {
 	X int32 `xml:"x,attr,omitempty"`
 
@@ -2010,6 +2293,7 @@ type IntRectangle struct {
 	Height int32 `xml:"height,attr,omitempty"`
 }
 
+// IntRectangleRange type
 type IntRectangleRange struct {
 
 	// Range of X-axis.
@@ -2025,26 +2309,30 @@ type IntRectangleRange struct {
 	HeightRange IntRange `xml:"http://www.onvif.org/ver10/schema HeightRange,omitempty"`
 }
 
+// FloatRange type
 type FloatRange struct {
 	Min float32 `xml:"http://www.onvif.org/ver10/schema Min,omitempty"`
 
 	Max float32 `xml:"http://www.onvif.org/ver10/schema Max,omitempty"`
 }
 
+// DurationRange type
 type DurationRange struct {
 	Min Duration `xml:"http://www.onvif.org/ver10/schema Min,omitempty"`
 
 	Max Duration `xml:"http://www.onvif.org/ver10/schema Max,omitempty"`
 }
 
+// IntList type
 type IntList struct {
-	Items int32 `xml:"http://www.onvif.org/ver10/schema Items,omitempty"`
+	Items []int32 `xml:"http://www.onvif.org/ver10/schema Items,omitempty"`
 }
 
 // Removed FloatList by fixgen.py
 
 // Removed AnyHolder by fixgen.py
 
+// VideoSource type
 type VideoSource struct {
 	*DeviceEntity
 
@@ -2060,6 +2348,7 @@ type VideoSource struct {
 	Extension VideoSourceExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// VideoSourceExtension type
 type VideoSourceExtension struct {
 
 	// Optional configuration of the image sensor. To be used if imaging service 2.00 is supported.
@@ -2068,9 +2357,11 @@ type VideoSourceExtension struct {
 	Extension VideoSourceExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// VideoSourceExtension2 type
 type VideoSourceExtension2 struct {
 }
 
+// AudioSource type
 type AudioSource struct {
 	*DeviceEntity
 
@@ -2078,6 +2369,7 @@ type AudioSource struct {
 	Channels int32 `xml:"http://www.onvif.org/ver10/schema Channels,omitempty"`
 }
 
+// Profile type
 type Profile struct {
 
 	// User readable name of the profile.
@@ -2116,6 +2408,7 @@ type Profile struct {
 	Fixed bool `xml:"fixed,attr,omitempty"`
 }
 
+// ProfileExtension type
 type ProfileExtension struct {
 
 	// Optional configuration of the Audio output.
@@ -2127,9 +2420,11 @@ type ProfileExtension struct {
 	Extension ProfileExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ProfileExtension2 type
 type ProfileExtension2 struct {
 }
 
+// ConfigurationEntity type
 type ConfigurationEntity struct {
 
 	// User readable name. Length up to 64 characters.
@@ -2143,6 +2438,7 @@ type ConfigurationEntity struct {
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
 
+// VideoSourceConfiguration type
 type VideoSourceConfiguration struct {
 	*ConfigurationEntity
 
@@ -2159,6 +2455,7 @@ type VideoSourceConfiguration struct {
 	ViewMode string `xml:"http://www.onvif.org/ver10/schema ViewMode,attr,omitempty"`
 }
 
+// VideoSourceConfigurationExtension type
 type VideoSourceConfigurationExtension struct {
 
 	// Optional element to configure rotation of captured image.
@@ -2172,15 +2469,17 @@ type VideoSourceConfigurationExtension struct {
 	Extension VideoSourceConfigurationExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// VideoSourceConfigurationExtension2 type
 type VideoSourceConfigurationExtension2 struct {
 
 	// Optional element describing the geometric lens distortion. Multiple instances for future variable lens support.
-	LensDescription LensDescription `xml:"http://www.onvif.org/ver10/schema LensDescription,omitempty"`
+	LensDescription []LensDescription `xml:"http://www.onvif.org/ver10/schema LensDescription,omitempty"`
 
 	// Optional element describing the scene orientation in the camera’s field of view.
 	SceneOrientation SceneOrientation `xml:"http://www.onvif.org/ver10/schema SceneOrientation,omitempty"`
 }
 
+// Rotate type
 type Rotate struct {
 
 	// Parameter to enable/disable Rotation feature.
@@ -2192,9 +2491,11 @@ type Rotate struct {
 	Extension RotateExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// RotateExtension type
 type RotateExtension struct {
 }
 
+// LensProjection type
 type LensProjection struct {
 
 	// Angle of incidence.
@@ -2207,6 +2508,7 @@ type LensProjection struct {
 	Transmittance float32 `xml:"http://www.onvif.org/ver10/schema Transmittance,omitempty"`
 }
 
+// LensOffset type
 type LensOffset struct {
 
 	// Optional horizontal offset of the lens center in normalized coordinates.
@@ -2218,6 +2520,7 @@ type LensOffset struct {
 	Y float32 `xml:"y,attr,omitempty"`
 }
 
+// LensDescription type
 type LensDescription struct {
 
 	// Offset of the lens center to the imager center in normalized coordinates.
@@ -2226,7 +2529,7 @@ type LensDescription struct {
 	// Radial description of the projection characteristics. The resulting curve is defined by the B-Spline interpolation
 	// over the given elements. The element for Radius zero shall not be provided. The projection points shall be ordered with ascending Radius.
 	// Items outside the last projection Radius shall be assumed to be invisible (black).
-	Projection LensProjection `xml:"http://www.onvif.org/ver10/schema Projection,omitempty"`
+	Projection []LensProjection `xml:"http://www.onvif.org/ver10/schema Projection,omitempty"`
 
 	// Compensation of the x coordinate needed for the ONVIF normalized coordinate system.
 	XFactor float32 `xml:"http://www.onvif.org/ver10/schema XFactor,omitempty"`
@@ -2236,6 +2539,7 @@ type LensDescription struct {
 	FocalLength float32 `xml:"http://www.onvif.org/ver10/schema FocalLength,attr,omitempty"`
 }
 
+// VideoSourceConfigurationOptions type
 type VideoSourceConfigurationOptions struct {
 
 	//
@@ -2246,7 +2550,7 @@ type VideoSourceConfigurationOptions struct {
 	BoundsRange IntRectangleRange `xml:"http://www.onvif.org/ver10/schema BoundsRange,omitempty"`
 
 	// List of physical inputs.
-	VideoSourceTokensAvailable ReferenceToken `xml:"http://www.onvif.org/ver10/schema VideoSourceTokensAvailable,omitempty"`
+	VideoSourceTokensAvailable []ReferenceToken `xml:"http://www.onvif.org/ver10/schema VideoSourceTokensAvailable,omitempty"`
 
 	Extension VideoSourceConfigurationOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 
@@ -2255,6 +2559,7 @@ type VideoSourceConfigurationOptions struct {
 	MaximumNumberOfProfiles int32 `xml:"http://www.onvif.org/ver10/schema MaximumNumberOfProfiles,attr,omitempty"`
 }
 
+// VideoSourceConfigurationOptionsExtension type
 type VideoSourceConfigurationOptionsExtension struct {
 
 	// Options of parameters for Rotation feature.
@@ -2263,16 +2568,18 @@ type VideoSourceConfigurationOptionsExtension struct {
 	Extension VideoSourceConfigurationOptionsExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// VideoSourceConfigurationOptionsExtension2 type
 type VideoSourceConfigurationOptionsExtension2 struct {
 
 	// Scene orientation modes supported by the device for this configuration.
-	SceneOrientationMode SceneOrientationMode `xml:"http://www.onvif.org/ver10/schema SceneOrientationMode,omitempty"`
+	SceneOrientationMode []SceneOrientationMode `xml:"http://www.onvif.org/ver10/schema SceneOrientationMode,omitempty"`
 }
 
+// RotateOptions type
 type RotateOptions struct {
 
 	// Supported options of Rotate mode parameter.
-	Mode RotateMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []RotateMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	// List of supported degree value for rotation.
 	DegreeList IntList `xml:"http://www.onvif.org/ver10/schema DegreeList,omitempty"`
@@ -2285,9 +2592,11 @@ type RotateOptions struct {
 	Reboot bool `xml:"http://www.onvif.org/ver10/search/wsdl Reboot,attr,omitempty"`
 }
 
+// RotateOptionsExtension type
 type RotateOptionsExtension struct {
 }
 
+// SceneOrientation type
 type SceneOrientation struct {
 
 	//
@@ -2303,6 +2612,7 @@ type SceneOrientation struct {
 	Orientation string `xml:"http://www.onvif.org/ver10/schema Orientation,omitempty"`
 }
 
+// VideoEncoderConfiguration type
 type VideoEncoderConfiguration struct {
 	*ConfigurationEntity
 
@@ -2339,6 +2649,7 @@ type VideoEncoderConfiguration struct {
 	GuaranteedFrameRate bool `xml:"http://www.onvif.org/ver10/search/wsdl GuaranteedFrameRate,attr,omitempty"`
 }
 
+// VideoResolution type
 type VideoResolution struct {
 
 	// Number of the columns of the Video image.
@@ -2348,6 +2659,7 @@ type VideoResolution struct {
 	Height int32 `xml:"http://www.onvif.org/ver10/schema Height,omitempty"`
 }
 
+// VideoRateControl type
 type VideoRateControl struct {
 
 	// Maximum output framerate in fps. If an EncodingInterval is provided the resulting encoded framerate will be reduced by the given factor.
@@ -2360,6 +2672,7 @@ type VideoRateControl struct {
 	BitrateLimit int32 `xml:"http://www.onvif.org/ver10/schema BitrateLimit,omitempty"`
 }
 
+// Mpeg4Configuration type
 type Mpeg4Configuration struct {
 
 	// Determines the interval in which the I-Frames will be coded. An entry of 1 indicates I-Frames are continuously generated. An entry of 2 indicates that every 2nd image is an I-Frame, and 3 only every 3rd frame, etc. The frames in between are coded as P or B Frames.
@@ -2369,6 +2682,7 @@ type Mpeg4Configuration struct {
 	Mpeg4Profile Mpeg4Profile `xml:"http://www.onvif.org/ver10/schema Mpeg4Profile,omitempty"`
 }
 
+// H264Configuration type
 type H264Configuration struct {
 
 	// Group of Video frames length. Determines typically the interval in which the I-Frames will be coded. An entry of 1 indicates I-Frames are continuously generated. An entry of 2 indicates that every 2nd image is an I-Frame, and 3 only every 3rd frame, etc. The frames in between are coded as P or B Frames.
@@ -2380,6 +2694,7 @@ type H264Configuration struct {
 
 // Removed VideoEncoderConfigurationOptions by fixgen.py
 
+// VideoEncoderOptionsExtension type
 type VideoEncoderOptionsExtension struct {
 
 	// Optional JPEG encoder settings ranges.
@@ -2394,13 +2709,15 @@ type VideoEncoderOptionsExtension struct {
 	Extension VideoEncoderOptionsExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// VideoEncoderOptionsExtension2 type
 type VideoEncoderOptionsExtension2 struct {
 }
 
+// JpegOptions type
 type JpegOptions struct {
 
 	// List of supported image sizes.
-	ResolutionsAvailable VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
+	ResolutionsAvailable []VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
 
 	// Supported frame rate in fps (frames per second).
 	FrameRateRange IntRange `xml:"http://www.onvif.org/ver10/schema FrameRateRange,omitempty"`
@@ -2409,6 +2726,7 @@ type JpegOptions struct {
 	EncodingIntervalRange IntRange `xml:"http://www.onvif.org/ver10/schema EncodingIntervalRange,omitempty"`
 }
 
+// JpegOptions2 type
 type JpegOptions2 struct {
 	*JpegOptions
 
@@ -2416,10 +2734,11 @@ type JpegOptions2 struct {
 	BitrateRange IntRange `xml:"http://www.onvif.org/ver10/schema BitrateRange,omitempty"`
 }
 
+// Mpeg4Options type
 type Mpeg4Options struct {
 
 	// List of supported image sizes.
-	ResolutionsAvailable VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
+	ResolutionsAvailable []VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
 
 	// Supported group of Video frames length. This value typically corresponds to the I-Frame distance.
 	GovLengthRange IntRange `xml:"http://www.onvif.org/ver10/schema GovLengthRange,omitempty"`
@@ -2431,9 +2750,10 @@ type Mpeg4Options struct {
 	EncodingIntervalRange IntRange `xml:"http://www.onvif.org/ver10/schema EncodingIntervalRange,omitempty"`
 
 	// List of supported MPEG-4 profiles.
-	Mpeg4ProfilesSupported Mpeg4Profile `xml:"http://www.onvif.org/ver10/schema Mpeg4ProfilesSupported,omitempty"`
+	Mpeg4ProfilesSupported []Mpeg4Profile `xml:"http://www.onvif.org/ver10/schema Mpeg4ProfilesSupported,omitempty"`
 }
 
+// Mpeg4Options2 type
 type Mpeg4Options2 struct {
 	*Mpeg4Options
 
@@ -2441,10 +2761,11 @@ type Mpeg4Options2 struct {
 	BitrateRange IntRange `xml:"http://www.onvif.org/ver10/schema BitrateRange,omitempty"`
 }
 
+// H264Options type
 type H264Options struct {
 
 	// List of supported image sizes.
-	ResolutionsAvailable VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
+	ResolutionsAvailable []VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
 
 	// Supported group of Video frames length. This value typically corresponds to the I-Frame distance.
 	GovLengthRange IntRange `xml:"http://www.onvif.org/ver10/schema GovLengthRange,omitempty"`
@@ -2456,9 +2777,10 @@ type H264Options struct {
 	EncodingIntervalRange IntRange `xml:"http://www.onvif.org/ver10/schema EncodingIntervalRange,omitempty"`
 
 	// List of supported H.264 profiles.
-	H264ProfilesSupported H264Profile `xml:"http://www.onvif.org/ver10/schema H264ProfilesSupported,omitempty"`
+	H264ProfilesSupported []H264Profile `xml:"http://www.onvif.org/ver10/schema H264ProfilesSupported,omitempty"`
 }
 
+// H264Options2 type
 type H264Options2 struct {
 	*H264Options
 
@@ -2468,6 +2790,7 @@ type H264Options2 struct {
 
 // Removed VideoEncoder2Configuration by fixgen.py
 
+// VideoResolution2 type
 type VideoResolution2 struct {
 
 	// Number of the columns of the Video image.
@@ -2481,6 +2804,7 @@ type VideoResolution2 struct {
 
 // Removed VideoEncoder2ConfigurationOptions by fixgen.py
 
+// AudioSourceConfiguration type
 type AudioSourceConfiguration struct {
 	*ConfigurationEntity
 
@@ -2492,6 +2816,7 @@ type AudioSourceConfiguration struct {
 
 // Removed AudioSourceOptionsExtension by fixgen.py
 
+// AudioEncoderConfiguration type
 type AudioEncoderConfiguration struct {
 	*ConfigurationEntity
 
@@ -2511,12 +2836,14 @@ type AudioEncoderConfiguration struct {
 	SessionTimeout Duration `xml:"http://www.onvif.org/ver10/schema SessionTimeout,omitempty"`
 }
 
+// AudioEncoderConfigurationOptions type
 type AudioEncoderConfigurationOptions struct {
 
 	// list of supported AudioEncoderConfigurations
-	Options AudioEncoderConfigurationOption `xml:"http://www.onvif.org/ver10/schema Options,omitempty"`
+	Options []AudioEncoderConfigurationOption `xml:"http://www.onvif.org/ver10/schema Options,omitempty"`
 }
 
+// AudioEncoderConfigurationOption type
 type AudioEncoderConfigurationOption struct {
 
 	// The enoding used for audio data (either G.711, G.726 or AAC)
@@ -2533,6 +2860,7 @@ type AudioEncoderConfigurationOption struct {
 
 // Removed AudioEncoder2ConfigurationOptions by fixgen.py
 
+// VideoAnalyticsConfiguration type
 type VideoAnalyticsConfiguration struct {
 	*ConfigurationEntity
 
@@ -2541,6 +2869,7 @@ type VideoAnalyticsConfiguration struct {
 	RuleEngineConfiguration RuleEngineConfiguration `xml:"http://www.onvif.org/ver10/schema RuleEngineConfiguration,omitempty"`
 }
 
+// MetadataConfiguration type
 type MetadataConfiguration struct {
 	*ConfigurationEntity
 
@@ -2574,9 +2903,11 @@ type MetadataConfiguration struct {
 	GeoLocation bool `xml:"http://www.onvif.org/ver10/search/wsdl GeoLocation,attr,omitempty"`
 }
 
+// MetadataConfigurationExtension type
 type MetadataConfigurationExtension struct {
 }
 
+// PTZFilter type
 type PTZFilter struct {
 
 	// True if the metadata stream shall contain the PTZ status (IDLE, MOVING or UNKNOWN)
@@ -2586,6 +2917,7 @@ type PTZFilter struct {
 	Position bool `xml:"http://www.onvif.org/ver10/search/wsdl Position,omitempty"`
 }
 
+// EventSubscription type
 type EventSubscription struct {
 	Filter FilterType `xml:"Filter,omitempty"`
 
@@ -2593,6 +2925,7 @@ type EventSubscription struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
 }
 
+// MetadataConfigurationOptions type
 type MetadataConfigurationOptions struct {
 	PTZStatusFilterOptions PTZStatusFilterOptions `xml:"http://www.onvif.org/ver10/schema PTZStatusFilterOptions,omitempty"`
 
@@ -2603,17 +2936,20 @@ type MetadataConfigurationOptions struct {
 	GeoLocation bool `xml:"http://www.onvif.org/ver10/search/wsdl GeoLocation,attr,omitempty"`
 }
 
+// MetadataConfigurationOptionsExtension type
 type MetadataConfigurationOptionsExtension struct {
 
 	// List of supported metadata compression type. Its options shall be chosen from tt:MetadataCompressionType.
-	CompressionType string `xml:"http://www.onvif.org/ver10/schema CompressionType,omitempty"`
+	CompressionType []string `xml:"http://www.onvif.org/ver10/schema CompressionType,omitempty"`
 
 	Extension MetadataConfigurationOptionsExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// MetadataConfigurationOptionsExtension2 type
 type MetadataConfigurationOptionsExtension2 struct {
 }
 
+// PTZStatusFilterOptions type
 type PTZStatusFilterOptions struct {
 
 	// True if the device is able to stream pan or tilt status information.
@@ -2631,9 +2967,11 @@ type PTZStatusFilterOptions struct {
 	Extension PTZStatusFilterOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZStatusFilterOptionsExtension type
 type PTZStatusFilterOptionsExtension struct {
 }
 
+// VideoOutput type
 type VideoOutput struct {
 	*DeviceEntity
 
@@ -2651,6 +2989,7 @@ type VideoOutput struct {
 	Extension VideoOutputExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// VideoOutputExtension type
 type VideoOutputExtension struct {
 }
 
@@ -2658,6 +2997,7 @@ type VideoOutputExtension struct {
 
 // Removed VideoOutputConfigurationOptions by fixgen.py
 
+// VideoDecoderConfigurationOptions type
 type VideoDecoderConfigurationOptions struct {
 
 	// If the device is able to decode Jpeg streams this element describes the supported codecs and configurations
@@ -2672,13 +3012,14 @@ type VideoDecoderConfigurationOptions struct {
 	Extension VideoDecoderConfigurationOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// H264DecOptions type
 type H264DecOptions struct {
 
 	// List of supported H.264 Video Resolutions
-	ResolutionsAvailable VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
+	ResolutionsAvailable []VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
 
 	// List of supported H264 Profiles (either baseline, main, extended or high)
-	SupportedH264Profiles H264Profile `xml:"http://www.onvif.org/ver10/schema SupportedH264Profiles,omitempty"`
+	SupportedH264Profiles []H264Profile `xml:"http://www.onvif.org/ver10/schema SupportedH264Profiles,omitempty"`
 
 	// Supported H.264 bitrate range in kbps
 	SupportedInputBitrate IntRange `xml:"http://www.onvif.org/ver10/schema SupportedInputBitrate,omitempty"`
@@ -2687,10 +3028,11 @@ type H264DecOptions struct {
 	SupportedFrameRate IntRange `xml:"http://www.onvif.org/ver10/schema SupportedFrameRate,omitempty"`
 }
 
+// JpegDecOptions type
 type JpegDecOptions struct {
 
 	// List of supported Jpeg Video Resolutions
-	ResolutionsAvailable VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
+	ResolutionsAvailable []VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
 
 	// Supported Jpeg bitrate range in kbps
 	SupportedInputBitrate IntRange `xml:"http://www.onvif.org/ver10/schema SupportedInputBitrate,omitempty"`
@@ -2699,13 +3041,14 @@ type JpegDecOptions struct {
 	SupportedFrameRate IntRange `xml:"http://www.onvif.org/ver10/schema SupportedFrameRate,omitempty"`
 }
 
+// Mpeg4DecOptions type
 type Mpeg4DecOptions struct {
 
 	// List of supported Mpeg4 Video Resolutions
-	ResolutionsAvailable VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
+	ResolutionsAvailable []VideoResolution `xml:"http://www.onvif.org/ver10/schema ResolutionsAvailable,omitempty"`
 
 	// List of supported Mpeg4 Profiles (either SP or ASP)
-	SupportedMpeg4Profiles Mpeg4Profile `xml:"http://www.onvif.org/ver10/schema SupportedMpeg4Profiles,omitempty"`
+	SupportedMpeg4Profiles []Mpeg4Profile `xml:"http://www.onvif.org/ver10/schema SupportedMpeg4Profiles,omitempty"`
 
 	// Supported Mpeg4 bitrate range in kbps
 	SupportedInputBitrate IntRange `xml:"http://www.onvif.org/ver10/schema SupportedInputBitrate,omitempty"`
@@ -2714,13 +3057,16 @@ type Mpeg4DecOptions struct {
 	SupportedFrameRate IntRange `xml:"http://www.onvif.org/ver10/schema SupportedFrameRate,omitempty"`
 }
 
+// VideoDecoderConfigurationOptionsExtension type
 type VideoDecoderConfigurationOptionsExtension struct {
 }
 
+// AudioOutput type
 type AudioOutput struct {
 	*DeviceEntity
 }
 
+// AudioOutputConfiguration type
 type AudioOutputConfiguration struct {
 	*ConfigurationEntity
 
@@ -2744,10 +3090,12 @@ type AudioOutputConfiguration struct {
 
 // Removed AudioOutputConfigurationOptions by fixgen.py
 
+// AudioDecoderConfiguration type
 type AudioDecoderConfiguration struct {
 	*ConfigurationEntity
 }
 
+// AudioDecoderConfigurationOptions type
 type AudioDecoderConfigurationOptions struct {
 
 	// If the device is able to decode AAC encoded audio this section describes the supported configurations
@@ -2762,6 +3110,7 @@ type AudioDecoderConfigurationOptions struct {
 	Extension AudioDecoderConfigurationOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// G711DecOptions type
 type G711DecOptions struct {
 
 	// List of supported bitrates in kbps
@@ -2771,6 +3120,7 @@ type G711DecOptions struct {
 	SampleRateRange IntList `xml:"http://www.onvif.org/ver10/schema SampleRateRange,omitempty"`
 }
 
+// AACDecOptions type
 type AACDecOptions struct {
 
 	// List of supported bitrates in kbps
@@ -2780,6 +3130,7 @@ type AACDecOptions struct {
 	SampleRateRange IntList `xml:"http://www.onvif.org/ver10/schema SampleRateRange,omitempty"`
 }
 
+// G726DecOptions type
 type G726DecOptions struct {
 
 	// List of supported bitrates in kbps
@@ -2789,9 +3140,11 @@ type G726DecOptions struct {
 	SampleRateRange IntList `xml:"http://www.onvif.org/ver10/schema SampleRateRange,omitempty"`
 }
 
+// AudioDecoderConfigurationOptionsExtension type
 type AudioDecoderConfigurationOptionsExtension struct {
 }
 
+// MulticastConfiguration type
 type MulticastConfiguration struct {
 
 	// The multicast address (if this address is set to 0 no multicast streaming is enaled)
@@ -2807,6 +3160,7 @@ type MulticastConfiguration struct {
 	AutoStart bool `xml:"http://www.onvif.org/ver10/search/wsdl AutoStart,omitempty"`
 }
 
+// StreamSetup type
 type StreamSetup struct {
 
 	// Defines if a multicast or unicast stream is requested
@@ -2815,6 +3169,7 @@ type StreamSetup struct {
 	Transport Transport `xml:"http://www.onvif.org/ver10/schema Transport,omitempty"`
 }
 
+// Transport type
 type Transport struct {
 
 	// Defines the network protocol for streaming, either UDP=RTP/UDP, RTSP=RTP/RTSP/TCP or HTTP=RTP/RTSP/HTTP/TCP
@@ -2826,6 +3181,7 @@ type Transport struct {
 
 // Removed MediaUri by fixgen.py
 
+// Scope type
 type Scope struct {
 
 	// Indicates if the scope is fixed or configurable.
@@ -2835,6 +3191,7 @@ type Scope struct {
 	ScopeItem AnyURI `xml:"http://www.onvif.org/ver10/schema ScopeItem,omitempty"`
 }
 
+// NetworkInterface type
 type NetworkInterface struct {
 	*DeviceEntity
 
@@ -2856,23 +3213,27 @@ type NetworkInterface struct {
 	Extension NetworkInterfaceExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkInterfaceExtension type
 type NetworkInterfaceExtension struct {
 	InterfaceType IANAIfTypes `xml:"InterfaceType,omitempty"`
 
 	// Extension point prepared for future 802.3 configuration.
-	Dot3 Dot3Configuration `xml:"http://www.onvif.org/ver10/schema Dot3,omitempty"`
+	Dot3 []Dot3Configuration `xml:"http://www.onvif.org/ver10/schema Dot3,omitempty"`
 
-	Dot11 Dot11Configuration `xml:"http://www.onvif.org/ver10/schema Dot11,omitempty"`
+	Dot11 []Dot11Configuration `xml:"http://www.onvif.org/ver10/schema Dot11,omitempty"`
 
 	Extension NetworkInterfaceExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// Dot3Configuration type
 type Dot3Configuration struct {
 }
 
+// NetworkInterfaceExtension2 type
 type NetworkInterfaceExtension2 struct {
 }
 
+// NetworkInterfaceLink type
 type NetworkInterfaceLink struct {
 
 	// Configured link settings.
@@ -2885,6 +3246,7 @@ type NetworkInterfaceLink struct {
 	InterfaceType IANAIfTypes `xml:"InterfaceType,omitempty"`
 }
 
+// NetworkInterfaceConnectionSetting type
 type NetworkInterfaceConnectionSetting struct {
 
 	// Auto negotiation on/off.
@@ -2897,6 +3259,7 @@ type NetworkInterfaceConnectionSetting struct {
 	Duplex Duplex `xml:"http://www.onvif.org/ver10/schema Duplex,omitempty"`
 }
 
+// NetworkInterfaceInfo type
 type NetworkInterfaceInfo struct {
 
 	// Network interface name, for example eth0.
@@ -2909,6 +3272,7 @@ type NetworkInterfaceInfo struct {
 	MTU int32 `xml:"http://www.onvif.org/ver10/schema MTU,omitempty"`
 }
 
+// IPv6NetworkInterface type
 type IPv6NetworkInterface struct {
 
 	// Indicates whether or not IPv6 is enabled.
@@ -2918,6 +3282,7 @@ type IPv6NetworkInterface struct {
 	Config IPv6Configuration `xml:"http://www.onvif.org/ver10/schema Config,omitempty"`
 }
 
+// IPv4NetworkInterface type
 type IPv4NetworkInterface struct {
 
 	// Indicates whether or not IPv4 is enabled.
@@ -2927,10 +3292,11 @@ type IPv4NetworkInterface struct {
 	Config IPv4Configuration `xml:"http://www.onvif.org/ver10/schema Config,omitempty"`
 }
 
+// IPv4Configuration type
 type IPv4Configuration struct {
 
 	// List of manually added IPv4 addresses.
-	Manual PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
+	Manual []PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
 
 	// Link local address.
 	LinkLocal PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema LinkLocal,omitempty"`
@@ -2942,6 +3308,7 @@ type IPv4Configuration struct {
 	DHCP bool `xml:"http://www.onvif.org/ver10/search/wsdl DHCP,omitempty"`
 }
 
+// IPv6Configuration type
 type IPv6Configuration struct {
 
 	// Indicates whether router advertisment is used.
@@ -2951,23 +3318,25 @@ type IPv6Configuration struct {
 	DHCP IPv6DHCPConfiguration `xml:"http://www.onvif.org/ver10/schema DHCP,omitempty"`
 
 	// List of manually entered IPv6 addresses.
-	Manual PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
+	Manual []PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
 
 	// List of link local IPv6 addresses.
-	LinkLocal PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema LinkLocal,omitempty"`
+	LinkLocal []PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema LinkLocal,omitempty"`
 
 	// List of IPv6 addresses configured by using DHCP.
-	FromDHCP PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema FromDHCP,omitempty"`
+	FromDHCP []PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema FromDHCP,omitempty"`
 
 	// List of IPv6 addresses configured by using router advertisment.
-	FromRA PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema FromRA,omitempty"`
+	FromRA []PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema FromRA,omitempty"`
 
 	Extension IPv6ConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IPv6ConfigurationExtension type
 type IPv6ConfigurationExtension struct {
 }
 
+// NetworkProtocol type
 type NetworkProtocol struct {
 
 	// Network protocol type string.
@@ -2977,14 +3346,16 @@ type NetworkProtocol struct {
 	Enabled bool `xml:"http://www.onvif.org/ver10/search/wsdl Enabled,omitempty"`
 
 	// The port that is used by the protocol.
-	Port int32 `xml:"http://www.onvif.org/ver10/schema Port,omitempty"`
+	Port []int32 `xml:"http://www.onvif.org/ver10/schema Port,omitempty"`
 
 	Extension NetworkProtocolExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkProtocolExtension type
 type NetworkProtocolExtension struct {
 }
 
+// NetworkHost type
 type NetworkHost struct {
 
 	// Network host type: IPv4, IPv6 or DNS.
@@ -3002,9 +3373,11 @@ type NetworkHost struct {
 	Extension NetworkHostExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkHostExtension type
 type NetworkHostExtension struct {
 }
 
+// IPAddress type
 type IPAddress struct {
 
 	// Indicates if the address is an IPv4 or IPv6 address.
@@ -3017,6 +3390,7 @@ type IPAddress struct {
 	IPv6Address IPv6Address `xml:"http://www.onvif.org/ver10/schema IPv6Address,omitempty"`
 }
 
+// PrefixedIPv4Address type
 type PrefixedIPv4Address struct {
 
 	// IPv4 address
@@ -3026,6 +3400,7 @@ type PrefixedIPv4Address struct {
 	PrefixLength int32 `xml:"http://www.onvif.org/ver10/schema PrefixLength,omitempty"`
 }
 
+// PrefixedIPv6Address type
 type PrefixedIPv6Address struct {
 
 	// IPv6 address
@@ -3035,6 +3410,7 @@ type PrefixedIPv6Address struct {
 	PrefixLength int32 `xml:"http://www.onvif.org/ver10/schema PrefixLength,omitempty"`
 }
 
+// HostnameInformation type
 type HostnameInformation struct {
 
 	// Indicates whether the hostname is obtained from DHCP or not.
@@ -3046,46 +3422,52 @@ type HostnameInformation struct {
 	Extension HostnameInformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// HostnameInformationExtension type
 type HostnameInformationExtension struct {
 }
 
+// DNSInformation type
 type DNSInformation struct {
 
 	// Indicates whether or not DNS information is retrieved from DHCP.
 	FromDHCP bool `xml:"http://www.onvif.org/ver10/search/wsdl FromDHCP,omitempty"`
 
 	// Search domain.
-	SearchDomain string `xml:"http://www.onvif.org/ver10/schema SearchDomain,omitempty"`
+	SearchDomain []string `xml:"http://www.onvif.org/ver10/schema SearchDomain,omitempty"`
 
 	// List of DNS addresses received from DHCP.
-	DNSFromDHCP IPAddress `xml:"http://www.onvif.org/ver10/schema DNSFromDHCP,omitempty"`
+	DNSFromDHCP []IPAddress `xml:"http://www.onvif.org/ver10/schema DNSFromDHCP,omitempty"`
 
 	// List of manually entered DNS addresses.
-	DNSManual IPAddress `xml:"http://www.onvif.org/ver10/schema DNSManual,omitempty"`
+	DNSManual []IPAddress `xml:"http://www.onvif.org/ver10/schema DNSManual,omitempty"`
 
 	Extension DNSInformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// DNSInformationExtension type
 type DNSInformationExtension struct {
 }
 
+// NTPInformation type
 type NTPInformation struct {
 
 	// Indicates if NTP information is to be retrieved by using DHCP.
 	FromDHCP bool `xml:"http://www.onvif.org/ver10/search/wsdl FromDHCP,omitempty"`
 
 	// List of NTP addresses retrieved by using DHCP.
-	NTPFromDHCP NetworkHost `xml:"http://www.onvif.org/ver10/schema NTPFromDHCP,omitempty"`
+	NTPFromDHCP []NetworkHost `xml:"http://www.onvif.org/ver10/schema NTPFromDHCP,omitempty"`
 
 	// List of manually entered NTP addresses.
-	NTPManual NetworkHost `xml:"http://www.onvif.org/ver10/schema NTPManual,omitempty"`
+	NTPManual []NetworkHost `xml:"http://www.onvif.org/ver10/schema NTPManual,omitempty"`
 
 	Extension NTPInformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NTPInformationExtension type
 type NTPInformationExtension struct {
 }
 
+// DynamicDNSInformation type
 type DynamicDNSInformation struct {
 
 	// Dynamic DNS type.
@@ -3100,9 +3482,11 @@ type DynamicDNSInformation struct {
 	Extension DynamicDNSInformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// DynamicDNSInformationExtension type
 type DynamicDNSInformationExtension struct {
 }
 
+// NetworkInterfaceSetConfiguration type
 type NetworkInterfaceSetConfiguration struct {
 
 	// Indicates whether or not an interface is enabled.
@@ -3123,14 +3507,16 @@ type NetworkInterfaceSetConfiguration struct {
 	Extension NetworkInterfaceSetConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkInterfaceSetConfigurationExtension type
 type NetworkInterfaceSetConfigurationExtension struct {
-	Dot3 Dot3Configuration `xml:"http://www.onvif.org/ver10/schema Dot3,omitempty"`
+	Dot3 []Dot3Configuration `xml:"http://www.onvif.org/ver10/schema Dot3,omitempty"`
 
-	Dot11 Dot11Configuration `xml:"http://www.onvif.org/ver10/schema Dot11,omitempty"`
+	Dot11 []Dot11Configuration `xml:"http://www.onvif.org/ver10/schema Dot11,omitempty"`
 
 	Extension NetworkInterfaceSetConfigurationExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IPv6NetworkInterfaceSetConfiguration type
 type IPv6NetworkInterfaceSetConfiguration struct {
 
 	// Indicates whether or not IPv6 is enabled.
@@ -3140,19 +3526,20 @@ type IPv6NetworkInterfaceSetConfiguration struct {
 	AcceptRouterAdvert bool `xml:"http://www.onvif.org/ver10/search/wsdl AcceptRouterAdvert,omitempty"`
 
 	// List of manually added IPv6 addresses.
-	Manual PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
+	Manual []PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
 
 	// DHCP configuration.
 	DHCP IPv6DHCPConfiguration `xml:"http://www.onvif.org/ver10/schema DHCP,omitempty"`
 }
 
+// IPv4NetworkInterfaceSetConfiguration type
 type IPv4NetworkInterfaceSetConfiguration struct {
 
 	// Indicates whether or not IPv4 is enabled.
 	Enabled bool `xml:"http://www.onvif.org/ver10/search/wsdl Enabled,omitempty"`
 
 	// List of manually added IPv4 addresses.
-	Manual PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
+	Manual []PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema Manual,omitempty"`
 
 	// Indicates whether or not DHCP is used.
 	DHCP bool `xml:"http://www.onvif.org/ver10/search/wsdl DHCP,omitempty"`
@@ -3160,6 +3547,7 @@ type IPv4NetworkInterfaceSetConfiguration struct {
 
 // Removed NetworkGateway by fixgen.py
 
+// NetworkZeroConfiguration type
 type NetworkZeroConfiguration struct {
 
 	// Unique identifier of network interface.
@@ -3169,35 +3557,40 @@ type NetworkZeroConfiguration struct {
 	Enabled bool `xml:"http://www.onvif.org/ver10/search/wsdl Enabled,omitempty"`
 
 	// The zero-configuration IPv4 address(es)
-	Addresses IPv4Address `xml:"http://www.onvif.org/ver10/schema Addresses,omitempty"`
+	Addresses []IPv4Address `xml:"http://www.onvif.org/ver10/schema Addresses,omitempty"`
 
 	Extension *NetworkZeroConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkZeroConfigurationExtension type
 type NetworkZeroConfigurationExtension struct {
 
 	// Optional array holding the configuration for the second and possibly further interfaces.
-	Additional NetworkZeroConfiguration `xml:"http://www.onvif.org/ver10/schema Additional,omitempty"`
+	Additional []NetworkZeroConfiguration `xml:"http://www.onvif.org/ver10/schema Additional,omitempty"`
 
 	Extension NetworkZeroConfigurationExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkZeroConfigurationExtension2 type
 type NetworkZeroConfigurationExtension2 struct {
 }
 
+// IPAddressFilter type
 type IPAddressFilter struct {
 	Type IPAddressFilterType `xml:"http://www.onvif.org/ver10/schema Type,omitempty"`
 
-	IPv4Address PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema IPv4Address,omitempty"`
+	IPv4Address []PrefixedIPv4Address `xml:"http://www.onvif.org/ver10/schema IPv4Address,omitempty"`
 
-	IPv6Address PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema IPv6Address,omitempty"`
+	IPv6Address []PrefixedIPv6Address `xml:"http://www.onvif.org/ver10/schema IPv6Address,omitempty"`
 
 	Extension IPAddressFilterExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IPAddressFilterExtension type
 type IPAddressFilterExtension struct {
 }
 
+// Dot11Configuration type
 type Dot11Configuration struct {
 	SSID Dot11SSIDType `xml:"http://www.onvif.org/ver10/schema SSID,omitempty"`
 
@@ -3210,6 +3603,7 @@ type Dot11Configuration struct {
 	Security Dot11SecurityConfiguration `xml:"http://www.onvif.org/ver10/schema Security,omitempty"`
 }
 
+// Dot11SecurityConfiguration type
 type Dot11SecurityConfiguration struct {
 	Mode Dot11SecurityMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
@@ -3222,9 +3616,11 @@ type Dot11SecurityConfiguration struct {
 	Extension Dot11SecurityConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// Dot11SecurityConfigurationExtension type
 type Dot11SecurityConfigurationExtension struct {
 }
 
+// Dot11PSKSet type
 type Dot11PSKSet struct {
 
 	//
@@ -3243,9 +3639,11 @@ type Dot11PSKSet struct {
 	Extension Dot11PSKSetExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// Dot11PSKSetExtension type
 type Dot11PSKSetExtension struct {
 }
 
+// NetworkInterfaceSetConfigurationExtension2 type
 type NetworkInterfaceSetConfigurationExtension2 struct {
 }
 
@@ -3253,23 +3651,25 @@ type NetworkInterfaceSetConfigurationExtension2 struct {
 
 // Removed Dot11Status by fixgen.py
 
+// Dot11AvailableNetworks type
 type Dot11AvailableNetworks struct {
 	SSID Dot11SSIDType `xml:"http://www.onvif.org/ver10/schema SSID,omitempty"`
 
 	BSSID string `xml:"http://www.onvif.org/ver10/schema BSSID,omitempty"`
 
 	// See IEEE802.11 7.3.2.25.2 for details.
-	AuthAndMangementSuite Dot11AuthAndMangementSuite `xml:"http://www.onvif.org/ver10/schema AuthAndMangementSuite,omitempty"`
+	AuthAndMangementSuite []Dot11AuthAndMangementSuite `xml:"http://www.onvif.org/ver10/schema AuthAndMangementSuite,omitempty"`
 
-	PairCipher Dot11Cipher `xml:"http://www.onvif.org/ver10/schema PairCipher,omitempty"`
+	PairCipher []Dot11Cipher `xml:"http://www.onvif.org/ver10/schema PairCipher,omitempty"`
 
-	GroupCipher Dot11Cipher `xml:"http://www.onvif.org/ver10/schema GroupCipher,omitempty"`
+	GroupCipher []Dot11Cipher `xml:"http://www.onvif.org/ver10/schema GroupCipher,omitempty"`
 
 	SignalStrength Dot11SignalStrength `xml:"http://www.onvif.org/ver10/schema SignalStrength,omitempty"`
 
 	Extension Dot11AvailableNetworksExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// Dot11AvailableNetworksExtension type
 type Dot11AvailableNetworksExtension struct {
 }
 
@@ -3296,6 +3696,7 @@ type Dot11AvailableNetworksExtension struct {
 	Extension CapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 } Removed*/
 
+// CapabilitiesExtension type
 type CapabilitiesExtension struct {
 	DeviceIO DeviceIOCapabilities `xml:"http://www.onvif.org/ver10/schema DeviceIO,omitempty"`
 
@@ -3314,9 +3715,11 @@ type CapabilitiesExtension struct {
 	Extensions CapabilitiesExtension2 `xml:"http://www.onvif.org/ver10/schema Extensions,omitempty"`
 }
 
+// CapabilitiesExtension2 type
 type CapabilitiesExtension2 struct {
 }
 
+// AnalyticsCapabilities type
 type AnalyticsCapabilities struct {
 
 	// Analytics service URI.
@@ -3329,6 +3732,7 @@ type AnalyticsCapabilities struct {
 	AnalyticsModuleSupport bool `xml:"http://www.onvif.org/ver10/search/wsdl AnalyticsModuleSupport,omitempty"`
 }
 
+// DeviceCapabilities type
 type DeviceCapabilities struct {
 
 	// Device service URI.
@@ -3349,9 +3753,11 @@ type DeviceCapabilities struct {
 	Extension DeviceCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// DeviceCapabilitiesExtension type
 type DeviceCapabilitiesExtension struct {
 }
 
+// EventCapabilities type
 type EventCapabilities struct {
 
 	// Event service URI.
@@ -3367,6 +3773,7 @@ type EventCapabilities struct {
 	WSPausableSubscriptionManagerInterfaceSupport bool `xml:"http://www.onvif.org/ver10/search/wsdl WSPausableSubscriptionManagerInterfaceSupport,omitempty"`
 }
 
+// IOCapabilities type
 type IOCapabilities struct {
 
 	// Number of input connectors.
@@ -3378,17 +3785,20 @@ type IOCapabilities struct {
 	Extension IOCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IOCapabilitiesExtension type
 type IOCapabilitiesExtension struct {
 	Auxiliary bool `xml:"http://www.onvif.org/ver10/search/wsdl Auxiliary,omitempty"`
 
-	AuxiliaryCommands AuxiliaryData `xml:"http://www.onvif.org/ver10/schema AuxiliaryCommands,omitempty"`
+	AuxiliaryCommands []AuxiliaryData `xml:"http://www.onvif.org/ver10/schema AuxiliaryCommands,omitempty"`
 
 	Extension IOCapabilitiesExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IOCapabilitiesExtension2 type
 type IOCapabilitiesExtension2 struct {
 }
 
+// MediaCapabilities type
 type MediaCapabilities struct {
 
 	// Media service URI.
@@ -3400,10 +3810,12 @@ type MediaCapabilities struct {
 	Extension MediaCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// MediaCapabilitiesExtension type
 type MediaCapabilitiesExtension struct {
 	ProfileCapabilities ProfileCapabilities `xml:"http://www.onvif.org/ver10/schema ProfileCapabilities,omitempty"`
 }
 
+// RealTimeStreamingCapabilities type
 type RealTimeStreamingCapabilities struct {
 
 	// Indicates whether or not RTP multicast is supported.
@@ -3418,15 +3830,18 @@ type RealTimeStreamingCapabilities struct {
 	Extension RealTimeStreamingCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// RealTimeStreamingCapabilitiesExtension type
 type RealTimeStreamingCapabilitiesExtension struct {
 }
 
+// ProfileCapabilities type
 type ProfileCapabilities struct {
 
 	// Maximum number of profiles.
 	MaximumNumberOfProfiles int32 `xml:"http://www.onvif.org/ver10/schema MaximumNumberOfProfiles,omitempty"`
 }
 
+// NetworkCapabilities type
 type NetworkCapabilities struct {
 
 	// Indicates whether or not IP filtering is supported.
@@ -3444,15 +3859,18 @@ type NetworkCapabilities struct {
 	Extension NetworkCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkCapabilitiesExtension type
 type NetworkCapabilitiesExtension struct {
 	Dot11Configuration bool `xml:"http://www.onvif.org/ver10/search/wsdl Dot11Configuration,omitempty"`
 
 	Extension NetworkCapabilitiesExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// NetworkCapabilitiesExtension2 type
 type NetworkCapabilitiesExtension2 struct {
 }
 
+// SecurityCapabilities type
 type SecurityCapabilities struct {
 
 	// Indicates whether or not TLS 1.1 is supported.
@@ -3482,21 +3900,24 @@ type SecurityCapabilities struct {
 	Extension SecurityCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SecurityCapabilitiesExtension type
 type SecurityCapabilitiesExtension struct {
 	TLS10 bool `xml:"TLS1.0,omitempty"`
 
 	Extension SecurityCapabilitiesExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SecurityCapabilitiesExtension2 type
 type SecurityCapabilitiesExtension2 struct {
 	Dot1X bool `xml:"http://www.onvif.org/ver10/search/wsdl Dot1X,omitempty"`
 
 	// EAP Methods supported by the device. The int values refer to the .
-	SupportedEAPMethod int32 `xml:"http://www.onvif.org/ver10/schema SupportedEAPMethod,omitempty"`
+	SupportedEAPMethod []int32 `xml:"http://www.onvif.org/ver10/schema SupportedEAPMethod,omitempty"`
 
 	RemoteUserHandling bool `xml:"http://www.onvif.org/ver10/search/wsdl RemoteUserHandling,omitempty"`
 }
 
+// SystemCapabilities type
 type SystemCapabilities struct {
 
 	// Indicates whether or not WS Discovery resolve requests are supported.
@@ -3518,11 +3939,12 @@ type SystemCapabilities struct {
 	FirmwareUpgrade bool `xml:"http://www.onvif.org/ver10/search/wsdl FirmwareUpgrade,omitempty"`
 
 	// Indicates supported ONVIF version(s).
-	SupportedVersions OnvifVersion `xml:"http://www.onvif.org/ver10/schema SupportedVersions,omitempty"`
+	SupportedVersions []OnvifVersion `xml:"http://www.onvif.org/ver10/schema SupportedVersions,omitempty"`
 
 	Extension SystemCapabilitiesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SystemCapabilitiesExtension type
 type SystemCapabilitiesExtension struct {
 	HttpFirmwareUpgrade bool `xml:"http://www.onvif.org/ver10/search/wsdl HttpFirmwareUpgrade,omitempty"`
 
@@ -3535,9 +3957,11 @@ type SystemCapabilitiesExtension struct {
 	Extension SystemCapabilitiesExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SystemCapabilitiesExtension2 type
 type SystemCapabilitiesExtension2 struct {
 }
 
+// OnvifVersion type
 type OnvifVersion struct {
 
 	// Major version number.
@@ -3551,18 +3975,21 @@ type OnvifVersion struct {
 	Minor int32 `xml:"http://www.onvif.org/ver10/schema Minor,omitempty"`
 }
 
+// ImagingCapabilities type
 type ImagingCapabilities struct {
 
 	// Imaging service URI.
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 }
 
+// PTZCapabilities type
 type PTZCapabilities struct {
 
 	// PTZ service URI.
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 }
 
+// DeviceIOCapabilities type
 type DeviceIOCapabilities struct {
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 
@@ -3577,6 +4004,7 @@ type DeviceIOCapabilities struct {
 	RelayOutputs int32 `xml:"http://www.onvif.org/ver10/schema RelayOutputs,omitempty"`
 }
 
+// DisplayCapabilities type
 type DisplayCapabilities struct {
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 
@@ -3584,6 +4012,7 @@ type DisplayCapabilities struct {
 	FixedLayout bool `xml:"http://www.onvif.org/ver10/search/wsdl FixedLayout,omitempty"`
 }
 
+// RecordingCapabilities type
 type RecordingCapabilities struct {
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 
@@ -3598,18 +4027,21 @@ type RecordingCapabilities struct {
 	MaxStringLength int32 `xml:"http://www.onvif.org/ver10/schema MaxStringLength,omitempty"`
 }
 
+// SearchCapabilities type
 type SearchCapabilities struct {
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 
 	MetadataSearch bool `xml:"http://www.onvif.org/ver10/search/wsdl MetadataSearch,omitempty"`
 }
 
+// ReplayCapabilities type
 type ReplayCapabilities struct {
 
 	// The address of the replay service.
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 }
 
+// ReceiverCapabilities type
 type ReceiverCapabilities struct {
 
 	// The address of the receiver service.
@@ -3631,6 +4063,7 @@ type ReceiverCapabilities struct {
 	MaximumRTSPURILength int32 `xml:"http://www.onvif.org/ver10/schema MaximumRTSPURILength,omitempty"`
 }
 
+// AnalyticsDeviceCapabilities type
 type AnalyticsDeviceCapabilities struct {
 	XAddr AnyURI `xml:"http://www.onvif.org/ver10/schema XAddr,omitempty"`
 
@@ -3640,9 +4073,11 @@ type AnalyticsDeviceCapabilities struct {
 	Extension AnalyticsDeviceExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// AnalyticsDeviceExtension type
 type AnalyticsDeviceExtension struct {
 }
 
+// SystemLog type
 type SystemLog struct {
 
 	// The log information as attachment data.
@@ -3654,14 +4089,16 @@ type SystemLog struct {
 
 // Removed SupportInformation by fixgen.py
 
+// BinaryData type
 type BinaryData struct {
 
 	// base64 encoded binary data.
-	Data byte `xml:"http://www.onvif.org/ver10/schema Data,omitempty"`
+	Data []byte `xml:"http://www.onvif.org/ver10/schema Data,omitempty"`
 
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
 
+// AttachmentData type
 type AttachmentData struct {
 	Include Include `xml:"Include,omitempty"`
 
@@ -3674,6 +4111,7 @@ type AttachmentData struct {
 
 // Removed SystemLogUri by fixgen.py
 
+// SystemDateTime type
 type SystemDateTime struct {
 
 	// Indicates if the time is set manully or through NTP.
@@ -3694,15 +4132,18 @@ type SystemDateTime struct {
 	Extension SystemDateTimeExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SystemDateTimeExtension type
 type SystemDateTimeExtension struct {
 }
 
+// DateTime type
 type DateTime struct {
 	Time string `xml:"http://www.onvif.org/ver10/schema Time,omitempty"`
 
 	Date string `xml:"http://www.onvif.org/ver10/schema Date,omitempty"`
 }
 
+// Date type
 type Date struct {
 	Year int32 `xml:"http://www.onvif.org/ver10/schema Year,omitempty"`
 
@@ -3713,6 +4154,7 @@ type Date struct {
 	Day int32 `xml:"http://www.onvif.org/ver10/schema Day,omitempty"`
 }
 
+// Time type
 type Time struct {
 
 	// Range is 0 to 23.
@@ -3725,6 +4167,7 @@ type Time struct {
 	Second int32 `xml:"http://www.onvif.org/ver10/schema Second,omitempty"`
 }
 
+// TimeZone type
 type TimeZone struct {
 
 	// Posix timezone string.
@@ -3733,6 +4176,7 @@ type TimeZone struct {
 
 // Removed RemoteUser by fixgen.py
 
+// User type
 type User struct {
 
 	// Username string.
@@ -3747,9 +4191,11 @@ type User struct {
 	Extension UserExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// UserExtension type
 type UserExtension struct {
 }
 
+// CertificateGenerationParameters type
 type CertificateGenerationParameters struct {
 	CertificateID string `xml:"http://www.onvif.org/ver10/schema CertificateID,omitempty"`
 
@@ -3762,9 +4208,11 @@ type CertificateGenerationParameters struct {
 	Extension CertificateGenerationParametersExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// CertificateGenerationParametersExtension type
 type CertificateGenerationParametersExtension struct {
 }
 
+// Certificate type
 type Certificate struct {
 
 	// Certificate id.
@@ -3778,6 +4226,7 @@ type Certificate struct {
 
 // Removed CertificateWithPrivateKey by fixgen.py
 
+// CertificateInformation type
 type CertificateInformation struct {
 	CertificateID string `xml:"http://www.onvif.org/ver10/schema CertificateID,omitempty"`
 
@@ -3803,15 +4252,18 @@ type CertificateInformation struct {
 	Extension CertificateInformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// CertificateUsage type
 type CertificateUsage struct {
 	Value string
 
 	Critical bool `xml:"http://www.onvif.org/ver10/search/wsdl Critical,attr,omitempty"`
 }
 
+// CertificateInformationExtension type
 type CertificateInformationExtension struct {
 }
 
+// Dot1XConfiguration type
 type Dot1XConfiguration struct {
 	Dot1XConfigurationToken ReferenceToken `xml:"http://www.onvif.org/ver10/schema Dot1XConfigurationToken,omitempty"`
 
@@ -3824,16 +4276,18 @@ type Dot1XConfiguration struct {
 	//
 	EAPMethod int32 `xml:"http://www.onvif.org/ver10/schema EAPMethod,omitempty"`
 
-	CACertificateID string `xml:"http://www.onvif.org/ver10/schema CACertificateID,omitempty"`
+	CACertificateID []string `xml:"http://www.onvif.org/ver10/schema CACertificateID,omitempty"`
 
 	EAPMethodConfiguration EAPMethodConfiguration `xml:"http://www.onvif.org/ver10/schema EAPMethodConfiguration,omitempty"`
 
 	Extension Dot1XConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// Dot1XConfigurationExtension type
 type Dot1XConfigurationExtension struct {
 }
 
+// EAPMethodConfiguration type
 type EAPMethodConfiguration struct {
 
 	// Confgiuration information for TLS Method.
@@ -3845,15 +4299,18 @@ type EAPMethodConfiguration struct {
 	Extension EapMethodExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// EapMethodExtension type
 type EapMethodExtension struct {
 }
 
+// TLSConfiguration type
 type TLSConfiguration struct {
 	CertificateID string `xml:"http://www.onvif.org/ver10/schema CertificateID,omitempty"`
 }
 
 // Removed GenericEapPwdConfigurationExtension by fixgen.py
 
+// RelayOutputSettings type
 type RelayOutputSettings struct {
 
 	//
@@ -3872,6 +4329,7 @@ type RelayOutputSettings struct {
 	IdleState RelayIdleState `xml:"http://www.onvif.org/ver10/schema IdleState,omitempty"`
 }
 
+// RelayOutput type
 type RelayOutput struct {
 	*DeviceEntity
 
@@ -3880,6 +4338,7 @@ type RelayOutput struct {
 
 // Removed DigitalInput by fixgen.py
 
+// PTZNode type
 type PTZNode struct {
 	*DeviceEntity
 
@@ -3906,7 +4365,7 @@ type PTZNode struct {
 	//
 	// A list of supported Auxiliary commands. If the list is not empty, the Auxiliary Operations MUST be available for this PTZ Node.
 	//
-	AuxiliaryCommands AuxiliaryData `xml:"http://www.onvif.org/ver10/schema AuxiliaryCommands,omitempty"`
+	AuxiliaryCommands []AuxiliaryData `xml:"http://www.onvif.org/ver10/schema AuxiliaryCommands,omitempty"`
 
 	Extension PTZNodeExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 
@@ -3923,6 +4382,7 @@ type PTZNode struct {
 	GeoMove bool `xml:"http://www.onvif.org/ver10/search/wsdl GeoMove,attr,omitempty"`
 }
 
+// PTZNodeExtension type
 type PTZNodeExtension struct {
 
 	//
@@ -3933,23 +4393,27 @@ type PTZNodeExtension struct {
 	Extension PTZNodeExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZNodeExtension2 type
 type PTZNodeExtension2 struct {
 }
 
+// PTZPresetTourSupported type
 type PTZPresetTourSupported struct {
 
 	// Indicates number of preset tours that can be created. Required preset tour operations shall be available for this PTZ Node if one or more preset tour is supported.
 	MaximumNumberOfPresetTours int32 `xml:"http://www.onvif.org/ver10/schema MaximumNumberOfPresetTours,omitempty"`
 
 	// Indicates which preset tour operations are available for this PTZ Node.
-	PTZPresetTourOperation PTZPresetTourOperation `xml:"http://www.onvif.org/ver10/schema PTZPresetTourOperation,omitempty"`
+	PTZPresetTourOperation []PTZPresetTourOperation `xml:"http://www.onvif.org/ver10/schema PTZPresetTourOperation,omitempty"`
 
 	Extension PTZPresetTourSupportedExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZPresetTourSupportedExtension type
 type PTZPresetTourSupportedExtension struct {
 }
 
+// PTZConfiguration type
 type PTZConfiguration struct {
 	*ConfigurationEntity
 
@@ -4023,6 +4487,7 @@ type PTZConfiguration struct {
 	PresetTourRamp int32 `xml:"http://www.onvif.org/ver10/schema PresetTourRamp,attr,omitempty"`
 }
 
+// PTZConfigurationExtension type
 type PTZConfigurationExtension struct {
 
 	// Optional element to configure PT Control Direction related features.
@@ -4031,9 +4496,11 @@ type PTZConfigurationExtension struct {
 	Extension PTZConfigurationExtension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZConfigurationExtension2 type
 type PTZConfigurationExtension2 struct {
 }
 
+// PTControlDirection type
 type PTControlDirection struct {
 
 	// Optional element to configure related parameters for E-Flip.
@@ -4045,21 +4512,25 @@ type PTControlDirection struct {
 	Extension PTControlDirectionExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTControlDirectionExtension type
 type PTControlDirectionExtension struct {
 }
 
+// EFlip type
 type EFlip struct {
 
 	// Parameter to enable/disable E-Flip feature.
 	Mode EFlipMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 }
 
+// Reverse type
 type Reverse struct {
 
 	// Parameter to enable/disable Reverse feature.
 	Mode ReverseMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 }
 
+// PTZConfigurationOptions type
 type PTZConfigurationOptions struct {
 
 	//
@@ -4086,9 +4557,11 @@ type PTZConfigurationOptions struct {
 	PTZRamps IntAttrList `xml:"http://www.onvif.org/ver10/schema PTZRamps,attr,omitempty"`
 }
 
+// PTZConfigurationOptions2 type
 type PTZConfigurationOptions2 struct {
 }
 
+// PTControlDirectionOptions type
 type PTControlDirectionOptions struct {
 
 	// Supported options for EFlip feature.
@@ -4100,31 +4573,37 @@ type PTControlDirectionOptions struct {
 	Extension PTControlDirectionOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTControlDirectionOptionsExtension type
 type PTControlDirectionOptionsExtension struct {
 }
 
+// EFlipOptions type
 type EFlipOptions struct {
 
 	// Options of EFlip mode parameter.
-	Mode EFlipMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []EFlipMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	Extension EFlipOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// EFlipOptionsExtension type
 type EFlipOptionsExtension struct {
 }
 
+// ReverseOptions type
 type ReverseOptions struct {
 
 	// Options of Reverse mode parameter.
-	Mode ReverseMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []ReverseMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	Extension ReverseOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ReverseOptionsExtension type
 type ReverseOptionsExtension struct {
 }
 
+// PanTiltLimits type
 type PanTiltLimits struct {
 
 	//
@@ -4133,6 +4612,7 @@ type PanTiltLimits struct {
 	Range Space2DDescription `xml:"http://www.onvif.org/ver10/schema Range,omitempty"`
 }
 
+// ZoomLimits type
 type ZoomLimits struct {
 
 	//
@@ -4141,27 +4621,28 @@ type ZoomLimits struct {
 	Range Space1DDescription `xml:"http://www.onvif.org/ver10/schema Range,omitempty"`
 }
 
+// PTZSpaces type
 type PTZSpaces struct {
 
 	//
 	// The Generic Pan/Tilt Position space is provided by every PTZ node that supports absolute Pan/Tilt, since it does not relate to a specific physical range.
 	// Instead, the range should be defined as the full range of the PTZ unit normalized to the range -1 to 1 resulting in the following space description.
 	//
-	AbsolutePanTiltPositionSpace Space2DDescription `xml:"http://www.onvif.org/ver10/schema AbsolutePanTiltPositionSpace,omitempty"`
+	AbsolutePanTiltPositionSpace []Space2DDescription `xml:"http://www.onvif.org/ver10/schema AbsolutePanTiltPositionSpace,omitempty"`
 
 	//
 	// The Generic Zoom Position Space is provided by every PTZ node that supports absolute Zoom, since it does not relate to a specific physical range.
 	// Instead, the range should be defined as the full range of the Zoom normalized to the range 0 (wide) to 1 (tele).
 	// There is no assumption about how the generic zoom range is mapped to magnification, FOV or other physical zoom dimension.
 	//
-	AbsoluteZoomPositionSpace Space1DDescription `xml:"http://www.onvif.org/ver10/schema AbsoluteZoomPositionSpace,omitempty"`
+	AbsoluteZoomPositionSpace []Space1DDescription `xml:"http://www.onvif.org/ver10/schema AbsoluteZoomPositionSpace,omitempty"`
 
 	//
 	// The Generic Pan/Tilt translation space is provided by every PTZ node that supports relative Pan/Tilt, since it does not relate to a specific physical range.
 	// Instead, the range should be defined as the full positive and negative translation range of the PTZ unit normalized to the range -1 to 1,
 	// where positive translation would mean clockwise rotation or movement in right/up direction resulting in the following space description.
 	//
-	RelativePanTiltTranslationSpace Space2DDescription `xml:"http://www.onvif.org/ver10/schema RelativePanTiltTranslationSpace,omitempty"`
+	RelativePanTiltTranslationSpace []Space2DDescription `xml:"http://www.onvif.org/ver10/schema RelativePanTiltTranslationSpace,omitempty"`
 
 	//
 	// The Generic Zoom Translation Space is provided by every PTZ node that supports relative Zoom, since it does not relate to a specific physical range.
@@ -4169,40 +4650,42 @@ type PTZSpaces struct {
 	// where a positive translation maps to a movement in TELE direction. The translation is signed to indicate direction (negative is to wide, positive is to tele).
 	// There is no assumption about how the generic zoom range is mapped to magnification, FOV or other physical zoom dimension. This results in the following space description.
 	//
-	RelativeZoomTranslationSpace Space1DDescription `xml:"http://www.onvif.org/ver10/schema RelativeZoomTranslationSpace,omitempty"`
+	RelativeZoomTranslationSpace []Space1DDescription `xml:"http://www.onvif.org/ver10/schema RelativeZoomTranslationSpace,omitempty"`
 
 	//
 	// The generic Pan/Tilt velocity space shall be provided by every PTZ node, since it does not relate to a specific physical range.
 	// Instead, the range should be defined as a range of the PTZ unit’s speed normalized to the range -1 to 1, where a positive velocity would map to clockwise
 	// rotation or movement in the right/up direction. A signed speed can be independently specified for the pan and tilt component resulting in the following space description.
 	//
-	ContinuousPanTiltVelocitySpace Space2DDescription `xml:"http://www.onvif.org/ver10/schema ContinuousPanTiltVelocitySpace,omitempty"`
+	ContinuousPanTiltVelocitySpace []Space2DDescription `xml:"http://www.onvif.org/ver10/schema ContinuousPanTiltVelocitySpace,omitempty"`
 
 	//
 	// The generic zoom velocity space specifies a zoom factor velocity without knowing the underlying physical model. The range should be normalized from -1 to 1,
 	// where a positive velocity would map to TELE direction. A generic zoom velocity space description resembles the following.
 	//
-	ContinuousZoomVelocitySpace Space1DDescription `xml:"http://www.onvif.org/ver10/schema ContinuousZoomVelocitySpace,omitempty"`
+	ContinuousZoomVelocitySpace []Space1DDescription `xml:"http://www.onvif.org/ver10/schema ContinuousZoomVelocitySpace,omitempty"`
 
 	//
 	// The speed space specifies the speed for a Pan/Tilt movement when moving to an absolute position or to a relative translation.
 	// In contrast to the velocity spaces, speed spaces do not contain any directional information. The speed of a combined Pan/Tilt
 	// movement is represented by a single non-negative scalar value.
 	//
-	PanTiltSpeedSpace Space1DDescription `xml:"http://www.onvif.org/ver10/schema PanTiltSpeedSpace,omitempty"`
+	PanTiltSpeedSpace []Space1DDescription `xml:"http://www.onvif.org/ver10/schema PanTiltSpeedSpace,omitempty"`
 
 	//
 	// The speed space specifies the speed for a Zoom movement when moving to an absolute position or to a relative translation.
 	// In contrast to the velocity spaces, speed spaces do not contain any directional information.
 	//
-	ZoomSpeedSpace Space1DDescription `xml:"http://www.onvif.org/ver10/schema ZoomSpeedSpace,omitempty"`
+	ZoomSpeedSpace []Space1DDescription `xml:"http://www.onvif.org/ver10/schema ZoomSpeedSpace,omitempty"`
 
 	Extension PTZSpacesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZSpacesExtension type
 type PTZSpacesExtension struct {
 }
 
+// Space2DDescription type
 type Space2DDescription struct {
 
 	//
@@ -4221,6 +4704,7 @@ type Space2DDescription struct {
 	YRange FloatRange `xml:"http://www.onvif.org/ver10/schema YRange,omitempty"`
 }
 
+// Space1DDescription type
 type Space1DDescription struct {
 
 	//
@@ -4234,6 +4718,7 @@ type Space1DDescription struct {
 	XRange FloatRange `xml:"http://www.onvif.org/ver10/schema XRange,omitempty"`
 }
 
+// PTZSpeed type
 type PTZSpeed struct {
 
 	// Pan and tilt speed. The x component corresponds to pan and the y component to tilt. If omitted in a request, the current (if any) PanTilt movement should not be affected.
@@ -4245,6 +4730,7 @@ type PTZSpeed struct {
 	Zoom Vector1D `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
 }
 
+// PTZPreset type
 type PTZPreset struct {
 
 	//
@@ -4264,6 +4750,7 @@ type PTZPreset struct {
 
 // Removed PTZPresetTourExtension by fixgen.py
 
+// PTZPresetTourSpot type
 type PTZPresetTourSpot struct {
 
 	// Detail definition of preset position of the tour spot.
@@ -4278,9 +4765,11 @@ type PTZPresetTourSpot struct {
 	Extension PTZPresetTourSpotExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZPresetTourSpotExtension type
 type PTZPresetTourSpotExtension struct {
 }
 
+// PTZPresetTourPresetDetail type
 type PTZPresetTourPresetDetail struct {
 
 	// Option to specify the preset position with Preset Token defined in advance.
@@ -4295,9 +4784,11 @@ type PTZPresetTourPresetDetail struct {
 	TypeExtension PTZPresetTourTypeExtension `xml:"http://www.onvif.org/ver10/schema TypeExtension,omitempty"`
 }
 
+// PTZPresetTourTypeExtension type
 type PTZPresetTourTypeExtension struct {
 }
 
+// PTZPresetTourStatus type
 type PTZPresetTourStatus struct {
 
 	// Indicates state of this preset tour by Idle/Touring/Paused.
@@ -4309,9 +4800,11 @@ type PTZPresetTourStatus struct {
 	Extension PTZPresetTourStatusExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZPresetTourStatusExtension type
 type PTZPresetTourStatusExtension struct {
 }
 
+// PTZPresetTourStartingCondition type
 type PTZPresetTourStartingCondition struct {
 
 	// Optional parameter to specify how many times the preset tour is recurred.
@@ -4330,6 +4823,7 @@ type PTZPresetTourStartingCondition struct {
 	RandomPresetOrder bool `xml:"http://www.onvif.org/ver10/search/wsdl RandomPresetOrder,attr,omitempty"`
 }
 
+// PTZPresetTourStartingConditionExtension type
 type PTZPresetTourStartingConditionExtension struct {
 }
 
@@ -4337,10 +4831,11 @@ type PTZPresetTourStartingConditionExtension struct {
 
 // Removed PTZPresetTourSpotOptions by fixgen.py
 
+// PTZPresetTourPresetDetailOptions type
 type PTZPresetTourPresetDetailOptions struct {
 
 	// A list of available Preset Tokens for tour spots.
-	PresetToken ReferenceToken `xml:"http://www.onvif.org/ver10/schema PresetToken,omitempty"`
+	PresetToken []ReferenceToken `xml:"http://www.onvif.org/ver10/schema PresetToken,omitempty"`
 
 	// An option to indicate Home postion for tour spots.
 	Home bool `xml:"http://www.onvif.org/ver10/search/wsdl Home,omitempty"`
@@ -4354,9 +4849,11 @@ type PTZPresetTourPresetDetailOptions struct {
 	Extension PTZPresetTourPresetDetailOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZPresetTourPresetDetailOptionsExtension type
 type PTZPresetTourPresetDetailOptionsExtension struct {
 }
 
+// PTZPresetTourStartingConditionOptions type
 type PTZPresetTourStartingConditionOptions struct {
 
 	// Supported range of Recurring Time.
@@ -4366,18 +4863,21 @@ type PTZPresetTourStartingConditionOptions struct {
 	RecurringDuration DurationRange `xml:"http://www.onvif.org/ver10/schema RecurringDuration,omitempty"`
 
 	// Supported options for Direction of Preset Tour.
-	Direction PTZPresetTourDirection `xml:"http://www.onvif.org/ver10/schema Direction,omitempty"`
+	Direction []PTZPresetTourDirection `xml:"http://www.onvif.org/ver10/schema Direction,omitempty"`
 
 	Extension PTZPresetTourStartingConditionOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PTZPresetTourStartingConditionOptionsExtension type
 type PTZPresetTourStartingConditionOptionsExtension struct {
 }
 
+// ImagingStatus type
 type ImagingStatus struct {
 	FocusStatus FocusStatus `xml:"http://www.onvif.org/ver10/schema FocusStatus,omitempty"`
 }
 
+// FocusStatus type
 type FocusStatus struct {
 
 	//
@@ -4396,6 +4896,7 @@ type FocusStatus struct {
 	Error string `xml:"http://www.onvif.org/ver10/schema Error,omitempty"`
 }
 
+// FocusConfiguration type
 type FocusConfiguration struct {
 	AutoFocusMode AutoFocusMode `xml:"http://www.onvif.org/ver10/schema AutoFocusMode,omitempty"`
 
@@ -4409,6 +4910,7 @@ type FocusConfiguration struct {
 	FarLimit float32 `xml:"http://www.onvif.org/ver10/schema FarLimit,omitempty"`
 }
 
+// ImagingSettings type
 type ImagingSettings struct {
 
 	// Enabled/disabled BLC mode (on/off).
@@ -4444,9 +4946,11 @@ type ImagingSettings struct {
 	Extension ImagingSettingsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingSettingsExtension type
 type ImagingSettingsExtension struct {
 }
 
+// Exposure type
 type Exposure struct {
 
 	//
@@ -4511,6 +5015,7 @@ type Exposure struct {
 	Iris float32 `xml:"http://www.onvif.org/ver10/schema Iris,omitempty"`
 }
 
+// WideDynamicRange type
 type WideDynamicRange struct {
 
 	//
@@ -4524,6 +5029,7 @@ type WideDynamicRange struct {
 	Level float32 `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// BacklightCompensation type
 type BacklightCompensation struct {
 
 	// Backlight compensation mode (on/off).
@@ -4533,6 +5039,7 @@ type BacklightCompensation struct {
 	Level float32 `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// ImagingOptions type
 type ImagingOptions struct {
 	BacklightCompensation BacklightCompensationOptions `xml:"http://www.onvif.org/ver10/schema BacklightCompensation,omitempty"`
 
@@ -4546,7 +5053,7 @@ type ImagingOptions struct {
 
 	Focus FocusOptions `xml:"http://www.onvif.org/ver10/schema Focus,omitempty"`
 
-	IrCutFilterModes IrCutFilterMode `xml:"http://www.onvif.org/ver10/schema IrCutFilterModes,omitempty"`
+	IrCutFilterModes []IrCutFilterMode `xml:"http://www.onvif.org/ver10/schema IrCutFilterModes,omitempty"`
 
 	Sharpness FloatRange `xml:"http://www.onvif.org/ver10/schema Sharpness,omitempty"`
 
@@ -4555,20 +5062,23 @@ type ImagingOptions struct {
 	WhiteBalance WhiteBalanceOptions `xml:"http://www.onvif.org/ver10/schema WhiteBalance,omitempty"`
 }
 
+// WideDynamicRangeOptions type
 type WideDynamicRangeOptions struct {
-	Mode WideDynamicMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []WideDynamicMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	Level FloatRange `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// BacklightCompensationOptions type
 type BacklightCompensationOptions struct {
-	Mode WideDynamicMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []WideDynamicMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	Level FloatRange `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// FocusOptions type
 type FocusOptions struct {
-	AutoFocusModes AutoFocusMode `xml:"http://www.onvif.org/ver10/schema AutoFocusModes,omitempty"`
+	AutoFocusModes []AutoFocusMode `xml:"http://www.onvif.org/ver10/schema AutoFocusModes,omitempty"`
 
 	DefaultSpeed FloatRange `xml:"http://www.onvif.org/ver10/schema DefaultSpeed,omitempty"`
 
@@ -4577,10 +5087,11 @@ type FocusOptions struct {
 	FarLimit FloatRange `xml:"http://www.onvif.org/ver10/schema FarLimit,omitempty"`
 }
 
+// ExposureOptions type
 type ExposureOptions struct {
-	Mode ExposureMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []ExposureMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
-	Priority ExposurePriority `xml:"http://www.onvif.org/ver10/schema Priority,omitempty"`
+	Priority []ExposurePriority `xml:"http://www.onvif.org/ver10/schema Priority,omitempty"`
 
 	MinExposureTime FloatRange `xml:"http://www.onvif.org/ver10/schema MinExposureTime,omitempty"`
 
@@ -4601,8 +5112,9 @@ type ExposureOptions struct {
 	Iris FloatRange `xml:"http://www.onvif.org/ver10/schema Iris,omitempty"`
 }
 
+// WhiteBalanceOptions type
 type WhiteBalanceOptions struct {
-	Mode WhiteBalanceMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []WhiteBalanceMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	YrGain FloatRange `xml:"http://www.onvif.org/ver10/schema YrGain,omitempty"`
 
@@ -4611,6 +5123,7 @@ type WhiteBalanceOptions struct {
 
 // Removed FocusMove by fixgen.py
 
+// AbsoluteFocus type
 type AbsoluteFocus struct {
 
 	//
@@ -4624,6 +5137,7 @@ type AbsoluteFocus struct {
 	Speed float32 `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
 }
 
+// RelativeFocus type
 type RelativeFocus struct {
 
 	//
@@ -4637,6 +5151,7 @@ type RelativeFocus struct {
 	Speed float32 `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
 }
 
+// ContinuousFocus type
 type ContinuousFocus struct {
 
 	//
@@ -4647,6 +5162,7 @@ type ContinuousFocus struct {
 
 // Removed MoveOptions by fixgen.py
 
+// AbsoluteFocusOptions type
 type AbsoluteFocusOptions struct {
 
 	//
@@ -4660,6 +5176,7 @@ type AbsoluteFocusOptions struct {
 	Speed FloatRange `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
 }
 
+// RelativeFocusOptions type
 type RelativeFocusOptions struct {
 
 	//
@@ -4673,6 +5190,7 @@ type RelativeFocusOptions struct {
 	Speed FloatRange `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
 }
 
+// ContinuousFocusOptions type
 type ContinuousFocusOptions struct {
 
 	//
@@ -4681,6 +5199,7 @@ type ContinuousFocusOptions struct {
 	Speed FloatRange `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
 }
 
+// WhiteBalance type
 type WhiteBalance struct {
 
 	// Auto whitebalancing mode (auto/manual).
@@ -4693,6 +5212,7 @@ type WhiteBalance struct {
 	CbGain float32 `xml:"http://www.onvif.org/ver10/schema CbGain,omitempty"`
 }
 
+// ImagingStatus20 type
 type ImagingStatus20 struct {
 
 	//
@@ -4703,9 +5223,11 @@ type ImagingStatus20 struct {
 	Extension ImagingStatus20Extension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingStatus20Extension type
 type ImagingStatus20Extension struct {
 }
 
+// FocusStatus20 type
 type FocusStatus20 struct {
 
 	//
@@ -4726,9 +5248,11 @@ type FocusStatus20 struct {
 	Extension FocusStatus20Extension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// FocusStatus20Extension type
 type FocusStatus20Extension struct {
 }
 
+// ImagingSettings20 type
 type ImagingSettings20 struct {
 
 	// Enabled/disabled BLC mode (on/off).
@@ -4764,6 +5288,7 @@ type ImagingSettings20 struct {
 	Extension ImagingSettingsExtension20 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingSettingsExtension20 type
 type ImagingSettingsExtension20 struct {
 
 	// Optional element to configure Image Stabilization feature.
@@ -4772,14 +5297,16 @@ type ImagingSettingsExtension20 struct {
 	Extension ImagingSettingsExtension202 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingSettingsExtension202 type
 type ImagingSettingsExtension202 struct {
 
 	// An optional parameter applied to only auto mode to adjust timing of toggling Ir cut filter.
-	IrCutFilterAutoAdjustment IrCutFilterAutoAdjustment `xml:"http://www.onvif.org/ver10/schema IrCutFilterAutoAdjustment,omitempty"`
+	IrCutFilterAutoAdjustment []IrCutFilterAutoAdjustment `xml:"http://www.onvif.org/ver10/schema IrCutFilterAutoAdjustment,omitempty"`
 
 	Extension ImagingSettingsExtension203 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingSettingsExtension203 type
 type ImagingSettingsExtension203 struct {
 
 	// Optional element to configure Image Contrast Compensation.
@@ -4794,9 +5321,11 @@ type ImagingSettingsExtension203 struct {
 	Extension ImagingSettingsExtension204 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingSettingsExtension204 type
 type ImagingSettingsExtension204 struct {
 }
 
+// ImageStabilization type
 type ImageStabilization struct {
 
 	// Parameter to enable/disable Image Stabilization feature.
@@ -4808,9 +5337,11 @@ type ImageStabilization struct {
 	Extension ImageStabilizationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImageStabilizationExtension type
 type ImageStabilizationExtension struct {
 }
 
+// IrCutFilterAutoAdjustment type
 type IrCutFilterAutoAdjustment struct {
 
 	// Specifies which boundaries to automatically toggle Ir cut filter following parameters are applied to. Its options shall be chosen from tt:IrCutFilterAutoBoundaryType.
@@ -4825,9 +5356,11 @@ type IrCutFilterAutoAdjustment struct {
 	Extension IrCutFilterAutoAdjustmentExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IrCutFilterAutoAdjustmentExtension type
 type IrCutFilterAutoAdjustmentExtension struct {
 }
 
+// WideDynamicRange20 type
 type WideDynamicRange20 struct {
 
 	// Wide dynamic range mode (on/off).
@@ -4837,6 +5370,7 @@ type WideDynamicRange20 struct {
 	Level float32 `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// BacklightCompensation20 type
 type BacklightCompensation20 struct {
 
 	// Backlight compensation mode (on/off).
@@ -4846,6 +5380,7 @@ type BacklightCompensation20 struct {
 	Level float32 `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// Exposure20 type
 type Exposure20 struct {
 
 	//
@@ -4910,6 +5445,7 @@ type Exposure20 struct {
 	Iris float32 `xml:"http://www.onvif.org/ver10/schema Iris,omitempty"`
 }
 
+// ToneCompensation type
 type ToneCompensation struct {
 
 	// Parameter to enable/disable or automatic ToneCompensation feature. Its options shall be chosen from tt:ToneCompensationMode Type.
@@ -4921,9 +5457,11 @@ type ToneCompensation struct {
 	Extension ToneCompensationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ToneCompensationExtension type
 type ToneCompensationExtension struct {
 }
 
+// Defogging type
 type Defogging struct {
 
 	// Parameter to enable/disable or automatic Defogging feature. Its options shall be chosen from tt:DefoggingMode Type.
@@ -4935,15 +5473,18 @@ type Defogging struct {
 	Extension DefoggingExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// DefoggingExtension type
 type DefoggingExtension struct {
 }
 
+// NoiseReduction type
 type NoiseReduction struct {
 
 	// Level parameter specified with unitless normalized value from 0.0 to +1.0. Level=0 means no noise reduction or minimal noise reduction.
 	Level float32 `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// ImagingOptions20 type
 type ImagingOptions20 struct {
 
 	//
@@ -4979,7 +5520,7 @@ type ImagingOptions20 struct {
 	//
 	// Valid range of IrCutFilterModes.
 	//
-	IrCutFilterModes IrCutFilterMode `xml:"http://www.onvif.org/ver10/schema IrCutFilterModes,omitempty"`
+	IrCutFilterModes []IrCutFilterMode `xml:"http://www.onvif.org/ver10/schema IrCutFilterModes,omitempty"`
 
 	//
 	// Valid range of Sharpness.
@@ -4999,6 +5540,7 @@ type ImagingOptions20 struct {
 	Extension ImagingOptions20Extension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingOptions20Extension type
 type ImagingOptions20Extension struct {
 
 	// Options of parameters for Image Stabilization feature.
@@ -5007,6 +5549,7 @@ type ImagingOptions20Extension struct {
 	Extension ImagingOptions20Extension2 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingOptions20Extension2 type
 type ImagingOptions20Extension2 struct {
 
 	// Options of parameters for adjustment of Ir cut filter auto mode.
@@ -5015,6 +5558,7 @@ type ImagingOptions20Extension2 struct {
 	Extension ImagingOptions20Extension3 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingOptions20Extension3 type
 type ImagingOptions20Extension3 struct {
 
 	// Options of parameters for Tone Compensation feature.
@@ -5029,13 +5573,15 @@ type ImagingOptions20Extension3 struct {
 	Extension ImagingOptions20Extension4 `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImagingOptions20Extension4 type
 type ImagingOptions20Extension4 struct {
 }
 
+// ImageStabilizationOptions type
 type ImageStabilizationOptions struct {
 
 	// Supported options of Image Stabilization mode parameter.
-	Mode ImageStabilizationMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []ImageStabilizationMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	// Valid range of the Image Stabilization.
 	Level FloatRange `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
@@ -5043,13 +5589,15 @@ type ImageStabilizationOptions struct {
 	Extension ImageStabilizationOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ImageStabilizationOptionsExtension type
 type ImageStabilizationOptionsExtension struct {
 }
 
+// IrCutFilterAutoAdjustmentOptions type
 type IrCutFilterAutoAdjustmentOptions struct {
 
 	// Supported options of boundary types for adjustment of Ir cut filter auto mode. The opptions shall be chosen from tt:IrCutFilterAutoBoundaryType.
-	BoundaryType string `xml:"http://www.onvif.org/ver10/schema BoundaryType,omitempty"`
+	BoundaryType []string `xml:"http://www.onvif.org/ver10/schema BoundaryType,omitempty"`
 
 	// Indicates whether or not boundary offset for toggling Ir cut filter is supported.
 	BoundaryOffset bool `xml:"http://www.onvif.org/ver10/search/wsdl BoundaryOffset,omitempty"`
@@ -5060,21 +5608,24 @@ type IrCutFilterAutoAdjustmentOptions struct {
 	Extension IrCutFilterAutoAdjustmentOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// IrCutFilterAutoAdjustmentOptionsExtension type
 type IrCutFilterAutoAdjustmentOptionsExtension struct {
 }
 
+// WideDynamicRangeOptions20 type
 type WideDynamicRangeOptions20 struct {
-	Mode WideDynamicMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []WideDynamicMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	Level FloatRange `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// BacklightCompensationOptions20 type
 type BacklightCompensationOptions20 struct {
 
 	//
 	// 'ON' or 'OFF'
 	//
-	Mode BacklightCompensationMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []BacklightCompensationMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	//
 	// Level range of BacklightCompensation.
@@ -5082,18 +5633,19 @@ type BacklightCompensationOptions20 struct {
 	Level FloatRange `xml:"http://www.onvif.org/ver10/schema Level,omitempty"`
 }
 
+// ExposureOptions20 type
 type ExposureOptions20 struct {
 
 	//
 	// Exposure Mode
 	//
 	//
-	Mode ExposureMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []ExposureMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	//
 	// The exposure priority mode (low noise/framerate).
 	//
-	Priority ExposurePriority `xml:"http://www.onvif.org/ver10/schema Priority,omitempty"`
+	Priority []ExposurePriority `xml:"http://www.onvif.org/ver10/schema Priority,omitempty"`
 
 	//
 	// Valid range of the Minimum ExposureTime.
@@ -5145,6 +5697,7 @@ type ExposureOptions20 struct {
 
 // Removed RelativeFocusOptions20 by fixgen.py
 
+// WhiteBalance20 type
 type WhiteBalance20 struct {
 
 	//
@@ -5165,9 +5718,11 @@ type WhiteBalance20 struct {
 	Extension WhiteBalance20Extension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// WhiteBalance20Extension type
 type WhiteBalance20Extension struct {
 }
 
+// FocusConfiguration20 type
 type FocusConfiguration20 struct {
 
 	//
@@ -5192,16 +5747,18 @@ type FocusConfiguration20 struct {
 	AFMode StringAttrList `xml:"http://www.onvif.org/ver10/schema AFMode,attr,omitempty"`
 }
 
+// FocusConfiguration20Extension type
 type FocusConfiguration20Extension struct {
 }
 
+// WhiteBalanceOptions20 type
 type WhiteBalanceOptions20 struct {
 
 	//
 	// Mode of WhiteBalance.
 	//
 	//
-	Mode WhiteBalanceMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []WhiteBalanceMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	YrGain FloatRange `xml:"http://www.onvif.org/ver10/schema YrGain,omitempty"`
 
@@ -5210,16 +5767,18 @@ type WhiteBalanceOptions20 struct {
 	Extension WhiteBalanceOptions20Extension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// WhiteBalanceOptions20Extension type
 type WhiteBalanceOptions20Extension struct {
 }
 
+// FocusOptions20 type
 type FocusOptions20 struct {
 
 	//
 	// Supported modes for auto focus.
 	//
 	//
-	AutoFocusModes AutoFocusMode `xml:"http://www.onvif.org/ver10/schema AutoFocusModes,omitempty"`
+	AutoFocusModes []AutoFocusMode `xml:"http://www.onvif.org/ver10/schema AutoFocusModes,omitempty"`
 
 	//
 	// Valid range of DefaultSpeed.
@@ -5239,39 +5798,45 @@ type FocusOptions20 struct {
 	Extension FocusOptions20Extension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// FocusOptions20Extension type
 type FocusOptions20Extension struct {
 
 	// Supported options for auto focus. Options shall be chosen from tt:AFModes.
 	AFModes StringAttrList `xml:"http://www.onvif.org/ver10/schema AFModes,omitempty"`
 }
 
+// ToneCompensationOptions type
 type ToneCompensationOptions struct {
 
 	// Supported options for Tone Compensation mode. Its options shall be chosen from tt:ToneCompensationMode Type.
-	Mode string `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []string `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	// Indicates whether or not support Level parameter for Tone Compensation.
 	Level bool `xml:"http://www.onvif.org/ver10/search/wsdl Level,omitempty"`
 }
 
+// DefoggingOptions type
 type DefoggingOptions struct {
 
 	// Supported options for Defogging mode. Its options shall be chosen from tt:DefoggingMode Type.
-	Mode string `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
+	Mode []string `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	// Indicates whether or not support Level parameter for Defogging.
 	Level bool `xml:"http://www.onvif.org/ver10/search/wsdl Level,omitempty"`
 }
 
+// NoiseReductionOptions type
 type NoiseReductionOptions struct {
 
 	// Indicates whether or not support Level parameter for NoiseReduction.
 	Level bool `xml:"http://www.onvif.org/ver10/search/wsdl Level,omitempty"`
 }
 
+// MessageExtension type
 type MessageExtension struct {
 }
 
+// ItemList type
 type ItemList struct {
 	SimpleItem []struct {
 
@@ -5294,9 +5859,11 @@ type ItemList struct {
 	Extension ItemListExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ItemListExtension type
 type ItemListExtension struct {
 }
 
+// MessageDescription type
 type MessageDescription struct {
 
 	// Set of tokens producing this message. The list may only contain SimpleItemDescription items.
@@ -5319,9 +5886,11 @@ type MessageDescription struct {
 	IsProperty bool `xml:"http://www.onvif.org/ver10/search/wsdl IsProperty,attr,omitempty"`
 }
 
+// MessageDescriptionExtension type
 type MessageDescriptionExtension struct {
 }
 
+// ItemListDescription type
 type ItemListDescription struct {
 	SimpleItemDescription []struct {
 
@@ -5346,31 +5915,38 @@ type ItemListDescription struct {
 	Extension ItemListDescriptionExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ItemListDescriptionExtension type
 type ItemListDescriptionExtension struct {
 }
 
+// Polyline type
 type Polyline struct {
-	Point Vector `xml:"http://www.onvif.org/ver10/schema Point,omitempty"`
+	Point []Vector `xml:"http://www.onvif.org/ver10/schema Point,omitempty"`
 }
 
+// AnalyticsEngineConfiguration type
 type AnalyticsEngineConfiguration struct {
-	AnalyticsModule Config `xml:"http://www.onvif.org/ver10/schema AnalyticsModule,omitempty"`
+	AnalyticsModule []Config `xml:"http://www.onvif.org/ver10/schema AnalyticsModule,omitempty"`
 
 	Extension AnalyticsEngineConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// AnalyticsEngineConfigurationExtension type
 type AnalyticsEngineConfigurationExtension struct {
 }
 
+// RuleEngineConfiguration type
 type RuleEngineConfiguration struct {
-	Rule Config `xml:"http://www.onvif.org/ver10/schema Rule,omitempty"`
+	Rule []Config `xml:"http://www.onvif.org/ver10/schema Rule,omitempty"`
 
 	Extension RuleEngineConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// RuleEngineConfigurationExtension type
 type RuleEngineConfigurationExtension struct {
 }
 
+// Config type
 type Config struct {
 
 	// List of configuration parameters as defined in the correspding description.
@@ -5385,6 +5961,7 @@ type Config struct {
 	Type QName `xml:"http://www.onvif.org/ver10/schema Type,attr,omitempty"`
 }
 
+// ConfigDescription type
 type ConfigDescription struct {
 
 	//
@@ -5422,54 +5999,62 @@ type ConfigDescription struct {
 	MaxInstances int32 `xml:"maxInstances,attr,omitempty"`
 }
 
+// ConfigDescriptionExtension type
 type ConfigDescriptionExtension struct {
 }
 
+// SupportedRules type
 type SupportedRules struct {
 
 	// Lists the location of all schemas that are referenced in the rules.
-	RuleContentSchemaLocation AnyURI `xml:"http://www.onvif.org/ver10/schema RuleContentSchemaLocation,omitempty"`
+	RuleContentSchemaLocation []AnyURI `xml:"http://www.onvif.org/ver10/schema RuleContentSchemaLocation,omitempty"`
 
 	// List of rules supported by the Video Analytics configuration..
-	RuleDescription ConfigDescription `xml:"http://www.onvif.org/ver10/schema RuleDescription,omitempty"`
+	RuleDescription []ConfigDescription `xml:"http://www.onvif.org/ver10/schema RuleDescription,omitempty"`
 
 	Extension SupportedRulesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SupportedRulesExtension type
 type SupportedRulesExtension struct {
 }
 
+// SupportedAnalyticsModules type
 type SupportedAnalyticsModules struct {
 
 	// It optionally contains a list of URLs that provide the location of schema files.
 	// These schema files describe the types and elements used in the analytics module descriptions.
 	// Analytics module descriptions that reference types or elements imported from any ONVIF defined schema files
 	// need not explicitly list those schema files.
-	AnalyticsModuleContentSchemaLocation AnyURI `xml:"http://www.onvif.org/ver10/schema AnalyticsModuleContentSchemaLocation,omitempty"`
+	AnalyticsModuleContentSchemaLocation []AnyURI `xml:"http://www.onvif.org/ver10/schema AnalyticsModuleContentSchemaLocation,omitempty"`
 
-	AnalyticsModuleDescription ConfigDescription `xml:"http://www.onvif.org/ver10/schema AnalyticsModuleDescription,omitempty"`
+	AnalyticsModuleDescription []ConfigDescription `xml:"http://www.onvif.org/ver10/schema AnalyticsModuleDescription,omitempty"`
 
 	Extension SupportedAnalyticsModulesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SupportedAnalyticsModulesExtension type
 type SupportedAnalyticsModulesExtension struct {
 }
 
 // Removed PolygonConfiguration by fixgen.py
 
+// PolylineArray type
 type PolylineArray struct {
 
 	// Contains array of Polyline
-	Segment Polyline `xml:"http://www.onvif.org/ver10/schema Segment,omitempty"`
+	Segment []Polyline `xml:"http://www.onvif.org/ver10/schema Segment,omitempty"`
 
 	Extension PolylineArrayExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PolylineArrayExtension type
 type PolylineArrayExtension struct {
 }
 
 // Removed PolylineArrayConfiguration by fixgen.py
 
+// MotionExpression type
 type MotionExpression struct {
 
 	// Motion Expression data structure contains motion expression which is based on Scene Descriptor schema with XPATH syntax. The Type argument could allow introduction of different dialects
@@ -5484,6 +6069,7 @@ type MotionExpression struct {
 
 // Removed PaneConfiguration by fixgen.py
 
+// PaneLayout type
 type PaneLayout struct {
 
 	// Reference to the configuration of the streaming and coding parameters.
@@ -5493,41 +6079,48 @@ type PaneLayout struct {
 	Area Rectangle `xml:"http://www.onvif.org/ver10/schema Area,omitempty"`
 }
 
+// Layout type
 type Layout struct {
 
 	// List of panes assembling the display layout.
-	PaneLayout PaneLayout `xml:"http://www.onvif.org/ver10/schema PaneLayout,omitempty"`
+	PaneLayout []PaneLayout `xml:"http://www.onvif.org/ver10/schema PaneLayout,omitempty"`
 
 	Extension LayoutExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// LayoutExtension type
 type LayoutExtension struct {
 }
 
 // Removed CodingCapabilities by fixgen.py
 
+// LayoutOptions type
 type LayoutOptions struct {
 
 	// Lists the possible Pane Layouts of the Video Output
-	PaneLayoutOptions PaneLayoutOptions `xml:"http://www.onvif.org/ver10/schema PaneLayoutOptions,omitempty"`
+	PaneLayoutOptions []PaneLayoutOptions `xml:"http://www.onvif.org/ver10/schema PaneLayoutOptions,omitempty"`
 
 	Extension LayoutOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// LayoutOptionsExtension type
 type LayoutOptionsExtension struct {
 }
 
+// PaneLayoutOptions type
 type PaneLayoutOptions struct {
 
 	// List of areas assembling a layout. Coordinate values are in the range [-1.0, 1.0].
-	Area Rectangle `xml:"http://www.onvif.org/ver10/schema Area,omitempty"`
+	Area []Rectangle `xml:"http://www.onvif.org/ver10/schema Area,omitempty"`
 
 	Extension PaneOptionExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// PaneOptionExtension type
 type PaneOptionExtension struct {
 }
 
+// Receiver type
 type Receiver struct {
 
 	// Unique identifier of the receiver.
@@ -5537,6 +6130,7 @@ type Receiver struct {
 	Configuration ReceiverConfiguration `xml:"http://www.onvif.org/ver10/schema Configuration,omitempty"`
 }
 
+// ReceiverConfiguration type
 type ReceiverConfiguration struct {
 
 	// The following connection modes are defined:
@@ -5551,18 +6145,21 @@ type ReceiverConfiguration struct {
 
 // Removed ReceiverStateInformation by fixgen.py
 
+// SourceReference type
 type SourceReference struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schema Token,omitempty"`
 
 	Type AnyURI `xml:"http://www.onvif.org/ver10/schema Type,attr,omitempty"`
 }
 
+// DateTimeRange type
 type DateTimeRange struct {
 	From string `xml:"http://www.onvif.org/ver10/schema From,omitempty"`
 
 	Until string `xml:"http://www.onvif.org/ver10/schema Until,omitempty"`
 }
 
+// RecordingSummary type
 type RecordingSummary struct {
 
 	// The earliest point in time where there is recorded data on the device.
@@ -5575,13 +6172,14 @@ type RecordingSummary struct {
 	NumberRecordings int32 `xml:"http://www.onvif.org/ver10/schema NumberRecordings,omitempty"`
 }
 
+// SearchScope type
 type SearchScope struct {
 
 	// A list of sources that are included in the scope. If this list is included, only data from one of these sources shall be searched.
-	IncludedSources SourceReference `xml:"http://www.onvif.org/ver10/schema IncludedSources,omitempty"`
+	IncludedSources []SourceReference `xml:"http://www.onvif.org/ver10/schema IncludedSources,omitempty"`
 
 	// A list of recordings that are included in the scope. If this list is included, only data from one of these recordings shall be searched.
-	IncludedRecordings RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl IncludedRecordings,omitempty"`
+	IncludedRecordings []RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl IncludedRecordings,omitempty"`
 
 	// An xpath expression used to specify what recordings to search. Only those recordings with an RecordingInformation structure that matches the filter shall be searched.
 	RecordingInformationFilter XPathExpression `xml:"http://www.onvif.org/ver10/schema RecordingInformationFilter,omitempty"`
@@ -5590,13 +6188,16 @@ type SearchScope struct {
 	Extension SearchScopeExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SearchScopeExtension type
 type SearchScopeExtension struct {
 }
 
+// EventFilter type
 type EventFilter struct {
 	*FilterType
 }
 
+// PTZPositionFilter type
 type PTZPositionFilter struct {
 
 	// The lower boundary of the PTZ volume to look for.
@@ -5609,28 +6210,32 @@ type PTZPositionFilter struct {
 	EnterOrExit bool `xml:"http://www.onvif.org/ver10/search/wsdl EnterOrExit,omitempty"`
 }
 
+// MetadataFilter type
 type MetadataFilter struct {
 	MetadataStreamFilter XPathExpression `xml:"http://www.onvif.org/ver10/schema MetadataStreamFilter,omitempty"`
 }
 
+// FindRecordingResultList type
 type FindRecordingResultList struct {
 
 	// The state of the search when the result is returned. Indicates if there can be more results, or if the search is completed.
 	SearchState SearchState `xml:"http://www.onvif.org/ver10/search/wsdl SearchState,omitempty"`
 
 	// A RecordingInformation structure for each found recording matching the search.
-	RecordingInformation RecordingInformation `xml:"http://www.onvif.org/ver10/search/wsdl RecordingInformation,omitempty"`
+	RecordingInformation []RecordingInformation `xml:"http://www.onvif.org/ver10/search/wsdl RecordingInformation,omitempty"`
 }
 
+// FindEventResultList type
 type FindEventResultList struct {
 
 	// The state of the search when the result is returned. Indicates if there can be more results, or if the search is completed.
 	SearchState SearchState `xml:"http://www.onvif.org/ver10/search/wsdl SearchState,omitempty"`
 
 	// A FindEventResult structure for each found event matching the search.
-	Result FindEventResult `xml:"http://www.onvif.org/ver10/search/wsdl Result,omitempty"`
+	Result []FindEventResult `xml:"http://www.onvif.org/ver10/search/wsdl Result,omitempty"`
 }
 
+// FindEventResult type
 type FindEventResult struct {
 
 	// The recording where this event was found. Empty string if no recording is associated with this event.
@@ -5649,15 +6254,17 @@ type FindEventResult struct {
 	StartStateEvent bool `xml:"http://www.onvif.org/ver10/search/wsdl StartStateEvent,omitempty"`
 }
 
+// FindPTZPositionResultList type
 type FindPTZPositionResultList struct {
 
 	// The state of the search when the result is returned. Indicates if there can be more results, or if the search is completed.
 	SearchState SearchState `xml:"http://www.onvif.org/ver10/search/wsdl SearchState,omitempty"`
 
 	// A FindPTZPositionResult structure for each found PTZ position matching the search.
-	Result FindPTZPositionResult `xml:"http://www.onvif.org/ver10/search/wsdl Result,omitempty"`
+	Result []FindPTZPositionResult `xml:"http://www.onvif.org/ver10/search/wsdl Result,omitempty"`
 }
 
+// FindPTZPositionResult type
 type FindPTZPositionResult struct {
 
 	// A reference to the recording containing the PTZ position.
@@ -5673,15 +6280,17 @@ type FindPTZPositionResult struct {
 	Position PTZVector `xml:"http://www.onvif.org/ver10/schema Position,omitempty"`
 }
 
+// FindMetadataResultList type
 type FindMetadataResultList struct {
 
 	// The state of the search when the result is returned. Indicates if there can be more results, or if the search is completed.
 	SearchState SearchState `xml:"http://www.onvif.org/ver10/search/wsdl SearchState,omitempty"`
 
 	// A FindMetadataResult structure for each found set of Metadata matching the search.
-	Result FindMetadataResult `xml:"http://www.onvif.org/ver10/search/wsdl Result,omitempty"`
+	Result []FindMetadataResult `xml:"http://www.onvif.org/ver10/search/wsdl Result,omitempty"`
 }
 
+// FindMetadataResult type
 type FindMetadataResult struct {
 
 	// A reference to the recording containing the metadata.
@@ -5694,6 +6303,7 @@ type FindMetadataResult struct {
 	Time string `xml:"http://www.onvif.org/ver10/schema Time,omitempty"`
 }
 
+// RecordingInformation type
 type RecordingInformation struct {
 	RecordingToken RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl RecordingToken,omitempty"`
 
@@ -5711,11 +6321,12 @@ type RecordingInformation struct {
 	Content Description `xml:"http://www.onvif.org/ver10/schema Content,omitempty"`
 
 	// Basic information about the track. Note that a track may represent a single contiguous time span or consist of multiple slices.
-	Track TrackInformation `xml:"http://www.onvif.org/ver10/schema Track,omitempty"`
+	Track []TrackInformation `xml:"http://www.onvif.org/ver10/schema Track,omitempty"`
 
 	RecordingStatus RecordingStatus `xml:"http://www.onvif.org/ver10/schema RecordingStatus,omitempty"`
 }
 
+// RecordingSourceInformation type
 type RecordingSourceInformation struct {
 
 	//
@@ -5736,6 +6347,7 @@ type RecordingSourceInformation struct {
 	Address AnyURI `xml:"http://www.onvif.org/ver10/schema Address,omitempty"`
 }
 
+// TrackInformation type
 type TrackInformation struct {
 	TrackToken TrackReference `xml:"http://www.onvif.org/ver10/schema TrackToken,omitempty"`
 
@@ -5753,13 +6365,14 @@ type TrackInformation struct {
 	DataTo string `xml:"http://www.onvif.org/ver10/schema DataTo,omitempty"`
 }
 
+// MediaAttributes type
 type MediaAttributes struct {
 
 	// A reference to the recording that has these attributes.
 	RecordingToken RecordingReference `xml:"http://www.onvif.org/ver10/search/wsdl RecordingToken,omitempty"`
 
 	// A set of attributes for each track.
-	TrackAttributes TrackAttributes `xml:"http://www.onvif.org/ver10/schema TrackAttributes,omitempty"`
+	TrackAttributes []TrackAttributes `xml:"http://www.onvif.org/ver10/schema TrackAttributes,omitempty"`
 
 	// The attributes are valid from this point in time in the recording.
 	From string `xml:"http://www.onvif.org/ver10/schema From,omitempty"`
@@ -5768,6 +6381,7 @@ type MediaAttributes struct {
 	Until string `xml:"http://www.onvif.org/ver10/schema Until,omitempty"`
 }
 
+// TrackAttributes type
 type TrackAttributes struct {
 
 	// The basic information about the track. Note that a track may represent a single contiguous time span or consist of multiple slices.
@@ -5785,9 +6399,11 @@ type TrackAttributes struct {
 	Extension TrackAttributesExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// TrackAttributesExtension type
 type TrackAttributesExtension struct {
 }
 
+// VideoAttributes type
 type VideoAttributes struct {
 
 	// Average bitrate in kbps.
@@ -5806,6 +6422,7 @@ type VideoAttributes struct {
 	Framerate float32 `xml:"http://www.onvif.org/ver10/schema Framerate,omitempty"`
 }
 
+// AudioAttributes type
 type AudioAttributes struct {
 
 	// The bitrate in kbps.
@@ -5818,6 +6435,7 @@ type AudioAttributes struct {
 	Samplerate int32 `xml:"http://www.onvif.org/ver10/schema Samplerate,omitempty"`
 }
 
+// MetadataAttributes type
 type MetadataAttributes struct {
 
 	// Indicates that there can be PTZ data in the metadata track in the specified time interval.
@@ -5834,6 +6452,7 @@ type MetadataAttributes struct {
 	PtzSpaces StringAttrList `xml:"http://www.onvif.org/ver10/schema PtzSpaces,attr,omitempty"`
 }
 
+// RecordingConfiguration type
 type RecordingConfiguration struct {
 
 	// Information about the source of the recording.
@@ -5851,6 +6470,7 @@ type RecordingConfiguration struct {
 	MaximumRetentionTime Duration `xml:"http://www.onvif.org/ver10/schema MaximumRetentionTime,omitempty"`
 }
 
+// TrackConfiguration type
 type TrackConfiguration struct {
 
 	// Type of the track. It shall be equal to the strings “Video”,
@@ -5867,6 +6487,7 @@ type TrackConfiguration struct {
 
 // Removed GetTracksResponseItem by fixgen.py
 
+// RecordingJobConfiguration type
 type RecordingJobConfiguration struct {
 
 	// Identifies the recording to which this job shall store the received data.
@@ -5885,7 +6506,7 @@ type RecordingJobConfiguration struct {
 	Priority int32 `xml:"http://www.onvif.org/ver10/schema Priority,omitempty"`
 
 	// Source of the recording.
-	Source RecordingJobSource `xml:"http://www.onvif.org/ver10/schema Source,omitempty"`
+	Source []RecordingJobSource `xml:"http://www.onvif.org/ver10/schema Source,omitempty"`
 
 	Extension RecordingJobConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 
@@ -5896,9 +6517,11 @@ type RecordingJobConfiguration struct {
 	ScheduleToken string `xml:"http://www.onvif.org/ver10/schema ScheduleToken,attr,omitempty"`
 }
 
+// RecordingJobConfigurationExtension type
 type RecordingJobConfigurationExtension struct {
 }
 
+// RecordingJobSource type
 type RecordingJobSource struct {
 
 	// This field shall be a reference to the source of the data. The type of the source
@@ -5916,14 +6539,16 @@ type RecordingJobSource struct {
 	AutoCreateReceiver bool `xml:"http://www.onvif.org/ver10/search/wsdl AutoCreateReceiver,omitempty"`
 
 	// List of tracks associated with the recording.
-	Tracks RecordingJobTrack `xml:"http://www.onvif.org/ver10/schema Tracks,omitempty"`
+	Tracks []RecordingJobTrack `xml:"http://www.onvif.org/ver10/schema Tracks,omitempty"`
 
 	Extension RecordingJobSourceExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// RecordingJobSourceExtension type
 type RecordingJobSourceExtension struct {
 }
 
+// RecordingJobTrack type
 type RecordingJobTrack struct {
 
 	// If the received RTSP stream contains multiple tracks of the same type, the
@@ -5935,6 +6560,7 @@ type RecordingJobTrack struct {
 	Destination TrackReference `xml:"http://www.onvif.org/ver10/schema Destination,omitempty"`
 }
 
+// RecordingJobStateInformation type
 type RecordingJobStateInformation struct {
 
 	// Identification of the recording that the recording job records to.
@@ -5944,14 +6570,16 @@ type RecordingJobStateInformation struct {
 	State RecordingJobState `xml:"http://www.onvif.org/ver10/schema State,omitempty"`
 
 	// Identifies the data source of the recording job.
-	Sources RecordingJobStateSource `xml:"http://www.onvif.org/ver10/schema Sources,omitempty"`
+	Sources []RecordingJobStateSource `xml:"http://www.onvif.org/ver10/schema Sources,omitempty"`
 
 	Extension RecordingJobStateInformationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// RecordingJobStateInformationExtension type
 type RecordingJobStateInformationExtension struct {
 }
 
+// RecordingJobStateSource type
 type RecordingJobStateSource struct {
 
 	// Identifies the data source of the recording job.
@@ -5964,10 +6592,12 @@ type RecordingJobStateSource struct {
 	Tracks RecordingJobStateTracks `xml:"http://www.onvif.org/ver10/schema Tracks,omitempty"`
 }
 
+// RecordingJobStateTracks type
 type RecordingJobStateTracks struct {
-	Track RecordingJobStateTrack `xml:"http://www.onvif.org/ver10/schema Track,omitempty"`
+	Track []RecordingJobStateTrack `xml:"http://www.onvif.org/ver10/schema Track,omitempty"`
 }
 
+// RecordingJobStateTrack type
 type RecordingJobStateTrack struct {
 
 	// Identifies the track of the data source that provides the data.
@@ -5989,36 +6619,43 @@ type RecordingJobStateTrack struct {
 
 // Removed ReplayConfiguration by fixgen.py
 
+// AnalyticsEngine type
 type AnalyticsEngine struct {
 	*ConfigurationEntity
 
 	AnalyticsEngineConfiguration AnalyticsDeviceEngineConfiguration `xml:"http://www.onvif.org/ver10/schema AnalyticsEngineConfiguration,omitempty"`
 }
 
+// AnalyticsDeviceEngineConfiguration type
 type AnalyticsDeviceEngineConfiguration struct {
-	EngineConfiguration EngineConfiguration `xml:"http://www.onvif.org/ver10/schema EngineConfiguration,omitempty"`
+	EngineConfiguration []EngineConfiguration `xml:"http://www.onvif.org/ver10/schema EngineConfiguration,omitempty"`
 
 	Extension AnalyticsDeviceEngineConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// AnalyticsDeviceEngineConfigurationExtension type
 type AnalyticsDeviceEngineConfigurationExtension struct {
 }
 
+// EngineConfiguration type
 type EngineConfiguration struct {
 	VideoAnalyticsConfiguration VideoAnalyticsConfiguration `xml:"http://www.onvif.org/ver10/schema VideoAnalyticsConfiguration,omitempty"`
 
 	AnalyticsEngineInputInfo AnalyticsEngineInputInfo `xml:"http://www.onvif.org/ver10/schema AnalyticsEngineInputInfo,omitempty"`
 }
 
+// AnalyticsEngineInputInfo type
 type AnalyticsEngineInputInfo struct {
 	InputInfo Config `xml:"http://www.onvif.org/ver10/schema InputInfo,omitempty"`
 
 	Extension AnalyticsEngineInputInfoExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// AnalyticsEngineInputInfoExtension type
 type AnalyticsEngineInputInfoExtension struct {
 }
 
+// AnalyticsEngineInput type
 type AnalyticsEngineInput struct {
 	*ConfigurationEntity
 
@@ -6029,23 +6666,27 @@ type AnalyticsEngineInput struct {
 	MetadataInput MetadataInput `xml:"http://www.onvif.org/ver10/schema MetadataInput,omitempty"`
 }
 
+// SourceIdentification type
 type SourceIdentification struct {
 	Name string `xml:"http://www.onvif.org/ver10/schema Name,omitempty"`
 
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/schema Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/schema Token,omitempty"`
 
 	Extension SourceIdentificationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// SourceIdentificationExtension type
 type SourceIdentificationExtension struct {
 }
 
+// MetadataInput type
 type MetadataInput struct {
-	MetadataConfig Config `xml:"http://www.onvif.org/ver10/schema MetadataConfig,omitempty"`
+	MetadataConfig []Config `xml:"http://www.onvif.org/ver10/schema MetadataConfig,omitempty"`
 
 	Extension MetadataInputExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// MetadataInputExtension type
 type MetadataInputExtension struct {
 }
 
@@ -6055,6 +6696,7 @@ type MetadataInputExtension struct {
 
 // Removed AnalyticsState by fixgen.py
 
+// ActionEngineEventPayload type
 type ActionEngineEventPayload struct {
 
 	// Request Message
@@ -6069,9 +6711,11 @@ type ActionEngineEventPayload struct {
 	Extension ActionEngineEventPayloadExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ActionEngineEventPayloadExtension type
 type ActionEngineEventPayloadExtension struct {
 }
 
+// AudioClassCandidate type
 type AudioClassCandidate struct {
 
 	// Indicates audio class label
@@ -6081,36 +6725,43 @@ type AudioClassCandidate struct {
 	Likelihood float32 `xml:"http://www.onvif.org/ver10/schema Likelihood,omitempty"`
 }
 
+// AudioClassDescriptor type
 type AudioClassDescriptor struct {
 
 	// Array of audio class label and class probability
-	ClassCandidate AudioClassCandidate `xml:"http://www.onvif.org/ver10/schema ClassCandidate,omitempty"`
+	ClassCandidate []AudioClassCandidate `xml:"http://www.onvif.org/ver10/schema ClassCandidate,omitempty"`
 
 	Extension AudioClassDescriptorExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// AudioClassDescriptorExtension type
 type AudioClassDescriptorExtension struct {
 }
 
+// ActiveConnection type
 type ActiveConnection struct {
 	CurrentBitrate float32 `xml:"http://www.onvif.org/ver10/schema CurrentBitrate,omitempty"`
 
 	CurrentFps float32 `xml:"http://www.onvif.org/ver10/schema CurrentFps,omitempty"`
 }
 
+// ProfileStatus type
 type ProfileStatus struct {
-	ActiveConnections ActiveConnection `xml:"http://www.onvif.org/ver10/schema ActiveConnections,omitempty"`
+	ActiveConnections []ActiveConnection `xml:"http://www.onvif.org/ver10/schema ActiveConnections,omitempty"`
 
 	Extension ProfileStatusExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ProfileStatusExtension type
 type ProfileStatusExtension struct {
 }
 
+// OSDReference type
 type OSDReference struct {
-	Value *ReferenceToken
+	Value ReferenceToken
 }
 
+// OSDPosConfiguration type
 type OSDPosConfiguration struct {
 
 	// For OSD position type, following are the pre-defined:
@@ -6122,15 +6773,18 @@ type OSDPosConfiguration struct {
 	Extension OSDPosConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// OSDPosConfigurationExtension type
 type OSDPosConfigurationExtension struct {
 }
 
+// OSDColor type
 type OSDColor struct {
 	Color Color `xml:"http://www.onvif.org/ver10/schema Color,omitempty"`
 
 	Transparent int32 `xml:"http://www.onvif.org/ver10/schema Transparent,attr,omitempty"`
 }
 
+// OSDTextConfiguration type
 type OSDTextConfiguration struct {
 
 	//
@@ -6167,9 +6821,11 @@ type OSDTextConfiguration struct {
 	IsPersistentText bool `xml:"http://www.onvif.org/ver10/search/wsdl IsPersistentText,attr,omitempty"`
 }
 
+// OSDTextConfigurationExtension type
 type OSDTextConfigurationExtension struct {
 }
 
+// OSDImgConfiguration type
 type OSDImgConfiguration struct {
 
 	// The URI of the image which to be displayed.
@@ -6178,9 +6834,11 @@ type OSDImgConfiguration struct {
 	Extension OSDImgConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// OSDImgConfigurationExtension type
 type OSDImgConfigurationExtension struct {
 }
 
+// ColorspaceRange type
 type ColorspaceRange struct {
 	X FloatRange `xml:"http://www.onvif.org/ver10/schema X,omitempty"`
 
@@ -6194,15 +6852,17 @@ type ColorspaceRange struct {
 	Colorspace AnyURI `xml:"http://www.onvif.org/ver10/schema Colorspace,omitempty"`
 }
 
+// ColorOptions type
 type ColorOptions struct {
 
 	// List the supported color.
-	ColorList Color `xml:"http://www.onvif.org/ver10/schema ColorList,omitempty"`
+	ColorList []Color `xml:"http://www.onvif.org/ver10/schema ColorList,omitempty"`
 
 	// Define the range of color supported.
-	ColorspaceRange ColorspaceRange `xml:"http://www.onvif.org/ver10/schema ColorspaceRange,omitempty"`
+	ColorspaceRange []ColorspaceRange `xml:"http://www.onvif.org/ver10/schema ColorspaceRange,omitempty"`
 }
 
+// OSDColorOptions type
 type OSDColorOptions struct {
 
 	// Optional list of supported colors.
@@ -6214,22 +6874,24 @@ type OSDColorOptions struct {
 	Extension OSDColorOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// OSDColorOptionsExtension type
 type OSDColorOptionsExtension struct {
 }
 
+// OSDTextOptions type
 type OSDTextOptions struct {
 
 	// List of supported OSD text type. When a device indicates the supported number relating to Text type in MaximumNumberOfOSDs, the type shall be presented.
-	Type string `xml:"http://www.onvif.org/ver10/schema Type,omitempty"`
+	Type []string `xml:"http://www.onvif.org/ver10/schema Type,omitempty"`
 
 	// Range of the font size value.
 	FontSizeRange IntRange `xml:"http://www.onvif.org/ver10/schema FontSizeRange,omitempty"`
 
 	// List of supported date format.
-	DateFormat string `xml:"http://www.onvif.org/ver10/schema DateFormat,omitempty"`
+	DateFormat []string `xml:"http://www.onvif.org/ver10/schema DateFormat,omitempty"`
 
 	// List of supported time format.
-	TimeFormat string `xml:"http://www.onvif.org/ver10/schema TimeFormat,omitempty"`
+	TimeFormat []string `xml:"http://www.onvif.org/ver10/schema TimeFormat,omitempty"`
 
 	// List of supported font color.
 	FontColor OSDColorOptions `xml:"http://www.onvif.org/ver10/schema FontColor,omitempty"`
@@ -6240,13 +6902,15 @@ type OSDTextOptions struct {
 	Extension OSDTextOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// OSDTextOptionsExtension type
 type OSDTextOptionsExtension struct {
 }
 
+// OSDImgOptions type
 type OSDImgOptions struct {
 
 	// List of available image URIs.
-	ImagePath AnyURI `xml:"http://www.onvif.org/ver10/schema ImagePath,omitempty"`
+	ImagePath []AnyURI `xml:"http://www.onvif.org/ver10/schema ImagePath,omitempty"`
 
 	Extension OSDImgOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 
@@ -6267,9 +6931,11 @@ type OSDImgOptions struct {
 	MaxHeight int32 `xml:"http://www.onvif.org/ver10/schema MaxHeight,attr,omitempty"`
 }
 
+// OSDImgOptionsExtension type
 type OSDImgOptionsExtension struct {
 }
 
+// OSDConfiguration type
 type OSDConfiguration struct {
 	*DeviceEntity
 
@@ -6291,9 +6957,11 @@ type OSDConfiguration struct {
 	Extension OSDConfigurationExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// OSDConfigurationExtension type
 type OSDConfigurationExtension struct {
 }
 
+// MaximumNumberOfOSDs type
 type MaximumNumberOfOSDs struct {
 	Total int32 `xml:"http://www.onvif.org/ver10/schema Total,attr,omitempty"`
 
@@ -6308,17 +6976,18 @@ type MaximumNumberOfOSDs struct {
 	DateAndTime int32 `xml:"http://www.onvif.org/ver10/schema DateAndTime,attr,omitempty"`
 }
 
+// OSDConfigurationOptions type
 type OSDConfigurationOptions struct {
 
 	// The maximum number of OSD configurations supported for the specified video source configuration. If the configuration does not support OSDs, this value shall be zero and the Type and PositionOption elements are ignored. If a device limits the number of instances by OSDType, it shall indicate the supported number for each type via the related attribute.
 	MaximumNumberOfOSDs MaximumNumberOfOSDs `xml:"http://www.onvif.org/ver10/schema MaximumNumberOfOSDs,omitempty"`
 
 	// List supported type of OSD configuration. When a device indicates the supported number for each types in MaximumNumberOfOSDs, related type shall be presented. A device shall return Option element relating to listed type.
-	Type OSDType `xml:"http://www.onvif.org/ver10/schema Type,omitempty"`
+	Type []OSDType `xml:"http://www.onvif.org/ver10/schema Type,omitempty"`
 
 	// List available OSD position type. Following are the pre-defined:
 	//
-	PositionOption string `xml:"http://www.onvif.org/ver10/schema PositionOption,omitempty"`
+	PositionOption []string `xml:"http://www.onvif.org/ver10/schema PositionOption,omitempty"`
 
 	// Option of the OSD text configuration. This element shall be returned if the device is signaling the support for Text.
 	TextOption OSDTextOptions `xml:"http://www.onvif.org/ver10/schema TextOption,omitempty"`
@@ -6329,9 +6998,11 @@ type OSDConfigurationOptions struct {
 	Extension OSDConfigurationOptionsExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// OSDConfigurationOptionsExtension type
 type OSDConfigurationOptionsExtension struct {
 }
 
+// FileProgress type
 type FileProgress struct {
 
 	// Exported file name
@@ -6341,17 +7012,20 @@ type FileProgress struct {
 	Progress float32 `xml:"http://www.onvif.org/ver10/schema Progress,omitempty"`
 }
 
+// ArrayOfFileProgress type
 type ArrayOfFileProgress struct {
 
 	// Exported file name and export progress information
-	FileProgress FileProgress `xml:"http://www.onvif.org/ver10/schema FileProgress,omitempty"`
+	FileProgress []FileProgress `xml:"http://www.onvif.org/ver10/schema FileProgress,omitempty"`
 
 	Extension ArrayOfFileProgressExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// ArrayOfFileProgressExtension type
 type ArrayOfFileProgressExtension struct {
 }
 
+// StorageReferencePath type
 type StorageReferencePath struct {
 
 	// identifier of an existing Storage Configuration.
@@ -6363,9 +7037,11 @@ type StorageReferencePath struct {
 	Extension StorageReferencePathExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
 
+// StorageReferencePathExtension type
 type StorageReferencePathExtension struct {
 }
 
+// SearchPort type
 type SearchPort interface {
 
 	/* Returns the capabilities of the search service. The result is returned in a typed answer. */
@@ -6502,6 +7178,7 @@ type SearchPort interface {
 	GetMetadataSearchResultsContext(ctx context.Context, request *GetMetadataSearchResults) (*GetMetadataSearchResultsResponse, error)
 }
 
+// searchPort type
 type searchPort struct {
 	client *soap.Client
 	xaddr  string
@@ -6752,12 +7429,29 @@ func (service *searchPort) GetMetadataSearchResults(request *GetMetadataSearchRe
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// PositiveInteger type
 type PositiveInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

@@ -12,21 +12,25 @@ import (
 var _ time.Time
 var _ xml.Name
 
+// Capabilities type
 type Capabilities ServiceCapabilities
 
+// GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetServiceCapabilities"`
 }
 
+// GetServiceCapabilitiesResponse type
 type GetServiceCapabilitiesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetServiceCapabilitiesResponse"`
+	XMLName xml.Name `xml:"GetServiceCapabilitiesResponse"`
 
 	// The capability response message contains the requested credential
 	// service capabilities using a hierarchical XML capability structure.
 	//
-	Capabilities ServiceCapabilities `xml:"http://www.onvif.org/ver10/credential/wsdl Capabilities,omitempty"`
+	Capabilities ServiceCapabilities `xml:"Capabilities,omitempty"`
 }
 
+// GetSupportedFormatTypes type
 type GetSupportedFormatTypes struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetSupportedFormatTypes"`
 
@@ -34,27 +38,31 @@ type GetSupportedFormatTypes struct {
 	CredentialIdentifierTypeName string `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialIdentifierTypeName,omitempty"`
 }
 
+// GetSupportedFormatTypesResponse type
 type GetSupportedFormatTypesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetSupportedFormatTypesResponse"`
+	XMLName xml.Name `xml:"GetSupportedFormatTypesResponse"`
 
 	// Identifier format type
-	FormatTypeInfo CredentialIdentifierFormatTypeInfo `xml:"http://www.onvif.org/ver10/credential/wsdl FormatTypeInfo,omitempty"`
+	FormatTypeInfo []CredentialIdentifierFormatTypeInfo `xml:"FormatTypeInfo,omitempty"`
 }
 
+// GetCredentialInfo type
 type GetCredentialInfo struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialInfo"`
 
 	// Tokens of CredentialInfo items to get.
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
 }
 
+// GetCredentialInfoResponse type
 type GetCredentialInfoResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialInfoResponse"`
+	XMLName xml.Name `xml:"GetCredentialInfoResponse"`
 
 	// List of CredentialInfo items.
-	CredentialInfo CredentialInfo `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialInfo,omitempty"`
+	CredentialInfo []CredentialInfo `xml:"CredentialInfo,omitempty"`
 }
 
+// GetCredentialInfoList type
 type GetCredentialInfoList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialInfoList"`
 
@@ -70,32 +78,36 @@ type GetCredentialInfoList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/credential/wsdl StartReference,omitempty"`
 }
 
+// GetCredentialInfoListResponse type
 type GetCredentialInfoListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialInfoListResponse"`
+	XMLName xml.Name `xml:"GetCredentialInfoListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/credential/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of CredentialInfo items.
-	CredentialInfo CredentialInfo `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialInfo,omitempty"`
+	CredentialInfo []CredentialInfo `xml:"CredentialInfo,omitempty"`
 }
 
+// GetCredentials type
 type GetCredentials struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentials"`
 
 	// Token of Credentials to get
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
+	Token []ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
 }
 
+// GetCredentialsResponse type
 type GetCredentialsResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialsResponse"`
+	XMLName xml.Name `xml:"GetCredentialsResponse"`
 
 	// List of Credential items.
-	Credential Credential `xml:"http://www.onvif.org/ver10/credential/wsdl Credential,omitempty"`
+	Credential []Credential `xml:"Credential,omitempty"`
 }
 
+// GetCredentialList type
 type GetCredentialList struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialList"`
 
@@ -111,18 +123,20 @@ type GetCredentialList struct {
 	StartReference string `xml:"http://www.onvif.org/ver10/credential/wsdl StartReference,omitempty"`
 }
 
+// GetCredentialListResponse type
 type GetCredentialListResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialListResponse"`
+	XMLName xml.Name `xml:"GetCredentialListResponse"`
 
 	// StartReference to use in next call to get the following items. If
 	// absent, no more items to get.
 	//
-	NextStartReference string `xml:"http://www.onvif.org/ver10/credential/wsdl NextStartReference,omitempty"`
+	NextStartReference string `xml:"NextStartReference,omitempty"`
 
 	// List of Credential items.
-	Credential Credential `xml:"http://www.onvif.org/ver10/credential/wsdl Credential,omitempty"`
+	Credential []Credential `xml:"Credential,omitempty"`
 }
 
+// CreateCredential type
 type CreateCredential struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl CreateCredential"`
 
@@ -133,13 +147,15 @@ type CreateCredential struct {
 	State CredentialState `xml:"http://www.onvif.org/ver10/credential/wsdl State,omitempty"`
 }
 
+// CreateCredentialResponse type
 type CreateCredentialResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl CreateCredentialResponse"`
+	XMLName xml.Name `xml:"CreateCredentialResponse"`
 
 	// The token of the created credential
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 }
 
+// ModifyCredential type
 type ModifyCredential struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl ModifyCredential"`
 
@@ -147,10 +163,12 @@ type ModifyCredential struct {
 	Credential Credential `xml:"http://www.onvif.org/ver10/credential/wsdl Credential,omitempty"`
 }
 
+// ModifyCredentialResponse type
 type ModifyCredentialResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl ModifyCredentialResponse"`
+	XMLName xml.Name `xml:"ModifyCredentialResponse"`
 }
 
+// SetCredential type
 type SetCredential struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl SetCredential"`
 
@@ -158,10 +176,12 @@ type SetCredential struct {
 	CredentialData CredentialData `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialData,omitempty"`
 }
 
+// SetCredentialResponse type
 type SetCredentialResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl SetCredentialResponse"`
+	XMLName xml.Name `xml:"SetCredentialResponse"`
 }
 
+// DeleteCredential type
 type DeleteCredential struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DeleteCredential"`
 
@@ -169,10 +189,12 @@ type DeleteCredential struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
 }
 
+// DeleteCredentialResponse type
 type DeleteCredentialResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DeleteCredentialResponse"`
+	XMLName xml.Name `xml:"DeleteCredentialResponse"`
 }
 
+// GetCredentialState type
 type GetCredentialState struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialState"`
 
@@ -180,13 +202,15 @@ type GetCredentialState struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
 }
 
+// GetCredentialStateResponse type
 type GetCredentialStateResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialStateResponse"`
+	XMLName xml.Name `xml:"GetCredentialStateResponse"`
 
 	// State of the credential.
-	State CredentialState `xml:"http://www.onvif.org/ver10/credential/wsdl State,omitempty"`
+	State CredentialState `xml:"State,omitempty"`
 }
 
+// EnableCredential type
 type EnableCredential struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl EnableCredential"`
 
@@ -197,10 +221,12 @@ type EnableCredential struct {
 	Reason Name `xml:"http://www.onvif.org/ver10/credential/wsdl Reason,omitempty"`
 }
 
+// EnableCredentialResponse type
 type EnableCredentialResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl EnableCredentialResponse"`
+	XMLName xml.Name `xml:"EnableCredentialResponse"`
 }
 
+// DisableCredential type
 type DisableCredential struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DisableCredential"`
 
@@ -211,10 +237,12 @@ type DisableCredential struct {
 	Reason Name `xml:"http://www.onvif.org/ver10/credential/wsdl Reason,omitempty"`
 }
 
+// DisableCredentialResponse type
 type DisableCredentialResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DisableCredentialResponse"`
+	XMLName xml.Name `xml:"DisableCredentialResponse"`
 }
 
+// ResetAntipassbackViolation type
 type ResetAntipassbackViolation struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl ResetAntipassbackViolation"`
 
@@ -222,10 +250,12 @@ type ResetAntipassbackViolation struct {
 	CredentialToken ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialToken,omitempty"`
 }
 
+// ResetAntipassbackViolationResponse type
 type ResetAntipassbackViolationResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl ResetAntipassbackViolationResponse"`
+	XMLName xml.Name `xml:"ResetAntipassbackViolationResponse"`
 }
 
+// GetCredentialIdentifiers type
 type GetCredentialIdentifiers struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialIdentifiers"`
 
@@ -233,13 +263,15 @@ type GetCredentialIdentifiers struct {
 	CredentialToken ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialToken,omitempty"`
 }
 
+// GetCredentialIdentifiersResponse type
 type GetCredentialIdentifiersResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialIdentifiersResponse"`
+	XMLName xml.Name `xml:"GetCredentialIdentifiersResponse"`
 
 	// Identifier of the credential
-	CredentialIdentifier CredentialIdentifier `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialIdentifier,omitempty"`
+	CredentialIdentifier []CredentialIdentifier `xml:"CredentialIdentifier,omitempty"`
 }
 
+// SetCredentialIdentifier type
 type SetCredentialIdentifier struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl SetCredentialIdentifier"`
 
@@ -250,10 +282,12 @@ type SetCredentialIdentifier struct {
 	CredentialIdentifier CredentialIdentifier `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialIdentifier,omitempty"`
 }
 
+// SetCredentialIdentifierResponse type
 type SetCredentialIdentifierResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl SetCredentialIdentifierResponse"`
+	XMLName xml.Name `xml:"SetCredentialIdentifierResponse"`
 }
 
+// DeleteCredentialIdentifier type
 type DeleteCredentialIdentifier struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DeleteCredentialIdentifier"`
 
@@ -264,10 +298,12 @@ type DeleteCredentialIdentifier struct {
 	CredentialIdentifierTypeName Name `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialIdentifierTypeName,omitempty"`
 }
 
+// DeleteCredentialIdentifierResponse type
 type DeleteCredentialIdentifierResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DeleteCredentialIdentifierResponse"`
+	XMLName xml.Name `xml:"DeleteCredentialIdentifierResponse"`
 }
 
+// GetCredentialAccessProfiles type
 type GetCredentialAccessProfiles struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialAccessProfiles"`
 
@@ -275,13 +311,15 @@ type GetCredentialAccessProfiles struct {
 	CredentialToken ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialToken,omitempty"`
 }
 
+// GetCredentialAccessProfilesResponse type
 type GetCredentialAccessProfilesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetCredentialAccessProfilesResponse"`
+	XMLName xml.Name `xml:"GetCredentialAccessProfilesResponse"`
 
 	// Access Profiles of the credential
-	CredentialAccessProfile CredentialAccessProfile `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialAccessProfile,omitempty"`
+	CredentialAccessProfile []CredentialAccessProfile `xml:"CredentialAccessProfile,omitempty"`
 }
 
+// SetCredentialAccessProfiles type
 type SetCredentialAccessProfiles struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl SetCredentialAccessProfiles"`
 
@@ -289,13 +327,15 @@ type SetCredentialAccessProfiles struct {
 	CredentialToken ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialToken,omitempty"`
 
 	// Access Profiles of the credential
-	CredentialAccessProfile CredentialAccessProfile `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialAccessProfile,omitempty"`
+	CredentialAccessProfile []CredentialAccessProfile `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialAccessProfile,omitempty"`
 }
 
+// SetCredentialAccessProfilesResponse type
 type SetCredentialAccessProfilesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl SetCredentialAccessProfilesResponse"`
+	XMLName xml.Name `xml:"SetCredentialAccessProfilesResponse"`
 }
 
+// DeleteCredentialAccessProfiles type
 type DeleteCredentialAccessProfiles struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DeleteCredentialAccessProfiles"`
 
@@ -303,13 +343,15 @@ type DeleteCredentialAccessProfiles struct {
 	CredentialToken ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialToken,omitempty"`
 
 	// Tokens of Access Profiles
-	AccessProfileToken ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl AccessProfileToken,omitempty"`
+	AccessProfileToken []ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl AccessProfileToken,omitempty"`
 }
 
+// DeleteCredentialAccessProfilesResponse type
 type DeleteCredentialAccessProfilesResponse struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl DeleteCredentialAccessProfilesResponse"`
+	XMLName xml.Name `xml:"DeleteCredentialAccessProfilesResponse"`
 }
 
+// ServiceCapabilities type
 type ServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl Capabilities"`
 
@@ -318,7 +360,7 @@ type ServiceCapabilities struct {
 	// the prefix pt: are reserved to define ONVIF specific types. For custom defined identifier types
 	// shall all share the "pt:<Name>" syntax.
 	//
-	SupportedIdentifierType Name `xml:"http://www.onvif.org/ver10/credential/wsdl SupportedIdentifierType,omitempty"`
+	SupportedIdentifierType []Name `xml:"http://www.onvif.org/ver10/credential/wsdl SupportedIdentifierType,omitempty"`
 
 	Extension ServiceCapabilitiesExtension `xml:"http://www.onvif.org/ver10/credential/wsdl Extension,omitempty"`
 
@@ -384,6 +426,7 @@ type ServiceCapabilities struct {
 	DefaultCredentialSuspensionDuration Duration `xml:"http://www.onvif.org/ver10/schema DefaultCredentialSuspensionDuration,attr,omitempty"`
 }
 
+// ServiceCapabilitiesExtension type
 type ServiceCapabilitiesExtension struct {
 
 	//
@@ -391,9 +434,10 @@ type ServiceCapabilitiesExtension struct {
 	// prefix pt: are reserved to define ONVIF specific exemption types and these reserved
 	// exemption types shall all share "pt:<Name>" syntax.
 	//
-	SupportedExemptionType Name `xml:"http://www.onvif.org/ver10/credential/wsdl SupportedExemptionType,omitempty"`
+	SupportedExemptionType []Name `xml:"http://www.onvif.org/ver10/credential/wsdl SupportedExemptionType,omitempty"`
 }
 
+// CredentialInfo type
 type CredentialInfo struct {
 	*DataEntity
 
@@ -422,6 +466,7 @@ type CredentialInfo struct {
 	ValidTo string `xml:"http://www.onvif.org/ver10/schema ValidTo,omitempty"`
 }
 
+// Credential type
 type Credential struct {
 	*CredentialInfo
 
@@ -429,10 +474,10 @@ type Credential struct {
 	// credential identifier is required. Maximum one credential identifier structure
 	// per type is allowed.
 	//
-	CredentialIdentifier CredentialIdentifier `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialIdentifier,omitempty"`
+	CredentialIdentifier []CredentialIdentifier `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialIdentifier,omitempty"`
 
 	// A list of credential access profile structures.
-	CredentialAccessProfile CredentialAccessProfile `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialAccessProfile,omitempty"`
+	CredentialAccessProfile []CredentialAccessProfile `xml:"http://www.onvif.org/ver10/credential/wsdl CredentialAccessProfile,omitempty"`
 
 	//
 	// A boolean indicating that the credential holder needs extra time to get through the door.
@@ -444,14 +489,16 @@ type Credential struct {
 	// starting with the prefix pt: are reserved to define PACS specific attributes
 	// following the "pt:<Name>" syntax.
 	//
-	Attribute Attribute `xml:"http://www.onvif.org/ver10/credential/wsdl Attribute,omitempty"`
+	Attribute []Attribute `xml:"http://www.onvif.org/ver10/credential/wsdl Attribute,omitempty"`
 
 	Extension CredentialExtension `xml:"http://www.onvif.org/ver10/credential/wsdl Extension,omitempty"`
 }
 
+// CredentialExtension type
 type CredentialExtension struct {
 }
 
+// CredentialIdentifier type
 type CredentialIdentifier struct {
 
 	// Contains the details of the credential identifier type. Is of type
@@ -468,9 +515,10 @@ type CredentialIdentifier struct {
 
 	// The value of the identifier in hexadecimal representation.
 	//
-	Value byte `xml:"http://www.onvif.org/ver10/schema Value,omitempty"`
+	Value []byte `xml:"http://www.onvif.org/ver10/schema Value,omitempty"`
 }
 
+// CredentialIdentifierType type
 type CredentialIdentifierType struct {
 
 	// The name of the credential identifier type, such as pt:Card, pt:PIN,
@@ -484,6 +532,7 @@ type CredentialIdentifierType struct {
 	FormatType string `xml:"http://www.onvif.org/ver10/credential/wsdl FormatType,omitempty"`
 }
 
+// CredentialAccessProfile type
 type CredentialAccessProfile struct {
 
 	// The reference token of the associated access profile.
@@ -502,6 +551,7 @@ type CredentialAccessProfile struct {
 	ValidTo string `xml:"http://www.onvif.org/ver10/schema ValidTo,omitempty"`
 }
 
+// CredentialState type
 type CredentialState struct {
 
 	// True if the credential is enabled or false if the credential is
@@ -523,9 +573,11 @@ type CredentialState struct {
 	Extension CredentialStateExtension `xml:"http://www.onvif.org/ver10/credential/wsdl Extension,omitempty"`
 }
 
+// CredentialStateExtension type
 type CredentialStateExtension struct {
 }
 
+// AntipassbackState type
 type AntipassbackState struct {
 
 	// Indicates if anti-passback is violated for the credential.
@@ -533,6 +585,7 @@ type AntipassbackState struct {
 	AntipassbackViolated bool `xml:"http://www.onvif.org/ver10/credential/wsdl AntipassbackViolated,omitempty"`
 }
 
+// CredentialIdentifierFormatTypeInfo type
 type CredentialIdentifierFormatTypeInfo struct {
 
 	// A format type supported by the device. A list of supported format types is
@@ -551,9 +604,11 @@ type CredentialIdentifierFormatTypeInfo struct {
 	Extension CredentialIdentifierFormatTypeInfoExtension `xml:"http://www.onvif.org/ver10/credential/wsdl Extension,omitempty"`
 }
 
+// CredentialIdentifierFormatTypeInfoExtension type
 type CredentialIdentifierFormatTypeInfoExtension struct {
 }
 
+// CredentialData type
 type CredentialData struct {
 
 	// A format type supported by the device. A list of supported format types is
@@ -572,36 +627,41 @@ type CredentialData struct {
 	Extension CredentialDataExtension `xml:"http://www.onvif.org/ver10/credential/wsdl Extension,omitempty"`
 }
 
+// CredentialDataExtension type
 type CredentialDataExtension struct {
 }
 
+// FaultResponse type
 type FaultResponse struct {
 
 	// A format type supported by the device. A list of supported format types is
 	// provided in [ISO 16484-5:2014-09 Annex P]. The BACnet type "CUSTOM" is not used in this
 	// specification. Instead device manufacturers can define their own format types.
 	//
-	Token ReferenceToken `xml:"http://www.onvif.org/ver10/credential/wsdl Token,omitempty"`
+	Token ReferenceToken `xml:"Token,omitempty"`
 
 	// User readable description of the credential identifier format type. It
 	// shall be up to 1024 characters. For custom types, it is recommended to describe how the
 	// octet string is encoded (following the structure in column Authentication Factor Value
 	// Encoding of [ISO 16484-5:2014-09 Annex P]).
 	//
-	Fault string `xml:"http://www.onvif.org/ver10/credential/wsdl Fault,omitempty"`
+	Fault string `xml:"Fault,omitempty"`
 
-	Extension FaultResponseExtension `xml:"http://www.onvif.org/ver10/credential/wsdl Extension,omitempty"`
+	Extension FaultResponseExtension `xml:"Extension,omitempty"`
 }
 
+// FaultResponseExtension type
 type FaultResponseExtension struct {
 }
 
 // Type used to reference logical and physical entities.
 
+// ReferenceToken type
 type ReferenceToken string
 
 // Type used for names of logical and physical entities.
 
+// Name type
 type Name string
 
 // Description is optional and the maximum length is device specific.
@@ -609,12 +669,15 @@ type Name string
 // supported by the device/service (which may be 0).
 //
 
+// Description type
 type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
+// PositiveInteger type
 type PositiveInteger uint32
 
+// DataEntity type
 type DataEntity struct {
 
 	// A service-unique identifier of the item.
@@ -622,6 +685,7 @@ type DataEntity struct {
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
 
+// Attribute type
 type Attribute struct {
 
 	// Name of attribute. Key names starting with "ONVIF" (any case) are reserved for ONVIF
@@ -635,6 +699,7 @@ type Attribute struct {
 	Value string `xml:"http://www.onvif.org/ver10/credential/wsdl Value,attr,omitempty"`
 }
 
+// CredentialPort type
 type CredentialPort interface {
 
 	/* This operation returns the capabilities of the credential service. */
@@ -813,6 +878,7 @@ type CredentialPort interface {
 	DeleteCredentialAccessProfilesContext(ctx context.Context, request *DeleteCredentialAccessProfiles) (*DeleteCredentialAccessProfilesResponse, error)
 }
 
+// credentialPort type
 type credentialPort struct {
 	client *soap.Client
 	xaddr  string
@@ -1165,11 +1231,26 @@ func (service *credentialPort) DeleteCredentialAccessProfiles(request *DeleteCre
 	)
 }
 
+// AnyURI type
 type AnyURI string
+
+// Duration type
 type Duration string
+
+// QName type
 type QName string
+
+// NCName type
 type NCName string
+
+// NonNegativeInteger type
 type NonNegativeInteger int64
+
+// NonPositiveInteger type
 type NonPositiveInteger int64
+
+// AnySimpleType type
 type AnySimpleType string
+
+// String type
 type String string

@@ -1339,29 +1339,23 @@ type VideoSourceMode struct {
 type VideoSourceModeExtension struct {
 }
 
-// Removed Base64Binary by fixgen.py
-
-// HexBinary type
-type HexBinary struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/05/xmlmime hexBinary"`
-
-	Value []byte
-
-	ContentType string `xml:"contentType,attr,omitempty"`
-}
-
 // FaultcodeEnum type
 type FaultcodeEnum QName
 
 const (
+	// FaultcodeEnumTnsDataEncodingUnknown const
 	FaultcodeEnumTnsDataEncodingUnknown FaultcodeEnum = "tns:DataEncodingUnknown"
 
+	// FaultcodeEnumTnsMustUnderstand const
 	FaultcodeEnumTnsMustUnderstand FaultcodeEnum = "tns:MustUnderstand"
 
+	// FaultcodeEnumTnsReceiver const
 	FaultcodeEnumTnsReceiver FaultcodeEnum = "tns:Receiver"
 
+	// FaultcodeEnumTnsSender const
 	FaultcodeEnumTnsSender FaultcodeEnum = "tns:Sender"
 
+	// FaultcodeEnumTnsVersionMismatch const
 	FaultcodeEnumTnsVersionMismatch FaultcodeEnum = "tns:VersionMismatch"
 )
 
@@ -1464,36 +1458,45 @@ type RelationshipTypeOpenEnum string
 type RelationshipType AnyURI
 
 const (
+	// RelationshipTypeHttpwwww3org200508addressingreply const
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
 )
-
-// FaultCodesOpenEnumType type
-type FaultCodesOpenEnumType string
 
 // FaultCodesType type
 type FaultCodesType QName
 
 const (
+	// FaultCodesTypeTnsInvalidAddressingHeader const
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
 
+	// FaultCodesTypeTnsInvalidAddress const
 	FaultCodesTypeTnsInvalidAddress FaultCodesType = "tns:InvalidAddress"
 
+	// FaultCodesTypeTnsInvalidEPR const
 	FaultCodesTypeTnsInvalidEPR FaultCodesType = "tns:InvalidEPR"
 
+	// FaultCodesTypeTnsInvalidCardinality const
 	FaultCodesTypeTnsInvalidCardinality FaultCodesType = "tns:InvalidCardinality"
 
+	// FaultCodesTypeTnsMissingAddressInEPR const
 	FaultCodesTypeTnsMissingAddressInEPR FaultCodesType = "tns:MissingAddressInEPR"
 
+	// FaultCodesTypeTnsDuplicateMessageID const
 	FaultCodesTypeTnsDuplicateMessageID FaultCodesType = "tns:DuplicateMessageID"
 
+	// FaultCodesTypeTnsActionMismatch const
 	FaultCodesTypeTnsActionMismatch FaultCodesType = "tns:ActionMismatch"
 
+	// FaultCodesTypeTnsMessageAddressingHeaderRequired const
 	FaultCodesTypeTnsMessageAddressingHeaderRequired FaultCodesType = "tns:MessageAddressingHeaderRequired"
 
+	// FaultCodesTypeTnsDestinationUnreachable const
 	FaultCodesTypeTnsDestinationUnreachable FaultCodesType = "tns:DestinationUnreachable"
 
+	// FaultCodesTypeTnsActionNotSupported const
 	FaultCodesTypeTnsActionNotSupported FaultCodesType = "tns:ActionNotSupported"
 
+	// FaultCodesTypeTnsEndpointUnavailable const
 	FaultCodesTypeTnsEndpointUnavailable FaultCodesType = "tns:EndpointUnavailable"
 )
 
@@ -1503,38 +1506,14 @@ type EndpointReference EndpointReferenceType
 // Metadata type
 type Metadata MetadataType
 
-// MessageID type
-type MessageID AttributedURIType
-
 // RelatesTo type
 type RelatesTo RelatesToType
-
-// ReplyTo type
-type ReplyTo EndpointReferenceType
-
-// From type
-type From EndpointReferenceType
-
-// FaultTo type
-type FaultTo EndpointReferenceType
 
 // To type
 type To AttributedURIType
 
 // Action type
 type Action AttributedURIType
-
-// RetryAfter type
-type RetryAfter AttributedUnsignedLongType
-
-// ProblemHeaderQName type
-type ProblemHeaderQName AttributedQNameType
-
-// ProblemHeader type
-type ProblemHeader AttributedAnyType
-
-// ProblemIRI type
-type ProblemIRI AttributedURIType
 
 // ProblemAction type
 type ProblemAction ProblemActionType
@@ -1575,25 +1554,6 @@ type AttributedURIType struct {
 	Value AnyURI
 }
 
-// AttributedUnsignedLongType type
-type AttributedUnsignedLongType struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing RetryAfter"`
-
-	Value uint64
-}
-
-// AttributedQNameType type
-type AttributedQNameType struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeaderQName"`
-
-	Value QName
-}
-
-// AttributedAnyType type
-type AttributedAnyType struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeader"`
-}
-
 // ProblemActionType type
 type ProblemActionType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemAction"`
@@ -1627,9 +1587,6 @@ type BaseFaultType struct {
 	FaultCause struct {
 	} `xml:"FaultCause,omitempty"`
 }
-
-// FullTopicExpression type
-type FullTopicExpression string
 
 // ConcreteTopicExpression type
 type ConcreteTopicExpression string
@@ -1712,19 +1669,6 @@ type FixedTopicSet bool
 // TopicExpressionDialect type
 type TopicExpressionDialect AnyURI
 
-// NotificationProducerRP type
-type NotificationProducerRP struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotificationProducerRP"`
-
-	TopicExpression []TopicExpression `xml:"TopicExpression,omitempty"`
-
-	FixedTopicSet FixedTopicSet `xml:"FixedTopicSet,omitempty"`
-
-	TopicExpressionDialect []TopicExpressionDialect `xml:"TopicExpressionDialect,omitempty"`
-
-	TopicSet TopicSet `xml:"TopicSet,omitempty"`
-}
-
 // ConsumerReference type
 type ConsumerReference EndpointReferenceType
 
@@ -1736,19 +1680,6 @@ type SubscriptionPolicy SubscriptionPolicyType
 
 // CreationTime type
 type CreationTime time.Time
-
-// SubscriptionManagerRP type
-type SubscriptionManagerRP struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscriptionManagerRP"`
-
-	ConsumerReference ConsumerReference `xml:"ConsumerReference,omitempty"`
-
-	Filter Filter `xml:"Filter,omitempty"`
-
-	SubscriptionPolicy SubscriptionPolicy `xml:"SubscriptionPolicy,omitempty"`
-
-	CreationTime CreationTime `xml:"CreationTime,omitempty"`
-}
 
 // SubscriptionReference type
 type SubscriptionReference EndpointReferenceType
@@ -1775,17 +1706,6 @@ type CurrentTime time.Time
 // TerminationTime type
 type TerminationTime time.Time
 
-// ProducerProperties type
-type ProducerProperties QueryExpressionType
-
-// MessageContent type
-type MessageContent QueryExpressionType
-
-// UseRaw type
-type UseRaw struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UseRaw"`
-}
-
 // Subscribe type
 type Subscribe struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Subscribe"`
@@ -1798,29 +1718,6 @@ type Subscribe struct {
 
 	SubscriptionPolicy struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
-}
-
-// SubscribeResponse type
-type SubscribeResponse struct {
-	XMLName xml.Name `xml:"SubscribeResponse"`
-
-	SubscriptionReference EndpointReferenceType `xml:"SubscriptionReference,omitempty"`
-
-	CurrentTime CurrentTime `xml:"CurrentTime,omitempty"`
-
-	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
-}
-
-// GetCurrentMessage type
-type GetCurrentMessage struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetCurrentMessage"`
-
-	Topic TopicExpressionType `xml:"Topic,omitempty"`
-}
-
-// GetCurrentMessageResponse type
-type GetCurrentMessageResponse struct {
-	XMLName xml.Name `xml:"GetCurrentMessageResponse"`
 }
 
 // SubscribeCreationFailedFault type
@@ -1862,102 +1759,20 @@ type UnacceptableInitialTerminationTimeFault UnacceptableInitialTerminationTimeF
 // NoCurrentMessageOnTopicFault type
 type NoCurrentMessageOnTopicFault NoCurrentMessageOnTopicFaultType
 
-// GetMessages type
-type GetMessages struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessages"`
-
-	MaximumNumber NonNegativeInteger `xml:"http://www.onvif.org/ver10/schema MaximumNumber,omitempty"`
-}
-
-// GetMessagesResponse type
-type GetMessagesResponse struct {
-	XMLName xml.Name `xml:"GetMessagesResponse"`
-
-	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
-}
-
-// DestroyPullPoint type
-type DestroyPullPoint struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 DestroyPullPoint"`
-}
-
-// DestroyPullPointResponse type
-type DestroyPullPointResponse struct {
-	XMLName xml.Name `xml:"DestroyPullPointResponse"`
-}
-
 // UnableToGetMessagesFault type
 type UnableToGetMessagesFault UnableToGetMessagesFaultType
 
 // UnableToDestroyPullPointFault type
 type UnableToDestroyPullPointFault UnableToDestroyPullPointFaultType
 
-// CreatePullPoint type
-type CreatePullPoint struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 CreatePullPoint"`
-}
-
-// CreatePullPointResponse type
-type CreatePullPointResponse struct {
-	XMLName xml.Name `xml:"CreatePullPointResponse"`
-
-	PullPoint EndpointReferenceType `xml:"PullPoint,omitempty"`
-}
-
 // UnableToCreatePullPointFault type
 type UnableToCreatePullPointFault UnableToCreatePullPointFaultType
-
-// Renew type
-type Renew struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Renew"`
-
-	TerminationTime AbsoluteOrRelativeTimeType `xml:"TerminationTime,omitempty"`
-}
-
-// RenewResponse type
-type RenewResponse struct {
-	XMLName xml.Name `xml:"RenewResponse"`
-
-	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
-
-	CurrentTime CurrentTime `xml:"CurrentTime,omitempty"`
-}
 
 // UnacceptableTerminationTimeFault type
 type UnacceptableTerminationTimeFault UnacceptableTerminationTimeFaultType
 
-// Unsubscribe type
-type Unsubscribe struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Unsubscribe"`
-}
-
-// UnsubscribeResponse type
-type UnsubscribeResponse struct {
-	XMLName xml.Name `xml:"UnsubscribeResponse"`
-}
-
 // UnableToDestroySubscriptionFault type
 type UnableToDestroySubscriptionFault UnableToDestroySubscriptionFaultType
-
-// PauseSubscription type
-type PauseSubscription struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseSubscription"`
-}
-
-// PauseSubscriptionResponse type
-type PauseSubscriptionResponse struct {
-	XMLName xml.Name `xml:"PauseSubscriptionResponse"`
-}
-
-// ResumeSubscription type
-type ResumeSubscription struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeSubscription"`
-}
-
-// ResumeSubscriptionResponse type
-type ResumeSubscriptionResponse struct {
-	XMLName xml.Name `xml:"ResumeSubscriptionResponse"`
-}
 
 // PauseFailedFault type
 type PauseFailedFault PauseFailedFaultType
@@ -2168,10 +1983,13 @@ type ReferenceToken string
 type MoveStatus string
 
 const (
+	// MoveStatusIDLE const
 	MoveStatusIDLE MoveStatus = "IDLE"
 
+	// MoveStatusMOVING const
 	MoveStatusMOVING MoveStatus = "MOVING"
 
+	// MoveStatusUNKNOWN const
 	MoveStatusUNKNOWN MoveStatus = "UNKNOWN"
 )
 
@@ -2179,10 +1997,13 @@ const (
 type Entity string
 
 const (
+	// EntityDevice const
 	EntityDevice Entity = "Device"
 
+	// EntityVideoSource const
 	EntityVideoSource Entity = "VideoSource"
 
+	// EntityAudioSource const
 	EntityAudioSource Entity = "AudioSource"
 )
 
@@ -2303,8 +2124,6 @@ type Color struct {
 	Colorspace AnyURI `xml:"http://www.onvif.org/ver10/schema Colorspace,attr,omitempty"`
 }
 
-// Removed ColorCovariance by fixgen.py
-
 // Transformation type
 type Transformation struct {
 	Translate Vector `xml:"http://www.onvif.org/ver10/schema Translate,omitempty"`
@@ -2317,72 +2136,6 @@ type Transformation struct {
 // TransformationExtension type
 type TransformationExtension struct {
 }
-
-// GeoLocation type
-type GeoLocation struct {
-
-	// East west location as angle.
-
-	Lon float64 `xml:"lon,attr,omitempty"`
-
-	// North south location as angle.
-
-	Lat float64 `xml:"lat,attr,omitempty"`
-
-	// Hight in meters above sea level.
-
-	Elevation float32 `xml:"elevation,attr,omitempty"`
-}
-
-// GeoOrientation type
-type GeoOrientation struct {
-
-	// Rotation around the x axis.
-
-	Roll float32 `xml:"roll,attr,omitempty"`
-
-	// Rotation around the y axis.
-
-	Pitch float32 `xml:"pitch,attr,omitempty"`
-
-	// Rotation around the z axis.
-
-	Yaw float32 `xml:"yaw,attr,omitempty"`
-}
-
-// LocalLocation type
-type LocalLocation struct {
-
-	// East west location as angle.
-
-	X float32 `xml:"x,attr,omitempty"`
-
-	// North south location as angle.
-
-	Y float32 `xml:"y,attr,omitempty"`
-
-	// Offset in meters from the sea level.
-
-	Z float32 `xml:"z,attr,omitempty"`
-}
-
-// LocalOrientation type
-type LocalOrientation struct {
-
-	// Rotation around the y axis.
-
-	Pan float32 `xml:"pan,attr,omitempty"`
-
-	// Rotation around the z axis.
-
-	Tilt float32 `xml:"http://www.onvif.org/ver10/schema tilt,attr,omitempty"`
-
-	// Rotation around the x axis.
-
-	Roll float32 `xml:"roll,attr,omitempty"`
-}
-
-// Removed LocationEntity by fixgen.py
 
 // User readable name. Length up to 64 characters.
 
@@ -2407,12 +2160,15 @@ type RotateMode string
 const (
 
 	// Enable the Rotate feature. Degree of rotation is specified Degree parameter.
+	// RotateModeOFF const
 	RotateModeOFF RotateMode = "OFF"
 
 	// Disable the Rotate feature.
+	// RotateModeON const
 	RotateModeON RotateMode = "ON"
 
 	// Rotate feature is automatically activated by the device.
+	// RotateModeAUTO const
 	RotateModeAUTO RotateMode = "AUTO"
 )
 
@@ -2420,8 +2176,10 @@ const (
 type SceneOrientationMode string
 
 const (
+	// SceneOrientationModeMANUAL const
 	SceneOrientationModeMANUAL SceneOrientationMode = "MANUAL"
 
+	// SceneOrientationModeAUTO const
 	SceneOrientationModeAUTO SceneOrientationMode = "AUTO"
 )
 
@@ -2429,10 +2187,13 @@ const (
 type SceneOrientationOption string
 
 const (
+	// SceneOrientationOptionBelow const
 	SceneOrientationOptionBelow SceneOrientationOption = "Below"
 
+	// SceneOrientationOptionHorizon const
 	SceneOrientationOptionHorizon SceneOrientationOption = "Horizon"
 
+	// SceneOrientationOptionAbove const
 	SceneOrientationOptionAbove SceneOrientationOption = "Above"
 )
 
@@ -2444,27 +2205,35 @@ type ViewModes string
 const (
 
 	// Undewarped viewmode from device supporting fisheye lens.
+	// ViewModesTtFisheye const
 	ViewModesTtFisheye ViewModes = "tt:Fisheye"
 
 	// 360 degree panoramic view.
+	// ViewModesTt360Panorama const
 	ViewModesTt360Panorama ViewModes = "tt:360Panorama"
 
 	// 180 degree panoramic view.
+	// ViewModesTt180Panorama const
 	ViewModesTt180Panorama ViewModes = "tt:180Panorama"
 
 	// View mode combining four streams in single Quad, eg., applicable for devices supporting four heads.
+	// ViewModesTtQuad const
 	ViewModesTtQuad ViewModes = "tt:Quad"
 
 	// Unaltered view from the sensor.
+	// ViewModesTtOriginal const
 	ViewModesTtOriginal ViewModes = "tt:Original"
 
 	// Viewmode combining the left side sensors, applicable for devices supporting multiple sensors.
+	// ViewModesTtLeftHalf const
 	ViewModesTtLeftHalf ViewModes = "tt:LeftHalf"
 
 	// Viewmode combining the right side sensors, applicable for devices supporting multiple sensors.
+	// ViewModesTtRightHalf const
 	ViewModesTtRightHalf ViewModes = "tt:RightHalf"
 
 	// Dewarped view mode for device supporting fisheye lens.
+	// ViewModesTtDewarp const
 	ViewModesTtDewarp ViewModes = "tt:Dewarp"
 )
 
@@ -2472,10 +2241,13 @@ const (
 type VideoEncoding string
 
 const (
+	// VideoEncodingJPEG const
 	VideoEncodingJPEG VideoEncoding = "JPEG"
 
+	// VideoEncodingMPEG4 const
 	VideoEncodingMPEG4 VideoEncoding = "MPEG4"
 
+	// VideoEncodingH264 const
 	VideoEncodingH264 VideoEncoding = "H264"
 )
 
@@ -2483,8 +2255,10 @@ const (
 type Mpeg4Profile string
 
 const (
+	// Mpeg4ProfileSP const
 	Mpeg4ProfileSP Mpeg4Profile = "SP"
 
+	// Mpeg4ProfileASP const
 	Mpeg4ProfileASP Mpeg4Profile = "ASP"
 )
 
@@ -2492,12 +2266,16 @@ const (
 type H264Profile string
 
 const (
+	// H264ProfileBaseline const
 	H264ProfileBaseline H264Profile = "Baseline"
 
+	// H264ProfileMain const
 	H264ProfileMain H264Profile = "Main"
 
+	// H264ProfileExtended const
 	H264ProfileExtended H264Profile = "Extended"
 
+	// H264ProfileHigh const
 	H264ProfileHigh H264Profile = "High"
 )
 
@@ -2507,12 +2285,16 @@ const (
 type VideoEncodingMimeNames string
 
 const (
+	// VideoEncodingMimeNamesJPEG const
 	VideoEncodingMimeNamesJPEG VideoEncodingMimeNames = "JPEG"
 
+	// VideoEncodingMimeNamesMPV4ES const
 	VideoEncodingMimeNamesMPV4ES VideoEncodingMimeNames = "MPV4-ES"
 
+	// VideoEncodingMimeNamesH264 const
 	VideoEncodingMimeNamesH264 VideoEncodingMimeNames = "H264"
 
+	// VideoEncodingMimeNamesH265 const
 	VideoEncodingMimeNamesH265 VideoEncodingMimeNames = "H265"
 )
 
@@ -2520,18 +2302,25 @@ const (
 type VideoEncodingProfiles string
 
 const (
+	// VideoEncodingProfilesSimple const
 	VideoEncodingProfilesSimple VideoEncodingProfiles = "Simple"
 
+	// VideoEncodingProfilesAdvancedSimple const
 	VideoEncodingProfilesAdvancedSimple VideoEncodingProfiles = "AdvancedSimple"
 
+	// VideoEncodingProfilesBaseline const
 	VideoEncodingProfilesBaseline VideoEncodingProfiles = "Baseline"
 
+	// VideoEncodingProfilesMain const
 	VideoEncodingProfilesMain VideoEncodingProfiles = "Main"
 
+	// VideoEncodingProfilesMain10 const
 	VideoEncodingProfilesMain10 VideoEncodingProfiles = "Main10"
 
+	// VideoEncodingProfilesExtended const
 	VideoEncodingProfilesExtended VideoEncodingProfiles = "Extended"
 
+	// VideoEncodingProfilesHigh const
 	VideoEncodingProfilesHigh VideoEncodingProfiles = "High"
 )
 
@@ -2539,10 +2328,13 @@ const (
 type AudioEncoding string
 
 const (
+	// AudioEncodingG711 const
 	AudioEncodingG711 AudioEncoding = "G711"
 
+	// AudioEncodingG726 const
 	AudioEncodingG726 AudioEncoding = "G726"
 
+	// AudioEncodingAAC const
 	AudioEncodingAAC AudioEncoding = "AAC"
 )
 
@@ -2552,12 +2344,16 @@ const (
 type AudioEncodingMimeNames string
 
 const (
+	// AudioEncodingMimeNamesPCMU const
 	AudioEncodingMimeNamesPCMU AudioEncodingMimeNames = "PCMU"
 
+	// AudioEncodingMimeNamesG726 const
 	AudioEncodingMimeNamesG726 AudioEncodingMimeNames = "G726"
 
+	// AudioEncodingMimeNamesMP4ALATM const
 	AudioEncodingMimeNamesMP4ALATM AudioEncodingMimeNames = "MP4A-LATM"
 
+	// AudioEncodingMimeNamesMpeg4generic const
 	AudioEncodingMimeNamesMpeg4generic AudioEncodingMimeNames = "mpeg4-generic"
 )
 
@@ -2565,10 +2361,13 @@ const (
 type MetadataCompressionType string
 
 const (
+	// MetadataCompressionTypeNone const
 	MetadataCompressionTypeNone MetadataCompressionType = "None"
 
+	// MetadataCompressionTypeGZIP const
 	MetadataCompressionTypeGZIP MetadataCompressionType = "GZIP"
 
+	// MetadataCompressionTypeEXI const
 	MetadataCompressionTypeEXI MetadataCompressionType = "EXI"
 )
 
@@ -2576,8 +2375,10 @@ const (
 type StreamType string
 
 const (
+	// StreamTypeRTPUnicast const
 	StreamTypeRTPUnicast StreamType = "RTP-Unicast"
 
+	// StreamTypeRTPMulticast const
 	StreamTypeRTPMulticast StreamType = "RTP-Multicast"
 )
 
@@ -2585,13 +2386,17 @@ const (
 type TransportProtocol string
 
 const (
+	// TransportProtocolUDP const
 	TransportProtocolUDP TransportProtocol = "UDP"
 
 	// This value is deprecated.
+	// TransportProtocolTCP const
 	TransportProtocolTCP TransportProtocol = "TCP"
 
+	// TransportProtocolRTSP const
 	TransportProtocolRTSP TransportProtocol = "RTSP"
 
+	// TransportProtocolHTTP const
 	TransportProtocolHTTP TransportProtocol = "HTTP"
 )
 
@@ -2599,8 +2404,10 @@ const (
 type ScopeDefinition string
 
 const (
+	// ScopeDefinitionFixed const
 	ScopeDefinitionFixed ScopeDefinition = "Fixed"
 
+	// ScopeDefinitionConfigurable const
 	ScopeDefinitionConfigurable ScopeDefinition = "Configurable"
 )
 
@@ -2608,8 +2415,10 @@ const (
 type DiscoveryMode string
 
 const (
+	// DiscoveryModeDiscoverable const
 	DiscoveryModeDiscoverable DiscoveryMode = "Discoverable"
 
+	// DiscoveryModeNonDiscoverable const
 	DiscoveryModeNonDiscoverable DiscoveryMode = "NonDiscoverable"
 )
 
@@ -2620,8 +2429,10 @@ type NetworkInterfaceConfigPriority int32
 type Duplex string
 
 const (
+	// DuplexFull const
 	DuplexFull Duplex = "Full"
 
+	// DuplexHalf const
 	DuplexHalf Duplex = "Half"
 )
 
@@ -2632,12 +2443,16 @@ type IANAIfTypes int32
 type IPv6DHCPConfiguration string
 
 const (
+	// IPv6DHCPConfigurationAuto const
 	IPv6DHCPConfigurationAuto IPv6DHCPConfiguration = "Auto"
 
+	// IPv6DHCPConfigurationStateful const
 	IPv6DHCPConfigurationStateful IPv6DHCPConfiguration = "Stateful"
 
+	// IPv6DHCPConfigurationStateless const
 	IPv6DHCPConfigurationStateless IPv6DHCPConfiguration = "Stateless"
 
+	// IPv6DHCPConfigurationOff const
 	IPv6DHCPConfigurationOff IPv6DHCPConfiguration = "Off"
 )
 
@@ -2645,10 +2460,13 @@ const (
 type NetworkProtocolType string
 
 const (
+	// NetworkProtocolTypeHTTP const
 	NetworkProtocolTypeHTTP NetworkProtocolType = "HTTP"
 
+	// NetworkProtocolTypeHTTPS const
 	NetworkProtocolTypeHTTPS NetworkProtocolType = "HTTPS"
 
+	// NetworkProtocolTypeRTSP const
 	NetworkProtocolTypeRTSP NetworkProtocolType = "RTSP"
 )
 
@@ -2656,10 +2474,13 @@ const (
 type NetworkHostType string
 
 const (
+	// NetworkHostTypeIPv4 const
 	NetworkHostTypeIPv4 NetworkHostType = "IPv4"
 
+	// NetworkHostTypeIPv6 const
 	NetworkHostTypeIPv6 NetworkHostType = "IPv6"
 
+	// NetworkHostTypeDNS const
 	NetworkHostTypeDNS NetworkHostType = "DNS"
 )
 
@@ -2676,23 +2497,24 @@ type HwAddress string
 type IPType string
 
 const (
+	// IPTypeIPv4 const
 	IPTypeIPv4 IPType = "IPv4"
 
+	// IPTypeIPv6 const
 	IPTypeIPv6 IPType = "IPv6"
 )
 
 // DNSName type
 type DNSName string
 
-// Domain type
-type Domain string
-
 // IPAddressFilterType type
 type IPAddressFilterType string
 
 const (
+	// IPAddressFilterTypeAllow const
 	IPAddressFilterTypeAllow IPAddressFilterType = "Allow"
 
+	// IPAddressFilterTypeDeny const
 	IPAddressFilterTypeDeny IPAddressFilterType = "Deny"
 )
 
@@ -2700,10 +2522,13 @@ const (
 type DynamicDNSType string
 
 const (
+	// DynamicDNSTypeNoUpdate const
 	DynamicDNSTypeNoUpdate DynamicDNSType = "NoUpdate"
 
+	// DynamicDNSTypeClientUpdates const
 	DynamicDNSTypeClientUpdates DynamicDNSType = "ClientUpdates"
 
+	// DynamicDNSTypeServerUpdates const
 	DynamicDNSTypeServerUpdates DynamicDNSType = "ServerUpdates"
 )
 
@@ -2714,10 +2539,13 @@ type Dot11SSIDType []byte
 type Dot11StationMode string
 
 const (
+	// Dot11StationModeAdhoc const
 	Dot11StationModeAdhoc Dot11StationMode = "Ad-hoc"
 
+	// Dot11StationModeInfrastructure const
 	Dot11StationModeInfrastructure Dot11StationMode = "Infrastructure"
 
+	// Dot11StationModeExtended const
 	Dot11StationModeExtended Dot11StationMode = "Extended"
 )
 
@@ -2725,14 +2553,19 @@ const (
 type Dot11SecurityMode string
 
 const (
+	// Dot11SecurityModeNone const
 	Dot11SecurityModeNone Dot11SecurityMode = "None"
 
+	// Dot11SecurityModeWEP const
 	Dot11SecurityModeWEP Dot11SecurityMode = "WEP"
 
+	// Dot11SecurityModePSK const
 	Dot11SecurityModePSK Dot11SecurityMode = "PSK"
 
+	// Dot11SecurityModeDot1X const
 	Dot11SecurityModeDot1X Dot11SecurityMode = "Dot1X"
 
+	// Dot11SecurityModeExtended const
 	Dot11SecurityModeExtended Dot11SecurityMode = "Extended"
 )
 
@@ -2740,12 +2573,16 @@ const (
 type Dot11Cipher string
 
 const (
+	// Dot11CipherCCMP const
 	Dot11CipherCCMP Dot11Cipher = "CCMP"
 
+	// Dot11CipherTKIP const
 	Dot11CipherTKIP Dot11Cipher = "TKIP"
 
+	// Dot11CipherAny const
 	Dot11CipherAny Dot11Cipher = "Any"
 
+	// Dot11CipherExtended const
 	Dot11CipherExtended Dot11Cipher = "Extended"
 )
 
@@ -2759,16 +2596,22 @@ type Dot11PSKPassphrase string
 type Dot11SignalStrength string
 
 const (
+	// Dot11SignalStrengthNone const
 	Dot11SignalStrengthNone Dot11SignalStrength = "None"
 
+	// Dot11SignalStrengthVeryBad const
 	Dot11SignalStrengthVeryBad Dot11SignalStrength = "Very Bad"
 
+	// Dot11SignalStrengthBad const
 	Dot11SignalStrengthBad Dot11SignalStrength = "Bad"
 
+	// Dot11SignalStrengthGood const
 	Dot11SignalStrengthGood Dot11SignalStrength = "Good"
 
+	// Dot11SignalStrengthVeryGood const
 	Dot11SignalStrengthVeryGood Dot11SignalStrength = "Very Good"
 
+	// Dot11SignalStrengthExtended const
 	Dot11SignalStrengthExtended Dot11SignalStrength = "Extended"
 )
 
@@ -2776,12 +2619,16 @@ const (
 type Dot11AuthAndMangementSuite string
 
 const (
+	// Dot11AuthAndMangementSuiteNone const
 	Dot11AuthAndMangementSuiteNone Dot11AuthAndMangementSuite = "None"
 
+	// Dot11AuthAndMangementSuiteDot1X const
 	Dot11AuthAndMangementSuiteDot1X Dot11AuthAndMangementSuite = "Dot1X"
 
+	// Dot11AuthAndMangementSuitePSK const
 	Dot11AuthAndMangementSuitePSK Dot11AuthAndMangementSuite = "PSK"
 
+	// Dot11AuthAndMangementSuiteExtended const
 	Dot11AuthAndMangementSuiteExtended Dot11AuthAndMangementSuite = "Extended"
 )
 
@@ -2789,18 +2636,25 @@ const (
 type CapabilityCategory string
 
 const (
+	// CapabilityCategoryAll const
 	CapabilityCategoryAll CapabilityCategory = "All"
 
+	// CapabilityCategoryAnalytics const
 	CapabilityCategoryAnalytics CapabilityCategory = "Analytics"
 
+	// CapabilityCategoryDevice const
 	CapabilityCategoryDevice CapabilityCategory = "Device"
 
+	// CapabilityCategoryEvents const
 	CapabilityCategoryEvents CapabilityCategory = "Events"
 
+	// CapabilityCategoryImaging const
 	CapabilityCategoryImaging CapabilityCategory = "Imaging"
 
+	// CapabilityCategoryMedia const
 	CapabilityCategoryMedia CapabilityCategory = "Media"
 
+	// CapabilityCategoryPTZ const
 	CapabilityCategoryPTZ CapabilityCategory = "PTZ"
 )
 
@@ -2812,9 +2666,11 @@ type SystemLogType string
 const (
 
 	// Indicates that a system log is requested.
+	// SystemLogTypeSystem const
 	SystemLogTypeSystem SystemLogType = "System"
 
 	// Indicates that a access log is requested.
+	// SystemLogTypeAccess const
 	SystemLogTypeAccess SystemLogType = "Access"
 )
 
@@ -2826,9 +2682,11 @@ type FactoryDefaultType string
 const (
 
 	// Indicates that a hard factory default is requested.
+	// FactoryDefaultTypeHard const
 	FactoryDefaultTypeHard FactoryDefaultType = "Hard"
 
 	// Indicates that a soft factory default is requested.
+	// FactoryDefaultTypeSoft const
 	FactoryDefaultTypeSoft FactoryDefaultType = "Soft"
 )
 
@@ -2838,9 +2696,11 @@ type SetDateTimeType string
 const (
 
 	// Indicates that the date and time are set manually.
+	// SetDateTimeTypeManual const
 	SetDateTimeTypeManual SetDateTimeType = "Manual"
 
 	// Indicates that the date and time are set through NTP
+	// SetDateTimeTypeNTP const
 	SetDateTimeTypeNTP SetDateTimeType = "NTP"
 )
 
@@ -2848,14 +2708,19 @@ const (
 type UserLevel string
 
 const (
+	// UserLevelAdministrator const
 	UserLevelAdministrator UserLevel = "Administrator"
 
+	// UserLevelOperator const
 	UserLevelOperator UserLevel = "Operator"
 
+	// UserLevelUser const
 	UserLevelUser UserLevel = "User"
 
+	// UserLevelAnonymous const
 	UserLevelAnonymous UserLevel = "Anonymous"
 
+	// UserLevelExtended const
 	UserLevelExtended UserLevel = "Extended"
 )
 
@@ -2863,8 +2728,10 @@ const (
 type RelayLogicalState string
 
 const (
+	// RelayLogicalStateActive const
 	RelayLogicalStateActive RelayLogicalState = "active"
 
+	// RelayLogicalStateInactive const
 	RelayLogicalStateInactive RelayLogicalState = "inactive"
 )
 
@@ -2872,8 +2739,10 @@ const (
 type RelayIdleState string
 
 const (
+	// RelayIdleStateClosed const
 	RelayIdleStateClosed RelayIdleState = "closed"
 
+	// RelayIdleStateOpen const
 	RelayIdleStateOpen RelayIdleState = "open"
 )
 
@@ -2881,8 +2750,10 @@ const (
 type RelayMode string
 
 const (
+	// RelayModeMonostable const
 	RelayModeMonostable RelayMode = "Monostable"
 
+	// RelayModeBistable const
 	RelayModeBistable RelayMode = "Bistable"
 )
 
@@ -2890,8 +2761,10 @@ const (
 type DigitalIdleState string
 
 const (
+	// DigitalIdleStateClosed const
 	DigitalIdleStateClosed DigitalIdleState = "closed"
 
+	// DigitalIdleStateOpen const
 	DigitalIdleStateOpen DigitalIdleState = "open"
 )
 
@@ -2899,10 +2772,13 @@ const (
 type EFlipMode string
 
 const (
+	// EFlipModeOFF const
 	EFlipModeOFF EFlipMode = "OFF"
 
+	// EFlipModeON const
 	EFlipModeON EFlipMode = "ON"
 
+	// EFlipModeExtended const
 	EFlipModeExtended EFlipMode = "Extended"
 )
 
@@ -2910,12 +2786,16 @@ const (
 type ReverseMode string
 
 const (
+	// ReverseModeOFF const
 	ReverseModeOFF ReverseMode = "OFF"
 
+	// ReverseModeON const
 	ReverseModeON ReverseMode = "ON"
 
+	// ReverseModeAUTO const
 	ReverseModeAUTO ReverseMode = "AUTO"
 
+	// ReverseModeExtended const
 	ReverseModeExtended ReverseMode = "Extended"
 )
 
@@ -2926,12 +2806,16 @@ type AuxiliaryData string
 type PTZPresetTourState string
 
 const (
+	// PTZPresetTourStateIdle const
 	PTZPresetTourStateIdle PTZPresetTourState = "Idle"
 
+	// PTZPresetTourStateTouring const
 	PTZPresetTourStateTouring PTZPresetTourState = "Touring"
 
+	// PTZPresetTourStatePaused const
 	PTZPresetTourStatePaused PTZPresetTourState = "Paused"
 
+	// PTZPresetTourStateExtended const
 	PTZPresetTourStateExtended PTZPresetTourState = "Extended"
 )
 
@@ -2939,10 +2823,13 @@ const (
 type PTZPresetTourDirection string
 
 const (
+	// PTZPresetTourDirectionForward const
 	PTZPresetTourDirectionForward PTZPresetTourDirection = "Forward"
 
+	// PTZPresetTourDirectionBackward const
 	PTZPresetTourDirectionBackward PTZPresetTourDirection = "Backward"
 
+	// PTZPresetTourDirectionExtended const
 	PTZPresetTourDirectionExtended PTZPresetTourDirection = "Extended"
 )
 
@@ -2950,12 +2837,16 @@ const (
 type PTZPresetTourOperation string
 
 const (
+	// PTZPresetTourOperationStart const
 	PTZPresetTourOperationStart PTZPresetTourOperation = "Start"
 
+	// PTZPresetTourOperationStop const
 	PTZPresetTourOperationStop PTZPresetTourOperation = "Stop"
 
+	// PTZPresetTourOperationPause const
 	PTZPresetTourOperationPause PTZPresetTourOperation = "Pause"
 
+	// PTZPresetTourOperationExtended const
 	PTZPresetTourOperationExtended PTZPresetTourOperation = "Extended"
 )
 
@@ -2963,8 +2854,10 @@ const (
 type AutoFocusMode string
 
 const (
+	// AutoFocusModeAUTO const
 	AutoFocusModeAUTO AutoFocusMode = "AUTO"
 
+	// AutoFocusModeMANUAL const
 	AutoFocusModeMANUAL AutoFocusMode = "MANUAL"
 )
 
@@ -2974,6 +2867,7 @@ type AFModes string
 const (
 
 	// Focus of a moving camera is updated only once after stopping a pan, tilt or zoom movement.
+	// AFModesOnceAfterMove const
 	AFModesOnceAfterMove AFModes = "OnceAfterMove"
 )
 
@@ -2981,8 +2875,10 @@ const (
 type WideDynamicMode string
 
 const (
+	// WideDynamicModeOFF const
 	WideDynamicModeOFF WideDynamicMode = "OFF"
 
+	// WideDynamicModeON const
 	WideDynamicModeON WideDynamicMode = "ON"
 )
 
@@ -2994,9 +2890,11 @@ type BacklightCompensationMode string
 const (
 
 	// Backlight compensation is disabled.
+	// BacklightCompensationModeOFF const
 	BacklightCompensationModeOFF BacklightCompensationMode = "OFF"
 
 	// Backlight compensation is enabled.
+	// BacklightCompensationModeON const
 	BacklightCompensationModeON BacklightCompensationMode = "ON"
 )
 
@@ -3004,8 +2902,10 @@ const (
 type ExposurePriority string
 
 const (
+	// ExposurePriorityLowNoise const
 	ExposurePriorityLowNoise ExposurePriority = "LowNoise"
 
+	// ExposurePriorityFrameRate const
 	ExposurePriorityFrameRate ExposurePriority = "FrameRate"
 )
 
@@ -3013,8 +2913,10 @@ const (
 type ExposureMode string
 
 const (
+	// ExposureModeAUTO const
 	ExposureModeAUTO ExposureMode = "AUTO"
 
+	// ExposureModeMANUAL const
 	ExposureModeMANUAL ExposureMode = "MANUAL"
 )
 
@@ -3022,8 +2924,10 @@ const (
 type Enabled string
 
 const (
+	// EnabledENABLED const
 	EnabledENABLED Enabled = "ENABLED"
 
+	// EnabledDISABLED const
 	EnabledDISABLED Enabled = "DISABLED"
 )
 
@@ -3031,8 +2935,10 @@ const (
 type WhiteBalanceMode string
 
 const (
+	// WhiteBalanceModeAUTO const
 	WhiteBalanceModeAUTO WhiteBalanceMode = "AUTO"
 
+	// WhiteBalanceModeMANUAL const
 	WhiteBalanceModeMANUAL WhiteBalanceMode = "MANUAL"
 )
 
@@ -3040,10 +2946,13 @@ const (
 type IrCutFilterMode string
 
 const (
+	// IrCutFilterModeON const
 	IrCutFilterModeON IrCutFilterMode = "ON"
 
+	// IrCutFilterModeOFF const
 	IrCutFilterModeOFF IrCutFilterMode = "OFF"
 
+	// IrCutFilterModeAUTO const
 	IrCutFilterModeAUTO IrCutFilterMode = "AUTO"
 )
 
@@ -3051,12 +2960,16 @@ const (
 type ImageStabilizationMode string
 
 const (
+	// ImageStabilizationModeOFF const
 	ImageStabilizationModeOFF ImageStabilizationMode = "OFF"
 
+	// ImageStabilizationModeON const
 	ImageStabilizationModeON ImageStabilizationMode = "ON"
 
+	// ImageStabilizationModeAUTO const
 	ImageStabilizationModeAUTO ImageStabilizationMode = "AUTO"
 
+	// ImageStabilizationModeExtended const
 	ImageStabilizationModeExtended ImageStabilizationMode = "Extended"
 )
 
@@ -3064,12 +2977,16 @@ const (
 type IrCutFilterAutoBoundaryType string
 
 const (
+	// IrCutFilterAutoBoundaryTypeCommon const
 	IrCutFilterAutoBoundaryTypeCommon IrCutFilterAutoBoundaryType = "Common"
 
+	// IrCutFilterAutoBoundaryTypeToOn const
 	IrCutFilterAutoBoundaryTypeToOn IrCutFilterAutoBoundaryType = "ToOn"
 
+	// IrCutFilterAutoBoundaryTypeToOff const
 	IrCutFilterAutoBoundaryTypeToOff IrCutFilterAutoBoundaryType = "ToOff"
 
+	// IrCutFilterAutoBoundaryTypeExtended const
 	IrCutFilterAutoBoundaryTypeExtended IrCutFilterAutoBoundaryType = "Extended"
 )
 
@@ -3077,10 +2994,13 @@ const (
 type ToneCompensationMode string
 
 const (
+	// ToneCompensationModeOFF const
 	ToneCompensationModeOFF ToneCompensationMode = "OFF"
 
+	// ToneCompensationModeON const
 	ToneCompensationModeON ToneCompensationMode = "ON"
 
+	// ToneCompensationModeAUTO const
 	ToneCompensationModeAUTO ToneCompensationMode = "AUTO"
 )
 
@@ -3088,10 +3008,13 @@ const (
 type DefoggingMode string
 
 const (
+	// DefoggingModeOFF const
 	DefoggingModeOFF DefoggingMode = "OFF"
 
+	// DefoggingModeON const
 	DefoggingModeON DefoggingMode = "ON"
 
+	// DefoggingModeAUTO const
 	DefoggingModeAUTO DefoggingMode = "AUTO"
 )
 
@@ -3102,10 +3025,13 @@ type TopicNamespaceLocation AnyURI
 type PropertyOperation string
 
 const (
+	// PropertyOperationInitialized const
 	PropertyOperationInitialized PropertyOperation = "Initialized"
 
+	// PropertyOperationDeleted const
 	PropertyOperationDeleted PropertyOperation = "Deleted"
 
+	// PropertyOperationChanged const
 	PropertyOperationChanged PropertyOperation = "Changed"
 )
 
@@ -3113,10 +3039,13 @@ const (
 type Direction string
 
 const (
+	// DirectionLeft const
 	DirectionLeft Direction = "Left"
 
+	// DirectionRight const
 	DirectionRight Direction = "Right"
 
+	// DirectionAny const
 	DirectionAny Direction = "Any"
 )
 
@@ -3130,15 +3059,19 @@ type ReceiverMode string
 const (
 
 	// The receiver connects on demand, as required by consumers of the media streams.
+	// ReceiverModeAutoConnect const
 	ReceiverModeAutoConnect ReceiverMode = "AutoConnect"
 
 	// The receiver attempts to maintain a persistent connection to the configured endpoint.
+	// ReceiverModeAlwaysConnect const
 	ReceiverModeAlwaysConnect ReceiverMode = "AlwaysConnect"
 
 	// The receiver does not attempt to connect.
+	// ReceiverModeNeverConnect const
 	ReceiverModeNeverConnect ReceiverMode = "NeverConnect"
 
 	// This case should never happen.
+	// ReceiverModeUnknown const
 	ReceiverModeUnknown ReceiverMode = "Unknown"
 )
 
@@ -3152,15 +3085,19 @@ type ReceiverState string
 const (
 
 	// The receiver is not connected.
+	// ReceiverStateNotConnected const
 	ReceiverStateNotConnected ReceiverState = "NotConnected"
 
 	// The receiver is attempting to connect.
+	// ReceiverStateConnecting const
 	ReceiverStateConnecting ReceiverState = "Connecting"
 
 	// The receiver is connected.
+	// ReceiverStateConnected const
 	ReceiverStateConnected ReceiverState = "Connected"
 
 	// This case should never happen.
+	// ReceiverStateUnknown const
 	ReceiverStateUnknown ReceiverState = "Unknown"
 )
 
@@ -3185,15 +3122,19 @@ type SearchState string
 const (
 
 	// The search is queued and not yet started.
+	// SearchStateQueued const
 	SearchStateQueued SearchState = "Queued"
 
 	// The search is underway and not yet completed.
+	// SearchStateSearching const
 	SearchStateSearching SearchState = "Searching"
 
 	// The search has been completed and no new results will be found.
+	// SearchStateCompleted const
 	SearchStateCompleted SearchState = "Completed"
 
 	// The state of the search is unknown. (This is not a valid response from GetSearchState.)
+	// SearchStateUnknown const
 	SearchStateUnknown SearchState = "Unknown"
 )
 
@@ -3204,17 +3145,23 @@ type JobToken ReferenceToken
 type RecordingStatus string
 
 const (
+	// RecordingStatusInitiated const
 	RecordingStatusInitiated RecordingStatus = "Initiated"
 
+	// RecordingStatusRecording const
 	RecordingStatusRecording RecordingStatus = "Recording"
 
+	// RecordingStatusStopped const
 	RecordingStatusStopped RecordingStatus = "Stopped"
 
+	// RecordingStatusRemoving const
 	RecordingStatusRemoving RecordingStatus = "Removing"
 
+	// RecordingStatusRemoved const
 	RecordingStatusRemoved RecordingStatus = "Removed"
 
 	// This case should never happen.
+	// RecordingStatusUnknown const
 	RecordingStatusUnknown RecordingStatus = "Unknown"
 )
 
@@ -3222,13 +3169,17 @@ const (
 type TrackType string
 
 const (
+	// TrackTypeVideo const
 	TrackTypeVideo TrackType = "Video"
 
+	// TrackTypeAudio const
 	TrackTypeAudio TrackType = "Audio"
 
+	// TrackTypeMetadata const
 	TrackTypeMetadata TrackType = "Metadata"
 
 	// Placeholder for future extension.
+	// TrackTypeExtended const
 	TrackTypeExtended TrackType = "Extended"
 )
 
@@ -3245,11 +3196,14 @@ type RecordingJobState string
 type ModeOfOperation string
 
 const (
+	// ModeOfOperationIdle const
 	ModeOfOperationIdle ModeOfOperation = "Idle"
 
+	// ModeOfOperationActive const
 	ModeOfOperationActive ModeOfOperation = "Active"
 
 	// This case should never happen.
+	// ModeOfOperationUnknown const
 	ModeOfOperationUnknown ModeOfOperation = "Unknown"
 )
 
@@ -3265,22 +3219,15 @@ type AudioClassType string
 type OSDType string
 
 const (
+	// OSDTypeText const
 	OSDTypeText OSDType = "Text"
 
+	// OSDTypeImage const
 	OSDTypeImage OSDType = "Image"
 
+	// OSDTypeExtended const
 	OSDTypeExtended OSDType = "Extended"
 )
-
-// StringItems type
-type StringItems struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schema StringItems"`
-
-	Item []string `xml:"http://www.onvif.org/ver10/schema Item,omitempty"`
-}
-
-// StringList type
-type StringList StringAttrList
 
 // Message type
 type Message struct {
@@ -3353,10 +3300,6 @@ type DurationRange struct {
 type IntList struct {
 	Items []int32 `xml:"http://www.onvif.org/ver10/schema Items,omitempty"`
 }
-
-// Removed FloatList by fixgen.py
-
-// Removed AnyHolder by fixgen.py
 
 // VideoSource type
 type VideoSource struct {
@@ -3836,22 +3779,6 @@ type H264Options2 struct {
 	BitrateRange IntRange `xml:"http://www.onvif.org/ver10/schema BitrateRange,omitempty"`
 }
 
-// Removed VideoEncoder2Configuration by fixgen.py
-
-// VideoResolution2 type
-type VideoResolution2 struct {
-
-	// Number of the columns of the Video image.
-	Width int32 `xml:"http://www.onvif.org/ver10/schema Width,omitempty"`
-
-	// Number of the lines of the Video image.
-	Height int32 `xml:"http://www.onvif.org/ver10/schema Height,omitempty"`
-}
-
-// Removed VideoRateControl2 by fixgen.py
-
-// Removed VideoEncoder2ConfigurationOptions by fixgen.py
-
 // AudioSourceConfiguration type
 type AudioSourceConfiguration struct {
 	*ConfigurationEntity
@@ -3912,10 +3839,6 @@ type AudioEncoderConfigurationOption struct {
 	// List of supported Sample Rates in kHz for the specified Encoding
 	SampleRateList IntList `xml:"http://www.onvif.org/ver10/schema SampleRateList,omitempty"`
 }
-
-// Removed AudioEncoder2Configuration by fixgen.py
-
-// Removed AudioEncoder2ConfigurationOptions by fixgen.py
 
 // VideoAnalyticsConfiguration type
 type VideoAnalyticsConfiguration struct {
@@ -4049,10 +3972,6 @@ type VideoOutput struct {
 // VideoOutputExtension type
 type VideoOutputExtension struct {
 }
-
-// Removed VideoOutputConfiguration by fixgen.py
-
-// Removed VideoOutputConfigurationOptions by fixgen.py
 
 // VideoDecoderConfigurationOptions type
 type VideoDecoderConfigurationOptions struct {
@@ -4635,8 +4554,6 @@ type IPv4NetworkInterfaceSetConfiguration struct {
 	DHCP bool `xml:"http://www.onvif.org/ver10/media/wsdl DHCP,omitempty"`
 }
 
-// Removed NetworkGateway by fixgen.py
-
 // NetworkZeroConfiguration type
 type NetworkZeroConfiguration struct {
 
@@ -4736,10 +4653,6 @@ type Dot11PSKSetExtension struct {
 // NetworkInterfaceSetConfigurationExtension2 type
 type NetworkInterfaceSetConfigurationExtension2 struct {
 }
-
-// Removed Dot11Capabilities by fixgen.py
-
-// Removed Dot11Status by fixgen.py
 
 // Dot11AvailableNetworks type
 type Dot11AvailableNetworks struct {
@@ -5160,18 +5073,6 @@ type AnalyticsDeviceCapabilities struct {
 type AnalyticsDeviceExtension struct {
 }
 
-// SystemLog type
-type SystemLog struct {
-
-	// The log information as attachment data.
-	Binary AttachmentData `xml:"http://www.onvif.org/ver10/schema Binary,omitempty"`
-
-	// The log information as character data.
-	String string `xml:"http://www.onvif.org/ver10/schema String,omitempty"`
-}
-
-// Removed SupportInformation by fixgen.py
-
 // BinaryData type
 type BinaryData struct {
 
@@ -5180,19 +5081,6 @@ type BinaryData struct {
 
 	ContentType string `xml:"contentType,attr,omitempty"`
 }
-
-// AttachmentData type
-type AttachmentData struct {
-	Include Include `xml:"Include,omitempty"`
-
-	ContentType string `xml:"contentType,attr,omitempty"`
-}
-
-// Removed BackupFile by fixgen.py
-
-// Removed SystemLogUriList by fixgen.py
-
-// Removed SystemLogUri by fixgen.py
 
 // SystemDateTime type
 type SystemDateTime struct {
@@ -5257,8 +5145,6 @@ type TimeZone struct {
 	TZ string `xml:"http://www.onvif.org/ver10/schema TZ,omitempty"`
 }
 
-// Removed RemoteUser by fixgen.py
-
 // User type
 type User struct {
 
@@ -5304,10 +5190,6 @@ type Certificate struct {
 	// base64 encoded DER representation of certificate.
 	Certificate BinaryData `xml:"http://www.onvif.org/ver10/schema Certificate,omitempty"`
 }
-
-// Removed CertificateStatus by fixgen.py
-
-// Removed CertificateWithPrivateKey by fixgen.py
 
 // CertificateInformation type
 type CertificateInformation struct {
@@ -5391,8 +5273,6 @@ type TLSConfiguration struct {
 	CertificateID string `xml:"http://www.onvif.org/ver10/schema CertificateID,omitempty"`
 }
 
-// Removed GenericEapPwdConfigurationExtension by fixgen.py
-
 // RelayOutputSettings type
 type RelayOutputSettings struct {
 
@@ -5418,8 +5298,6 @@ type RelayOutput struct {
 
 	Properties RelayOutputSettings `xml:"http://www.onvif.org/ver10/schema Properties,omitempty"`
 }
-
-// Removed DigitalInput by fixgen.py
 
 // PTZNode type
 type PTZNode struct {
@@ -5829,10 +5707,6 @@ type PTZPreset struct {
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
 
-// Removed PresetTour by fixgen.py
-
-// Removed PTZPresetTourExtension by fixgen.py
-
 // PTZPresetTourSpot type
 type PTZPresetTourSpot struct {
 
@@ -5909,10 +5783,6 @@ type PTZPresetTourStartingCondition struct {
 // PTZPresetTourStartingConditionExtension type
 type PTZPresetTourStartingConditionExtension struct {
 }
-
-// Removed PTZPresetTourOptions by fixgen.py
-
-// Removed PTZPresetTourSpotOptions by fixgen.py
 
 // PTZPresetTourPresetDetailOptions type
 type PTZPresetTourPresetDetailOptions struct {
@@ -6202,84 +6072,6 @@ type WhiteBalanceOptions struct {
 	YrGain FloatRange `xml:"http://www.onvif.org/ver10/schema YrGain,omitempty"`
 
 	YbGain FloatRange `xml:"http://www.onvif.org/ver10/schema YbGain,omitempty"`
-}
-
-// Removed FocusMove by fixgen.py
-
-// AbsoluteFocus type
-type AbsoluteFocus struct {
-
-	//
-	// Position parameter for the absolute focus control.
-	//
-	Position float32 `xml:"http://www.onvif.org/ver10/schema Position,omitempty"`
-
-	//
-	// Speed parameter for the absolute focus control.
-	//
-	Speed float32 `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
-}
-
-// RelativeFocus type
-type RelativeFocus struct {
-
-	//
-	// Distance parameter for the relative focus control.
-	//
-	Distance float32 `xml:"http://www.onvif.org/ver10/schema Distance,omitempty"`
-
-	//
-	// Speed parameter for the relative focus control.
-	//
-	Speed float32 `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
-}
-
-// ContinuousFocus type
-type ContinuousFocus struct {
-
-	//
-	// Speed parameter for the Continuous focus control.
-	//
-	Speed float32 `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
-}
-
-// Removed MoveOptions by fixgen.py
-
-// AbsoluteFocusOptions type
-type AbsoluteFocusOptions struct {
-
-	//
-	// Valid ranges of the position.
-	//
-	Position FloatRange `xml:"http://www.onvif.org/ver10/schema Position,omitempty"`
-
-	//
-	// Valid ranges of the speed.
-	//
-	Speed FloatRange `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
-}
-
-// RelativeFocusOptions type
-type RelativeFocusOptions struct {
-
-	//
-	// Valid ranges of the distance.
-	//
-	Distance FloatRange `xml:"http://www.onvif.org/ver10/schema Distance,omitempty"`
-
-	//
-	// Valid ranges of the speed.
-	//
-	Speed FloatRange `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
-}
-
-// ContinuousFocusOptions type
-type ContinuousFocusOptions struct {
-
-	//
-	// Valid ranges of the speed.
-	//
-	Speed FloatRange `xml:"http://www.onvif.org/ver10/schema Speed,omitempty"`
 }
 
 // WhiteBalance type
@@ -6776,10 +6568,6 @@ type ExposureOptions20 struct {
 	Iris FloatRange `xml:"http://www.onvif.org/ver10/schema Iris,omitempty"`
 }
 
-// Removed MoveOptions20 by fixgen.py
-
-// Removed RelativeFocusOptions20 by fixgen.py
-
 // WhiteBalance20 type
 type WhiteBalance20 struct {
 
@@ -7120,8 +6908,6 @@ type SupportedAnalyticsModules struct {
 type SupportedAnalyticsModulesExtension struct {
 }
 
-// Removed PolygonConfiguration by fixgen.py
-
 // PolylineArray type
 type PolylineArray struct {
 
@@ -7134,23 +6920,6 @@ type PolylineArray struct {
 // PolylineArrayExtension type
 type PolylineArrayExtension struct {
 }
-
-// Removed PolylineArrayConfiguration by fixgen.py
-
-// MotionExpression type
-type MotionExpression struct {
-
-	// Motion Expression data structure contains motion expression which is based on Scene Descriptor schema with XPATH syntax. The Type argument could allow introduction of different dialects
-	Expression string `xml:"http://www.onvif.org/ver10/schema Expression,omitempty"`
-
-	Type string `xml:"http://www.onvif.org/ver10/schema Type,attr,omitempty"`
-}
-
-// Removed MotionExpressionConfiguration by fixgen.py
-
-// Removed CellLayout by fixgen.py
-
-// Removed PaneConfiguration by fixgen.py
 
 // PaneLayout type
 type PaneLayout struct {
@@ -7174,8 +6943,6 @@ type Layout struct {
 // LayoutExtension type
 type LayoutExtension struct {
 }
-
-// Removed CodingCapabilities by fixgen.py
 
 // LayoutOptions type
 type LayoutOptions struct {
@@ -7226,8 +6993,6 @@ type ReceiverConfiguration struct {
 	StreamSetup StreamSetup `xml:"http://www.onvif.org/ver10/media/wsdl StreamSetup,omitempty"`
 }
 
-// Removed ReceiverStateInformation by fixgen.py
-
 // SourceReference type
 type SourceReference struct {
 	Token ReferenceToken `xml:"http://www.onvif.org/ver10/media/wsdl Token,omitempty"`
@@ -7241,8 +7006,6 @@ type DateTimeRange struct {
 
 	Until string `xml:"http://www.onvif.org/ver10/schema Until,omitempty"`
 }
-
-// Removed RecordingSummary by fixgen.py
 
 // SearchScope type
 type SearchScope struct {
@@ -7263,28 +7026,6 @@ type SearchScope struct {
 // SearchScopeExtension type
 type SearchScopeExtension struct {
 }
-
-// Removed EventFilter by fixgen.py
-
-// Removed PTZPositionFilter by fixgen.py
-
-// Removed MetadataFilter by fixgen.py
-
-// Removed FindRecordingResultList by fixgen.py
-
-// Removed FindEventResultList by fixgen.py
-
-// Removed FindEventResult by fixgen.py
-
-// Removed FindPTZPositionResultList by fixgen.py
-
-// Removed FindPTZPositionResult by fixgen.py
-
-// Removed FindMetadataResultList by fixgen.py
-
-// Removed FindMetadataResult by fixgen.py
-
-// Removed RecordingInformation by fixgen.py
 
 // RecordingSourceInformation type
 type RecordingSourceInformation struct {
@@ -7324,8 +7065,6 @@ type TrackInformation struct {
 	// The stop date and time of the newest recorded data in the track.
 	DataTo string `xml:"http://www.onvif.org/ver10/schema DataTo,omitempty"`
 }
-
-// Removed MediaAttributes by fixgen.py
 
 // TrackAttributes type
 type TrackAttributes struct {
@@ -7397,41 +7136,6 @@ type MetadataAttributes struct {
 
 	PtzSpaces StringAttrList `xml:"http://www.onvif.org/ver10/schema PtzSpaces,attr,omitempty"`
 }
-
-// RecordingConfiguration type
-type RecordingConfiguration struct {
-
-	// Information about the source of the recording.
-	Source RecordingSourceInformation `xml:"http://www.onvif.org/ver10/schema Source,omitempty"`
-
-	// Informative description of the source.
-	Content Description `xml:"http://www.onvif.org/ver10/media/wsdl Content,omitempty"`
-
-	// Sspecifies the maximum time that data in any track within the
-	// recording shall be stored. The device shall delete any data older than the maximum retention
-	// time. Such data shall not be accessible anymore. If the MaximumRetentionPeriod is set to 0,
-	// the device shall not limit the retention time of stored data, except by resource constraints.
-	// Whatever the value of MaximumRetentionTime, the device may automatically delete
-	// recordings to free up storage space for new recordings.
-	MaximumRetentionTime Duration `xml:"http://www.onvif.org/ver10/schema MaximumRetentionTime,omitempty"`
-}
-
-// TrackConfiguration type
-type TrackConfiguration struct {
-
-	// Type of the track. It shall be equal to the strings “Video”,
-	// “Audio” or “Metadata”. The track shall only be able to hold data of that type.
-	TrackType TrackType `xml:"http://www.onvif.org/ver10/schema TrackType,omitempty"`
-
-	// Informative description of the track.
-	Description Description `xml:"http://www.onvif.org/ver10/media/wsdl Description,omitempty"`
-}
-
-// Removed GetRecordingsResponseItem by fixgen.py
-
-// Removed GetTracksResponseList by fixgen.py
-
-// Removed GetTracksResponseItem by fixgen.py
 
 // RecordingJobConfiguration type
 type RecordingJobConfiguration struct {
@@ -7561,10 +7265,6 @@ type RecordingJobStateTrack struct {
 	State RecordingJobState `xml:"http://www.onvif.org/ver10/schema State,omitempty"`
 }
 
-// Removed GetRecordingJobsResponseItem by fixgen.py
-
-// Removed ReplayConfiguration by fixgen.py
-
 // AnalyticsEngine type
 type AnalyticsEngine struct {
 	*ConfigurationEntity
@@ -7635,12 +7335,6 @@ type MetadataInput struct {
 // MetadataInputExtension type
 type MetadataInputExtension struct {
 }
-
-// Removed AnalyticsEngineControl by fixgen.py
-
-// Removed AnalyticsStateInformation by fixgen.py
-
-// Removed AnalyticsState by fixgen.py
 
 // ActionEngineEventPayload type
 type ActionEngineEventPayload struct {
@@ -9857,15 +9551,6 @@ type QName string
 
 // NCName type
 type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// PositiveInteger type
-type PositiveInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
 
 // AnySimpleType type
 type AnySimpleType string

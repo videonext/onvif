@@ -3,9 +3,8 @@ package accesscontrol
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -22,9 +21,11 @@ type Decision string
 const (
 
 	// The decision is to grant access.
+	// DecisionGranted const
 	DecisionGranted Decision = "Granted"
 
 	// The decision is to deny access.
+	// DecisionDenied const
 	DecisionDenied Decision = "Denied"
 )
 
@@ -42,43 +43,47 @@ const (
 	// is not enabled or has been disabled (e.g., due to credential being lost etc.) to prevent
 	// unauthorized entry.
 	//
+	// DenyReasonCredentialNotEnabled const
 	DenyReasonCredentialNotEnabled DenyReason = "CredentialNotEnabled"
 
 	// The device shall provide the following event, whenever a valid credential
 	// is presented though it is not active yet;: e.g, the credential was presented before the
 	// start date.
 	//
+	// DenyReasonCredentialNotActive const
 	DenyReasonCredentialNotActive DenyReason = "CredentialNotActive"
 
 	// The device shall provide the following event, whenever a valid credential
 	// was presented after its expiry date.
 	//
+	// DenyReasonCredentialExpired const
 	DenyReasonCredentialExpired DenyReason = "CredentialExpired"
 
 	// The device shall provide the following event, whenever an entered PIN code
 	// does not match the credential.
 	//
+	// DenyReasonInvalidPIN const
 	DenyReasonInvalidPIN DenyReason = "InvalidPIN"
 
 	// The device shall provide the following event, whenever a valid credential
 	// is denied access to the requested AccessPoint because the credential is not permitted at
 	// the moment.
 	//
+	// DenyReasonNotPermittedAtThisTime const
 	DenyReasonNotPermittedAtThisTime DenyReason = "NotPermittedAtThisTime"
 
 	// The device shall provide the following event, whenever the presented
 	// credential is not authorized.
 	//
+	// DenyReasonUnauthorized const
 	DenyReasonUnauthorized DenyReason = "Unauthorized"
 
 	// The device shall provide the following event, whenever the request is
 	// denied and no other specific event matches it or is supported by the service.
 	//
+	// DenyReasonOther const
 	DenyReasonOther DenyReason = "Other"
 )
-
-// Capabilities type
-type Capabilities ServiceCapabilities
 
 // GetServiceCapabilities type
 type GetServiceCapabilities struct {
@@ -685,9 +690,6 @@ type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
-// PositiveInteger type
-type PositiveInteger uint32
-
 // DataEntity type
 type DataEntity struct {
 
@@ -695,8 +697,6 @@ type DataEntity struct {
 
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
-
-// Removed Attribute by fixgen.py
 
 // PACSPort type
 type PACSPort interface {
@@ -1328,26 +1328,5 @@ func (service *pACSPort) ExternalAuthorization(request *ExternalAuthorization) (
 	)
 }
 
-// AnyURI type
-type AnyURI string
-
-// Duration type
-type Duration string
-
 // QName type
 type QName string
-
-// NCName type
-type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

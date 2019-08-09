@@ -44,12 +44,15 @@ type KeyStatus string
 
 const (
 
+	// KeyStatusOk const
 	// Key is ready for use
 	KeyStatusOk KeyStatus = "ok"
 
+	// KeyStatusGenerating const
 	// Key is being generated
 	KeyStatusGenerating KeyStatus = "generating"
 
+	// KeyStatusCorrupt const
 	// Key has not been successfully generated and cannot be used.
 	KeyStatusCorrupt KeyStatus = "corrupt"
 )
@@ -2751,14 +2754,8 @@ func (service *dot1X) DeleteNetworkInterfaceDot1XConfiguration(request *DeleteNe
 	)
 }
 
-// AnyURI type
-type AnyURI string
-
 // Duration type
 type Duration string
-
-// QName type
-type QName string
 
 // NCName type
 type NCName string
@@ -2768,12 +2765,3 @@ type NonNegativeInteger int64
 
 // PositiveInteger type
 type PositiveInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

@@ -12,9 +12,6 @@ import (
 var _ time.Time
 var _ xml.Name
 
-// Capabilities type
-type Capabilities ServiceCapabilities
-
 // GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/schedule/wsdl GetServiceCapabilities"`
@@ -639,8 +636,6 @@ type DataEntity struct {
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
 
-// Removed Attribute by fixgen.py
-
 // SchedulePort type
 type SchedulePort interface {
 
@@ -1125,27 +1120,3 @@ func (service *schedulePort) DeleteSpecialDayGroup(request *DeleteSpecialDayGrou
 		request,
 	)
 }
-
-// AnyURI type
-type AnyURI string
-
-// Duration type
-type Duration string
-
-// QName type
-type QName string
-
-// NCName type
-type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

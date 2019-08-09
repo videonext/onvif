@@ -3,17 +3,13 @@ package accessrules
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
 var _ time.Time
 var _ xml.Name
-
-// Capabilities type
-type Capabilities ServiceCapabilities
 
 // GetServiceCapabilities type
 type GetServiceCapabilities struct {
@@ -292,9 +288,6 @@ type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
-// PositiveInteger type
-type PositiveInteger uint32
-
 // DataEntity type
 type DataEntity struct {
 
@@ -302,8 +295,6 @@ type DataEntity struct {
 
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
-
-// Removed Attribute by fixgen.py
 
 // AccessRulesPort type
 type AccessRulesPort interface {
@@ -568,26 +559,5 @@ func (service *accessRulesPort) DeleteAccessProfile(request *DeleteAccessProfile
 	)
 }
 
-// AnyURI type
-type AnyURI string
-
-// Duration type
-type Duration string
-
 // QName type
 type QName string
-
-// NCName type
-type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

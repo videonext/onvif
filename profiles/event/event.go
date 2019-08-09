@@ -74,17 +74,6 @@ type PullMessagesResponse struct {
 	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
 }
 
-// PullMessagesFaultResponse type
-type PullMessagesFaultResponse struct {
-	XMLName xml.Name `xml:"PullMessagesFaultResponse"`
-
-	// Maximum timeout supported by the device.
-	MaxTimeout Duration `xml:"MaxTimeout,omitempty"`
-
-	// Maximum message limit supported by the device.
-	MaxMessageLimit int32 `xml:"MaxMessageLimit,omitempty"`
-}
-
 // Seek type
 type Seek struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/events/wsdl Seek"`
@@ -185,36 +174,45 @@ type RelationshipTypeOpenEnum string
 type RelationshipType AnyURI
 
 const (
+	// RelationshipTypeHttpwwww3org200508addressingreply const
 	RelationshipTypeHttpwwww3org200508addressingreply RelationshipType = "http://www.w3.org/2005/08/addressing/reply"
 )
-
-// FaultCodesOpenEnumType type
-type FaultCodesOpenEnumType string
 
 // FaultCodesType type
 type FaultCodesType QName
 
 const (
+	// FaultCodesTypeTnsInvalidAddressingHeader const
 	FaultCodesTypeTnsInvalidAddressingHeader FaultCodesType = "tns:InvalidAddressingHeader"
 
+	// FaultCodesTypeTnsInvalidAddress const
 	FaultCodesTypeTnsInvalidAddress FaultCodesType = "tns:InvalidAddress"
 
+	// FaultCodesTypeTnsInvalidEPR const
 	FaultCodesTypeTnsInvalidEPR FaultCodesType = "tns:InvalidEPR"
 
+	// FaultCodesTypeTnsInvalidCardinality const
 	FaultCodesTypeTnsInvalidCardinality FaultCodesType = "tns:InvalidCardinality"
 
+	// FaultCodesTypeTnsMissingAddressInEPR const
 	FaultCodesTypeTnsMissingAddressInEPR FaultCodesType = "tns:MissingAddressInEPR"
 
+	// FaultCodesTypeTnsDuplicateMessageID const
 	FaultCodesTypeTnsDuplicateMessageID FaultCodesType = "tns:DuplicateMessageID"
 
+	// FaultCodesTypeTnsActionMismatch const
 	FaultCodesTypeTnsActionMismatch FaultCodesType = "tns:ActionMismatch"
 
+	// FaultCodesTypeTnsMessageAddressingHeaderRequired const
 	FaultCodesTypeTnsMessageAddressingHeaderRequired FaultCodesType = "tns:MessageAddressingHeaderRequired"
 
+	// FaultCodesTypeTnsDestinationUnreachable const
 	FaultCodesTypeTnsDestinationUnreachable FaultCodesType = "tns:DestinationUnreachable"
 
+	// FaultCodesTypeTnsActionNotSupported const
 	FaultCodesTypeTnsActionNotSupported FaultCodesType = "tns:ActionNotSupported"
 
+	// FaultCodesTypeTnsEndpointUnavailable const
 	FaultCodesTypeTnsEndpointUnavailable FaultCodesType = "tns:EndpointUnavailable"
 )
 
@@ -224,38 +222,14 @@ type EndpointReference EndpointReferenceType
 // Metadata type
 type Metadata MetadataType
 
-// MessageID type
-type MessageID AttributedURIType
-
 // RelatesTo type
 type RelatesTo RelatesToType
-
-// ReplyTo type
-type ReplyTo EndpointReferenceType
-
-// From type
-type From EndpointReferenceType
-
-// FaultTo type
-type FaultTo EndpointReferenceType
 
 // To type
 type To AttributedURIType
 
 // Action type
 type Action AttributedURIType
-
-// RetryAfter type
-type RetryAfter AttributedUnsignedLongType
-
-// ProblemHeaderQName type
-type ProblemHeaderQName AttributedQNameType
-
-// ProblemHeader type
-type ProblemHeader AttributedAnyType
-
-// ProblemIRI type
-type ProblemIRI AttributedURIType
 
 // ProblemAction type
 type ProblemAction ProblemActionType
@@ -296,25 +270,6 @@ type AttributedURIType struct {
 	Value AnyURI
 }
 
-// AttributedUnsignedLongType type
-type AttributedUnsignedLongType struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing RetryAfter"`
-
-	Value uint64
-}
-
-// AttributedQNameType type
-type AttributedQNameType struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeaderQName"`
-
-	Value QName
-}
-
-// AttributedAnyType type
-type AttributedAnyType struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemHeader"`
-}
-
 // ProblemActionType type
 type ProblemActionType struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2005/08/addressing ProblemAction"`
@@ -323,9 +278,6 @@ type ProblemActionType struct {
 
 	SoapAction AnyURI `xml:"http://www.onvif.org/ver10/schema SoapAction,omitempty"`
 }
-
-// FullTopicExpression type
-type FullTopicExpression string
 
 // ConcreteTopicExpression type
 type ConcreteTopicExpression string
@@ -433,19 +385,6 @@ type FixedTopicSet bool
 // TopicExpressionDialect type
 type TopicExpressionDialect AnyURI
 
-// NotificationProducerRP type
-type NotificationProducerRP struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 NotificationProducerRP"`
-
-	TopicExpression []TopicExpression `xml:"TopicExpression,omitempty"`
-
-	FixedTopicSet FixedTopicSet `xml:"FixedTopicSet,omitempty"`
-
-	TopicExpressionDialect []TopicExpressionDialect `xml:"TopicExpressionDialect,omitempty"`
-
-	TopicSet TopicSet `xml:"TopicSet,omitempty"`
-}
-
 // ConsumerReference type
 type ConsumerReference EndpointReferenceType
 
@@ -457,19 +396,6 @@ type SubscriptionPolicy SubscriptionPolicyType
 
 // CreationTime type
 type CreationTime time.Time
-
-// SubscriptionManagerRP type
-type SubscriptionManagerRP struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 SubscriptionManagerRP"`
-
-	ConsumerReference ConsumerReference `xml:"ConsumerReference,omitempty"`
-
-	Filter Filter `xml:"Filter,omitempty"`
-
-	SubscriptionPolicy SubscriptionPolicy `xml:"SubscriptionPolicy,omitempty"`
-
-	CreationTime CreationTime `xml:"CreationTime,omitempty"`
-}
 
 // SubscriptionReference type
 type SubscriptionReference EndpointReferenceType
@@ -496,17 +422,6 @@ type CurrentTime time.Time
 // TerminationTime type
 type TerminationTime time.Time
 
-// ProducerProperties type
-type ProducerProperties QueryExpressionType
-
-// MessageContent type
-type MessageContent QueryExpressionType
-
-// UseRaw type
-type UseRaw struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 UseRaw"`
-}
-
 // Subscribe type
 type Subscribe struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Subscribe"`
@@ -519,29 +434,6 @@ type Subscribe struct {
 
 	SubscriptionPolicy struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
-}
-
-// SubscribeResponse type
-type SubscribeResponse struct {
-	XMLName xml.Name `xml:"SubscribeResponse"`
-
-	SubscriptionReference EndpointReferenceType `xml:"SubscriptionReference,omitempty"`
-
-	CurrentTime CurrentTime `xml:"CurrentTime,omitempty"`
-
-	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
-}
-
-// GetCurrentMessage type
-type GetCurrentMessage struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetCurrentMessage"`
-
-	Topic TopicExpressionType `xml:"Topic,omitempty"`
-}
-
-// GetCurrentMessageResponse type
-type GetCurrentMessageResponse struct {
-	XMLName xml.Name `xml:"GetCurrentMessageResponse"`
 }
 
 // SubscribeCreationFailedFault type
@@ -583,30 +475,6 @@ type UnacceptableInitialTerminationTimeFault UnacceptableInitialTerminationTimeF
 // NoCurrentMessageOnTopicFault type
 type NoCurrentMessageOnTopicFault NoCurrentMessageOnTopicFaultType
 
-// GetMessages type
-type GetMessages struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 GetMessages"`
-
-	MaximumNumber NonNegativeInteger `xml:"http://www.onvif.org/ver10/schema MaximumNumber,omitempty"`
-}
-
-// GetMessagesResponse type
-type GetMessagesResponse struct {
-	XMLName xml.Name `xml:"GetMessagesResponse"`
-
-	NotificationMessage []NotificationMessage `xml:"NotificationMessage,omitempty"`
-}
-
-// DestroyPullPoint type
-type DestroyPullPoint struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 DestroyPullPoint"`
-}
-
-// DestroyPullPointResponse type
-type DestroyPullPointResponse struct {
-	XMLName xml.Name `xml:"DestroyPullPointResponse"`
-}
-
 // UnableToGetMessagesFault type
 type UnableToGetMessagesFault UnableToGetMessagesFaultType
 
@@ -618,67 +486,14 @@ type CreatePullPoint struct {
 	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 CreatePullPoint"`
 }
 
-// CreatePullPointResponse type
-type CreatePullPointResponse struct {
-	XMLName xml.Name `xml:"CreatePullPointResponse"`
-
-	PullPoint EndpointReferenceType `xml:"PullPoint,omitempty"`
-}
-
 // UnableToCreatePullPointFault type
 type UnableToCreatePullPointFault UnableToCreatePullPointFaultType
-
-// Renew type
-type Renew struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Renew"`
-
-	TerminationTime AbsoluteOrRelativeTimeType `xml:"TerminationTime,omitempty"`
-}
-
-// RenewResponse type
-type RenewResponse struct {
-	XMLName xml.Name `xml:"RenewResponse"`
-
-	TerminationTime TerminationTime `xml:"TerminationTime,omitempty"`
-
-	CurrentTime CurrentTime `xml:"CurrentTime,omitempty"`
-}
 
 // UnacceptableTerminationTimeFault type
 type UnacceptableTerminationTimeFault UnacceptableTerminationTimeFaultType
 
-// Unsubscribe type
-type Unsubscribe struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 Unsubscribe"`
-}
-
-// UnsubscribeResponse type
-type UnsubscribeResponse struct {
-	XMLName xml.Name `xml:"UnsubscribeResponse"`
-}
-
 // UnableToDestroySubscriptionFault type
 type UnableToDestroySubscriptionFault UnableToDestroySubscriptionFaultType
-
-// PauseSubscription type
-type PauseSubscription struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 PauseSubscription"`
-}
-
-// PauseSubscriptionResponse type
-type PauseSubscriptionResponse struct {
-	XMLName xml.Name `xml:"PauseSubscriptionResponse"`
-}
-
-// ResumeSubscription type
-type ResumeSubscription struct {
-	XMLName xml.Name `xml:"http://docs.oasis-open.org/wsn/b-2 ResumeSubscription"`
-}
-
-// ResumeSubscriptionResponse type
-type ResumeSubscriptionResponse struct {
-	XMLName xml.Name `xml:"ResumeSubscriptionResponse"`
-}
 
 // PauseFailedFault type
 type PauseFailedFault PauseFailedFaultType
@@ -1123,18 +938,3 @@ type QName string
 
 // NCName type
 type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// PositiveInteger type
-type PositiveInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

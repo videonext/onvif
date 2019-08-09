@@ -159,15 +159,6 @@ os.system("gofmt -w " + go_package + '/' + go_src)
 with open(go_package + '/' + go_src, 'r') as file:
     data = file.read()
 
-print(' - Removing unused types')
-for k, v in type_map.items():
-    r1 = re.findall(r"(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"", data)
-    r2 = re.findall(r"\*" + re.escape(k), data)
-    if len(r1) == 0 and len(r2) == 0:
-        regex = re.compile(r"(?s)type\s+" + re.escape(k) + r"\s+struct\s+\{(.+?)^\}", re.MULTILINE)
-        data = re.sub(regex, "// Removed " + k + " by fixgen.py\n", data)
-########################################################################
-
 print(' - Adding missed simple types')
 data += "\ntype AnyURI string\n"
 data += "type Duration string\n"
@@ -178,6 +169,40 @@ data += "type PositiveInteger int64\n"
 data += "type NonPositiveInteger int64\n"
 data += "type AnySimpleType string\n"
 data += "type String string\n"
+########################################################################
+
+print(' - Removing unused types')
+for k, v in type_map.items():
+    r0 = re.findall(r"(\w+)\s+" + re.escape(k) + r"\s+`xml:\"", data)
+    r1 = re.findall(r"(\w+)\s+\*" + re.escape(k) + r"\s+`xml:\"", data)
+    r2 = re.findall(r"(\w+)\s+\[\]" + re.escape(k) + r"\s+`xml:\"", data)
+    r3 = re.findall(r"(\w+)\s+\[\]\*" + re.escape(k) + r"\s+`xml:\"", data)
+    r4 = re.findall(r"\*" + re.escape(k), data)
+    r5 = re.findall(r"\[\]" + re.escape(k), data)
+    r6 = re.findall(re.escape(k) + r' = ', data)
+    r7 = re.findall(r'type \w+ ' + re.escape(k), data)
+    if len(r0) == 0 and len(r1) == 0 and len(r2) == 0 and len(r3) == 0 and len(r4) == 0 and len(r5) == 0 and len(r6) == 0 and len(r7) == 0:
+        regex = re.compile(r"(?s)type\s+" + re.escape(k) + r"\s+struct\s+\{(.+?)^\}", re.MULTILINE)
+        data = re.sub(regex, '', data)
+        regex = re.compile(r"(?s)type\s+" + re.escape(k) + r"\s+\w+\n", re.MULTILINE)
+        data = re.sub(regex, '', data)
+r = re.findall(r"type (\w+) ", data)
+for t in r:
+    r0 = re.findall(r"(\w+)\s+" + re.escape(t) + r"\s+`xml:\"", data)
+    r1 = re.findall(r"(\w+)\s+\*" + re.escape(t) + r"\s+`xml:\"", data)
+    r2 = re.findall(r"(\w+)\s+\[\]" + re.escape(t) + r"\s+`xml:\"", data)
+    r3 = re.findall(r"(\w+)\s+\[\]\*" + re.escape(t) + r"\s+`xml:\"", data)
+    r4 = re.findall(r"\*" + re.escape(t), data)
+    r5 = re.findall(r"\[\]" + re.escape(t), data)
+    r6 = re.findall(re.escape(t) + r' = ', data)
+    r7 = re.findall(r'type \w+ ' + re.escape(t), data)
+    if len(r0) == 0 and len(r1) == 0 and len(r2) == 0 and len(r3) == 0 and len(r4) == 0 and len(r5) == 0 and len(r6) == 0 and len(r7) == 0:
+        regex = re.compile(r"(?s)type\s+" + re.escape(t) + r"\s+struct\s+\{(.+?)^\}", re.MULTILINE)
+        data = re.sub(regex, '', data)
+        regex = re.compile(r"(?s)type\s+" + re.escape(t) + r"\s+\w+\n", re.MULTILINE)
+        data = re.sub(regex, '', data)
+
+
 ########################################################################
 
 print(' - Removing pointers for simple types')
@@ -233,6 +258,9 @@ data = data.replace('*Ref', 'Ref')
 # add comments to exported types
 regex = re.compile(r'^type\s+(.+?)\s+', re.MULTILINE)
 data = re.sub(regex, r'// \1 type\ntype \1 ', data)
+# add comments to exported constants
+regex = re.compile(r'(\w+) (\w+) = "(.+?)"', re.MULTILINE)
+data = re.sub(regex, r'// \1 const\n\1 \2 = "\3" ', data)
 
 # remove ns from *Response* types
 regex = re.compile(r'(?s)^(type \w+Response\w+ struct \{.+?\})', re.MULTILINE)

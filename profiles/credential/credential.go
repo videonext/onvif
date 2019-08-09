@@ -12,9 +12,6 @@ import (
 var _ time.Time
 var _ xml.Name
 
-// Capabilities type
-type Capabilities ServiceCapabilities
-
 // GetServiceCapabilities type
 type GetServiceCapabilities struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/credential/wsdl GetServiceCapabilities"`
@@ -1231,26 +1228,5 @@ func (service *credentialPort) DeleteCredentialAccessProfiles(request *DeleteCre
 	)
 }
 
-// AnyURI type
-type AnyURI string
-
 // Duration type
 type Duration string
-
-// QName type
-type QName string
-
-// NCName type
-type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

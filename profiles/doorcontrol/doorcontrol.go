@@ -3,9 +3,8 @@ package doorcontrol
 import (
 	"context"
 	"encoding/xml"
-	"time"
-
 	"github.com/videonext/onvif/soap"
+	"time"
 )
 
 // against "unused imports"
@@ -24,15 +23,19 @@ const (
 	// Value is currently unknown (possibly due to initialization or monitors not
 	// giving a conclusive result).
 	//
+	// DoorPhysicalStateUnknown const
 	DoorPhysicalStateUnknown DoorPhysicalState = "Unknown"
 
 	// Door is open.
+	// DoorPhysicalStateOpen const
 	DoorPhysicalStateOpen DoorPhysicalState = "Open"
 
 	// Door is closed.
+	// DoorPhysicalStateClosed const
 	DoorPhysicalStateClosed DoorPhysicalState = "Closed"
 
 	// Door monitor fault is detected.
+	// DoorPhysicalStateFault const
 	DoorPhysicalStateFault DoorPhysicalState = "Fault"
 )
 
@@ -46,15 +49,19 @@ type LockPhysicalState string
 const (
 
 	// Value is currently not known.
+	// LockPhysicalStateUnknown const
 	LockPhysicalStateUnknown LockPhysicalState = "Unknown"
 
 	// Lock is activated.
+	// LockPhysicalStateLocked const
 	LockPhysicalStateLocked LockPhysicalState = "Locked"
 
 	// Lock is not activated.
+	// LockPhysicalStateUnlocked const
 	LockPhysicalStateUnlocked LockPhysicalState = "Unlocked"
 
 	// Lock fault is detected.
+	// LockPhysicalStateFault const
 	LockPhysicalStateFault LockPhysicalState = "Fault"
 )
 
@@ -68,12 +75,15 @@ type DoorAlarmState string
 const (
 
 	// No alarm.
+	// DoorAlarmStateNormal const
 	DoorAlarmStateNormal DoorAlarmState = "Normal"
 
 	// Door is forced open.
+	// DoorAlarmStateDoorForcedOpen const
 	DoorAlarmStateDoorForcedOpen DoorAlarmState = "DoorForcedOpen"
 
 	// Door is held open too long.
+	// DoorAlarmStateDoorOpenTooLong const
 	DoorAlarmStateDoorOpenTooLong DoorAlarmState = "DoorOpenTooLong"
 )
 
@@ -87,12 +97,15 @@ type DoorTamperState string
 const (
 
 	// Value is currently not known.
+	// DoorTamperStateUnknown const
 	DoorTamperStateUnknown DoorTamperState = "Unknown"
 
 	// No tampering is detected.
+	// DoorTamperStateNotInTamper const
 	DoorTamperStateNotInTamper DoorTamperState = "NotInTamper"
 
 	// Tampering is detected.
+	// DoorTamperStateTamperDetected const
 	DoorTamperStateTamperDetected DoorTamperState = "TamperDetected"
 )
 
@@ -106,12 +119,15 @@ type DoorFaultState string
 const (
 
 	// Fault state is unknown.
+	// DoorFaultStateUnknown const
 	DoorFaultStateUnknown DoorFaultState = "Unknown"
 
 	// No fault is detected.
+	// DoorFaultStateNotInFault const
 	DoorFaultStateNotInFault DoorFaultState = "NotInFault"
 
 	// Fault is detected.
+	// DoorFaultStateFaultDetected const
 	DoorFaultStateFaultDetected DoorFaultState = "FaultDetected"
 )
 
@@ -126,6 +142,7 @@ type DoorMode string
 const (
 
 	// The mode of operation is unknown.
+	// DoorModeUnknown const
 	DoorModeUnknown DoorMode = "Unknown"
 
 	//
@@ -133,6 +150,7 @@ const (
 	// In this mode the device shall provide momentary access using the AccessDoor
 	// method if supported by the door instance.
 	//
+	// DoorModeLocked const
 	DoorModeLocked DoorMode = "Locked"
 
 	//
@@ -140,6 +158,7 @@ const (
 	// Alarms related to door timing operations such as open too long
 	// or forced open are masked in this mode.
 	//
+	// DoorModeUnlocked const
 	DoorModeUnlocked DoorMode = "Unlocked"
 
 	//
@@ -147,6 +166,7 @@ const (
 	// After a predefined time the device shall revert the door to its previous mode.
 	// Alarms related to timing operations such as door forced open are masked in this mode.
 	//
+	// DoorModeAccessed const
 	DoorModeAccessed DoorMode = "Accessed"
 
 	//
@@ -155,6 +175,7 @@ const (
 	// for the door to go to the accessed mode.
 	// All other requests to change the door mode are allowed.
 	//
+	// DoorModeBlocked const
 	DoorModeBlocked DoorMode = "Blocked"
 
 	//
@@ -162,6 +183,7 @@ const (
 	// shall only allow the LockDownReleaseDoor request.
 	// All other requests to change the door mode are not allowed.
 	//
+	// DoorModeLockedDown const
 	DoorModeLockedDown DoorMode = "LockedDown"
 
 	//
@@ -169,6 +191,7 @@ const (
 	// device shall only allow the LockOpenReleaseDoor request.
 	// All other requests to change the door mode are not allowed.
 	//
+	// DoorModeLockedOpen const
 	DoorModeLockedOpen DoorMode = "LockedOpen"
 
 	//
@@ -178,11 +201,9 @@ const (
 	// When changing to an unlocked mode from the double locked mode, the physical state
 	// of the door may first go to locked state before unlocking.
 	//
+	// DoorModeDoubleLocked const
 	DoorModeDoubleLocked DoorMode = "DoubleLocked"
 )
-
-// Capabilities type
-type Capabilities ServiceCapabilities
 
 // GetServiceCapabilities type
 type GetServiceCapabilities struct {
@@ -809,9 +830,6 @@ type Description string
 
 // Type used to represent the numbers from 1 ,2 , 3,...
 
-// PositiveInteger type
-type PositiveInteger uint32
-
 // DataEntity type
 type DataEntity struct {
 
@@ -819,8 +837,6 @@ type DataEntity struct {
 
 	Token ReferenceToken `xml:"token,attr,omitempty"`
 }
-
-// Removed Attribute by fixgen.py
 
 // DoorControlPort type
 type DoorControlPort interface {
@@ -1399,26 +1415,5 @@ func (service *doorControlPort) DoubleLockDoor(request *DoubleLockDoor) (*Double
 	)
 }
 
-// AnyURI type
-type AnyURI string
-
 // Duration type
 type Duration string
-
-// QName type
-type QName string
-
-// NCName type
-type NCName string
-
-// NonNegativeInteger type
-type NonNegativeInteger int64
-
-// NonPositiveInteger type
-type NonPositiveInteger int64
-
-// AnySimpleType type
-type AnySimpleType string
-
-// String type
-type String string

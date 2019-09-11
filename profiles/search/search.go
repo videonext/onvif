@@ -3,8 +3,9 @@ package search
 import (
 	"context"
 	"encoding/xml"
-	"github.com/videonext/onvif/soap"
 	"time"
+
+	"github.com/videonext/onvif/soap"
 )
 
 // against "unused imports"

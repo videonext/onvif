@@ -3,8 +3,9 @@ package recording
 import (
 	"context"
 	"encoding/xml"
-	"github.com/videonext/onvif/soap"
 	"time"
+
+	"github.com/videonext/onvif/soap"
 )
 
 // against "unused imports"
@@ -6238,12 +6239,12 @@ type GetTracksResponseItem struct {
 type RecordingJobConfiguration struct {
 
 	// Identifies the recording to which this job shall store the received data.
-	RecordingToken RecordingReference `xml:"http://www.onvif.org/ver10/recording/wsdl RecordingToken,omitempty"`
+	RecordingToken RecordingReference `xml:"http://www.onvif.org/ver10/schema RecordingToken,omitempty"`
 
 	// The mode of the job. If it is idle, nothing shall happen. If it is active, the device shall try
 	// to obtain data from the receivers. A client shall use GetRecordingJobState to determine if data transfer is really taking place.
 	// The only valid values for Mode shall be “Idle” and “Active”.
-	Mode RecordingJobMode `xml:"http://www.onvif.org/ver10/recording/wsdl Mode,omitempty"`
+	Mode RecordingJobMode `xml:"http://www.onvif.org/ver10/schema Mode,omitempty"`
 
 	// This shall be a non-negative number. If there are multiple recording jobs that store data to
 	// the same track, the device will only store the data for the recording job with the highest

@@ -42,7 +42,7 @@ type SOAPBody struct {
 }
 
 // UnmarshalXML unmarshals SOAPBody xml
-func (b *SOAPBody) UnmarshalXML(d *xml.Decoder, _ xml.StartElement) error {
+func (b *SOAPBody) UnmarshalXML(d *Decoder, _ StartElement) error {
 	if b.Content == nil {
 		return xml.UnmarshalError("Content must be a pointer to a struct")
 	}
@@ -64,7 +64,7 @@ Loop:
 		}
 
 		switch se := token.(type) {
-		case xml.StartElement:
+		case StartElement:
 			if consumed {
 				return xml.UnmarshalError("Found multiple elements inside SOAP body; not wrapped-document/literal WS-I compliant")
 			} else if se.Name.Space == "http://www.w3.org/2003/05/soap-envelope" && se.Name.Local == "Fault" {
@@ -84,8 +84,9 @@ Loop:
 
 				consumed = true
 			}
-		case xml.EndElement:
+		case EndElement:
 			break Loop
+
 		}
 	}
 
@@ -379,8 +380,7 @@ func (s *Client) call(ctx context.Context, xaddr string, soapAction string, requ
 	respEnvelope := new(SOAPEnvelope)
 	respEnvelope.Body = SOAPBody{Content: response}
 
-	var dec SOAPDecoder
-	dec = xml.NewDecoder(res.Body)
+	dec := NewDecoder(res.Body)
 
 	if err := dec.Decode(respEnvelope); err != nil {
 		return err

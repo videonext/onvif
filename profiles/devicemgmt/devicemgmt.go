@@ -60,7 +60,7 @@ type GetServices struct {
 	XMLName xml.Name `xml:"http://www.onvif.org/ver10/device/wsdl GetServices"`
 
 	// Indicates if the service capabilities (untyped) should be included in the response.
-	IncludeCapability bool `xml:"http://www.onvif.org/ver10/device/wsdl IncludeCapability,omitempty"`
+	IncludeCapability bool `xml:"http://www.onvif.org/ver10/device/wsdl IncludeCapability"`
 }
 
 // GetServicesResponse type

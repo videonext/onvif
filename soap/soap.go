@@ -131,6 +131,15 @@ func (f *SOAPFault) Error() string {
 	if f.Detail.Text != "" {
 		s += ". Details: " + f.Detail.Text
 	}
+	if s == "" {
+		if f.Code.Value != "" {
+			s = f.Code.Value + ". "
+		}
+
+		if f.Code.Subcode.Value != "" {
+			s += f.Code.Subcode.Value
+		}
+	}
 	return s
 }
 

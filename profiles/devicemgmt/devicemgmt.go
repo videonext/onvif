@@ -5417,10 +5417,10 @@ type SystemDateTime struct {
 	TimeZone TimeZone `xml:"http://www.onvif.org/ver10/device/wsdl TimeZone,omitempty"`
 
 	// Current system date and time in UTC format. This field is mandatory since version 2.0.
-	UTCDateTime string `xml:"http://www.onvif.org/ver10/schema UTCDateTime,omitempty"`
+	UTCDateTime DateTime `xml:"UTCDateTime,omitempty"`
 
 	// Date and time in local format.
-	LocalDateTime string `xml:"http://www.onvif.org/ver10/schema LocalDateTime,omitempty"`
+	LocalDateTime DateTime `xml:"LocalDateTime,omitempty"`
 
 	Extension SystemDateTimeExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
 }
@@ -5431,33 +5431,33 @@ type SystemDateTimeExtension struct {
 
 // DateTime type
 type DateTime struct {
-	Time string `xml:"http://www.onvif.org/ver10/schema Time,omitempty"`
+	Time Time `xml:"Time,omitempty"`
 
-	Date string `xml:"http://www.onvif.org/ver10/schema Date,omitempty"`
+	Date Date `xml:"Date,omitempty"`
 }
 
 // Date type
 type Date struct {
-	Year int32 `xml:"http://www.onvif.org/ver10/schema Year,omitempty"`
+	Year int32 `xml:"Year,omitempty"`
 
 	// Range is 1 to 12.
-	Month int32 `xml:"http://www.onvif.org/ver10/schema Month,omitempty"`
+	Month int32 `xml:"Month,omitempty"`
 
 	// Range is 1 to 31.
-	Day int32 `xml:"http://www.onvif.org/ver10/schema Day,omitempty"`
+	Day int32 `xml:"Day,omitempty"`
 }
 
 // Time type
 type Time struct {
 
 	// Range is 0 to 23.
-	Hour int32 `xml:"http://www.onvif.org/ver10/schema Hour,omitempty"`
+	Hour int32 `xml:"Hour,omitempty"`
 
 	// Range is 0 to 59.
-	Minute int32 `xml:"http://www.onvif.org/ver10/schema Minute,omitempty"`
+	Minute int32 `xml:"Minute,omitempty"`
 
 	// Range is 0 to 61 (typically 59).
-	Second int32 `xml:"http://www.onvif.org/ver10/schema Second,omitempty"`
+	Second int32 `xml:"Second,omitempty"`
 }
 
 // TimeZone type

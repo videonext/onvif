@@ -11,6 +11,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"reflect"
 	"time"
 )
 
@@ -185,14 +186,19 @@ type WSSSecurityHeader struct {
 }
 
 // NewWSSSecurityHeader creates WSSSecurityHeader instance
-func NewWSSSecurityHeader(user, pass string) *WSSSecurityHeader {
+func NewWSSSecurityHeader(user, pass string, created *time.Time) *WSSSecurityHeader {
 	hdr := &WSSSecurityHeader{MustUnderstand: "1"}
 
 	// Username
 	hdr.UsernameToken.Username = user
 
 	// Created
-	hdr.UsernameToken.Created.Value = time.Now().Format("2006-01-02T15:04:05.999") + "Z"
+	if created != nil {
+		hdr.UsernameToken.Created.Value = created.Format("2006-01-02T15:04:05.999") + "Z"
+		fmt.Println("------", hdr.UsernameToken.Created.Value, created.Nanosecond())
+	} else {
+		hdr.UsernameToken.Created.Value = time.Now().Format("2006-01-02T15:04:05.999") + "Z"
+	}
 
 	// Nonce
 	b := make([]byte, 16)
@@ -314,6 +320,24 @@ func NewClient(opt ...Option) *Client {
 
 // AddHeader adds envelope header
 func (s *Client) AddHeader(header interface{}) {
+	s.headers = append(s.headers, header)
+}
+
+// ReplaceHeader replaces envelope header matching by Type
+func (s *Client) ReplaceHeader(header interface{}) {
+	found := false
+	i := 0
+	for i = 0; i < len(s.headers); i++ {
+		if reflect.TypeOf(s.headers[i]).Name() == reflect.TypeOf(header).Name() {
+			found = true
+			break
+		}
+	}
+	if found {
+		s.headers[i] = s.headers[len(s.headers)-1] // Copy last element to index i.
+		s.headers[len(s.headers)-1] = ""           // Erase last element (write zero value).
+		s.headers = s.headers[:len(s.headers)-1]   // Truncate slice.
+	}
 	s.headers = append(s.headers, header)
 }
 

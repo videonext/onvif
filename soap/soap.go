@@ -186,16 +186,17 @@ type WSSSecurityHeader struct {
 }
 
 // NewWSSSecurityHeader creates WSSSecurityHeader instance
-func NewWSSSecurityHeader(user, pass string, created *time.Time) *WSSSecurityHeader {
+func NewWSSSecurityHeader(user, pass string, created time.Time) *WSSSecurityHeader {
 	hdr := &WSSSecurityHeader{MustUnderstand: "1"}
 
 	// Username
 	hdr.UsernameToken.Username = user
 
 	// Created
-	if created != nil {
+	if created.Year() != 0 {
 		hdr.UsernameToken.Created.Value = created.Format("2006-01-02T15:04:05.999") + "Z"
-		fmt.Println("------", hdr.UsernameToken.Created.Value, created.Nanosecond())
+		//fmt.Println("------", hdr.UsernameToken.Created.Value, created.Nanosecond())
+
 	} else {
 		hdr.UsernameToken.Created.Value = time.Now().Format("2006-01-02T15:04:05.999") + "Z"
 	}

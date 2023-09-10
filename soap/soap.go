@@ -3,12 +3,12 @@ package soap
 import (
 	"bytes"
 	"context"
+	"crypto/rand"
 	"crypto/sha1"
 	"crypto/tls"
 	"encoding/base64"
 	"encoding/xml"
 	"fmt"
-	"math/rand"
 	"net"
 	"net/http"
 	"reflect"

@@ -841,13 +841,13 @@ type SetVideoAnalyticsConfigurationResponse struct {
 
 // SetMetadataConfiguration type
 type SetMetadataConfiguration struct {
-	XMLName xml.Name `xml:"http://www.onvif.org/ver10/media/wsdl SetMetadataConfiguration"`
+	XMLName xml.Name `xml:"SetMetadataConfiguration"`
 
 	// Contains the modified metadata configuration. The configuration shall exist in the device.
-	Configuration MetadataConfiguration `xml:"http://www.onvif.org/ver10/media/wsdl Configuration,omitempty"`
+	Configuration MetadataConfiguration `xml:"Configuration,omitempty"`
 
 	// The ForcePersistence element is obsolete and should always be assumed to be true.
-	ForcePersistence bool `xml:"http://www.onvif.org/ver10/media/wsdl ForcePersistence,omitempty"`
+	ForcePersistence bool `xml:"ForcePersistence,omitempty"`
 }
 
 // SetMetadataConfigurationResponse type

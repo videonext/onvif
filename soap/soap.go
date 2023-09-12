@@ -231,6 +231,7 @@ type options struct {
 	tlshshaketimeout time.Duration
 	client           HTTPClient
 	httpHeaders      map[string]string
+	wssCallback      func() *WSSSecurityHeader
 }
 
 var defaultOptions = options{
@@ -241,6 +242,13 @@ var defaultOptions = options{
 
 // A Option sets options such as credentials, tls, etc.
 type Option func(*options)
+
+// WithWSSCallback is an Option to set the callback for WSSSecurityHeader
+func WithWSSCallback(c func() *WSSSecurityHeader) Option {
+	return func(o *options) {
+		o.wssCallback = c
+	}
+}
 
 // WithHTTPClient is an Option to set the HTTP client to use
 // This cannot be used with WithTLSHandshakeTimeout, WithTLS,
@@ -355,6 +363,12 @@ func (s *Client) Call(xaddr string, soapAction string, request, response interfa
 func (s *Client) call(ctx context.Context, xaddr string, soapAction string, request, response interface{}) error {
 	envelope := SOAPEnvelope{}
 
+	if s.opts.wssCallback != nil {
+		wssHdr := s.opts.wssCallback()
+		if wssHdr != nil {
+			s.ReplaceHeader(wssHdr)
+		}
+	}
 	if s.headers != nil && len(s.headers) > 0 {
 		envelope.Header.Headers = s.headers
 	}

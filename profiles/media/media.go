@@ -841,13 +841,13 @@ type SetVideoAnalyticsConfigurationResponse struct {
 
 // SetMetadataConfiguration type
 type SetMetadataConfiguration struct {
-	XMLName xml.Name `xml:"SetMetadataConfiguration"`
+	XMLName xml.Name `xml:"http://www.onvif.org/ver10/media/wsdl SetMetadataConfiguration"`
 
 	// Contains the modified metadata configuration. The configuration shall exist in the device.
-	Configuration MetadataConfiguration `xml:"Configuration,omitempty"`
+	Configuration MetadataConfiguration `xml:"http://www.onvif.org/ver10/media/wsdl Configuration,omitempty"`
 
 	// The ForcePersistence element is obsolete and should always be assumed to be true.
-	ForcePersistence bool `xml:"ForcePersistence,omitempty"`
+	ForcePersistence bool `xml:"http://www.onvif.org/ver10/media/wsdl ForcePersistence,omitempty"`
 }
 
 // SetMetadataConfigurationResponse type
@@ -3397,10 +3397,10 @@ type ProfileExtension2 struct {
 type ConfigurationEntity struct {
 
 	// User readable name. Length up to 64 characters.
-	Name Name `xml:"http://www.onvif.org/ver10/media/wsdl Name,omitempty"`
+	Name Name `xml:"http://www.onvif.org/ver10/schema Name,omitempty"`
 
 	// Number of internal references currently using this configuration.
-	UseCount int32 `xml:"http://www.onvif.org/ver10/schema UseCount,omitempty"`
+	UseCount int32 `xml:"http://www.onvif.org/ver10/schema UseCount"`
 
 	// Token that uniquely references this configuration. Length up to 64 characters.
 
@@ -3854,7 +3854,7 @@ type MetadataConfiguration struct {
 	*ConfigurationEntity
 
 	// optional element to configure which PTZ related data is to include in the metadata stream
-	PTZStatus PTZFilter `xml:"http://www.onvif.org/ver10/schema PTZStatus,omitempty"`
+	//	PTZStatus PTZFilter `xml:"http://www.onvif.org/ver10/schema PTZStatus,omitempty"`
 
 	// Optional element to configure the streaming of events. A client might be interested in receiving all,
 	// none or some of the events produced by the device:
@@ -3862,7 +3862,7 @@ type MetadataConfiguration struct {
 	Events EventSubscription `xml:"http://www.onvif.org/ver10/schema Events,omitempty"`
 
 	// Defines whether the streamed metadata will include metadata from the analytics engines (video, cell motion, audio etc.)
-	Analytics bool `xml:"http://www.onvif.org/ver10/media/wsdl Analytics,omitempty"`
+	Analytics bool `xml:"http://www.onvif.org/ver10/schema Analytics,omitempty"`
 
 	// Defines the multicast settings that could be used for video streaming.
 	Multicast MulticastConfiguration `xml:"http://www.onvif.org/ver10/schema Multicast,omitempty"`
@@ -3876,11 +3876,11 @@ type MetadataConfiguration struct {
 
 	// Optional parameter to configure compression type of Metadata payload. Use values from enumeration MetadataCompressionType.
 
-	CompressionType string `xml:"http://www.onvif.org/ver10/schema CompressionType,attr,omitempty"`
+	CompressionType string `xml:"CompressionType,attr,omitempty"`
 
 	// Optional parameter to configure if the metadata stream shall contain the Geo Location coordinates of each target.
 
-	GeoLocation bool `xml:"http://www.onvif.org/ver10/media/wsdl GeoLocation,attr,omitempty"`
+	GeoLocation bool `xml:"GeoLocation,attr"`
 }
 
 // MetadataConfigurationExtension type
@@ -3899,7 +3899,7 @@ type PTZFilter struct {
 
 // EventSubscription type
 type EventSubscription struct {
-	Filter FilterType `xml:"Filter,omitempty"`
+	Filter FilterType `xml:"http://www.onvif.org/ver10/schema Filter,omitempty"`
 
 	SubscriptionPolicy struct {
 	} `xml:"SubscriptionPolicy,omitempty"`
@@ -4152,7 +4152,7 @@ type MulticastConfiguration struct {
 	TTL int32 `xml:"http://www.onvif.org/ver10/schema TTL,omitempty"`
 
 	// Read only property signalling that streaming is persistant. Use the methods StartMulticastStreaming and StopMulticastStreaming to switch its state.
-	AutoStart bool `xml:"http://www.onvif.org/ver10/media/wsdl AutoStart,omitempty"`
+	AutoStart bool `xml:"http://www.onvif.org/ver10/schema AutoStart"`
 }
 
 // StreamSetup type

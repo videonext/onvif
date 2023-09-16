@@ -3854,7 +3854,7 @@ type MetadataConfiguration struct {
 	*ConfigurationEntity
 
 	// optional element to configure which PTZ related data is to include in the metadata stream
-	//	PTZStatus PTZFilter `xml:"http://www.onvif.org/ver10/schema PTZStatus,omitempty"`
+//	PTZStatus PTZFilter `xml:"http://www.onvif.org/ver10/schema PTZStatus,omitempty"`
 
 	// Optional element to configure the streaming of events. A client might be interested in receiving all,
 	// none or some of the events produced by the device:
@@ -3881,6 +3881,10 @@ type MetadataConfiguration struct {
 	// Optional parameter to configure if the metadata stream shall contain the Geo Location coordinates of each target.
 
 	GeoLocation bool `xml:"GeoLocation,attr"`
+
+	// Optional parameter to configure if the generated metadata stream should contain shape information as polygon.
+
+	ShapePolygon bool `xml:"ShapePolygon,attr"`
 }
 
 // MetadataConfigurationExtension type
@@ -6709,25 +6713,33 @@ type MessageExtension struct {
 
 // ItemList type
 type ItemList struct {
-	SimpleItem []struct {
+	SimpleItem []SimpleItem `xml:"http://www.onvif.org/ver10/schema SimpleItem,omitempty"`
 
-		// Item name.
-
-		Name string `xml:"http://www.onvif.org/ver10/schema Name,attr,omitempty"`
-
-		// Item value. The type is defined in the corresponding description.
-
-		Value AnySimpleType `xml:"Value,attr,omitempty"`
-	} `xml:"SimpleItem,omitempty"`
-
-	ElementItem []struct {
-
-		// Item name.
-
-		Name string `xml:"http://www.onvif.org/ver10/schema Name,attr,omitempty"`
-	} `xml:"ElementItem,omitempty"`
+	ElementItem []ElementItem `xml:"http://www.onvif.org/ver10/schema ElementItem,omitempty"`
 
 	Extension ItemListExtension `xml:"http://www.onvif.org/ver10/schema Extension,omitempty"`
+}
+
+type SimpleItem struct {
+
+	// Item name.
+
+	Name string `xml:"http://www.onvif.org/ver10/schema Name,attr,omitempty"`
+
+	// Item value. The type is defined in the corresponding description.
+
+	Value AnySimpleType `xml:"http://www.onvif.org/ver10/schema Value,attr,omitempty"`
+}
+
+type ElementItem struct {
+
+	// Item name.
+
+	Name string `xml:"http://www.onvif.org/ver10/schema Name,attr,omitempty"`
+
+	Polygon []Polyline `xml:"http://www.onvif.org/ver10/schema Polygon,omitempty"`
+
+	Polyline []Polyline `xml:"http://www.onvif.org/ver10/schema Polyline,omitempty"`
 }
 
 // ItemListExtension type

@@ -197,7 +197,15 @@ type GetVideoEncoderConfigurationsResponse struct {
 }
 
 // GetVideoSourceConfigurations type
-type GetVideoSourceConfigurations GetConfiguration
+type GetVideoSourceConfigurations struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver20/media/wsdl GetVideoSourceConfigurations"`
+
+	// Token of the requested configuration.
+	ConfigurationToken ReferenceToken `xml:"http://www.onvif.org/ver20/media/wsdl ConfigurationToken,omitempty"`
+
+	// Contains the token of an existing media profile the configurations shall be compatible with.
+	ProfileToken ReferenceToken `xml:"http://www.onvif.org/ver20/media/wsdl ProfileToken,omitempty"`
+}
 
 // GetVideoSourceConfigurationsResponse type
 type GetVideoSourceConfigurationsResponse struct {
@@ -341,7 +349,15 @@ type GetVideoSourceConfigurationOptionsResponse struct {
 }
 
 // GetVideoEncoderConfigurationOptions type
-type GetVideoEncoderConfigurationOptions GetConfiguration
+type GetVideoEncoderConfigurationOptions struct {
+	XMLName xml.Name `xml:"http://www.onvif.org/ver20/media/wsdl GetVideoEncoderConfigurationOptions"`
+
+	// Token of the requested configuration.
+	ConfigurationToken ReferenceToken `xml:"http://www.onvif.org/ver20/media/wsdl ConfigurationToken,omitempty"`
+
+	// Contains the token of an existing media profile the configurations shall be compatible with.
+	ProfileToken ReferenceToken `xml:"http://www.onvif.org/ver20/media/wsdl ProfileToken,omitempty"`
+}
 
 // GetVideoEncoderConfigurationOptionsResponse type
 type GetVideoEncoderConfigurationOptionsResponse struct {
@@ -7329,9 +7345,9 @@ type Media2 interface {
 	DeleteProfileContext(ctx context.Context, request *DeleteProfile) (*DeleteProfileResponse, error)
 
 	/* By default this operation lists all existing video source configurations for a device. Provide a profile token to list only configurations that are compatible with the profile. If a configuration token is provided only a single configuration will be returned. */
-	GetVideoSourceConfigurations(request *GetConfiguration) (*GetVideoSourceConfigurationsResponse, error)
+	GetVideoSourceConfigurations(request *GetVideoSourceConfigurations) (*GetVideoSourceConfigurationsResponse, error)
 
-	GetVideoSourceConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetVideoSourceConfigurationsResponse, error)
+	GetVideoSourceConfigurationsContext(ctx context.Context, request *GetVideoSourceConfigurations) (*GetVideoSourceConfigurationsResponse, error)
 
 	/* By default this operation lists all existing video encoder configurations for a device. Provide a profile token to list only configurations that are compatible with the profile. If a configuration token is provided only a single configuration will be returned. */
 	GetVideoEncoderConfigurations(request *GetConfiguration) (*GetVideoEncoderConfigurationsResponse, error)
@@ -7426,9 +7442,9 @@ type Media2 interface {
 	the options shall concern that particular configuration. If a media profile is specified, the options shall be
 	compatible with that media profile. If no tokens are specified, the options shall be considered generic for the device.
 	*/
-	GetVideoEncoderConfigurationOptions(request *GetConfiguration) (*GetVideoEncoderConfigurationOptionsResponse, error)
+	GetVideoEncoderConfigurationOptions(request *GetVideoEncoderConfigurationOptions) (*GetVideoEncoderConfigurationOptionsResponse, error)
 
-	GetVideoEncoderConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetVideoEncoderConfigurationOptionsResponse, error)
+	GetVideoEncoderConfigurationOptionsContext(ctx context.Context, request *GetVideoEncoderConfigurationOptions) (*GetVideoEncoderConfigurationOptionsResponse, error)
 
 	/* This operation returns the available options (supported values and ranges for audio source configuration parameters) when the audio source parameters are
 	reconfigured. If an audio source configuration is specified, the options shall concern that
@@ -7700,7 +7716,7 @@ func (service *media2) DeleteProfile(request *DeleteProfile) (*DeleteProfileResp
 	)
 }
 
-func (service *media2) GetVideoSourceConfigurationsContext(ctx context.Context, request *GetConfiguration) (*GetVideoSourceConfigurationsResponse, error) {
+func (service *media2) GetVideoSourceConfigurationsContext(ctx context.Context, request *GetVideoSourceConfigurations) (*GetVideoSourceConfigurationsResponse, error) {
 	response := new(GetVideoSourceConfigurationsResponse)
 	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoSourceConfigurations", request, response)
 	if err != nil {
@@ -7710,7 +7726,7 @@ func (service *media2) GetVideoSourceConfigurationsContext(ctx context.Context, 
 	return response, nil
 }
 
-func (service *media2) GetVideoSourceConfigurations(request *GetConfiguration) (*GetVideoSourceConfigurationsResponse, error) {
+func (service *media2) GetVideoSourceConfigurations(request *GetVideoSourceConfigurations) (*GetVideoSourceConfigurationsResponse, error) {
 	return service.GetVideoSourceConfigurationsContext(
 		context.Background(),
 		request,
@@ -7972,7 +7988,7 @@ func (service *media2) GetVideoSourceConfigurationOptions(request *GetConfigurat
 	)
 }
 
-func (service *media2) GetVideoEncoderConfigurationOptionsContext(ctx context.Context, request *GetConfiguration) (*GetVideoEncoderConfigurationOptionsResponse, error) {
+func (service *media2) GetVideoEncoderConfigurationOptionsContext(ctx context.Context, request *GetVideoEncoderConfigurationOptions) (*GetVideoEncoderConfigurationOptionsResponse, error) {
 	response := new(GetVideoEncoderConfigurationOptionsResponse)
 	err := service.client.CallContext(ctx, service.xaddr, "http://www.onvif.org/ver20/media/wsdl/GetVideoEncoderConfigurationOptions", request, response)
 	if err != nil {
@@ -7982,7 +7998,7 @@ func (service *media2) GetVideoEncoderConfigurationOptionsContext(ctx context.Co
 	return response, nil
 }
 
-func (service *media2) GetVideoEncoderConfigurationOptions(request *GetConfiguration) (*GetVideoEncoderConfigurationOptionsResponse, error) {
+func (service *media2) GetVideoEncoderConfigurationOptions(request *GetVideoEncoderConfigurationOptions) (*GetVideoEncoderConfigurationOptionsResponse, error) {
 	return service.GetVideoEncoderConfigurationOptionsContext(
 		context.Background(),
 		request,

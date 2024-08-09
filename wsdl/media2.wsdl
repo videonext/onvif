@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="../../../ver20/util/onvif-wsdl-viewer.xsl"?>
 <!--
-Copyright (c) 2008-2019 by ONVIF: Open Network Video Interface Forum. All rights reserved.
+Copyright (c) 2008-2024 by ONVIF: Open Network Video Interface Forum. All rights reserved.
 
 Recipients of this document may copy, distribute, publish, or display this document so long as this copyright notice, license and disclaimer are retained with all copies of the document. No license is granted to modify this document.
 
@@ -10,7 +10,7 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 -->
 <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tr2="http://www.onvif.org/ver20/media/wsdl" targetNamespace="http://www.onvif.org/ver20/media/wsdl">
 	<wsdl:types>
-		<xs:schema targetNamespace="http://www.onvif.org/ver20/media/wsdl" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="19.06">
+		<xs:schema targetNamespace="http://www.onvif.org/ver20/media/wsdl" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="24.06">
 			<xs:import namespace="http://www.onvif.org/ver10/schema" schemaLocation="http://www.onvif.org/ver10/schema/onvif.xsd"/>
 			<!--  Message Request/Responses elements  -->
 			<!--===============================-->
@@ -82,6 +82,11 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 							applied by the device to a corresponding privacy mask for all other video source configuration associated with the same video source.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
+				<xs:attribute name="WebRTC" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Indicates number of supported WebRTC configurations.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 				<xs:anyAttribute processContents="lax"/>
 			</xs:complexType>
 			<xs:element name="Capabilities" type="tr2:Capabilities2"/>
@@ -137,6 +142,11 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 						<xs:documentation>Indicates support for non-RTSP controlled multicast streaming.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
+				<xs:attribute name="SecureRTSPStreaming" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for live media streaming via RTSPS and SRTP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 				<xs:anyAttribute processContents="lax"/>
 			</xs:complexType>
 			<!--===============================-->
@@ -152,6 +162,7 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 					<xs:enumeration value="Metadata"/>
 					<xs:enumeration value="Analytics"/>
 					<xs:enumeration value="PTZ"/>
+					<xs:enumeration value="Receiver"/>
 					<!-- Vendors may conceptually add items here prefixing them with there own namespace -->
 				</xs:restriction>
 			</xs:simpleType>
@@ -173,6 +184,15 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
+			</xs:complexType>
+			<!--===============================-->
+			<xs:complexType name="ReceiverConfiguration">
+				<xs:complexContent>
+					<xs:extension base="tt:ReceiverConfiguration">
+						<xs:attribute name="token" type="tt:ReferenceToken"/>
+						<xs:anyAttribute processContents="lax"/>
+					</xs:extension>
+				</xs:complexContent>
 			</xs:complexType>
 			<!--===============================-->
 			<xs:complexType name="ConfigurationSet">
@@ -225,6 +245,11 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 					<xs:element name="AudioDecoder" type="tt:AudioDecoderConfiguration" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Optional configuration of the Audio decoder.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Receiver" type="tr2:ReceiverConfiguration" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Optional configuration of the Receiver.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>   <!-- first ONVIF then Vendor -->
@@ -355,7 +380,7 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 					<xs:sequence>
 						<xs:element name="ProfileToken" type="tt:ReferenceToken">
 							<xs:annotation>
-								<xs:documentation>This element contains a  reference to the media profile from which the AudioDecoderConfiguration shall be removed.</xs:documentation>
+								<xs:documentation>This element contains a  reference to the media profile from which the configuration shall be removed.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Configuration" type="tr2:ConfigurationRef" maxOccurs="unbounded">
@@ -680,6 +705,8 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 				<xs:restriction base="xs:string">
 					<xs:enumeration value="RtspUnicast"/>		<!-- RTSP straming RTP as UDP Unicast. -->
 					<xs:enumeration value="RtspMulticast"/>		<!-- RTSP straming RTP as UDP Multicast. -->
+					<xs:enumeration value="RtspsUnicast"/>		<!-- Secure RTSP straming SRTP as UDP Unicast. -->
+					<xs:enumeration value="RtspsMulticast"/>	<!-- Secure RTSP straming SRTP as UDP Multicast. -->
 					<xs:enumeration value="RTSP"/>				<!-- RTSP straming RTP over TCP. -->
 					<xs:enumeration value="RtspOverHttp"/>		<!-- Tunneling both the RTSP control channel and the RTP stream over HTTP or HTTPS. -->
 				</xs:restriction>
@@ -874,13 +901,6 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 				</xs:complexType>
 			</xs:element>
 			<!--===============================-->
-			<xs:simpleType name="EncodingTypes">
-				<xs:annotation>
-					<xs:documentation>List of one or more encodings supported for this video source.  For name definitions see tt:VideoEncodingMimeNames, and see <a href="https://www.iana.org/assignments/media-types/media-types.xhtml#video">IANA Media Types</a>.</xs:documentation>
-				</xs:annotation>
-				<xs:list itemType="xs:string"/>
-			</xs:simpleType>
-			<!--===============================-->
 			<xs:complexType name="VideoSourceMode"> 
 				<xs:sequence>
 					<xs:element name="MaxFramerate" type="xs:float">
@@ -893,7 +913,7 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 							<xs:documentation>Max horizontal and vertical resolution for this video source mode.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Encodings" type="tr2:EncodingTypes">
+					<xs:element name="Encodings" type="tt:StringList">
 						<xs:annotation>
 							<xs:documentation>List of one or more encodings supported for this video source.  For name definitions see tt:VideoEncodingMimeNames, and see <a href="https://www.iana.org/assignments/media-types/media-types.xhtml#video">IANA Media Types</a>.</xs:documentation>
 						</xs:annotation>
@@ -1062,7 +1082,7 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 						<xs:documentation>Token of the mask.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:anyAttribute/>
+				<xs:anyAttribute processContents="lax"/>
 			</xs:complexType>
 			<xs:element name="GetMasks">
 				<xs:complexType>
@@ -1202,6 +1222,84 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 			</xs:element>
 			<xs:element name="DeleteMaskResponse" type="tr2:SetConfigurationResponse"/>
 			<!--============Mask Schema End================-->
+			<!--============WebRTC===================-->
+			<xs:complexType name="WebRTCConfiguration">
+				<xs:sequence>
+					<xs:element name="SignalingServer" type="xs:anyURI">
+						<xs:annotation>
+							<xs:documentation>The signaling server URI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CertPathValidationPolicyID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The CertPathValidationPolicyID for validating the signaling server certificate.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AuthorizationServer" type="tt:ReferenceToken">
+						<xs:annotation>
+							<xs:documentation>The Authorization Server to use for getting access tokens. This refers to an entity in the list of configured Authorization Servers in the [ONVIF Security Service Specification].</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefaultProfile" type="tt:ReferenceToken">
+						<xs:annotation>
+							<xs:documentation>The default media profile to use for streaming if no specific profile is specified when initializing a session.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Enabled" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation> Enables/disables the configuration.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Connected" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indicates if the device is connected to the server. This parameter is read-only.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Error" type="xs:string" minOccurs="0">
+						<xs:annotation><xs:documentation>Optional user readable error information (readonly).</xs:documentation></xs:annotation>
+					</xs:element>
+					<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>   <!-- first ONVIF then Vendor -->
+				</xs:sequence>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:complexType>
+			
+			<xs:element name="GetWebRTCConfigurations">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="GetWebRTCConfigurationsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WebRTCConfiguration" type="tr2:WebRTCConfiguration" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Video Source Configuration Token that specifies an existing video source configuration that the options shall be compatible with.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetWebRTCConfigurations">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WebRTCConfiguration" type="tr2:WebRTCConfiguration" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Video Source Configuration Token that specifies an existing video source configuration that the options shall be compatible with.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetWebRTCConfigurationsResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
 			<!--============ Schema End================-->
 		</xs:schema>
 	</wsdl:types>
@@ -1485,6 +1583,18 @@ IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FO
 	<wsdl:message name="DeleteMaskResponse">
 		<wsdl:part name="parameters" element="tr2:DeleteMaskResponse"/>
 	</wsdl:message>
+	<wsdl:message name="GetWebRTCConfigurationsRequest">
+		<wsdl:part name="parameters" element="tr2:GetWebRTCConfigurations"/>
+	</wsdl:message>
+	<wsdl:message name="GetWebRTCConfigurationsResponse">
+		<wsdl:part name="parameters" element="tr2:GetWebRTCConfigurationsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetWebRTCConfigurationsRequest">
+		<wsdl:part name="parameters" element="tr2:SetWebRTCConfigurations"/>
+	</wsdl:message>
+	<wsdl:message name="SetWebRTCConfigurationsResponse">
+		<wsdl:part name="parameters" element="tr2:SetWebRTCConfigurationsResponse"/>
+	</wsdl:message>
 	<wsdl:portType name="Media2">
 		<!--===============================-->
 		<!--===============================-->
@@ -1727,9 +1837,7 @@ the PTZ position shall be repeated within the metadata stream.</wsdl:documentati
 		</wsdl:operation>
 		<wsdl:operation name="GetSnapshotUri">
 			<wsdl:documentation>A client uses the GetSnapshotUri command to obtain a JPEG snapshot from the
-device. The returned URI shall remain valid indefinitely even if the profile is changed. The
-ValidUntilConnect, ValidUntilReboot and Timeout Parameter shall be set accordingly
-(ValidUntilConnect=false, ValidUntilReboot=false, timeout=PT0S). The URI can be used for
+device. The returned URI shall remain valid indefinitely even if the profile is changed. The URI can be used for
 acquiring a JPEG image through a HTTP GET operation. The image encoding will always be
 JPEG regardless of the encoding setting in the media profile. The Jpeg settings
 (like resolution or quality) may be taken from the profile if suitable. The provided
@@ -1811,6 +1919,16 @@ image will be updated automatically and independent from calls to GetSnapshotUri
 			<wsdl:documentation>Delete the Mask.</wsdl:documentation>
 			<wsdl:input message="tr2:DeleteMaskRequest"/>
 			<wsdl:output message="tr2:DeleteMaskResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetWebRTCConfigurations">
+			<wsdl:documentation>This operation gets the current WebRTC configuration for the device.</wsdl:documentation>
+			<wsdl:input message="tr2:GetWebRTCConfigurationsRequest"/>
+			<wsdl:output message="tr2:GetWebRTCConfigurationsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetWebRTCConfigurations">
+			<wsdl:documentation>This operation sets the WebRTC configuration for the device.</wsdl:documentation>
+			<wsdl:input message="tr2:SetWebRTCConfigurationsRequest"/>
+			<wsdl:output message="tr2:SetWebRTCConfigurationsResponse"/>
 		</wsdl:operation>
 		<!--==============Mask Operation End=================-->
 	</wsdl:portType>
@@ -2255,5 +2373,25 @@ image will be updated automatically and independent from calls to GetSnapshotUri
 			</wsdl:output>
 		</wsdl:operation>
 		<!--==============Mask Operation End=================-->
+		<!--==============WebRTC=================-->
+		<wsdl:operation name="GetWebRTCConfigurations">
+			<soap:operation soapAction="http://www.onvif.org/ver20/media/wsdl/GetWebRTCConfigurations"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetWebRTCConfigurations">
+			<soap:operation soapAction="http://www.onvif.org/ver20/media/wsdl/SetWebRTCConfigurations"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!--==============WebRTC End=================-->
 	</wsdl:binding>
 </wsdl:definitions>

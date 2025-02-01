@@ -3,8 +3,9 @@ package ptz
 import (
 	"context"
 	"encoding/xml"
-	"github.com/videonext/onvif/soap"
 	"time"
+
+	"github.com/videonext/onvif/soap"
 )
 
 // against "unused imports"
@@ -310,11 +311,11 @@ type RelativeMove struct {
 
 	// A positional Translation relative to the current position
 	//
-	Translation PTZVector `xml:"http://www.onvif.org/ver20/ptz/wsdl Translation,omitempty"`
+	Translation *PTZVector `xml:"http://www.onvif.org/ver20/ptz/wsdl Translation,omitempty"`
 
 	// An optional Speed parameter.
 	//
-	Speed PTZSpeed `xml:"http://www.onvif.org/ver20/ptz/wsdl Speed,omitempty"`
+	Speed *PTZSpeed `xml:"http://www.onvif.org/ver20/ptz/wsdl Speed,omitempty"`
 }
 
 // RelativeMoveResponse type
@@ -1218,9 +1219,9 @@ type IntRange struct {
 
 // Vector2D type
 type Vector2D struct {
-	X float32 `xml:"x,attr,omitempty"`
+	X float32 `xml:"x,attr"`
 
-	Y float32 `xml:"y,attr,omitempty"`
+	Y float32 `xml:"y,attr"`
 
 	//
 	// Pan/tilt coordinate space selector. The following options are defined:
@@ -1244,12 +1245,12 @@ type Vector1D struct {
 type PTZVector struct {
 
 	// Pan and tilt position. The x component corresponds to pan and the y component to tilt.
-	PanTilt Vector2D `xml:"http://www.onvif.org/ver10/schema PanTilt,omitempty"`
+	PanTilt *Vector2D `xml:"http://www.onvif.org/ver10/schema PanTilt,omitempty"`
 
 	//
 	// A zoom position.
 	//
-	Zoom Vector1D `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
+	Zoom *Vector1D `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
 }
 
 // PTZStatus type
@@ -4814,12 +4815,12 @@ type Space1DDescription struct {
 type PTZSpeed struct {
 
 	// Pan and tilt speed. The x component corresponds to pan and the y component to tilt. If omitted in a request, the current (if any) PanTilt movement should not be affected.
-	PanTilt Vector2D `xml:"http://www.onvif.org/ver10/schema PanTilt,omitempty"`
+	PanTilt *Vector2D `xml:"http://www.onvif.org/ver10/schema PanTilt,omitempty"`
 
 	//
 	// A zoom speed. If omitted in a request, the current (if any) Zoom movement should not be affected.
 	//
-	Zoom Vector1D `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
+	Zoom *Vector1D `xml:"http://www.onvif.org/ver10/schema Zoom,omitempty"`
 }
 
 // PTZPreset type

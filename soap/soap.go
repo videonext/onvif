@@ -13,6 +13,8 @@ import (
 	"net/http"
 	"reflect"
 	"time"
+
+	"golang.org/x/net/html/charset"
 )
 
 type SOAPEncoder interface {
@@ -429,6 +431,7 @@ func (s *Client) call(ctx context.Context, xaddr string, soapAction string, requ
 	respEnvelope.Body = SOAPBody{Content: response}
 
 	dec := NewDecoder(res.Body)
+	dec.CharsetReader = charset.NewReaderLabel
 
 	if err := dec.Decode(respEnvelope); err != nil {
 		return err

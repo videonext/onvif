@@ -8,7 +8,6 @@ import (
 	"crypto/tls"
 	"encoding/base64"
 	"encoding/xml"
-	"fmt"
 	"net"
 	"net/http"
 	"reflect"
@@ -206,14 +205,12 @@ func NewWSSSecurityHeader(user, pass string, created time.Time) *WSSSecurityHead
 	// Nonce
 	b := make([]byte, 16)
 	rand.Read(b)
-	nonce := fmt.Sprintf("%x-%x-%x-%x-%x",
-		b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
 	hdr.UsernameToken.Nonce.EncodingType = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
-	hdr.UsernameToken.Nonce.Value = base64.StdEncoding.EncodeToString([]byte(nonce))
+	hdr.UsernameToken.Nonce.Value = base64.StdEncoding.EncodeToString(b)
 
 	// Password
 	h := sha1.New()
-	h.Write([]byte(nonce + hdr.UsernameToken.Created.Value + pass))
+	h.Write([]byte(hdr.UsernameToken.Nonce.Value + hdr.UsernameToken.Created.Value + pass))
 	hdr.UsernameToken.Password.Type = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest"
 	hdr.UsernameToken.Password.Value = base64.StdEncoding.EncodeToString(h.Sum(nil))
 
